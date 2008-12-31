@@ -91,6 +91,9 @@ class Recurrence(object):
     def __iter__(self):
         return self.__call__()
 
+    def __unicode__(self):
+        return serialize(self)
+
     def to_dateutil_rruleset(self, dtstart=None, cache=False):
         localtz = pytz.timezone(settings.TIME_ZONE)
         dtstart = dtstart or self.dtstart
@@ -146,7 +149,7 @@ def serialize(rule_or_recurrence):
             dt = localtz.localize(dt)
         dt = dt.astimezone(pytz.utc)
 
-        return '%s%s%sT%s%s%sZ' % (
+        return u'%s%s%sT%s%s%sZ' % (
             str(dt.year).rjust(4, '0'),
             str(dt.month).rjust(2, '0'),
             str(dt.day).rjust(2, '0'),
@@ -157,35 +160,35 @@ def serialize(rule_or_recurrence):
 
     def serialize_rule(rule):
         values = []
-        values.append(('FREQ', [Rule.frequencies[rule.freq]]))
+        values.append((u'FREQ', [Rule.frequencies[rule.freq]]))
 
         if rule.interval != 1:
-            values.append(('INTERVAL', [str(rule.interval)]))
+            values.append((u'INTERVAL', [str(rule.interval)]))
         if rule.wkst:
-            values.append(('WKST', [Rule.weekdays[rule.wkst]]))
+            values.append((u'WKST', [Rule.weekdays[rule.wkst]]))
         if rule.count is not None:
-            values.append(('COUNT', [str(rule.count)]))
+            values.append((u'COUNT', [str(rule.count)]))
         elif rule.until is not None:
-            values.append(('UNTIL', [serialize_dt(rule.until)]))
+            values.append((u'UNTIL', [serialize_dt(rule.until)]))
 
         if rule.byday:
             days = []
             for d in rule.byday:
                 d = to_weekday(d)
                 if d.n:
-                    days.append('%s%s' % (d.n, Rule.weekdays[d.weekday]))
+                    days.append(u'%s%s' % (d.n, Rule.weekdays[d.weekday]))
                 else:
                     days.append(Rule.weekdays[d.weekday])
-            values.append(('BYDAY', days))
+            values.append((u'BYDAY', days))
 
         remaining_params = list(Rule.byparams)
-        remaining_params.pop('byday')
+        remaining_params.remove('byday')
         for param in remaining_params:
             value_list = getattr(rule, param, None)
             if value_list:
                 values.append((param.upper(), [str(n) for n in value_list]))
 
-        return ';'.join('%s=%s' % (i[0], ','.join(i[1])) for i in values)
+        return u';'.join(u'%s=%s' % (i[0], u','.join(i[1])) for i in values)
 
     localtz = pytz.timezone(settings.TIME_ZONE)
     obj = rule_or_recurrence
@@ -199,38 +202,38 @@ def serialize(rule_or_recurrence):
         else:
             dtstart = serialize_dt(
                 localtz.localize(obj.dtstart).astimezone(pytz.utc))
-        items.append(('DTSTART', dtstart))
+        items.append((u'DTSTART', dtstart))
     for rrule in obj.rrules:
-        items.append(('RRULE', serialize_rule(rrule)))
+        items.append((u'RRULE', serialize_rule(rrule)))
     for exrule in obj.exrules:
-        items.append(('EXRULES', serialize_rule(exrule)))
+        items.append((u'EXRULES', serialize_rule(exrule)))
     for rdate in obj.rdates:
         if rdate.tzinfo:
             rdate = serialize_dt(rdate.astimezone(pytz.utc))
         else:
             rdate = serialize_dt(
                 localtz.localize(rdate).astimezone(pytz.utc))
-        items.append(('RDATE', serialize_dt(rdate)))
+        items.append((u'RDATE', serialize_dt(rdate)))
     for exdate in obj.exdates:
         if exdate.tzinfo:
             exdate = serialize_dt(exdate.astimezone(pytz.utc))
         else:
             exdate = serialize_dt(
                 localtz.localize(exdate).astimezone(pytz.utc))
-        items.append(('EXDATE', serialize_dt(exdate)))
+        items.append((u'EXDATE', serialize_dt(exdate)))
 
-    return '\n'.join('%s:%s' % i for i in items)
+    return u'\n'.join(u'%s:%s' % i for i in items)
 
 
 def deserialize(text):
     def deserialize_dt(text):
         year, month, day = int(text[:4]), int(text[4:6]), int(text[6:8])
-        if 'T' in text:
+        if u'T' in text:
             hour, minute, second = (
                 int(text[9:11]), int(text[11:13]), int(text[13:15]))
         else:
             hour, minute, second = (0, 0, 0)
-        if 'Z' in text:
+        if u'Z' in text:
             tzinfo = pytz.utc
         else:
             # right now there is no support for VTIMEZONE/TZID since
@@ -243,48 +246,48 @@ def deserialize(text):
     dtstart, rrules, exrules, rdates, exdates = None, [], [], [], []
 
     tokens = re.compile(
-        '(DTSTART|RRULE|EXRULE|RDATE|EXDATE)[^:]*:(.*)',
+        u'(DTSTART|RRULE|EXRULE|RDATE|EXDATE)[^:]*:(.*)',
         re.MULTILINE).findall(text)
 
     for label, param_text in tokens:
-        if '=' not in param_text:
+        if u'=' not in param_text:
             params = param_text
         else:
             params = {}
-            param_tokens = param_text.split(';')
+            param_tokens = param_text.split(u';')
             for item in param_tokens:
                 param_name, param_value = map(
-                    lambda i: i.strip(), item.split('=', 1))
+                    lambda i: i.strip(), item.split(u'=', 1))
                 params[param_name] = map(
-                    lambda i: i.strip(), param_value.split(','))
+                    lambda i: i.strip(), param_value.split(u','))
 
-        if label in ('RRULE', 'EXRULE'):
+        if label in (u'RRULE', u'EXRULE'):
             kwargs = {}
             for key, value in params.items():
-                if key == 'FREQ':
-                    kwargs[key.lower()] = list(
+                if key == u'FREQ':
+                    kwargs[str(key.lower())] = list(
                         Rule.frequencies).index(value[0])
-                elif key == 'INTERVAL':
-                    kwargs[key.lower()] = int(value[0])
-                elif key == 'WKST':
-                    kwargs[key.lower()] = to_weekday(value[0])
-                elif key == 'COUNT':
-                    kwargs[key.lower()] = int(value[0])
-                elif key == 'UNTIL':
-                    kwargs[key.lower()] = deserialize_dt(value[0])
-                elif key == 'BYDAY':
-                    kwargs[key.lower()] = map(lambda v: to_weekday(v), value)
+                elif key == u'INTERVAL':
+                    kwargs[str(key.lower())] = int(value[0])
+                elif key == u'WKST':
+                    kwargs[str(key.lower())] = to_weekday(value[0])
+                elif key == u'COUNT':
+                    kwargs[str(key.lower())] = int(value[0])
+                elif key == u'UNTIL':
+                    kwargs[str(key.lower())] = deserialize_dt(value[0])
+                elif key == u'BYDAY':
+                    kwargs[str(key.lower())] = map(lambda v: to_weekday(v), value)
                 else:
-                    kwargs[key.lower()] = map(lambda v: int(v))
-            if label == 'RRULE':
+                    kwargs[str(key.lower())] = map(lambda v: int(v))
+            if label == u'RRULE':
                 rrules.append(Rule(**kwargs))
             else:
                 exrule.append(Rule(**kwargs))
-        elif label == 'DTSTART':
+        elif label == u'DTSTART':
             dtstart = deserialize_dt(params)
-        elif label == 'RDATE':
+        elif label == u'RDATE':
             rdates.append(deserialize_dt(params))
-        elif label == 'EXDATE':
+        elif label == u'EXDATE':
             exdates.append(deserialize_dt(params))
 
     return Recurrence(dtstart, rrules, exrules, rdates, exdates)
