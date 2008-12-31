@@ -11,6 +11,7 @@ setup(
     author_email='devel@imagescape.com',
 
     install_required=(
+        'pytz',
         'python-dateutil',
     ),
 
