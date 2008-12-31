@@ -1,88 +1,150 @@
-from dateutil import rrule
+import pytz
+from django.db.models import manager, query
 
-from django.db.models import manager
+import recurrence
 
 
-class RruleManager(manager.Manager):
-    related_params = (
-        'bysetpos', 'bymonth', 'bymonthday', 'byyearday', 'byeaster',
-        'byweekno', 'byweekday', 'byhour', 'byminute', 'bysecond'
-    )
-    
+class RuleManager(manager.Manager):
     def create(
         self, freq,
-        dtstart=None, interval=1, wkst=None, count=None, until=None,
-        bysetpos=None, bymonth=None, bymonthday=None, byyearday=None,
-        byeaster=None, byweekno=None, byweekday=None, byhour=None,
-        byminute=None, bysecond=None):
+        interval=1, wkst=None, count=None, until=None, **kwargs):
 
-        rrule_model = super(RruleManager, self).create(
-            freq=freq, dtstart=dtstart, interval=interval,
-            wkst=wkst, count=count, until=until,
+        rule_model = super(RuleManager, self).create(
+            freq=freq, interval=interval, wkst=wkst, count=count, until=until,
         )
 
-        for param in self.related_params:
-            value_list = locals()[param]
-            if not value_list:
-                continue
-            related_manager = getattr(rrule_model, param)
-            if not hasattr(value_list, '__iter__'):
-                value_list = [value_list]
-            for value in value_list:
-                related_manager.create(value=value)
+        for param in recurrence.Rule.byparams:
+            if param in kwargs:
+                value_list = kwargs[param]
+                if not value_list:
+                    continue
+                related_manager = getattr(rule_model, param)
+                if not hasattr(value_list, '__iter__'):
+                    value_list = [value_list]
+                for value in value_list:
+                    if param == 'byday':
+                        # see recurrence.base docstrings about byday handling
+                        weekday = recurrence.to_weekday(value)
+                        related_manager.create(
+                            value=weekday.weekday, index=weekday.n)
+                    else:
+                        related_manager.create(value=value)
 
-        return rrule_model
+        return rule_model
 
-    def to_rrule(self, rrule_model, cache=False):
-        rrule_args = (rrule_model.freq,)
-        rrule_kwargs = {
-            'cache': cache,
-            'dtstart': rrule_model.dtstart,
-            'interval': rrule_model.interval,
-            'wkst': rrule_model.wkst,
-            'count': rrule_model.count,
-            'until': rrule_model.until,
+    def to_rule_object(self, rule_model):
+        rule_args = (rule_model.freq,)
+        rule_kwargs = {
+            'interval': rule_model.interval,
+            'wkst': rule_model.wkst,
+            'count': rule_model.count,
+            'until': rule_model.until,
         }
 
-        for param in self.related_params:
-            related_manager = getattr(rrule_model, param)
-            rrule_kwargs[param] = (
-                map(lambda v: v[0], related_manager.values_list('value'))
-                or None)
+        for param in recurrence.Rule.byparams:
+            related_manager = getattr(rule_model, param)
+            if param == 'byday':
+                # see recurrence.base docstrings about byday handling
+                rule_kwargs[param] = (map(
+                    lambda v: recurrence.weekday(*v),
+                    related_manager.values_list('value', 'index')) or None)
+            else:
+                rule_kwargs[param] = (map(
+                    lambda v: v[0], related_manager.values_list('value'))
+                    or None)
 
-        return rrule.rrule(*rrule_args, **rrule_kwargs)
+        return recurrence.Rule(*rule_args, **rule_kwargs)
+
+    def from_rule_object(self, rule):
+        rule_args = (rule.freq,)
+        rule_kwargs = {
+            'interval': rule.interval,
+            'wkst': rule.wkst,
+            'count': rule.count,
+            'until': rule.until,
+        }
+
+        for param in recurrence.Rule.byparams:
+            rule_kwargs[param] = getattr(rule, param)
+
+        return self.create(*rule_args, **rule_kwargs)
 
 
-class RruleSetManager(manager.Manager):
-    def create(self, rrules=[], rdates=[], exrules=[], exdates=[]):
-        rruleset_model = super(RrulesetManager, self).create()
+class RecurrenceQuerySet(query.QuerySet):
+    def delete(self, delete_rules=True):
+        if delete_rules:
+            from recurrence import models
+            models.Rule.objects.filter(in_recurrence_as_rule__in=self).delete()
+            models.Rule.objects.filter(in_recurrence_as_exrule__in=self).delete()
+        super(self, RecurrenceQuerySet).delete()
 
-        for rrule_model in rrules:
-            if not rrule_model.pk:
-                rrule_model.save()
-            rruleset_model.rrules.add(rrule_model)
+
+class RecurrenceEmptyQuerySet(query.EmptyQuerySet):
+    def delete(self, delete_rules=True):
+        pass
+
+
+class RecurrenceManager(manager.Manager):
+    def get_query_set(self):
+        return RecurrenceQuerySet(self.model)
+
+    def get_empty_query_set(self):
+        return RecurrenceEmptyQuerySet(self.model)
+
+    def create(
+        self, dtstart=None,
+        rrules=[], rdates=[], exrules=[], exdates=[]):
+
+        from recurrence import models
+
+        # all datetimes are stored as utc.
+        def to_utc(dt):
+            if not dt:
+                return dt
+            if dt.tzinfo:
+                return dt.tzinfo.astimezone(pytz.utc)
+            else:
+                return pytz.utc.localize(dt)
+
+        recurrence_model = super(
+            RecurrenceManager, self).create(dtstart=to_utc(dtstart))
+
+        for rule_model in rrules:
+            if isinstance(rule_model, recurrence.Rule):
+                rule_model = models.Rule.objects.from_rule_object(rule_model)
+            if not rule_model.pk:
+                rule_model.save()
+            recurrence_model.rrules.add(rule_model)
         for exrule_model in exrules:
+            if isinstance(exrule_model, recurrence.Rule):
+                exrule_model = models.Rule.objects.from_rule_object(exrule_model)
             if not exrule_model.pk:
                 exrule_model.save()
-            rruleset_model.exrules.add(exrule_model)
+            recurrence_model.exrules.add(exrule_model)
 
         for dt in rdates:
-            rruleset_model.rdates.create(dt=dt)
+            recurrence_model.rdates.create(dt=to_utc(dt))
         for dt in exdates:
-            rruleset_model.exdates.create(dt=dt)
+            recurrence_model.exdates.create(dt=to_utc(dt))
 
-        return rruleset_model
-    
-    def to_rruleset(self, rruleset_model, cache=False):
-        rruleset = rrule.rruleset(cache=cache)
+        return recurrence_model
 
-        for rrule_model in rruleset_model.rrules.all():
-            rruleset.rrule(rrule_model.to_rrule())
-        for rdate_model in rruleset_model.rdates.all():
-            rruleset.rdate(rdate_model.dt)
-        for exrule_model in rruleset_model.exrules.all():
-            rruleset.exrule(exrule_model.to_rrule())
-        for exdate_model in rruleset_model.exdates.all():
-            rruleset.exdate(exdate_model.dt)
+    def to_recurrence_object(self, recurrence_model, dtstart=None):
+        rrules, exrules, rdates, exdates = [], [], [], []
 
-        return rruleset
+        for rule_model in recurrence_model.rrules.all():
+            rrules.append(rule_model.to_rule_object())
+        for exrule_model in recurrence_model.exrules.all():
+            exrules.append(rule_model.to_rule_object())
+
+        for rdate_model in recurrence_model.rdates.all():
+            rdates.append(rdate_model.get_dt_localized())
+        for exdate_model in recurrence_model.exdates.all():
+            exdates.append(exdate_model.get_dt_localized())
+
+        return recurrence.Recurrence(dtstart, rrules, exrules, rdates, exdates)
+
+    def from_recurrence_object(self, recurrence_obj):
+        return self.create(
+            rrules=recurrence_obj.rrules, exrules=recurrence_obj.exrules,
+            rdates=recurrence_obj.rdates, exdates=recurrence_obj.exdates)

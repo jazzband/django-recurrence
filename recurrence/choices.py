@@ -1,13 +1,15 @@
 import calendar
 
 from django.utils.translation import ugettext_lazy as _
+from dateutil.rrule import (
+    MO, TU, WE, TH, FR, SA, SU,
+    YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY,
+)
 
+MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY = range(7)
 
-# constants
-SECONDLY, MINUTELY, HOURLY, DAILY, WEEKLY, MONTHLY, YEARLY = range(7)
-MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY = (
-    range(calendar.firstweekday(), calendar.firstweekday() + 7))
-JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUN, JULY, AUGUST, SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER = range(12)
+(JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST,
+ SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER) = range(12)
 
 
 FREQUENCY_CHOICES = (
