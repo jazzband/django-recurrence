@@ -294,6 +294,23 @@ class Recurrence(object):
                 dt = localtz.localize(dt)
             yield dt.astimezone(tzinfo or localtz)
 
+    def count(self, dtstart=None, cache=False):
+        """
+        Returns the number of occurrences in this recurrence set.
+
+        :Parameters:
+            `dtstart` : datetime.datetime
+                Optionally specify the first occurrence of the
+                recurrence set. Defauts to `datetime.datetime.now()`.
+
+            `cache` : bool
+                Whether to cache the recurrence set generator.
+
+        :Returns:
+            The number of ocurrences in this recurrence set.
+        """
+        return self.to_dateutil_rruleset(dtstart, cache).count()
+
     def before(self, dt, inc=False, dtstart=None, tzinfo=None, cache=False):
         """
         Returns the last recurrence before the given
