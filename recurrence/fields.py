@@ -1,10 +1,15 @@
 from django.db.models import fields
-from django.db.models.fields import subclassing
+from django.db.models.fields import related, subclassing
 
 import recurrence
+from recurrence import models
 
 
 class RecurrenceField(fields.TextField):
+    """
+    Field that stores a `recurrence.base.Recurrence` object to the
+    database.
+    """
     __metaclass__ = subclassing.SubfieldBase
 
     def to_python(self, value):
@@ -18,3 +23,96 @@ class RecurrenceField(fields.TextField):
 
     def value_to_string(self, obj):
         return self.get_db_prep_value(self._get_val_from_obj(obj))
+
+
+class RecurrenceModelField(related.OneToOneField):
+    """
+    A `OneToOneField` to a `recurrence.models.Recurrence` model object.
+
+    The value is represented by a `recurrence.base.Recurrence` to
+    provide behavior like that of `RecurrenceField`, and it is
+    automatically converted to a model object on save.
+
+    `RecurrenceModelField` mediates the creation and deletion of the
+    related `recurrence.models.Recurrence` model. While updating the
+    model instance on which `RecurrenceField` is being used, the
+    policy is to delete the existing `recurrence.models.Recurrence`
+    model object and replace it with a new one if the
+    `recurrence.base.Recurrence` object is determined to be different.
+    """
+    def __init__(self, **kwargs):
+        if 'to' in kwargs:
+            kwargs.pop('to')
+        super(RecurrenceModelField, self).__init__(models.Recurrence, **kwargs)
+
+    def pre_save(self, model_instance, add):
+        # obtain model if already exists. obj may represent the model
+        # or a different one set but not saved to the db.
+        try:
+            obj = getattr(model_instance, self.name)
+            model = getattr(model_instance, self.get_cache_name(), None)
+        except models.Recurrence.DoesNotExist:
+            # if null=False and model doesn't exist. This is for model
+            # instances not yet stored in the db.
+            obj = None
+            model = None
+        if model:
+            if obj is not None:
+                if model.to_recurrence_object() != obj:
+                    model.delete()
+                else:
+                    return super(RecurrenceModelField, self).pre_save(
+                        model_instance, add)
+            else:
+                model.delete()
+        if obj is not None:
+            model = models.Recurrence.objects.create_from_recurrence_object(obj)
+            setattr(model_instance, self.attname, model.pk)
+            setattr(model_instance, self.get_cache_name(), model)
+        else:
+            setattr(model_instance, self.attname, None)
+            try:
+                delattr(model_instance, self.get_cache_name())
+            except AttributeError:
+                pass
+
+        return super(RecurrenceModelField, self).pre_save(model_instance, add)
+
+    def contribute_to_class(self, cls, name):
+        super(RecurrenceModelField, self).contribute_to_class(cls, name)
+        setattr(cls, self.name, RecurrenceModelDescriptor(self))
+
+
+class RecurrenceModelDescriptor(related.ReverseSingleRelatedObjectDescriptor):
+    def __get__(self, instance, instance_type=None):
+        try:
+            return getattr(
+                instance, '%s_recurrence' % self.field.get_cache_name())
+        except AttributeError:
+            pass
+        model = super(RecurrenceModelDescriptor, self).__get__(
+            instance, instance_type)
+        if model is None:
+            return None
+        recurrence_obj = model.to_recurrence_object()
+        setattr(
+            instance, '%s_recurrence' % self.field.get_cache_name(),
+            recurrence_obj)
+        return recurrence_obj
+
+    def __set__(self, instance, value):
+        if instance is None:
+            raise AttributeError(
+                    "%s must be accessed via instance" % self._field.name)
+
+        if value is None and self.field.null == False:
+            raise ValueError(
+                'Cannot assign None: "%s.%s" does not allow null values.' % (
+                instance._meta.object_name, self.field.name))
+        elif value is not None and not isinstance(value, recurrence.Recurrence):
+            raise ValueError(
+                'Cannot assign "%r": "%s.%s" must be a "%s" instance.' % (
+                value, instance._meta.object_name,
+                self.field.name, recurrence.Recurrence.__name__))
+
+        setattr(instance, '%s_recurrence' % self.field.get_cache_name(), value)
