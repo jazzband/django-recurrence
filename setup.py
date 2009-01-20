@@ -10,7 +10,7 @@ setup(
     author='Imaginary Landscape',
     author_email='devel@imagescape.com',
 
-    install_required=(
+    install_requires=(
         'pytz',
         'python-dateutil',
     ),
