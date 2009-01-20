@@ -656,8 +656,6 @@ class Weekday(object):
         else:
             return Rule.weekdays[self.number]
 
-    n = property(lambda self: self.number or None)
-
 
 MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY = (
     MO, TU, WE, TH, FR, SA, SU) = WEEKDAYS = map(lambda n: Weekday(n), range(7))
@@ -746,10 +744,10 @@ def serialize(rule_or_recurrence):
             days = []
             for d in rule.byday:
                 d = to_weekday(d)
-                if d.n:
-                    days.append(u'%s%s' % (d.n, Rule.weekdays[d.weekday]))
+                if d.index:
+                    days.append(u'%s%s' % (d.index, Rule.weekdays[d.number]))
                 else:
-                    days.append(Rule.weekdays[d.weekday])
+                    days.append(Rule.weekdays[d.number])
             values.append((u'BYDAY', days))
 
         remaining_params = list(Rule.byparams)
@@ -925,10 +923,10 @@ def from_dateutil_rrule(rrule):
         # ignore byweekday if freq is WEEKLY and day correlates
         # with dtstart because it was automatically set by
         # dateutil
-        days.extend(dateutil.rrule.weekday(n) for n in rrule._byweekday)
+        days.extend(Weekday(n) for n in rrule._byweekday)
 
     if rrule._bynweekday is not None:
-        days.extend(dateutil.rrule.weekday(*n) for n in rrule._bynweekday)
+        days.extend(Weekday(*n) for n in rrule._bynweekday)
 
     if len(days) > 0:
         kwargs['byday'] = days
