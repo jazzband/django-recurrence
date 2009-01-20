@@ -315,7 +315,7 @@ class Recurrence(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    def __call__(self, dtstart=None, dtend=None, tzinfo=None, cache=False):
+    def iter_with(self, dtstart=None, dtend=None, tzinfo=None, cache=False):
         """
         Get a generator yielding `datetime.datetime` instances in this
         recurrence set.
@@ -611,7 +611,8 @@ class Weekday(object):
                 month. A value of ``None`` or ``0`` means the index is
                 ambiguous and represents all weekdays of that number.
         """
-        assert number < 7, 'number must be in range(7)'
+        if number > 6:
+            raise ValueError('number must be in range(7)')
         self.number = number
         self.index = index
 
@@ -829,7 +830,7 @@ def deserialize(text):
         return datetime.datetime(
             year, month, day, hour, minute, second, tzinfo=tzinfo)
 
-    dtstart, dtend, rrules, exrules, rdates, exdates = None, [], [], [], []
+    dtstart, dtend, rrules, exrules, rdates, exdates = None, None, [], [], [], []
 
     tokens = re.compile(
         u'(DTSTART|DTEND|RRULE|EXRULE|RDATE|EXDATE)[^:]*:(.*)',
@@ -864,7 +865,7 @@ def deserialize(text):
                 elif key == u'BYDAY':
                     kwargs[str(key.lower())] = map(lambda v: to_weekday(v), value)
                 else:
-                    kwargs[str(key.lower())] = map(lambda v: int(v))
+                    kwargs[str(key.lower())] = map(lambda v: int(v), value)
             if label == u'RRULE':
                 rrules.append(Rule(**kwargs))
             else:
