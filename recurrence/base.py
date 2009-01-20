@@ -14,7 +14,7 @@ import datetime
 import calendar
 
 import pytz
-import dateutil
+import dateutil.rrule
 from django.conf import settings
 
 
@@ -218,9 +218,26 @@ class Rule(object):
         # dateutil.rrule renames the parameter 'byweekday' by we're using
         # the parameter name originally specified by rfc2445.
         kwargs['byweekday'] = kwargs.pop('byday')
+
+        if self.until:
+            until_tz = localtz
+            if dtstart:
+                if dtstart.tzinfo:
+                    until_tz = dtstart.tzinfo
+            if self.until.tzinfo:
+                # dateutil.rrule expects until datetime object
+                # to be offset-naive, so we'll localize it to
+                # dtstart's tzinfo if it exists.
+                until = self.until.astimezone(until_tz)
+                until = datetime.datetime(
+                    until.year, until.month, until.day,
+                    until.hour, until.minute, until.second)
+            else:
+                until = self.until
+
         return dateutil.rrule.rrule(
             self.freq, dtstart,
-            self.interval, self.wkst, self.count, self.until,
+            self.interval, self.wkst, self.count, until,
             cache=cache, **kwargs)
 
 
@@ -315,7 +332,8 @@ class Recurrence(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    def iter_with(self, dtstart=None, dtend=None, tzinfo=None, cache=False):
+    def iter_occurences(
+        self, dtstart=None, dtend=None, tzinfo=None, cache=False):
         """
         Get a generator yielding `datetime.datetime` instances in this
         recurrence set.
@@ -355,7 +373,7 @@ class Recurrence(object):
             if not dt.tzinfo:
                 dt = localtz.localize(dt)
             dt = dt.astimezone(tzinfo or localtz)
-            if dt >= dtend:
+            if dtend and dt >= dtend:
                 continue
             yield dt
         if dtend:
