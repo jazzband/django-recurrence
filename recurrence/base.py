@@ -219,21 +219,20 @@ class Rule(object):
         # the parameter name originally specified by rfc2445.
         kwargs['byweekday'] = kwargs.pop('byday')
 
-        if self.until:
+        until = self.until
+        if until:
             until_tz = localtz
             if dtstart:
                 if dtstart.tzinfo:
                     until_tz = dtstart.tzinfo
-            if self.until.tzinfo:
+            if until.tzinfo:
                 # dateutil.rrule expects until datetime object
                 # to be offset-naive, so we'll localize it to
                 # dtstart's tzinfo if it exists.
-                until = self.until.astimezone(until_tz)
+                until = until.astimezone(until_tz)
                 until = datetime.datetime(
                     until.year, until.month, until.day,
                     until.hour, until.minute, until.second)
-            else:
-                until = self.until
 
         return dateutil.rrule.rrule(
             self.freq, dtstart,
@@ -638,7 +637,7 @@ class Weekday(object):
         if index == self.index:
             return self
         else:
-            return self.__class___(self.number, index)
+            return Weekday(self.number, index)
 
     def __hash__(self):
         if self.index:
@@ -655,6 +654,9 @@ class Weekday(object):
             return '%s%s' % (self.index, Rule.weekdays[self.number])
         else:
             return Rule.weekdays[self.number]
+
+    weekday = property(lambda self: self.number);
+    n = property(lambda self: self.index);
 
 
 MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY = (
