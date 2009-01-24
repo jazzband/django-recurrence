@@ -134,7 +134,7 @@ recurrence.Rule.prototype = {
                 }
                 var items = [];
                 for (var n=0; n < this.bymonth.length; n++) {
-                    items.push(months[this.bymonth[n]]);
+                    items.push(months[this.bymonth[n] - 1]);
                 }
                 items = items.join(', ');
                 parts.push(recurrence.display.tokens.each.format({items: items}));

@@ -563,7 +563,10 @@ recurrence.widget.RuleYearlyForm.prototype = {
         for (var y=0; y < 3; y++) {
             for (var x=0; x < 4; x++) {
                 var cell = elements.grid.cell(x, y);
-                cell.value = number;
+                if (this.rule.bymonth.indexOf(number + 1) > -1) {
+                    cell.className = 'active';
+                }
+                cell.value = number + 1;
                 cell.innerHTML = recurrence.display.months_short[number];
                 cell.onclick = function () {
                     if (this.className == 'active') {
@@ -913,8 +916,16 @@ recurrence.widget.RuleWeeklyForm.prototype = {
         elements.root.style.display = 'none';
 
         elements.grid = new recurrence.widget.Grid(7, 1);
+
+        var days = [];
+        for (var i=0; i < this.rule.byday.length; i++) {
+            days.push(recurrence.to_weekday(this.rule.byday[i]).number);
+        }
         for (var x=0; x < 7; x++) {
             var cell = elements.grid.cell(x, 0);
+            if (days.indexOf(x) > -1) {
+                cell.className = 'active';
+            }
             cell.value = x;
             cell.innerHTML = recurrence.display.weekdays_short[x];
             cell.onclick = function () {
