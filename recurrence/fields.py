@@ -2,17 +2,24 @@ from django.db.models import fields
 from django.db.models.fields import related, subclassing
 
 import recurrence
-from recurrence import models
+from recurrence import models, forms
 
 
-class RecurrenceField(fields.TextField):
+class RecurrenceField(fields.Field):
     """
     Field that stores a `recurrence.base.Recurrence` object to the
     database.
     """
     __metaclass__ = subclassing.SubfieldBase
 
+    def get_internal_type(self):
+        return 'TextField'
+
     def to_python(self, value):
+        if value is None:
+            return value
+        if isinstance(value, recurrence.Recurrence):
+            return value
         value = super(RecurrenceField, self).to_python(value) or u''
         return recurrence.deserialize(value)
 
@@ -23,6 +30,14 @@ class RecurrenceField(fields.TextField):
 
     def value_to_string(self, obj):
         return self.get_db_prep_value(self._get_val_from_obj(obj))
+
+    def formfield(self, **kwargs):
+        defaults = {
+            'form_class': forms.RecurrenceField,
+            'widget': forms.RecurrenceWidget,
+        }
+        defaults.update(kwargs)
+        return super(RecurrenceField, self).formfield(**defaults)
 
 
 class RecurrenceModelField(related.OneToOneField):
@@ -81,6 +96,11 @@ class RecurrenceModelField(related.OneToOneField):
     def contribute_to_class(self, cls, name):
         super(RecurrenceModelField, self).contribute_to_class(cls, name)
         setattr(cls, self.name, RecurrenceModelDescriptor(self))
+
+    def formfield(self, **kwargs):
+        defaults = {'form_class': forms.RecurrenceField}
+        defaults.update(kwargs)
+        return super(RecurrenceField, self).formfield(**defaults)
 
 
 class RecurrenceModelDescriptor(related.ReverseSingleRelatedObjectDescriptor):

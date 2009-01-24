@@ -1,0 +1,179 @@
+div.recurrence-widget {
+    float: left;
+    border: 1px solid #ccc;
+}
+
+div.recurrence-widget div.panel {
+    border-bottom: 1px solid #ddd;
+}
+
+div.recurrence-widget select,
+div.recurrence-widget input {
+    margin: 0 .5em;
+}
+
+div.recurrence-widget a.label {
+    display: block;
+    cursor: pointer;
+    padding: .5em .75em;
+    font-weight: bold;
+    white-space: nowrap;
+    padding-right: 3em;
+    color: black;
+}
+
+div.recurrence-widget .remove,
+div.recurrence-widget .remove:link,
+div.recurrence-widget .remove:visited {
+    float: left;
+    padding: .25em .5em;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    color: #555;
+    line-height: 1.4em;
+}
+
+div.recurrence-widget .control {
+    padding: .5em;
+}
+
+div.recurrence-widget .remove:hover {
+    color: #a00;
+}
+
+div.recurrence-widget .add-rule,
+div.recurrence-widget .add-rule:link,
+div.recurrence-widget .add-rule:visited {
+    color: green;
+}
+
+div.recurrence-widget .plus {
+    font-size: 1.2em;
+    font-weight: bold;
+    padding-right: .2em;
+}
+
+div.recurrence-widget .add-rule:hover {
+    color: green;
+}
+
+div.recurrence-widget .freq {
+    display: inline
+}
+
+div.recurrence-widget .interval {
+    display: inline;
+    padding-left: 1em;
+}
+
+div.recurrence-widget form {
+    overflow: hidden;
+    padding: .5em .75em;
+    border-top: 1px solid #ddd;
+}
+
+div.recurrence-widget .form {
+    padding: .5em 0;
+}
+
+div.recurrence-widget .radio {
+    margin-left: 0;
+}
+
+div.recurrence-widget .form ul {
+    margin: 0;
+    padding: 0;
+}
+
+div.recurrence-widget .form ul li {
+    list-style-type: none;
+}
+
+div.recurrence-widget .section {
+    margin: .5em 1em;
+}
+
+div.recurrence-widget .until-count {
+    margin: 0;
+    padding: 0;
+}
+
+div.recurrence-widget .until-count li {
+    margin: 0;
+    padding: 0;
+    display: inline;
+    list-style-type: none;
+}
+
+div.recurrence-widget .until-count .count {
+    padding-left: 1em;
+}
+
+div.recurrence-widget .monthday .grid {
+    margin-left: .5em;
+}
+
+div.recurrence-widget .grid {
+    border: 0;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+}
+
+div.recurrence-widget .grid td {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: .8em;
+    cursor: pointer;
+}
+
+div.recurrence-widget .grid td.active {
+    background-color: #ddd;
+}
+
+div.recurrence-widget .grid td.empty {
+    border: 0;
+}
+
+div.recurrence-widget .grid-disabled td.active {
+    background-color: #ddd;
+}
+
+div.recurrence-widget .disabled {
+    opacity: .75;
+    filter: alpha(opacity=75);
+}
+
+div.recurrence-widget .limit ul {
+    margin-top: .5em;
+}
+
+div.recurrence-widget .weekly .section {
+    margin: 1em 0;
+}
+
+div.recurrence-widget .weekly td {
+    width: 2.5em;
+}
+
+div.recurrence-widget .yearly table {
+    margin: .5em 0 1em 0;
+}
+
+div.recurrence-widget .yearly td {
+    padding: 1em 1.5em;
+}
+
+div.recurrence-widget .checkbox {
+    margin-left: 0;
+}
+
+div.recurrence-widget .until-count {
+    margin-left: 1.5em;
+}
+
+div.recurrence-widget .mode {
+    padding: .25em 0 1em 0;
+}

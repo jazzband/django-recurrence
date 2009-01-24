@@ -28,13 +28,43 @@ recurrence.Rule.prototype = {
                 if (value == null) {
                     value = [];
                 }
-                if (!(value.length && !(value.toLowerCase))) {
+                /*
+                if (value.charAt || !value.length) {
                     value = [value];
                 }
-                this[recurrence.byparams[n]] = value;
+                */
+                var items = [];
+                for (var m=0; m < value.length; m++) {
+                    items.push(value[m]);
+                }
+                this[recurrence.byparams[n]] = items;
             } else {
                 this[recurrence.byparams[n]] = [];
             }
+        }
+    },
+
+    copy: function() {
+        var until = this.until;
+        if (until) {
+            until = new Date(until.valueOf());
+        }
+        var rule = new recurrence.Rule(this.freq, this);
+        rule.until = until;
+        return rule;
+    },
+
+    update: function(rule) {
+        rule = rule.copy();
+        this.freq = rule.freq;
+        this.interval = rule.interval;
+        this.wkst = rule.wkst;
+        this.until = rule.until;
+        this.count = rule.count;
+
+        for (var i=0; i < recurrence.byparams.length; i++) {
+            var param = recurrence.byparams[i];
+            this[param] = rule[param];
         }
     },
 
@@ -182,10 +212,50 @@ recurrence.Recurrence.prototype = {
         options = options || {};
         this.dtstart = options.dtstart || null;
         this.dtend = options.dtend || null;
-        this.rrules = options.rrules || [];
-        this.exrules = options.exrules || [];
-        this.rdates = options.rdates || [];
-        this.exdates = options.exdates || [];
+        this.rrules = [];
+        this.exrules = [];
+        this.rdates = [];
+        this.exdates = [];
+
+        var rrules = options.rrules || [];
+        var exrules = options.exrules || [];
+        var rdates = options.rdates || [];
+        var exdates = options.exdates || [];
+
+        for (var i=0; i < rrules.length; i++) {
+            this.rrules.push(rrules[i]);
+        }
+        for (var i=0; i < exrules.length; i++) {
+            this.exrules.push(exrules[i]);
+        }
+        for (var i=0; i < rdates.length; i++) {
+            this.rdates.push(rdates[i]);
+        }
+        for (var i=0; i < exdates.length; i++) {
+            this.exdates.push(exdates[i]);
+        }
+    },
+
+    copy: function() {
+        var rrules = [];
+        var exrules = [];
+        var rdates = [];
+        var exdates = [];
+
+        for (var i=0; i < this.rrules.length; i++) {
+            rrules.push(this.rrules[i].copy());
+        }
+        for (var i=0; i < this.exrules.length; i++) {
+            exrules.push(this.exrules[i].copy());
+        }
+        for (var i=0; i < this.rdates.length; i++) {
+            rdates.push(new Date(this.rdates.valueOf()));
+        }
+        for (var i=0; i < this.exdates.length; i++) {
+            exdates.push(new Date(this.exdates.valueOf()));
+        }
+
+        return new recurrence.Recurrence({rrules: rrules, exrules: exrules});
     },
 
     serialize: function() {
@@ -554,7 +624,7 @@ recurrence.serialize = function(rule_or_recurrence) {
 
         values.push(['FREQ', [recurrence.frequencies[rule.freq]]]);
         if (rule.interval != 1) {
-            values.push(['INTVERVAL', [String(rule.interval)]]);
+            values.push(['INTERVAL', [String(rule.interval)]]);
         }
         if (rule.wkst) {
             values.push(['WKST', [recurrence.weekdays[rule.wkst]]]);
