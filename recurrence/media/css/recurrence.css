@@ -35,28 +35,34 @@ div.recurrence-widget .remove:visited {
     line-height: 1.4em;
 }
 
-div.recurrence-widget .control {
-    padding: .5em;
-}
-
 div.recurrence-widget .remove:hover {
     color: #a00;
 }
 
-div.recurrence-widget .add-rule,
-div.recurrence-widget .add-rule:link,
-div.recurrence-widget .add-rule:visited {
+div.recurrence-widget .control {
+    padding: .5em 1em .5em .5em;
+}
+
+div.recurrence-widget .add-button,
+div.recurrence-widget .add-button:link,
+div.recurrence-widget .add-button:visited {
     color: green;
 }
 
 div.recurrence-widget .plus {
     font-size: 1.2em;
     font-weight: bold;
-    padding-right: .2em;
+    padding-right: .5em;
 }
 
-div.recurrence-widget .add-rule:hover {
+div.recurrence-widget .add-button:hover {
     color: green;
+}
+
+div.recurrence-widget .control .add-date {
+    padding-left: 1em;
+    margin-left: 1em;
+    border-left: 1px solid #ddd;
 }
 
 div.recurrence-widget .freq {
@@ -70,7 +76,7 @@ div.recurrence-widget .interval {
 
 div.recurrence-widget form {
     overflow: hidden;
-    padding: .5em .75em;
+    padding: .5em 2.2em;
     border-top: 1px solid #ddd;
 }
 
@@ -177,3 +183,112 @@ div.recurrence-widget .until-count {
 div.recurrence-widget .mode {
     padding: .25em 0 1em 0;
 }
+
+div.recurrence-widget .date-selector .calendar-button {
+    background: url('../img/calendar-button.png') no-repeat center;
+    padding: .25em;
+}
+
+table.recurrence-calendar {
+    position: absolute;
+    background-color: white;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    /*outline: 3px solid white;*/
+    margin: 0;
+}
+
+table.recurrence-calendar td {
+    padding: 0;
+}
+
+table.recurrence-calendar a,
+table.recurrence-calendar a:link,
+table.recurrence-calendar a:visited {
+    color: #555;
+    font-weight: bold;
+}
+
+table.recurrence-calendar .year,
+table.recurrence-calendar .navigation {
+    border-right: 1px solid #ccc;
+}
+
+table.recurrence-calendar .body td {
+    border: 0;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+table.recurrence-calendar .body td.header {
+    border-top: 1px solid #ccc;
+    font-weight: bold;
+    color: #555;
+}
+
+table.recurrence-calendar .body td.header,
+table.recurrence-calendar .body td.day {
+    padding: .25em;
+    text-align: center;
+    vertical-align: center;
+}
+
+table.recurrence-calendar .body td.day {
+    cursor: pointer;
+}
+
+table.recurrence-calendar .body td.active {
+    background-color: #ddd;
+}
+
+table.recurrence-calendar .body td.empty {
+    background-color: #eee;
+}
+
+table.recurrence-calendar .year {
+    padding-top: .25em;
+    padding-right: 2em;
+    text-align: center;
+}
+
+table.recurrence-calendar .navigation {
+    width: 100%;
+}
+
+table.recurrence-calendar .navigation {
+    text-align: center;
+}
+
+table.recurrence-calendar .navigation td.prev-year,
+table.recurrence-calendar .navigation td.next-year,
+table.recurrence-calendar .navigation td.prev-month,
+table.recurrence-calendar .navigation td.next-month {
+    /*width: 1%;*/
+    font-size: .8em;
+}
+
+table.recurrence-calendar .remove,
+table.recurrence-calendar .remove:link,
+table.recurrence-calendar .remove:visited {
+    float: left;
+    padding: .1em .25em;
+    padding-bottom: 0;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    color: #555;
+    line-height: 1.2em;
+}
+
+table.recurrence-calendar .remove:hover {
+    color: #a00;
+}
+
+table.recurrence-calendar .footer {
+    height: .5em;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+

@@ -1,17 +1,10 @@
-/*
-
-  recurrence
-
-  Serialize to / deserialize from rfc2445 recurring date/time properties.
-
-*/
-
-if (!window.recurrence) {
-    var recurrence = new Object();
-}
+if (!recurrence)
+    var recurrence = {};
 
 
-recurrence.Rule = function(freq, options) {this.init(freq, options);};
+recurrence.Rule = function(freq, options) {
+    this.init(freq, options);
+};
 recurrence.Rule.prototype = {
     init: function(freq, options) {
         this.freq = freq;
@@ -22,33 +15,23 @@ recurrence.Rule.prototype = {
         this.count = options.count || null;
         this.until = options.until || null;
 
-        for (var n=0; n < recurrence.byparams.length; n++) {
-            if (options[recurrence.byparams[n]]) {
-                var value = options[recurrence.byparams[n]];
-                if (value == null) {
-                    value = [];
+        recurrence.array.foreach(
+            recurrence.byparams, function (param) {
+                if (options[param]) {
+                    var value = options[param];
+                    if (value == null)
+                        value = [];
+                    this[param] = recurrence.array.from(value);
+                } else {
+                    this[param] = [];
                 }
-                /*
-                if (value.charAt || !value.length) {
-                    value = [value];
-                }
-                */
-                var items = [];
-                for (var m=0; m < value.length; m++) {
-                    items.push(value[m]);
-                }
-                this[recurrence.byparams[n]] = items;
-            } else {
-                this[recurrence.byparams[n]] = [];
-            }
-        }
+            }, this);
     },
 
     copy: function() {
         var until = this.until;
-        if (until) {
+        if (until)
             until = new Date(until.valueOf());
-        }
         var rule = new recurrence.Rule(this.freq, this);
         rule.until = until;
         return rule;
@@ -62,10 +45,10 @@ recurrence.Rule.prototype = {
         this.until = rule.until;
         this.count = rule.count;
 
-        for (var i=0; i < recurrence.byparams.length; i++) {
-            var param = recurrence.byparams[i];
-            this[param] = rule[param];
-        }
+        recurrence.array.foreach(
+            recurrence.byparams, function(param) {
+                this[param] = rule[param];
+            }, this);
     },
 
     get_display_text: function(short) {
@@ -73,96 +56,111 @@ recurrence.Rule.prototype = {
         var parts = [];
 
         var get_position_display = function(position) {
-            if (short) {
+            if (short)
                 return recurrence.display.weekdays_position_short[
                     String(position)];
-            } else {
+            else
                 return recurrence.display.weekdays_position[
                     String(position)];
-            }
         };
         var get_weekday_display = function(number) {
-            if (short) {
+            if (short)
                 return recurrence.display.weekdays_short[number];
-            } else {
+            else
                 return recurrence.display.weekdays[number];
-            }
         };
         var get_position_weekday = function(rule) {
             var items = [];
             if (rule.bysetpos.length && rule.byday.length) {
-                for (var n=0; n < rule.bysetpos.length; n++) {
-                    var label = get_position_display(rule.bysetpos[n] || 1);
-                    for (var m=0; m < rule.byday.length; m++) {
-                        var weekday_display = get_weekday_display(
-                            recurrence.to_weekday(rule.byday[m]).number);
-                        items.push(label.format({weekday: weekday_display}));
-                    }
-                }
+                recurrence.array.foreach(
+                    rule.bysetpos, function(x) {
+                        var label = get_position_display(x || 1);
+                        recurrence.array.foreach(
+                            rule.byday, function(y) {
+                                var weekday_display = get_weekday_display(
+                                    recurrence.to_weekday(y).number);
+                                items.push(
+                                    recurrence.string.format(
+                                    label, {'weekday': weekday_display}));
+                            });
+                    });
+
             } else if (rule.byday.length) {
                 // TODO byday Weekday objects without index means
                 // every weekday in the month, and so should appear in
                 // plural. i.e. 'on sundays' instead of
                 // 'on the first sunday'.
-                for (var n=0; n < rule.byday.length; n++) {
-                    var label = get_position_display(rule.byday[n].index || 1);
-                    var weekday_display = get_weekday_display(
-                        recurrence.to_weekday(rule.byday[n]).number);
-                    items.push(label.format({weekday: weekday_display}));
-                }
+                recurrence.array.foreach(
+                    rule.byday, function(x, i) {
+                        var label = get_position_display(x.index || 1);
+                        var weekday_display = get_weekday_display(
+                            recurrence.to_weekday(x).number);
+                        items.push(
+                            recurrence.string.format(
+                            label, {'weekday': weekday_display}));
+                    });
             }
             return items.join(', ');
         }
 
-        if (this.interval > 1) {
+        if (this.interval > 1)
             parts.push(
-                recurrence.display.tokens.every_number_freq.format({
-                    number: this.interval,
-                    freq: recurrence.display.timeintervals_plural[this.freq]
+                recurrence.string.format(
+                recurrence.display.tokens.every_number_freq, {
+                    'number': this.interval,
+                    'freq': recurrence.display.timeintervals_plural[this.freq]
                 }));
-        } else {
+        else
             parts.push(recurrence.display.frequencies[this.freq]);
-        }
 
         if (this.freq == recurrence.YEARLY) {
             if (this.bymonth.length) {
                 // i.e. 'each january, june'
-                if (short) {
+                if (short)
                     var months = recurrence.display.months_short;
-                } else {
+                else
                     var months = recurrence.display.months;
-                }
-                var items = [];
-                for (var n=0; n < this.bymonth.length; n++) {
-                    items.push(months[this.bymonth[n] - 1]);
-                }
+                var items = recurrence.array.foreach(
+                    this.bymonth, function(month, i) {
+                        return months[month - 1];
+                    });
                 items = items.join(', ');
-                parts.push(recurrence.display.tokens.each.format({items: items}));
+                parts.push(
+                    recurrence.string.format(
+                    recurrence.display.tokens.each, {'items': items}));
+            }
 
-                if (this.byday.length || this.bysetpos.length) {
-                    var weekday_items = get_position_weekday(this);
-                    parts.push(recurrence.display.tokens.on_the_items.format({items: weekday_items}));
-                }
+            if (this.byday.length || this.bysetpos.length) {
+                var weekday_items = get_position_weekday(this);
+                parts.push(
+                    recurrence.string.format(
+                    recurrence.display.tokens.on_the_items,
+                    {'items': weekday_items}));
             }
         }
 
         if (this.freq == recurrence.MONTHLY) {
             if (this.bymonthday.length) {
                 // i.e. 'on the 1st, 5th, 10th'
-                var items = [];
-                for (var n=0; n < this.bymonthday.length; n++) {
-                    var dt = new Date();
-                    dt.setDate(this.bymonthday[n]);
-                    items.push(dt.format('%j%S'));
-                }
+                var items = recurrence.array.foreach(
+                    this.bymonthday, function(day, i) {
+                        var dt = new Date();
+                        dt.setDate(day);
+                        return recurrence.date.format(dt, '%j%S');
+                });
                 items = items.join(', ');
-                parts.push(recurrence.display.tokens.on_the_items.format(
-                    {items: items}));
+                parts.push(
+                    recurrence.string.format(
+                    recurrence.display.tokens.on_the_items,
+                    {'items': items}));
 
             } else if (this.byday.length) {
                 if (this.byday.length || this.bysetpos.length) {
                     var weekday_items = get_position_weekday(this);
-                    parts.push(recurrence.display.tokens.on_the_items.format({items: weekday_items}));
+                    parts.push(
+                        recurrence.string.format(
+                        recurrence.display.tokens.on_the_items,
+                        {'items': weekday_items}));
                 }
             }
         }
@@ -170,18 +168,21 @@ recurrence.Rule.prototype = {
         if (this.freq == recurrence.WEEKLY) {
             if (this.byday.length) {
                 // i.e. 'each tuesday, wednesday'
-                var items = [];
-                for (var n=0; n < this.byday.length; n++) {
-                    var weekday_number = recurrence.to_weekday(this.byday[n]).number;
-                    if (short) {
-                        var weekday = recurrence.display.weekdays_short[weekday_number];
-                    } else {
-                        var weekday = recurrence.display.weekdays[weekday_number];
-                    }
-                    items.push(weekday);
-                }
+                var items = recurrence.array.foreach(
+                    this.byday, function(byday) {
+                        var weekday_number = recurrence.to_weekday(byday).number;
+                        if (short)
+                            var weekday = recurrence.display.weekdays_short[
+                                weekday_number];
+                        else
+                            var weekday = recurrence.display.weekdays[
+                                weekday_number];
+                        return weekday;
+                    });
                 items = items.join(', ');
-                parts.push(recurrence.display.tokens.each.format({items: items}));
+                parts.push(
+                    recurrence.string.format(
+                    recurrence.display.tokens.each, {'items': items}));
             }
         }
 
@@ -189,16 +190,21 @@ recurrence.Rule.prototype = {
         // hour/minute/second formatting not supported.
 
         if (this.count) {
-            if (this.count == 1) {
-                parts.push(recurrence.display.tokens.count.format({
-                    number: this.count}));
-            } else {
-                parts.push(recurrence.display.tokens.count_plural.format({
-                    number: this.count}));
-            }
+            if (this.count == 1)
+                parts.push(
+                    recurrence.string.format(
+                    recurrence.display.tokens.count,
+                    {'number': this.count}));
+            else
+                parts.push(
+                    recurrence.string.format(
+                    recurrence.display.tokens.count_plural,
+                    {'number': this.count}));
         } else if (this.until) {
-            parts.push(recurrence.display.tokens.until.format({
-                date: this.until.format('%Y-%m-%d')}));
+            parts.push(
+                recurrence.string.format(
+                recurrence.display.tokens.until, 
+                {'date': recurrence.date.format(this.until, '%Y-%m-%d')}));
         }
 
         return parts.join(', ');
@@ -206,56 +212,31 @@ recurrence.Rule.prototype = {
 };
 
 
-recurrence.Recurrence = function(options) {this.init(options);};
+recurrence.Recurrence = function(options) {
+    this.init(options);
+};
 recurrence.Recurrence.prototype = {
     init: function(options) {
         options = options || {};
         this.dtstart = options.dtstart || null;
         this.dtend = options.dtend || null;
-        this.rrules = [];
-        this.exrules = [];
-        this.rdates = [];
-        this.exdates = [];
-
-        var rrules = options.rrules || [];
-        var exrules = options.exrules || [];
-        var rdates = options.rdates || [];
-        var exdates = options.exdates || [];
-
-        for (var i=0; i < rrules.length; i++) {
-            this.rrules.push(rrules[i]);
-        }
-        for (var i=0; i < exrules.length; i++) {
-            this.exrules.push(exrules[i]);
-        }
-        for (var i=0; i < rdates.length; i++) {
-            this.rdates.push(rdates[i]);
-        }
-        for (var i=0; i < exdates.length; i++) {
-            this.exdates.push(exdates[i]);
-        }
+        this.rrules = recurrence.array.from(options.rrules || []);
+        this.exrules = recurrence.array.from(options.exrules || []);
+        this.rdates = recurrence.array.from(options.rdates || []);
+        this.exdates = recurrence.array.from(options.exdates || []);
     },
 
     copy: function() {
-        var rrules = [];
-        var exrules = [];
-        var rdates = [];
-        var exdates = [];
-
-        for (var i=0; i < this.rrules.length; i++) {
-            rrules.push(this.rrules[i].copy());
-        }
-        for (var i=0; i < this.exrules.length; i++) {
-            exrules.push(this.exrules[i].copy());
-        }
-        for (var i=0; i < this.rdates.length; i++) {
-            rdates.push(new Date(this.rdates.valueOf()));
-        }
-        for (var i=0; i < this.exdates.length; i++) {
-            exdates.push(new Date(this.exdates.valueOf()));
-        }
-
-        return new recurrence.Recurrence({rrules: rrules, exrules: exrules});
+        return new recurrence.Recurrence({
+            'rrules': recurrence.array.foreach(
+                this.rrules, function(item) {return item.copy();}),
+            'exrules': recurrence.array.foreach(
+                this.exrules, function(item) {return item.copy();}),
+            'rdates': recurrence.array.foreach(
+                this.rdates, function(item) {return item.copy();}),
+            'exdates': recurrence.array.foreach(
+                this.exdates, function(item) {return item.copy();})
+        });
     },
 
     serialize: function() {
@@ -264,7 +245,9 @@ recurrence.Recurrence.prototype = {
 };
 
 
-recurrence.Weekday = function(number, index) {this.init(number, index);};
+recurrence.Weekday = function(number, index) {
+    this.init(number, index);
+};
 recurrence.Weekday.prototype = {
     init: function(number, index) {
         this.number = number;
@@ -272,27 +255,24 @@ recurrence.Weekday.prototype = {
     },
 
     with_index: function(index) {
-        if (index == this.index) {
+        if (index == this.index)
             return this;
-        } else {
+        else
             return new recurrence.Weekday(this.number, index);
-        }
     },
 
     equals: function(other) {
-        if (this.number == other.number && this.index == other.index) {
+        if (this.number == other.number && this.index == other.index)
             return True;
-        } else {
+        else
             return False;
-        }
     },
 
     toString: function() {
-        if (this.index) {
+        if (this.index)
             return this.index + recurrence.weekdays[this.number];
-        } else {
+        else
             return recurrence.weekdays[this.number];
-        }
     }
 };
 
@@ -300,12 +280,6 @@ recurrence.Weekday.prototype = {
 recurrence.DateFormat = function(date) {
     this.init(date);
 };
-recurrence.DateFormat.formatchars = RegExp(
-    '%[aAbBdDfFgGhHiIjlLmMnNOPrsStTUwWyYzZ]', 'g');
-recurrence.DateFormat.year_days = [
-    0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
-recurrence.DateFormat.mdays = [
-    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 recurrence.DateFormat.prototype = {
     init: function(date) {
         this.data = date;
@@ -313,44 +287,39 @@ recurrence.DateFormat.prototype = {
 
     format: function(format) {
         var tokens = format.match(recurrence.DateFormat.formatchars);
-        for (var n=0; n < tokens.length; n++) {
-            if (this[tokens[n].charAt(1)]) {
-                format = format.replace(tokens[n], this[tokens[n].charAt(1)]());
-            }
-        }
+        recurrence.array.foreach(tokens, function(token) {
+            if (this[token.charAt(1)])
+                format = format.replace(token, this[token.charAt(1)]());
+        }, this);
         return format;
     },
 
     a: function() {
-        if (this.data.getHours() > 11) {
+        if (this.data.getHours() > 11)
             return recurrence.display.ampm.am;
-        } else {
+        else
             return recurrence.display.ampm.pm;
-        }
     },
 
     A: function() {
-        if (this.data.getHours() > 11) {
+        if (this.data.getHours() > 11)
             return recurrence.display.ampm.AM;
-        } else {
+        else
             return recurrence.display.ampm.PM;
-        }
     },
 
     f: function() {
-        if (this.data.getMinutes() == 0) {
+        if (this.data.getMinutes() == 0)
             return this.g();
-        } else {
+        else
             return [this.g(), this.i()].join(':');
-        }
     },
 
     g: function() {
-        if (this.data.getHours() == 0) {
+        if (this.data.getHours() == 0)
             return 12;
-        } else {
+        else
             return this.data.getHours() - 12;
-        }
         return this.data.getHours();
     },
 
@@ -359,28 +328,26 @@ recurrence.DateFormat.prototype = {
     },
 
     h: function() {
-        return String(this.g()).rjust(2, '0');
+        return recurrence.string.rjust(String(this.g()), 2, '0');
     },
 
     H: function() {
-        return String(this.G()).rjust(2, '0');
+        return recurrence.string.rjust(String(this.G()), 2, '0');
     },
 
     i: function() {
-        return String(this.data.getMinutes()).rjust(2, '0');
+        return recurrence.string.rjust(String(this.data.getMinutes()), 2, '0');
     },
 
     P: function() {
-        if (this.data.getMinutes() == 0 && this.data.getHours() == 0) {
+        if (this.data.getMinutes() == 0 && this.data.getHours() == 0)
             return recurrence.display.tokens.midnight;
-        }
-        if (this.data.getMinutes() == 0 && this.data.getHours() == 12) {
+        if (this.data.getMinutes() == 0 && this.data.getHours() == 12)
             return recurrence.display.tokens.noon;
-        }
     },
 
     s: function() {
-        return String(this.data.getSeconds()).rjust(2, '0');
+        return recurrence.string.rjust(String(this.data.getSeconds()), 2, '0');
     },
 
     Y: function() {
@@ -392,11 +359,12 @@ recurrence.DateFormat.prototype = {
     },
 
     d: function() {
-        return String(this.data.getDate()).rjust(2, '0');
+        return recurrence.string.rjust(String(this.data.getDate()), 2, '0');
     },
 
     D: function() {
-        return recurrence.display.weekdays_short[this.data.getDay() - 1];
+        return recurrence.display.weekdays_short[
+            recurrence.date.weekday(this.data)];
     },
 
     F: function() {
@@ -413,11 +381,10 @@ recurrence.DateFormat.prototype = {
         var date4 = new Date(temp.substring(0, temp.lastIndexOf(" ")-1));
         var hours_diff_standard_time = (date1 - date3) / (1000 * 60 * 60);
         var hours_diff_daylight_time = (date2 - date4) / (1000 * 60 * 60);
-        if (hours_diff_daylight_time == hours_diff_standard_time) {
+        if (hours_diff_daylight_time == hours_diff_standard_time)
             return '0';
-        } else {
+        else
             return '1';
-        }
     },
 
     j: function() {
@@ -425,15 +392,17 @@ recurrence.DateFormat.prototype = {
     },
 
     l: function() {
-        return recurrence.display.weekdays[this.data.getDay()];
+        return recurrence.display.weekdays[
+            recurrence.date.weekday(this.data)];
     },
 
     L: function() {
-        return this.data.isleap();
+        return recurrence.date.isleap(this.data);
     },
 
     m: function() {
-        return String(this.data.getMonth()).rjust(2, '0');
+        return recurrence.string.rjust(
+            String(this.data.getMonth() + 1), 2, '0');
     },
 
     M: function() {
@@ -441,7 +410,7 @@ recurrence.DateFormat.prototype = {
     },
 
     n: function() {
-        return this.data.getMonth();
+        return this.data.getMonth() + 1;
     },
 
     N: function() {
@@ -450,29 +419,29 @@ recurrence.DateFormat.prototype = {
 
     O: function() {
         var seconds = this.Z();
-        return '+' + String(Math.floor(seconds / 3600)).rjust(2, '0') +
-            String(Math.floor((seconds / 60) % 60)).rjust(2, '0');
+        return (
+            '+' +
+            recurrence.string.rjust(
+                String(Math.floor(seconds / 3600)), 2, '0') +
+            recurrence.string.rjust(
+                String(Math.floor((seconds / 60) % 60)), 2, '0'));
     },
 
     r: function() {
-        return this.format('%D, %j %M %Y %H:%i:%s %O');
+        return recurrence.date.format(this, '%D, %j %M %Y %H:%i:%s %O');
     },
 
     S: function() {
         var day = this.data.getDate();
-        if (day == 11 || day == 12 || day == 13) {
+        if (day == 11 || day == 12 || day == 13)
             return 'th';
-        }
         var last = day % 10;
-        if (last == 1) {
+        if (last == 1)
             return 'st';
-        }
-        if (last == 2) {
+        if (last == 2)
             return 'nd';
-        }
-        if (last == 3) {
+        if (last == 3)
             return 'rd';
-        }
         return 'th';
     },
 
@@ -481,14 +450,13 @@ recurrence.DateFormat.prototype = {
         var ndays =
             recurrence.DateFormat.mdays[month] +
             (month == recurrence.FEBRUARY && this.L());
-        return String(ndays).rjust(2, '0');
+        return recurrence.string.rjust(String(ndays), 2, '0');
     },
 
     T: function() {
         var tzname = String(this.data).match(/\([^\)]+\)/g).slice(1, -1);
-        if (!tzname) {
-            tzname = this.format('O');
-        }
+        if (!tzname)
+            tzname = recurrence.date.format(this, '%O');
         return tzname;
     },
 
@@ -497,7 +465,7 @@ recurrence.DateFormat.prototype = {
     },
 
     w: function() {
-        return this.data.getDay() - 1;
+        return recurrence.date.weekday(this.data.weekday);
     },
 
     W: function() {
@@ -508,25 +476,23 @@ recurrence.DateFormat.prototype = {
         var day_of_year = self.z();
         var prev_year = new Date(this.data.getFullYear() - 1, 0, 1);
         if (day_of_year <= (8 - jan1_weekday) && jan1_weekday > 4) {
-            if (jan1_weekday == 5 || (jan1_weekday == 6 && prev_year.isleap())) {
+            if (jan1_weekday == 5 ||
+                (jan1_weekday == 6 && recurrence.date.isleap(prev_year)))
                 week_number = 53;
-            } else {
+            else
                 week_number = 52;
-            }
         } else {
-            if (this.data.isleap()) {
+            if (recurrence.date.isleap(this.data))
                 var i = 366;
-            } else {
+            else
                 var i = 365;
-            }
             if ((i - day_of_year) < (4 - weekday)) {
                 week_number = 1;
             } else {
                 var j = day_of_year + (7 - weekday) + (jan1_weekday - 1);
                 week_number = Math.floor(j / 7);
-                if (jan1_weekday > 4) {
+                if (jan1_weekday > 4)
                     week_number = week_number - 1;
-                }
             }
         }
         return week_number;
@@ -543,9 +509,8 @@ recurrence.DateFormat.prototype = {
     z: function() {
         var doy = recurrence.DateFormat.year_days[this.data.getMonth()] +
             this.data.getDate();
-        if (this.L() && this.data.getMonth() > 2) {
+        if (this.L() && this.data.getMonth() > 2)
             doy += 1;
-        }
         return doy;
     },
 
@@ -553,7 +518,13 @@ recurrence.DateFormat.prototype = {
         var offset = this.data.getTimezoneOffset();
         return offset * 60;
     }
-}
+};
+recurrence.DateFormat.formatchars = RegExp(
+    '%[aAbBdDfFgGhHiIjlLmMnNOPrsStTUwWyYzZ]', 'g');
+recurrence.DateFormat.year_days = [
+    0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334];
+recurrence.DateFormat.mdays = [
+    31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
 
 recurrence.to_weekday = function(token) {
@@ -563,15 +534,13 @@ recurrence.to_weekday = function(token) {
         var token = String(token);
         var constant = token.slice(-2, token.length);
         var nth = token.slice(0, -2);
-        if (nth.match(/[^0-9\-]/g)) {
+        if (nth.match(/[^0-9\-]/g))
             throw Error('Invalid weekday token.');
-        }
         var weekday = recurrence.weekdays.indexOf(constant);
-        if (weekday < 0) {
+        if (weekday < 0)
             throw Error('Invalid weekday token.');
-        } else {
+        else
             return new recurrence.Weekday(weekday, nth || null);
-        }
     } else {
         return new recurrence.Weekday(parseInt(token));
     }
@@ -595,99 +564,91 @@ recurrence.serialize = function(rule_or_recurrence) {
         };
         return pad(dt.getUTCFullYear(), 4) + 
             pad(dt.getUTCMonth() + 1, 2) +
-            pad(dt.getUTCDate(), 2) +
-            'T' +
+            pad(dt.getUTCDate(), 2) + 'T' +
             pad(dt.getUTCHours(), 2) +
             pad(dt.getUTCMinutes(), 2) +
-            pad(dt.getUTCDate(), 2) +
-            'Z';
+            pad(dt.getUTCSeconds(), 2) + 'Z';
     };
 
     var serialize_rule = function(rule) {
         var map_to_string = function(sequence) {
             var new_sequence = [];
-            for (var n=0; n < sequence.length; n++) {
-                new_sequence.push(String(sequence[n]));
-            }
+            recurrence.array.foreach(sequence, function(item) {
+                    new_sequence.push(String(item));
+            });
             return new_sequence;
         };
 
         var map_to_param = function(sequence) {
             var new_sequence = [];
-            for (var n=0; n < sequence.length; n++) {
-                new_sequence.push(sequence[n][0] + '=' + sequence[n][1].join(','));
-            }
+            recurrence.array.foreach(sequence, function(item) {
+                new_sequence.push(item[0] + '=' + item[1].join(','));
+            });
             return new_sequence;
         };
 
         var values = [];
 
         values.push(['FREQ', [recurrence.frequencies[rule.freq]]]);
-        if (rule.interval != 1) {
+        if (rule.interval != 1)
             values.push(['INTERVAL', [String(rule.interval)]]);
-        }
-        if (rule.wkst) {
+        if (rule.wkst)
             values.push(['WKST', [recurrence.weekdays[rule.wkst]]]);
-        }
-        if (rule.count != null) {
+        if (rule.count != null)
             values.push(['COUNT', [String(rule.count)]]);
-        } else if (rule.until != null) {
+        else if (rule.until != null)
             values.push(['UNTIL', [serialize_dt(rule.until)]]);
-        }
         if (rule.byday.length) {
-            days = [];
-            for (var n=0; n < rule.byday.length; n++) {
-                var d = recurrence.to_weekday(rule.byday[n]);
-                days.push(d.toString());
-            }
+            var days = recurrence.array.foreach(rule.byday, function(item) {
+                return recurrence.to_weekday(item).toString();
+            });
             values.push(['BYDAY', days]);
         }
-        for (var n=0; n < recurrence.byparams.length; n++) {
-            var param = recurrence.byparams[n];
+        recurrence.array.foreach(recurrence.byparams, function(param) {
             if (param != 'byday') {
                 var value_list = rule[param] || [];
-                if (value_list.length) {
+                if (value_list.length)
                     values.push([param.toUpperCase(), map_to_string(value_list)]);
-                }
             }
-        }
+        });
         return map_to_param(values).join(';');
     };
 
     var map_to_property = function(sequence) {
-        var new_sequence = [];
-        for (var n=0; n < sequence.length; n++) {
-            new_sequence.push(sequence[n].join(':'));
-        }
+        var new_sequence = recurrence.array.foreach(
+            sequence, function(item) {
+                return item.join(':');
+            });
         return new_sequence;
     };
 
     var obj = rule_or_recurrence;
-    if (obj.freq) {
-        obj = new recurrence.Recurrence({rrules: [obj]});
-    }
+    if (obj.freq)
+        obj = new recurrence.Recurrence({'rrules': [obj]});
 
     var items = [];
 
-    if (obj.dtstart) {
+    if (obj.dtstart)
         items.push(['DTSTART', serialize_dt(obj.dtstart)]);
-    }
-    if (obj.dtend) {
+    if (obj.dtend)
         items.push(['DTEND', serialize_dt(obj.dtend)]);
-    }
 
-    for (var n=0; n < obj.rrules.length; n++) {
-        items.push(['RRULE', serialize_rule(obj.rrules[n])]);
-    }
-    for (var n=0; n < obj.exrules.length; n++) {
-        items.push(['EXRULE', serialize_rule(obj.exrules[n])]);
-    }
-    for (var n=0; n < obj.rdates.length; n++) {
-        items.push(['RDATE', serialize_dt(obj.rdates[n])]);
-    }
-    for (var n=0; n < obj.exdates.length; n++) {
-        items.push(['EXDATE', serialize_dt(obj.exdates[n])]);
-    }
+    recurrence.array.foreach(
+        obj.rrules, function(item) {
+            items.push(['RRULE', serialize_rule(item)]);
+        });
+    recurrence.array.foreach(
+        obj.exrules, function(item) {
+            items.push(['EXRULE', serialize_rule(item)]);
+        });
+    recurrence.array.foreach(
+        obj.rdates, function(item) {
+            items.push(['RDATE', serialize_dt(item)]);
+        });
+    recurrence.array.foreach(
+        obj.exdates, function(item) {
+            items.push(['EXDATE', serialize_dt(item)]);
+        });
 
     return map_to_property(items).join('\n');
 };
@@ -736,149 +697,219 @@ recurrence.deserialize = function(text) {
     var pattern = /(DTSTART|DTEND|RRULE|EXRULE|RDATE|EXDATE)[^:]*:(.*)/g;
     var tokens = text.match(pattern) || [];
 
-    for (var n=0; n < tokens.length; n++) {
-        var label = tokens[n].split(':', 2)[0];
-        var param_text = tokens[n].split(':', 2)[1];
+    recurrence.array.foreach(
+        tokens, function(token) {
+            var label = token.split(':', 2)[0];
+            var param_text = token.split(':', 2)[1];
 
-        if (param_text.indexOf('=') < 0) {
-            var params = param_text;
-        } else {
-            var params = [];
-            var param_tokens = param_text.split(';');
-            for (var i=0; i < param_tokens.length; i++) {
-                var param_name = param_tokens[i].split('=', 2)[0].strip();
-                var param_value = param_tokens[i].split('=', 2)[1].strip();
-                var value_list = param_value.split(',');
-                for (var a=0; a < value_list.length; a++) {
-                    value_list[a] = value_list[a].strip();
-                }
-                params.push([param_name, value_list]);
-            }
-        }
-
-        if (label == 'RRULE' || label == 'EXRULE') {
-            var freq = 0;
-            var options = {};
-            for (var i=0; i < params.length; i++) {
-                var key = params[i][0];
-                var param = key.toLowerCase();
-                var value = params[i][1];
-
-                if (key == 'FREQ') {
-                    freq = recurrence.frequencies.indexOf(value[0]);
-                } else if (key == 'INTERVAL') {
-                    options[param] = parseInt(value[0]);
-                } else if (key == 'WKST') {
-                    options[param] = recurrence.to_weekday(value[0]);
-                } else if (key == 'COUNT') {
-                    options[param] = parseInt(value[0]);
-                } else if (key == 'UNTIL') {
-                    options[param] = deserialize_dt(value[0]);
-                } else if (key == 'BYDAY') {
-                    for (var a=0; a < value.length; a++) {
-                        value[a] = recurrence.to_weekday(value[a]);
-                    }
-                    options[param] = value;
-                } else {
-                    for (var a=0; a < value.length; a++) {
-                        value[a] = parseInt(value[a]);
-                    }
-                    options[param] = value;
-                }
-            }
-            if (label == 'RRULE') {
-                rrules.push(new recurrence.Rule(freq, options));
+            if (param_text.indexOf('=') < 0) {
+                var params = param_text;
             } else {
-                exrules.push(new recurrence.Rule(freq, options));
+                var param_tokens = param_text.split(';');
+                var params = recurrence.array.foreach(
+                    param_tokens, function(item) {
+                        var param_name = recurrence.string.strip(
+                            item.split('=', 2)[0]);
+                        var param_value = recurrence.string.strip(
+                            item.split('=', 2)[1]);
+                        var value_list = param_value.split(',');
+                        var value_list = recurrence.array.foreach(
+                            param_value.split(','), function(item) {
+                                return recurrence.string.strip(item);
+                            });
+                        return [param_name, value_list];
+                    });
             }
-        } else if (label == 'DTSTART') {
-            dtstart = deserialize_dt(params);
-        } else if (label == 'DTEND') {
-            dtend = deserialize_dt(params);
-        } else if (label == 'RDATE') {
-            rdates.push(deserialize_dt(params));
-        } else if (label == 'EXDATE') {
-            exdates.push(deserialize_dt(params));
-        }
-    }
+
+            if (label == 'RRULE' || label == 'EXRULE') {
+                var freq = 0;
+                var options = {};
+                recurrence.array.foreach(
+                    params, function(item) {
+                        var key = item[0];
+                        var param = key.toLowerCase();
+                        var value = item[1];
+
+                        if (key == 'FREQ')
+                            freq = recurrence.frequencies.indexOf(value[0]);
+                        else if (key == 'INTERVAL')
+                            options[param] = parseInt(value[0]);
+                        else if (key == 'WKST')
+                            options[param] = recurrence.to_weekday(value[0]);
+                        else if (key == 'COUNT')
+                            options[param] = parseInt(value[0]);
+                        else if (key == 'UNTIL')
+                            options[param] = deserialize_dt(value[0]);
+                        else if (key == 'BYDAY')
+                            options[param] = recurrence.array.foreach(
+                                value, function(item) {
+                                    return recurrence.to_weekday(item);
+                                });
+                        else
+                            options[param] = recurrence.array.foreach(
+                                value, function(item) {
+                                    return parseInt(item);
+                                });
+                    });
+                if (label == 'RRULE')
+                    rrules.push(new recurrence.Rule(freq, options));
+                else
+                    exrules.push(new recurrence.Rule(freq, options));
+
+            } else if (label == 'DTSTART') {
+                dtstart = deserialize_dt(params);
+            } else if (label == 'DTEND') {
+                dtend = deserialize_dt(params);
+            } else if (label == 'RDATE') {
+                rdates.push(deserialize_dt(params));
+            } else if (label == 'EXDATE') {
+                exdates.push(deserialize_dt(params));
+            }
+        });
 
     return new recurrence.Recurrence({
-        dtstart: dtstart, dtend: dtend,
-        rrules: rrules, exrules: exrules, rdates: rdates, exdates: exdates
+        'dtstart': dtstart, 'dtend': dtend,
+        'rrules': rrules, 'exrules': exrules,
+        'rdates': rdates, 'exdates': exdates
     });
 };
 
 
-// type extensions
-
-String.prototype.format = function(map) {
-    var string = this;
-    for (key in map) {
-        string = string.replace(RegExp('%' + key, 'g'), map[key]);
-    }
-    return string
+recurrence.log = function(message) {
+    var dom = document.createElement('div');
+    dom.innerHTML = message;
+    document.body.insertBefore(dom, document.body.firstChild);
 };
 
 
-String.prototype.capitalize = function() {
-    return this.charAt(0).toUpperCase() + this.slice(1, this.length);
-};
+recurrence.string = {
+    format: function(string, map) {
+        for (var key in map)
+            string = string.replace(RegExp('%' + key, 'g'), map[key]);
+        return string
+    },
 
+    capitalize: function(string) {
+        return (
+            string.charAt(0).toUpperCase() +
+            string.slice(1, string.length));
+    },
 
-String.prototype.strip = function() {
-    return this.replace(/^[ \t\n\r]*/, '').replace(/[ \t\n\r]*$/, '');
-};
+    strip: function(string) {
+        return string.replace(
+            /^[ \t\n\r]*/, '').replace(/[ \t\n\r]*$/, '');
+    },
 
-
-String.prototype.rjust = function(length, character) {
-    var initial = String(this);
-    var offset = length - initial.length;
-    character = character || ' ';
-    if (offset < 0) {
-        return initial;
-    } else {
-        while (initial.length < length) {
-            initial = character.charAt(0) + initial;
+    rjust: function(string, length, character) {
+        var initial = String(string);
+        var offset = length - initial.length;
+        character = character || ' ';
+        if (offset < 0) {
+            return initial;
+        } else {
+            while (initial.length < length) {
+                initial = character.charAt(0) + initial;
+            }
+            return initial;
         }
-        return initial;
-    }
-};
+    },
 
-
-String.prototype.ljust = function(length, character) {
-    var initial = String(this);
-    var offset = length - initial.length;
-    character = character || ' ';
-    if (offset < 0) {
-        return initial;
-    } else {
-        while (initial.length < length) {
-            initial = initial + character[0];
+    ljust: function(string, length, character) {
+        var initial = String(string);
+        var offset = length - initial.length;
+        character = character || ' ';
+        if (offset < 0) {
+            return initial;
+        } else {
+            while (initial.length < length) {
+                initial = initial + character[0];
+            }
+            return initial;
         }
-        return initial;
     }
 };
 
 
-Date.prototype.format = function(format) {
-    return new recurrence.DateFormat(this).format(format);
+recurrence.date = {
+    format: function(date, format) {
+        return new recurrence.DateFormat(date).format(format);
+    },
+
+    isleap: function(date) {
+        var year = date.getFullYear();
+        return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0);
+    },
+
+    weekday: function(date) {
+        var day = date.getDay() - 1;
+        if (day < 0)
+            day = day + 7;
+        else if (day > 6)
+            day = day - 7;
+        return day;
+    },
+
+    days_in_month: function(date) {
+        var m = date.getMonth() + 1;
+        var y = date.getFullYear();
+        if (m == 1 || m == 3 || m == 5 || m == 7 ||
+            m == 8 || m == 10 || m == 12)
+            return 31;
+        else if (m == 4 || m == 6 || m == 9 || m == 11)
+            return 30;
+        else if (m == 2 && recurrence.date.isleap(date))
+            return 29;
+        else
+            return 28;
+    }
 };
 
 
-Date.prototype.isleap = function() {
-    var year = this.getFullYear();
-    return year % 4 == 0 && (year % 100 != 0 || year % 400 == 0)
+recurrence.array = {
+    foreach: function(array, func, bindto) {
+        if (bindto)
+            func = recurrence.func.bind(func, bindto);
+        array = recurrence.array.from(array);
+        var return_values = [];
+        for (var i=0; i < array.length; i++)
+            return_values.push(func(array[i], i));
+        return return_values;
+    },
+
+    from: function(iterable) {
+        if (!iterable)
+            return [];
+        if (iterable.toArray) {
+            return iterable.toArray();
+        } else {
+            var results = [];
+            for (var i=0, length=iterable.length; i < length; i++)
+                results.push(iterable[i]);
+            return results;
+        }
+    }
+};
+
+
+recurrence.func = {
+    bind: function() {
+        var args = recurrence.array.from(arguments);
+        var func = args.shift();
+        var object = args.shift();
+        return function() {
+            return func.apply(
+                object, args.concat(recurrence.array.from(arguments)));
+        }
+    }
 };
 
 
 if (!Array.indexOf) {
     // ie doesn't have indexOf on arrays
     Array.prototype.indexOf = function(obj) {
-        for (var i=0; i < this.length; i++) {
-            if (this[i] == obj) {
+        for (var i=0; i < this.length; i++)
+            if (this[i] == obj)
                 return i;
-            }
-        }
         return -1;
     };
 }
@@ -928,24 +959,23 @@ recurrence.frequencies = [
 recurrence.weekdays = [
     'MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'
 ];
-recurrence.firstweekday = 0;
+// recurrence.firstweekday = 0;
 
 
 // display
 
-if (!recurrence.display) {
-    recurrence.display = new Object();
-}
+if (!recurrence.display)
+    recurrence.display = {};
 
 recurrence.display.tokens = {
-    midnight: 'midnight',
-    noon: 'noon',
-    on_the_items: 'on the %items',
-    every_number_freq: 'every %number %freq',
-    each: 'each %items',
-    count: 'occuring %number time',
-    count_plural: 'occuring %number times',
-    until: 'until %date'
+    'midnight': 'midnight',
+    'noon': 'noon',
+    'on_the_items': 'on the %items',
+    'every_number_freq': 'every %number %freq',
+    'each': 'each %items',
+    'count': 'occuring %number time',
+    'count_plural': 'occuring %number times',
+    'until': 'until %date'
 };
 
 recurrence.display.timeintervals = [
@@ -966,6 +996,9 @@ recurrence.display.weekdays = [
 ];
 recurrence.display.weekdays_short = [
     'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
+];
+recurrence.display.weekdays_oneletter = [
+    'M', 'T', 'W', 'T', 'F', 'S', 'S'
 ];
 recurrence.display.weekdays_position = {
     '1': 'first %weekday',
@@ -996,5 +1029,5 @@ recurrence.display.months_ap = [
     'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'
 ];
 recurrence.display.ampm = {
-    am: 'a.m.', pm: 'p.m.', AM: 'AM', PM: 'PM'
+    'am': 'a.m.', 'pm': 'p.m.', 'AM': 'AM', 'PM': 'PM'
 };
