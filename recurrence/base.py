@@ -178,7 +178,7 @@ class Rule(object):
 
     def __hash__(self):
         return hash((
-            self.freq, self.interval, self.wkst, self.count, self.get_until_utc(),
+            self.freq, self.interval, self.wkst, self.count, self.until,
             tuple(map(
                 lambda p: map(lambda v: tuple(v), getattr(self, p, []) or []),
                 self.byparams))))
@@ -191,23 +191,22 @@ class Rule(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    def get_until_utc(self):
-        if self.until:
-            if not self.until.tzinfo:
-                until = localtz.localize(self.until)
-            return self.until.astimezone(pytz.utc)
-
     def to_text(self, short=False):
         return rule_to_text(self, short)
 
-    def to_dateutil_rrule(self, dtstart=None, cache=False):
+    def to_dateutil_rrule(self, dtstart=None, dtend=None, cache=False):
         """
         Create a `dateutil.rrule.rrule` instance from this `Rule`.
 
         :Parameters:
             `dtstart` : datetime.datetime
-                The date/time the recurrence rule starts. This is
-                automatically specified by `Recurrence` objects.
+                The date/time the recurrence rule starts.
+
+            `dtend` : datetime.datetime
+                The rule should not yield occurrences past this
+                date. Replaces `until` if `until` is greater than
+                `dtend`. Note: `dtend` in this case does not count for
+                an occurence itself.
 
             `cache` : bool
                 If given, it must be a boolean value specifying to
@@ -226,22 +225,13 @@ class Rule(object):
 
         until = self.until
         if until:
-            until_tz = localtz
-            if dtstart:
-                if dtstart.tzinfo:
-                    until_tz = dtstart.tzinfo
-            if until.tzinfo:
-                # dateutil.rrule expects until datetime object
-                # to be offset-naive, so we'll localize it to
-                # dtstart's tzinfo if it exists.
-                until = until.astimezone(until_tz)
-                until = datetime.datetime(
-                    until.year, until.month, until.day,
-                    until.hour, until.minute, until.second)
+            until = normalize_offset_awareness(until, dtstart)
+            if dtend:
+                if until > dtend:
+                    until = dtend
 
         return dateutil.rrule.rrule(
-            self.freq, dtstart,
-            self.interval, self.wkst, self.count, until,
+            self.freq, dtstart, self.interval, self.wkst, self.count, until,
             cache=cache, **kwargs)
 
 
@@ -262,7 +252,7 @@ class Recurrence(object):
     :Variables:
         `dtstart` : datetime.datetime
             Optionally specify the first occurrence. This defaults to
-            `datetime.datetime.now()` when the recurrence set is
+            `datetime.datetime.now()` when the occurence set is
             generated.
 
         `dtend` : datetime.datetime
@@ -281,11 +271,11 @@ class Recurrence(object):
 
         `rdates` : list
             A list of `datetime.datetime` instances to include in the
-            recurrence set generation.
+            occurence set generation.
 
         `exdates` : list
             A list of `datetime.datetime` instances to exclude in the
-            recurrence set generation. Dates included that way will
+            occurence set generation. Dates included that way will
             not be generated, even if some inclusive `Rule` or
             `datetime.datetime` instances matches them.
     """
@@ -309,19 +299,19 @@ class Recurrence(object):
         self.exdates = list(exdates)
 
     def __iter__(self):
-        return self.__call__()
+        return self.occurences()
 
     def __unicode__(self):
         return serialize(self)
 
     def __hash__(self):
         return hash((
-            self.get_dtstart_utc(), self.get_dtend_utc(),
+            self.dtstart, self.dtend,
             tuple(self.rrules), tuple(self.exrules),
             tuple(self.rdates), tuple(self.exdates)))
 
     def __nonzero__(self):
-        if (self.get_dtstart_utc() or self.get_dtend_utc() or
+        if (self.dtstart or self.dtend or
             tuple(self.rrules) or tuple(self.exrules),
             tuple(self.rdates) or tuple(self.exdates)):
             return True
@@ -336,91 +326,57 @@ class Recurrence(object):
     def __ne__(self, other):
         return not self.__eq__(other)
 
-    def iter_occurences(
-        self, dtstart=None, dtend=None, tzinfo=None, cache=False):
+    def occurrences(
+        self, dtstart=None, dtend=None, cache=False):
         """
         Get a generator yielding `datetime.datetime` instances in this
-        recurrence set.
+        occurence set.
 
         :Parameters:
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                recurrence set. Defauts to `self.dtstart` if specified
+                occurence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                recurrence set is generated.
+                occurence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                recurrence set. Defauts to `self.dtend` if specified.
-
-            `tzinfo` : datetime.tzinfo
-                Optionally specify the timezone to adjust the
-                recurrence set to.
+                occurence set. Defauts to `self.dtend` if specified.
 
             `cache` : bool
-                Whether to cache the recurrence set generator.
+                Whether to cache the occurence set generator.
 
         :Returns:
             A sequence of `datetime.datetime` instances.
         """
-        return iter(self._recurrence_generator(
-            self.to_dateutil_rruleset(dtstart, cache), dtend, tzinfo))
-
-    def _recurrence_generator(self, sequence, dtend=None, tzinfo=None):
-        # adjust timezone info for each datetime object in the
-        # sequence
-        dtend = dtend or self.dtend
-        if dtend:
-            if not dtend.tzinfo:
-                dtend = localtz.localize(dtend)
-        for dt in sequence:
-            if not dt.tzinfo:
-                dt = localtz.localize(dt)
-            dt = dt.astimezone(tzinfo or localtz)
-            if dtend and dt >= dtend:
-                continue
-            yield dt
-        if dtend:
-            yield dtend
-
-    def get_dtstart_utc(self):
-        if self.dtstart:
-            if not self.dtstart.tzinfo:
-                dtstart = localtz.localize(self.dtstart)
-            return self.dtstart.astimezone(pytz.utc)
-
-    def get_dtend_utc(self):
-        if self.dtend:
-            if not self.dtend.tzinfo:
-                dtend = localtz.localize(self.dtend)
-            return self.dtend.astimezone(pytz.utc)
+        return self.to_dateutil_rruleset(dtstart, dtend, cache)
 
     def count(self, dtstart=None, dtend=None, cache=False):
         """
-        Returns the number of occurrences in this recurrence set.
+        Returns the number of occurrences in this occurence set.
 
         :Parameters:
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                recurrence set. Defauts to `self.dtstart` if specified
+                occurence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                recurrence set is generated.
+                occurence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                recurrence set. Defauts to `self.dtend` if specified.
+                occurence set. Defauts to `self.dtend` if specified.
 
             `cache` : bool
-                Whether to cache the recurrence set generator.
+                Whether to cache the occurence set generator.
 
         :Returns:
-            The number of ocurrences in this recurrence set.
+            The number of ocurrences in this occurence set.
         """
-        return self.to_dateutil_rruleset(dtstart, cache).count()
+        return self.to_dateutil_rruleset(dtstart, dtend, cache).count()
 
     def before(
         self, dt, inc=False,
-        dtstart=None, dtend=None, tzinfo=None, cache=False):
+        dtstart=None, dtend=None, cache=False):
         """
         Returns the last recurrence before the given
         `datetime.datetime` instance.
@@ -436,34 +392,26 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                recurrence set. Defauts to `self.dtstart` if specified
+                occurence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                recurrence set is generated.
+                occurence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                recurrence set. Defauts to `self.dtend` if specified.
-
-            `tzinfo` : datetime.tzinfo
-                Optionally specify the timezone to adjust the
-                recurrence set to.
+                occurence set. Defauts to `self.dtend` if specified.
 
             `cache` : bool
-                Whether to cache the recurrence set generator.
+                Whether to cache the occurence set generator.
 
         :Returns:
             A `datetime.datetime` instance.
         """
-        if not dt.tzinfo:
-            dt = localtz.localize(dt)
-        before_dt = self.to_dateutil_rruleset(dtstart, cache).before(dt, inc)
-        if not before_dt:
-            return None
-        return list(self._recurrence_generator([before_dt], dtend, tzinfo))[0]
+        return self.to_dateutil_rruleset(
+            dtstart, dtend, cache).before(dt, inc)
 
     def after(
         self, dt, inc=False,
-        dtstart=None, dtend=None, tzinfo=None, cache=False):
+        dtstart=None, dtend=None, cache=False):
         """
         Returns the first recurrence after the given
         `datetime.datetime` instance.
@@ -479,34 +427,25 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                recurrence set. Defauts to `self.dtstart` if specified
+                occurence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                recurrence set is generated.
+                occurence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                recurrence set. Defauts to `self.dtend` if specified.
-
-            `tzinfo` : datetime.tzinfo
-                Optionally specify the timezone to adjust the
-                recurrence set to.
+                occurence set. Defauts to `self.dtend` if specified.
 
             `cache` : bool
-                Whether to cache the recurrence set generator.
+                Whether to cache the occurence set generator.
 
         :Returns:
             A `datetime.datetime` instance.
         """
-        if not dt.tzinfo:
-            dt = localtz.localize(dt)
-        after_dt = self.to_dateutil_rruleset(dtstart, cache).after(dt, inc)
-        if not after_dt:
-            return None
-        return list(self._recurrence_generator([after_dt], dtend, tzinfo))[0]
+        return self.to_dateutil_rruleset(dtstart, cache).after(dt, inc)
 
     def between(
         self, after, before,
-        inc=False, dtstart=None, dtend=None, tzinfo=None, cache=False):
+        inc=False, dtstart=None, dtend=None, cache=False):
         """
         Returns the first recurrence after the given
         `datetime.datetime` instance.
@@ -522,37 +461,28 @@ class Recurrence(object):
                 Defines what happens if `after` and/or `before` are
                 themselves occurrences. With `inc == True`, they will
                 be included in the list, if they are found in the
-                recurrence set.
+                occurence set.
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                recurrence set. Defauts to `self.dtstart` if specified
+                occurence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                recurrence set is generated.
+                occurence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                recurrence set. Defauts to `self.dtend` if specified.
-
-            `tzinfo` : datetime.tzinfo
-                Optionally specify the timezone to adjust the
-                recurrence set to.
+                occurence set. Defauts to `self.dtend` if specified.
 
             `cache` : bool
-                Whether to cache the recurrence set generator.
+                Whether to cache the occurence set generator.
 
         :Returns:
             A sequence of `datetime.datetime` instances.
         """
-        if not after.tzinfo:
-            after = localtz.localize(after)
-        if not before.tzinfo:
-            before = localtz.localize(before)
-        return list(self._recurrence_generator(
-            self.to_dateutil_rruleset(dtstart, cache).between(
-            after, before, inc), dtend, tzinfo))
+        return self.to_dateutil_rruleset(
+            dtstart, dtend, cache).between(after, before, inc)
 
-    def to_dateutil_rruleset(self, dtstart=None, cache=False):
+    def to_dateutil_rruleset(self, dtstart=None, dtend=None, cache=False):
         """
         Create a `dateutil.rrule.rruleset` instance from this
         `Recurrence`.
@@ -562,6 +492,12 @@ class Recurrence(object):
                 The date/time the recurrence rule starts. This value
                 overrides the `dtstart` property specified by the
                 `Recurrence` instance if its set.
+
+            `dtstart` : datetime.datetime
+                Optionally specify the first occurrence of the
+                occurence set. Defauts to `self.dtstart` if specified
+                or `datetime.datetime.now()` if not when the
+                occurence set is generated.
 
             `cache` : bool
                 If given, it must be a boolean value specifying to
@@ -573,10 +509,15 @@ class Recurrence(object):
         :Returns:
             A `dateutil.rrule.rruleset` instance.
         """
+        # all datetimes used in dateutil.rrule objects will need to be
+        # normalized to either offset-aware or offset-naive datetimes
+        # to avoid exceptions. dateutil will use the tzinfo from the
+        # given dtstart, which will cascade to other datetime objects.
+
         dtstart = dtstart or self.dtstart
-        if dtstart:
-            if not dtstart.tzinfo:
-                dtstart = localtz.localize(dtstart)
+        dtend = dtend or self.dtend
+        if dtend:
+            dtend = normalize_offset_awareness(dtend or self.dtend, dtstart)
 
         if cache:
             # we need to cache an instance for each unique dtstart
@@ -586,16 +527,25 @@ class Recurrence(object):
                 return cached
 
         rruleset = dateutil.rrule.rruleset(cache=cache)
+
         for rrule in self.rrules:
-            rruleset.rrule(rrule.to_dateutil_rrule(dtstart, cache))
+            rruleset.rrule(rrule.to_dateutil_rrule(dtstart, dtend, cache))
         for exrule in self.exrules:
-            rruleset.exrule(exrule.to_dateutil_rrule(dtstart, cache))
+            rruleset.exrule(exrule.to_dateutil_rrule(dtstart, dtend, cache))
+
         if dtstart is not None:
             rruleset.rdate(dtstart)
         for rdate in self.rdates:
-            rruleset.rdate(rdate)
+            rdate = normalize_offset_awareness(rdate, dtstart)
+            if rdate < dtend:
+                rruleset.rdate(rdate)
+        if dtend is not None:
+            rruleset.rdate(dtend)
+
         for exdate in self.exdates:
-            rruleset.exdate(exdate)
+            exdate = normalize_offset_awareness(exdate, dtstart)
+            if exdate < dtend:
+                rruleset.exdate(exdate)
 
         if cache:
             self._cache[dtstart] = rruleset
@@ -848,8 +798,14 @@ def deserialize(text):
             # this is a partial implementation of rfc2445 so we'll
             # just use the time zone specified in the Django settings.
             tzinfo = localtz
-        return datetime.datetime(
+
+        dt = datetime.datetime(
             year, month, day, hour, minute, second, tzinfo=tzinfo)
+        dt = dt.astimezone(localtz)
+
+        # set tz to settings.TIME_ZONE and return offset-naive datetime
+        return datetime.datetime(
+            dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
 
     dtstart, dtend, rrules, exrules, rdates, exdates = None, None, [], [], [], []
 
@@ -1034,6 +990,37 @@ def rule_to_text(rule, short=False):
             'date': dateformat.format(rule.until, 'Y-m-d')})
 
     return _(', ').join(parts)
+
+
+def normalize_offset_awareness(dt, from_dt=None):
+    """
+    Given two `datetime.datetime` objects, return the second object as
+    timezone offset-aware or offset-naive depending on the existence
+    of the first object's tzinfo.
+
+    If the second object is to be made offset-aware, it is assumed to
+    be in the local timezone (with the timezone derived from the
+    TIME_ZONE setting). If it is to be made offset-naive, It is first
+    converted to the local timezone before being made naive.
+
+    :Parameters:
+        `dt` : `datetime.datetime`
+            The datetime object to make offset-aware/offset-naive.
+        `from_dt` : `datetime.datetime`
+            The datetime object to test the existence of a tzinfo. If
+            the value is nonzero, it will be understood as
+            offset-naive
+    """
+    if from_dt and from_dt.tzinfo and dt.tzinfo:
+        return dt
+    elif from_dt and from_dt.tzinfo and not dt.tzinfo:
+        dt = localtz.localize(dt)
+    elif dt.tzinfo:
+        dt = dt.astimezone(localtz)
+        dt = datetime.datetime(
+            dt.year, dt.month, dt.day,
+            dt.hour, dt.minute, dt.second)
+    return dt
 
 
 def from_dateutil_rrule(rrule):
