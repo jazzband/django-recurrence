@@ -16,6 +16,8 @@ import calendar
 import pytz
 import dateutil.rrule
 from django.conf import settings
+from django.utils import dateformat
+from django.utils.translation import ugettext as _
 
 
 YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY = range(7)
@@ -194,6 +196,9 @@ class Rule(object):
             if not self.until.tzinfo:
                 until = localtz.localize(self.until)
             return self.until.astimezone(pytz.utc)
+
+    def to_text(self, short=False):
+        return rule_to_text(self, short)
 
     def to_dateutil_rrule(self, dtstart=None, cache=False):
         """
@@ -896,6 +901,139 @@ def deserialize(text):
             exdates.append(deserialize_dt(params))
 
     return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates)
+
+
+def rule_to_text(rule, short=False):
+    """
+    Render the given `Rule` as natural text.
+
+    :Parameters:
+        `short` : bool
+            Use abbreviated labels, i.e. 'Fri' instead of 'Friday'.
+    """
+    frequencies = (
+        _('annually'), _('monthly'), _('weekly'), _('daily'),
+        _('hourly'), _('minutely'), _('secondly'),
+    )
+    timeintervals = (
+        _('year'), _('month'), _('week'), _('day'),
+        _('hour'), _('minute'), _('second'),
+    )
+    timeintervals_plural = (
+        _('years'), _('months'), _('weeks'), _('days'),
+        _('hours'), _('minutes'), _('seconds'),
+    )
+
+    if short:
+        positional_display = {
+            1: _('1st %(weekday)s'),
+            2: _('2nd %(weekday)s'),
+            3: _('3rd %(weekday)s'),
+            -1: _('last %(weekday)s'),
+            -2: _('2nd last %(weekday)s'),
+            -3: _('3rd last %(weekday)s'),
+        }
+        weekdays_display = (
+            _('Mon'), _('Tue'), _('Wed'),
+            _('Thu'), _('Fri'), _('Sat'), _('Sun'),
+        )
+        months_display = (
+            _('Jan'), _('Feb'), _('Mar'), _('Apr'),
+            _('May'), _('Jun'), _('Jul'), _('Aug'),
+            _('Sep'), _('Oct'), _('Nov'), _('Dec'),
+        )
+
+    else:
+        positional_display = {
+            1: _('first %(weekday)s'),
+            2: _('second %(weekday)s'),
+            3: _('third %(weekday)s'),
+            -1: _('last %(weekday)s'),
+            -2: _('second last %(weekday)s'),
+            -3: _('third last %(weekday)s'),
+        }
+        weekdays_display = (
+            _('Monday'), _('Tuesday'), _('Wednesday'),
+            _('Thursday'), _('Friday'), _('Saturday'), _('Sunday'),
+        )
+        months_display = (
+            _('January'), _('February'), _('March'), _('April'),
+            _('May'), _('June'), _('July'), _('August'),
+            _('September'), _('October'), _('November'), _('December'),
+        )
+
+    def get_positional_weekdays(rule):
+        items = []
+        if rule.bysetpos and rule.byday:
+            for setpos in rule.bysetpos:
+                for byday in rule.byday:
+                    byday = to_weekday(byday)
+                    items.append(
+                        positional_display.get(setpos) % {
+                            'weekday': weekdays_display[byday.number]})
+        elif rule.byday:
+            for byday in rule.byday:
+                byday = to_weekday(byday)
+                items.append(
+                    positional_display.get(byday.index) % {
+                        'weekday': weekdays_display[byday.number]})
+        return _(', ').join(items)
+
+    parts = []
+
+    if rule.interval > 1:
+        parts.append(
+            _('every %(number)s %(freq)s') % {
+                'number': rule.interval,
+                'freq': timeintervals_plural[rule.freq]
+            })
+    else:
+        parts.append(frequencies[rule.freq])
+
+    if rule.freq == YEARLY:
+        if rule.bymonth:
+            items = _(', ').join(
+                [months_display[month] for month in rule.bymonth])
+            parts.append(_('each %(items)s') % {'items': items})
+        if rule.byday or rule.bysetpos:
+            parts.append(
+                _('on the %(items)s') % {
+                    'items': get_positional_weekdays(rule)})
+
+    if rule.freq == MONTHLY:
+        if rule.bymonthday:
+            items = [
+                dateformat.format(
+                    datetime.datetime(1, 1, day), 'jS')
+                for day in rule.bymonthday]
+            parts.append(_('on the %(items)s') % {'items': items})
+        elif rule.byday:
+            if rule.byday or rule.bysetpos:
+                parts.append(
+                    _('on the %(items)s') % {
+                        'items': get_positional_weekdays(rule)})
+
+    if rule.freq == WEEKLY:
+        if rule.byday:
+            items = _(', ').join([
+                weekdays_display[to_weekday(day).number]
+                for day in rule.byday])
+            parts.append(_('each %(items)s') % {'items': items})
+
+    # daily freqencies has no additional formatting,
+    # hour/minute/second formatting not supported
+
+    if rule.count:
+        if rule.count == 1:
+            parts.append(_('occuring once'))
+        else:
+            parts.append(_('occuring %(number)s times') % {
+                'number': rule.count})
+    elif rule.until:
+        parts.append(_('until %(date)s') % {
+            'date': dateformat.format(rule.until, 'Y-m-d')})
+
+    return _(', ').join(parts)
 
 
 def from_dateutil_rrule(rrule):
