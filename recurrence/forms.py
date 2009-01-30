@@ -35,7 +35,7 @@ class RecurrenceWidget(forms.Textarea):
         return forms.Media(
             js=(
                 media_prefix + 'js/recurrence.js',
-                media_prefix + 'js/widget.js',
+                media_prefix + 'js/recurrence-widget.js',
             ),
             css={
                 'all': (
