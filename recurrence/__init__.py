@@ -7,4 +7,6 @@ from recurrence.base import (
 
     serialize, deserialize, from_dateutil_rrule, from_dateutil_rruleset, to_weekday,
     Recurrence, Rule, Weekday,
+
+    DeserializationError,
 )

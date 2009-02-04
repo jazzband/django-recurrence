@@ -29,6 +29,9 @@ YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY = range(7)
 localtz = pytz.timezone(settings.TIME_ZONE)
 
 
+class DeserializationError(Exception): pass
+
+
 class Rule(object):
     """
     A recurrence rule.
@@ -785,13 +788,22 @@ def deserialize(text):
         A `Recurrence` instance.
     """
     def deserialize_dt(text):
-        year, month, day = int(text[:4]), int(text[4:6]), int(text[6:8])
+        try:
+            year, month, day = int(text[:4]), int(text[4:6]), int(text[6:8])
+        except ValueError:
+            raise DeserializationError('malformed date-time: %s' % text)
         if u'T' in text:
-            hour, minute, second = (
-                int(text[9:11]), int(text[11:13]), int(text[13:15]))
+            # time is also specified
+            try:
+                hour, minute, second = (
+                    int(text[9:11]), int(text[11:13]), int(text[13:15]))
+            except ValueError:
+                raise DeserializationError('malformed date-time: %s' % text)
         else:
+            # only date is specified, use midnight
             hour, minute, second = (0, 0, 0)
         if u'Z' in text:
+            # time is in utc
             tzinfo = pytz.utc
         else:
             # right now there is no support for VTIMEZONE/TZID since
@@ -813,15 +825,24 @@ def deserialize(text):
         u'(DTSTART|DTEND|RRULE|EXRULE|RDATE|EXDATE)[^:]*:(.*)',
         re.MULTILINE).findall(text)
 
+    if not tokens and text:
+        raise DeserializationError('malformed data')
+
     for label, param_text in tokens:
+        if not param_text:
+            raise DeserializationError('empty property: %s' % label)
         if u'=' not in param_text:
             params = param_text
         else:
             params = {}
-            param_tokens = param_text.split(u';')
+            param_tokens = filter(lambda p: p, param_text.split(u';'))
             for item in param_tokens:
-                param_name, param_value = map(
-                    lambda i: i.strip(), item.split(u'=', 1))
+                try:
+                    param_name, param_value = map(
+                        lambda i: i.strip(), item.split(u'=', 1))
+                except ValueError:
+                    raise DeserializationError(
+                        'missing parameter value: %s' % item)
                 params[param_name] = map(
                     lambda i: i.strip(), param_value.split(u','))
 
@@ -829,20 +850,54 @@ def deserialize(text):
             kwargs = {}
             for key, value in params.items():
                 if key == u'FREQ':
-                    kwargs[str(key.lower())] = list(
-                        Rule.frequencies).index(value[0])
+                    try:
+                        kwargs[str(key.lower())] = list(
+                            Rule.frequencies).index(value[0])
+                    except ValueError:
+                        raise DeserializationError(
+                            'bad frequency value: %s' % value[0])
                 elif key == u'INTERVAL':
-                    kwargs[str(key.lower())] = int(value[0])
+                    try:
+                        kwargs[str(key.lower())] = int(value[0])
+                    except ValueError:
+                        raise DeserializationError(
+                            'bad interval value: %s' % value[0])
                 elif key == u'WKST':
-                    kwargs[str(key.lower())] = to_weekday(value[0])
+                    try:
+                        kwargs[str(key.lower())] = to_weekday(value[0])
+                    except ValueError:
+                        raise DeserializationError(
+                            'bad weekday value: %s' % value[0])
                 elif key == u'COUNT':
-                    kwargs[str(key.lower())] = int(value[0])
+                    try:
+                        kwargs[str(key.lower())] = int(value[0])
+                    except ValueError:
+                        raise DeserializationError(
+                            'bad count value: %s' % value[0])
                 elif key == u'UNTIL':
                     kwargs[str(key.lower())] = deserialize_dt(value[0])
                 elif key == u'BYDAY':
-                    kwargs[str(key.lower())] = map(lambda v: to_weekday(v), value)
+                    bydays = []
+                    for v in value:
+                        try:
+                            bydays.append(to_weekday(v))
+                        except ValueError:
+                            raise DeserializationError(
+                                'bad weekday value: %s' % v)
+                    kwargs[str(key.lower())] = bydays
+                elif key.lower() in Rule.byparams:
+                    numbers = []
+                    for v in value:
+                        try:
+                            numbers.append(int(v))
+                        except ValueError:
+                            raise DeserializationError('bad value: %s' % value)
+                    kwargs[str(key.lower())] = numbers
                 else:
-                    kwargs[str(key.lower())] = map(lambda v: int(v), value)
+                    raise DeserializationError('bad parameter: %s' % key)
+            if 'freq' not in kwargs:
+                raise DeserializationError(
+                    'frequency parameter missing from rule')
             if label == u'RRULE':
                 rrules.append(Rule(**kwargs))
             else:
