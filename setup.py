@@ -1,19 +1,25 @@
-from setuptools import setup, find_packages
+try:
+    from setuptools import setup
+    setuptools = True
+except ImportError:
+    from distutils.core import setup
+    setuptools = False
+
+
+if setuptools:
+    setup_options = dict(zip_safe=False)
+else:
+    setup_options = dict()
 
 
 setup(
-    name='recurrence',
+    name='django-recurrence',
     version='0.1',
     license='BSD',
+
     description='Django utility wrapping dateutil.rrule',
-
-    author='Imaginary Landscape',
-    author_email='devel@imagescape.com',
-
-    install_requires=(
-        'pytz',
-        'python-dateutil',
-    ),
+    author='Tamas Kemenczy',
+    author_email='tamas.kemenczy@gmail.com',
 
     classifiers=(
         'Development Status :: 2 - Pre-Alpha',
@@ -25,7 +31,24 @@ setup(
         'Programming Language :: Python',
     ),
 
-    zip_safe=False,
-    include_package_data=True,
-    packages=find_packages(exclude=('ez_setup', 'examples', 'tests')),
+    install_requires=(
+        'pytz',
+        'python-dateutil',
+    ),
+
+    packages=(
+        'recurrence',
+    ),
+    package_dir={
+        'recurrence': 'recurrence'
+    },
+    package_data={
+        'recurrence': [
+            'media/css/*.css',
+            'media/img/*.png',
+            'media/js/*.js',
+        ],
+    },
+
+    **setup_options
 )
