@@ -31,9 +31,9 @@ setup(
         'Programming Language :: Python',
     ),
 
-    install_requires=(
+    requires=(
         'pytz',
-        'python-dateutil',
+        'python_dateutil',
     ),
 
     packages=(
