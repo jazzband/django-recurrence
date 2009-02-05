@@ -827,9 +827,9 @@ recurrence.widget.RuleForm.prototype = {
             var token = recurrence.string.capitalize(
                 recurrence.display.labels.count_plural);
         var count_label1 = recurrence.widget.e(
-            'span', {'class': 'label'}, token.split('%number')[0]);
+            'span', {'class': 'label'}, token.split('%(number)s')[0]);
         var count_label2 = recurrence.widget.e(
-            'span', {'class': 'label'}, token.split('%number')[1]);
+            'span', {'class': 'label'}, token.split('%(number)s')[1]);
         var count_container = recurrence.widget.e(
             'li', {'class': 'count'},
             [count_radio, count_label1, count_field, count_label2]);
@@ -1007,8 +1007,8 @@ recurrence.widget.RuleForm.prototype = {
                 recurrence.display.labels.count_plural);
         var label1 = this.elements.count_field.previousSibling;
         var label2 = this.elements.count_field.nextSibling;
-        label1.firstChild.nodeValue = token.split('%number')[0];
-        label2.firstChild.nodeValue = token.split('%number')[1];
+        label1.firstChild.nodeValue = token.split('%(number)s')[0];
+        label2.firstChild.nodeValue = token.split('%(number)s')[1];
         recurrence.array.foreach(
             this.freq_rules, function(rule) {
                 rule.until = null;
@@ -1149,7 +1149,7 @@ recurrence.widget.RuleYearlyForm.prototype = {
                 var option = recurrence.widget.e(
                     'option', {'value': value},
                     recurrence.string.strip(recurrence.display.weekdays_position[
-                        String(value)].split('%weekday')[0]));
+                        String(value)].split('%(weekday)s')[0]));
                 return option;
             });
         var position_select = recurrence.widget.e(
@@ -1318,7 +1318,7 @@ recurrence.widget.RuleMonthlyForm.prototype = {
                     'option', {'value': value},
                     recurrence.string.strip(
                         recurrence.display.weekdays_position[
-                        String(value)].split('%weekday')[0]));
+                        String(value)].split('%(weekday)s')[0]));
                 return option;
             });
         var position_select = recurrence.widget.e(
@@ -1758,24 +1758,24 @@ if (!recurrence.display)
     recurrence.display = {};
 
 recurrence.display.mode = {
-    'inclusion': 'including', 'exclusion': 'excluding'
+    'inclusion': gettext('including'), 'exclusion': gettext('excluding')
 };
 
 recurrence.display.labels = {
-    'frequency': 'Frequency',
-    'on_the': 'On the',
-    'each': 'Each',
-    'every': 'Every',
-    'until': 'Until',
-    'count': 'Occurs %number time',
-    'count_plural': 'Occurs %number times',
-    'date': 'Date',
-    'time': 'Time',
-    'repeat_until': 'Repeat until',
-    'exclude_occurrences': 'Exclude these occurences',
-    'exclude_date': 'Exclude this date',
-    'add_rule': 'Add rule',
-    'add_date': 'Add date',
-    'remove': 'Remove',
-    'calendar': 'Calendar'
+    'frequency': gettext('Frequency'),
+    'on_the': gettext('On the'),
+    'each': gettext('Each'),
+    'every': gettext('Every'),
+    'until': gettext('Until'),
+    'count': gettext('Occurs %(number)s time'),
+    'count_plural': gettext('Occurs %(number)s times'),
+    'date': gettext('Date'),
+    'time': gettext('Time'),
+    'repeat_until': gettext('Repeat until'),
+    'exclude_occurrences': gettext('Exclude these occurences'),
+    'exclude_date': gettext('Exclude this date'),
+    'add_rule': gettext('Add rule'),
+    'add_date': gettext('Add date'),
+    'remove': gettext('Remove'),
+    'calendar': gettext('Calendar')
 };

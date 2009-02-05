@@ -80,8 +80,8 @@ recurrence.Rule.prototype = {
                                 var weekday_display = get_weekday_display(
                                     recurrence.to_weekday(y).number);
                                 items.push(
-                                    recurrence.string.format(
-                                    label, {'weekday': weekday_display}));
+                                    interpolate(
+                                        label, {'weekday': weekday_display}, true));
                             });
                     });
 
@@ -96,8 +96,8 @@ recurrence.Rule.prototype = {
                         var weekday_display = get_weekday_display(
                             recurrence.to_weekday(x).number);
                         items.push(
-                            recurrence.string.format(
-                            label, {'weekday': weekday_display}));
+                            interpolate(
+                                label, {'weekday': weekday_display}, true));
                     });
             }
             return items.join(', ');
@@ -105,11 +105,11 @@ recurrence.Rule.prototype = {
 
         if (this.interval > 1)
             parts.push(
-                recurrence.string.format(
-                recurrence.display.tokens.every_number_freq, {
-                    'number': this.interval,
-                    'freq': recurrence.display.timeintervals_plural[this.freq]
-                }));
+                interpolate(
+                    recurrence.display.tokens.every_number_freq, {
+                        'number': this.interval,
+                        'freq': recurrence.display.timeintervals_plural[this.freq]
+                    }, true));
         else
             parts.push(recurrence.display.frequencies[this.freq]);
 
@@ -126,16 +126,17 @@ recurrence.Rule.prototype = {
                     });
                 items = items.join(', ');
                 parts.push(
-                    recurrence.string.format(
-                    recurrence.display.tokens.each, {'items': items}));
+                    interpolate(
+                        recurrence.display.tokens.each,
+                        {'items': items}, true));
             }
 
             if (this.byday.length || this.bysetpos.length) {
                 var weekday_items = get_position_weekday(this);
                 parts.push(
-                    recurrence.string.format(
-                    recurrence.display.tokens.on_the_items,
-                    {'items': weekday_items}));
+                    interpolate(
+                        recurrence.display.tokens.on_the_items,
+                        {'items': weekday_items}, true));
             }
         }
 
@@ -150,17 +151,17 @@ recurrence.Rule.prototype = {
                 });
                 items = items.join(', ');
                 parts.push(
-                    recurrence.string.format(
-                    recurrence.display.tokens.on_the_items,
-                    {'items': items}));
+                    interpolate(
+                        recurrence.display.tokens.on_the_items,
+                        {'items': items}, true));
 
             } else if (this.byday.length) {
                 if (this.byday.length || this.bysetpos.length) {
                     var weekday_items = get_position_weekday(this);
                     parts.push(
-                        recurrence.string.format(
-                        recurrence.display.tokens.on_the_items,
-                        {'items': weekday_items}));
+                        interpolate(
+                            recurrence.display.tokens.on_the_items,
+                            {'items': weekday_items}, true));
                 }
             }
         }
@@ -181,8 +182,9 @@ recurrence.Rule.prototype = {
                     });
                 items = items.join(', ');
                 parts.push(
-                    recurrence.string.format(
-                    recurrence.display.tokens.each, {'items': items}));
+                    interpolate(
+                        recurrence.display.tokens.each,
+                        {'items': items}, true));
             }
         }
 
@@ -192,19 +194,19 @@ recurrence.Rule.prototype = {
         if (this.count) {
             if (this.count == 1)
                 parts.push(
-                    recurrence.string.format(
-                    recurrence.display.tokens.count,
-                    {'number': this.count}));
+                    interpolate(
+                        recurrence.display.tokens.count,
+                        {'number': this.count}, true));
             else
                 parts.push(
-                    recurrence.string.format(
-                    recurrence.display.tokens.count_plural,
-                    {'number': this.count}));
+                    interpolate(
+                        recurrence.display.tokens.count_plural,
+                        {'number': this.count}, true));
         } else if (this.until) {
             parts.push(
-                recurrence.string.format(
-                recurrence.display.tokens.until, 
-                {'date': recurrence.date.format(this.until, '%Y-%m-%d')}));
+                interpolate(
+                    recurrence.display.tokens.until, 
+                    {'date': recurrence.date.format(this.until, '%Y-%m-%d')}, true));
         }
 
         return parts.join(', ');
@@ -962,72 +964,113 @@ recurrence.weekdays = [
 // recurrence.firstweekday = 0;
 
 
+// i18n no-ops if jsi18n not loaded
+
+if (!catalog) {
+    var catalog = [];
+}
+
+if (!gettext) {
+    function gettext(msgid) {
+        var value = catalog[msgid];
+        if (typeof(value) == 'undefined') {
+            return msgid;
+        } else {
+            return (typeof(value) == 'string') ? value : value[0];
+        }
+    }
+}
+
+if (!interpolate) {
+    function interpolate(fmt, obj, named) {
+        if (named) {
+            return fmt.replace(/%\(\w+\)s/g, function(match) {
+                return String(obj[match.slice(2,-2)])
+            });
+        } else {
+            return fmt.replace(/%s/g, function(match) {
+                return String(obj.shift())
+            });
+        }
+    }
+}
+
+
 // display
 
 if (!recurrence.display)
     recurrence.display = {};
 
 recurrence.display.tokens = {
-    'midnight': 'midnight',
-    'noon': 'noon',
-    'on_the_items': 'on the %items',
-    'every_number_freq': 'every %number %freq',
-    'each': 'each %items',
-    'count': 'occuring %number time',
-    'count_plural': 'occuring %number times',
-    'until': 'until %date'
+    'midnight': gettext('midnight'),
+    'noon': gettext('noon'),
+    'on_the_items': gettext('on the %(items)s'),
+    'every_number_freq': gettext('every %(number)s %(freq)s'),
+    'each': gettext('each %(items)s'),
+    'count': gettext('occuring %(number)s time'),
+    'count_plural': gettext('occuring %(number)s times'),
+    'until': gettext('until %(date)s')
 };
 
 recurrence.display.timeintervals = [
-    'year', 'month', 'week', 'day',
-    'hour', 'minute', 'second'
+    gettext('year'), gettext('month'), gettext('week'), gettext('day'),
+    gettext('hour'), gettext('minute'), gettext('second')
 ];
 recurrence.display.timeintervals_plural = [
-    'years', 'months', 'weeks', 'days',
-    'hours', 'minutes', 'seconds'
+    gettext('years'), gettext('months'), gettext('weeks'), gettext('days'),
+    gettext('hours'), gettext('minutes'), gettext('seconds')
 ];
 recurrence.display.frequencies = [
-    'annually', 'monthly', 'weekly', 'daily',
-    'hourly', 'minutely', 'secondly'
+    gettext('annually'), gettext('monthly'), gettext('weekly'), gettext('daily'),
+    gettext('hourly'), gettext('minutely'), gettext('secondly')
 ];
 recurrence.display.weekdays = [
-    'Monday', 'Tuesday', 'Wednesday', 'Thursday',
-    'Friday', 'Saturday', 'Sunday'
+    gettext('Monday'), gettext('Tuesday'), gettext('Wednesday'), gettext('Thursday'),
+    gettext('Friday'), gettext('Saturday'), gettext('Sunday')
 ];
 recurrence.display.weekdays_short = [
-    'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
+    gettext('Mon'), gettext('Tue'), gettext('Wed'), gettext('Thu'),
+    gettext('Fri'), gettext('Sat'), gettext('Sun')
 ];
 recurrence.display.weekdays_oneletter = [
-    'M', 'T', 'W', 'T', 'F', 'S', 'S'
+    gettext('M'), gettext('T'), gettext('W'), gettext('T'),
+    gettext('F'), gettext('S'), gettext('S')
 ];
 recurrence.display.weekdays_position = {
-    '1': 'first %weekday',
-    '2': 'second %weekday',
-    '3': 'third %weekday',
-    '-1': 'last %weekday',
-    '-2': 'second last %weekday',
-    '-3': 'third last %weekday'
+    '1': gettext('first %(weekday)s'),
+    '2': gettext('second %(weekday)s'),
+    '3': gettext('third %(weekday)s'),
+    '-1': gettext('last %(weekday)s'),
+    '-2': gettext('second last %(weekday)s'),
+    '-3': gettext('third last %(weekday)s')
 };
 recurrence.display.weekdays_position_short = {
-    '1': '1st %weekday',
-    '2': '2nd %weekday',
-    '3': '3rd %weekday',
-    '-1': 'last %weekday',
-    '-2': '2nd last %weekday',
-    '-3': '3rd last %weekday'
+    '1': gettext('1st %(weekday)s'),
+    '2': gettext('2nd %(weekday)s'),
+    '3': gettext('3rd %(weekday)s'),
+    '-1': gettext('last %(weekday)s'),
+    '-2': gettext('2nd last %(weekday)s'),
+    '-3': gettext('3rd last %(weekday)s')
 };
 recurrence.display.months = [
-    'January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'
+    gettext('January'), gettext('February'), gettext('March'),
+    gettext('April'), gettext('May'), gettext('June'),
+    gettext('July'), gettext('August'), gettext('September'),
+    gettext('October'), gettext('November'), gettext('December')
 ];
 recurrence.display.months_short = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    gettext('Jan'), gettext('Feb'), gettext('Mar'),
+    gettext('Apr'), gettext('May'), gettext('Jun'),
+    gettext('Jul'), gettext('Aug'), gettext('Sep'),
+    gettext('Oct'), gettext('Nov'), gettext('Dec')
 ];
 recurrence.display.months_ap = [
-    'Jan.', 'Feb.', 'March', 'April', 'May', 'June',
-    'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'
+    gettext('Jan.'), gettext('Feb.'), gettext('March'),
+    gettext('April'), gettext('May'), gettext('June'),
+    gettext('July'), gettext('Aug.'), gettext('Sept.'),
+    gettext('Oct.'), gettext('Nov.'), gettext('Dec.')
 ];
 recurrence.display.ampm = {
-    'am': 'a.m.', 'pm': 'p.m.', 'AM': 'AM', 'PM': 'PM'
+    'am': gettext('a.m.'), 'pm': gettext('p.m.'),
+    'AM': gettext('AM'), 'PM': gettext('PM')
 };

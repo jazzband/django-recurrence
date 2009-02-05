@@ -44,9 +44,11 @@ setup(
     },
     package_data={
         'recurrence': [
-            'media/css/*.css',
-            'media/img/*.png',
-            'media/js/*.js',
+            'media/*.css',
+            'media/*.png',
+            'media/*.js',
+            'locale/*.po',
+            'locale/*.mo',
         ],
     },
 

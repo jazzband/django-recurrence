@@ -1,5 +1,7 @@
 from django import forms
 from django.conf import settings
+from django.core import urlresolvers
+from django.views import i18n
 from django.utils import safestring, simplejson
 from django.utils.translation import ugettext_lazy as _
 
@@ -32,12 +34,16 @@ class RecurrenceWidget(forms.Textarea):
 
     def get_media(self):
         media_prefix = getattr(settings, 'RECURRENCE_MEDIA_PREFIX', '/')
+        js = [
+            media_prefix + 'js/recurrence.js',
+            media_prefix + 'js/recurrence-widget.js',
+        ]
+        i18n_media = find_recurrence_i18n_js_catalog()
+        if i18n_media:
+            js.insert(0, i18n_media)
+
         return forms.Media(
-            js=(
-                media_prefix + 'js/recurrence.js',
-                media_prefix + 'js/recurrence-widget.js',
-            ),
-            css={
+            js=js, css={
                 'all': (
                     media_prefix + 'css/recurrence.css',
                 ),
@@ -166,3 +172,21 @@ class RecurrenceField(forms.CharField):
                     self.error_messages['invalid_frequency'])
 
         return recurrence_obj
+
+
+def find_recurrence_i18n_js_catalog():
+    def check_urlpatterns(urlpatterns):
+        for pattern in urlpatterns:
+            if hasattr(pattern, 'url_patterns'):
+                match = check_urlpatterns(pattern.url_patterns)
+                if match:
+                    return match
+            elif (pattern.callback == i18n.javascript_catalog and
+                  'recurrence' in pattern.default_args.get('packages', [])):
+                if pattern.name:
+                    return urlresolvers.reverse(pattern.name)
+                else:
+                    return urlresolvers.reverse(pattern.callback)
+
+    root_urlconf = __import__(settings.ROOT_URLCONF, {}, {}, [''])
+    return check_urlpatterns(root_urlconf.urlpatterns)
