@@ -174,7 +174,24 @@ class RecurrenceField(forms.CharField):
         return recurrence_obj
 
 
+_recurrence_javascript_catalog_url = None
+
+
 def find_recurrence_i18n_js_catalog():
+    # used cached version
+    global _recurrence_javascript_catalog_url
+    if _recurrence_javascript_catalog_url:
+        return _recurrence_javascript_catalog_url
+
+    # first try to use the dynamic form of the javascript_catalog view
+    try:
+        return urlresolvers.reverse(
+            i18n.javascript_catalog, kwargs={'packages': 'recurrence'})
+    except urlresolvers.NoReverseMatch:
+        pass
+
+    # then scan the entire urlconf for a javascript_catalague pattern
+    # that manually selects recurrence as one of the packages to include
     def check_urlpatterns(urlpatterns):
         for pattern in urlpatterns:
             if hasattr(pattern, 'url_patterns'):
@@ -189,4 +206,8 @@ def find_recurrence_i18n_js_catalog():
                     return urlresolvers.reverse(pattern.callback)
 
     root_urlconf = __import__(settings.ROOT_URLCONF, {}, {}, [''])
-    return check_urlpatterns(root_urlconf.urlpatterns)
+    url = check_urlpatterns(root_urlconf.urlpatterns)
+    # cache it for subsequent use
+    _recurrence_javascript_catalog_url = url
+    return url
+    
