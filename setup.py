@@ -1,3 +1,4 @@
+import os
 try:
     from setuptools import setup
     setuptools = True
@@ -44,11 +45,11 @@ setup(
     },
     package_data={
         'recurrence': [
-            'media/*.css',
-            'media/*.png',
-            'media/*.js',
-            'locale/*.po',
-            'locale/*.mo',
+            os.path.join('media', '*.css'),
+            os.path.join('media', '*.png'),
+            os.path.join('media', '*.js'),
+            os.path.join('locale','*.po'),
+            os.path.join('locale', '*.mo'),
         ],
     },
 
