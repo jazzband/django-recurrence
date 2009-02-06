@@ -8,9 +8,21 @@ except ImportError:
 
 
 if setuptools:
-    setup_options = dict(zip_safe=False)
+    setup_options = dict(
+        install_requires=(
+            'pytz',
+            'python-dateutil',
+        ),
+        zip_safe=False,
+        include_package_data=True,
+    )
 else:
-    setup_options = dict()
+    setup_options = dict(
+        requires=(
+            'pytz',
+            'python_dateutil',
+        ),
+    )
 
 
 setup(
