@@ -5,8 +5,11 @@ from recurrence.base import (
     JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST,
     SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER,
 
-    serialize, deserialize, from_dateutil_rrule, from_dateutil_rruleset, to_weekday,
+    validate, serialize, deserialize, to_weekday,
+    from_dateutil_rrule, from_dateutil_rruleset,
     Recurrence, Rule, Weekday,
+)
 
-    DeserializationError,
+from recurrence.exceptions import (
+    RecurrenceError, SerializationError, DeserializationError, ValidationError
 )

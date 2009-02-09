@@ -6,6 +6,7 @@ from django.utils import safestring, simplejson
 from django.utils.translation import ugettext_lazy as _
 
 import recurrence
+from recurrence import exceptions
 
 
 class RecurrenceWidget(forms.Textarea):
@@ -134,7 +135,12 @@ class RecurrenceField(forms.CharField):
         `recurrence.base.Recurrence` object falls within the
         parameters specified to the `RecurrenceField` constructor.
         """
-        recurrence_obj = recurrence.deserialize(value)
+        try:
+            recurrence_obj = recurrence.deserialize(value)
+        except exceptions.DeserializationError, error:
+            raise forms.ValidationError(error.args[0])
+        except exceptions.ValidationError, error:
+            raise forms.ValidationError(error.args[0])
 
         if not self.accept_dtstart:
             recurrence_obj.dtstart = None
