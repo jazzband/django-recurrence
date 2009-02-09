@@ -732,27 +732,29 @@ recurrence.deserialize = function(text) {
                         var param = key.toLowerCase();
                         var value = item[1];
 
-                        if (key == 'FREQ')
-                            if (recurrence.frequencies.indexOf(value[0]) != -1)
+                        if (key == 'FREQ') {
+                            if (recurrence.frequencies.indexOf(value[0]) != -1) {
                                 freq = recurrence.frequencies.indexOf(value[0]);
-                        else if (key == 'INTERVAL')
+                            }
+                        } else if (key == 'INTERVAL') {
                             options[param] = parseInt(value[0]);
-                        else if (key == 'WKST')
+                        } else if (key == 'WKST') {
                             options[param] = recurrence.to_weekday(value[0]);
-                        else if (key == 'COUNT')
+                        } else if (key == 'COUNT') {
                             options[param] = parseInt(value[0]);
-                        else if (key == 'UNTIL')
+                        } else if (key == 'UNTIL') {
                             options[param] = deserialize_dt(value[0]);
-                        else if (key == 'BYDAY')
+                        } else if (key == 'BYDAY') {
                             options[param] = recurrence.array.foreach(
                                 value, function(item) {
                                     return recurrence.to_weekday(item);
                                 });
-                        else
+                        } else {
                             options[param] = recurrence.array.foreach(
                                 value, function(item) {
                                     return parseInt(item);
                                 });
+                        }
                     });
                 if (label == 'RRULE')
                     rrules.push(new recurrence.Rule(freq, options));
