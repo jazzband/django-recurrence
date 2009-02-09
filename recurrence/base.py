@@ -19,6 +19,8 @@ from django.conf import settings
 from django.utils import dateformat
 from django.utils.translation import ugettext as _
 
+from recurrence import exceptions
+
 
 YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY = range(7)
 
@@ -656,6 +658,123 @@ def to_weekday(token):
             return Weekday(list(Rule.weekdays).index(const), int(nth))
 
 
+def validate(rule_or_recurrence):
+    if isinstance(rule_or_recurrence, Rule):
+        obj = Recurrence(rrules=[rule_or_recurrence])
+    else:
+        obj = rule_or_recurrence
+    try:
+        if not isinstance(obj, Rule) and not isinstance(obj, Recurrence):
+            raise exceptions.ValidationError('incompatible object')
+    except TypeError:
+        raise exceptions.ValidationError('incompatible object')    
+    
+    def validate_dt(dt):
+        if not isinstance(dt, datetime):
+            raise exceptions.ValidationError('invalid datetime: %r' % dt)
+
+    def validate_iterable(rule, param):
+        try:
+            [v for v in getattr(rule, param, []) if v]
+        except TypeError:
+            raise exceptions.ValidationError(
+                '%s parameter must be iterable' % param)
+
+    def validate_iterable_ints(rule, param, min_value=None, max_value=None):
+        for value in getattr(rule, param, []):
+            try:
+                value = int(value)
+                if min_value is not None:
+                    if value < min_value:
+                        raise ValueError
+                if max_value is not None:
+                    if value > max_value:
+                        raise ValueError
+            except ValueError:
+                raise exceptions.ValidationError(
+                    'invalid %s parameter: %r' % param, value)
+            
+    def validate_rule(rule):
+        # validate freq
+        try:
+            Rule.frequencies[int(rule.freq)]
+        except IndexError:
+            raise exceptions.ValidationError(
+                'invalid freq parameter: %r' % rule.freq)
+        except ValueError:
+            raise exceptions.ValidationError(
+                'invalid freq parameter: %r' % rule.freq)
+
+        # validate interval
+        try:
+            interval = int(rule.interval)
+            if interval < 1:
+                raise ValueError
+        except ValueError:
+            raise exceptions.ValidationError(
+                'invalid interval parameter: %r' % rule.interval)
+
+        # validate wkst
+        if rule.wkst:
+            try:
+                wkst = to_weekday(rule.wkst)
+            except ValueError:
+                raise exceptions.ValidationError(
+                    'invalide wkst parameter: %r' % rule.wkst)
+
+        # validate until
+        if rule.until:
+            try:
+                validate_dt(rule.until)
+            except ValueError:
+                raise exceptions.ValidationError(
+                    'invalid until parameter: %r' % rule.until)
+
+        # validate count
+        if rule.count:
+            try:
+                int(rule.count)
+            except ValueError:
+                raise exceptions.ValidationError(
+                    'invalid count parameter: %r' % rule.count)
+
+        # validate byparams
+        for param in Rule.byparams:
+            validate_iterable(rule, param)
+            if param == 'byday':
+                for value in getattr(rule, 'byday', []):
+                    try:
+                        to_weekday(value)
+                    except ValueError:
+                        raise exceptions.ValidationError(
+                            'invalid byday parameter: %r' % value)
+            elif param == 'bymonth':
+                validate_iterable_ints(rule, param, 1, 12)
+            elif param == 'bymonthday':
+                validate_iterable_ints(rule, param, 1, 31)
+            elif param == 'byhour':
+                validate_iterable_ints(rule, param, 0, 23)
+            elif param == 'byminute':
+                validate_iterable_ints(rule, param, 0, 59)
+            elif param == 'bysecond':
+                validate_iterable_ints(rule, param, 0, 59)
+            else:
+                validate_iterable_ints(rule, param)
+
+    if obj.dtstart:
+        validate_dt(obj.dtstart)
+    if obj.dtend:
+        validate_dt(obj.dtend)
+    if obj.rrules:
+        map(lambda rule: validate_rule(rule), obj.rrules)
+    if obj.exrules:
+        map(lambda rule: validate_rule(rule), obj.exrules)
+    if obj.rdates:
+        map(lambda dt: validate_dt(dt), obj.rdates)
+    if obj.exdates:
+        map(lambda dt: validate_dt(dt), obj.exdates)
+
+
 def serialize(rule_or_recurrence):
     """
     Serialize a `Rule` or `Recurrence` instance.
@@ -689,7 +808,7 @@ def serialize(rule_or_recurrence):
         values.append((u'FREQ', [Rule.frequencies[rule.freq]]))
 
         if rule.interval != 1:
-            values.append((u'INTERVAL', [str(rule.interval)]))
+            values.append((u'INTERVAL', [str(int(rule.interval))]))
         if rule.wkst:
             values.append((u'WKST', [Rule.weekdays[rule.wkst]]))
         if rule.count is not None:
@@ -715,6 +834,11 @@ def serialize(rule_or_recurrence):
                 values.append((param.upper(), [str(n) for n in value_list]))
 
         return u';'.join(u'%s=%s' % (i[0], u','.join(i[1])) for i in values)
+
+    try:
+        validate(rule_or_recurrence)
+    except exceptions.ValidationError, error:
+        raise exceptions.SerializationError(error.args[0])
 
     obj = rule_or_recurrence
     if isinstance(obj, Rule):
@@ -785,13 +909,22 @@ def deserialize(text):
         A `Recurrence` instance.
     """
     def deserialize_dt(text):
-        year, month, day = int(text[:4]), int(text[4:6]), int(text[6:8])
+        try:
+            year, month, day = int(text[:4]), int(text[4:6]), int(text[6:8])
+        except ValueError:
+            raise exceptions.DeserializationError('malformed date-time: %r' % text)
         if u'T' in text:
-            hour, minute, second = (
-                int(text[9:11]), int(text[11:13]), int(text[13:15]))
+            # time is also specified
+            try:
+                hour, minute, second = (
+                    int(text[9:11]), int(text[11:13]), int(text[13:15]))
+            except ValueError:
+                raise exceptions.DeserializationError('malformed date-time: %r' % text)
         else:
+            # only date is specified, use midnight
             hour, minute, second = (0, 0, 0)
         if u'Z' in text:
+            # time is in utc
             tzinfo = pytz.utc
         else:
             # right now there is no support for VTIMEZONE/TZID since
@@ -813,15 +946,24 @@ def deserialize(text):
         u'(DTSTART|DTEND|RRULE|EXRULE|RDATE|EXDATE)[^:]*:(.*)',
         re.MULTILINE).findall(text)
 
+    if not tokens and text:
+        raise exceptions.DeserializationError('malformed data')
+
     for label, param_text in tokens:
+        if not param_text:
+            raise exceptions.DeserializationError('empty property: %r' % label)
         if u'=' not in param_text:
             params = param_text
         else:
             params = {}
-            param_tokens = param_text.split(u';')
+            param_tokens = filter(lambda p: p, param_text.split(u';'))
             for item in param_tokens:
-                param_name, param_value = map(
-                    lambda i: i.strip(), item.split(u'=', 1))
+                try:
+                    param_name, param_value = map(
+                        lambda i: i.strip(), item.split(u'=', 1))
+                except ValueError:
+                    raise exceptions.DeserializationError(
+                        'missing parameter value: %r' % item)
                 params[param_name] = map(
                     lambda i: i.strip(), param_value.split(u','))
 
@@ -829,20 +971,55 @@ def deserialize(text):
             kwargs = {}
             for key, value in params.items():
                 if key == u'FREQ':
-                    kwargs[str(key.lower())] = list(
-                        Rule.frequencies).index(value[0])
+                    try:
+                        kwargs[str(key.lower())] = list(
+                            Rule.frequencies).index(value[0])
+                    except ValueError:
+                        raise exceptions.DeserializationError(
+                            'bad frequency value: %r' % value[0])
                 elif key == u'INTERVAL':
-                    kwargs[str(key.lower())] = int(value[0])
+                    try:
+                        kwargs[str(key.lower())] = int(value[0])
+                    except ValueError:
+                        raise exceptions.DeserializationError(
+                            'bad interval value: %r' % value[0])
                 elif key == u'WKST':
-                    kwargs[str(key.lower())] = to_weekday(value[0])
+                    try:
+                        kwargs[str(key.lower())] = to_weekday(value[0])
+                    except ValueError:
+                        raise exceptions.DeserializationError(
+                            'bad weekday value: %r' % value[0])
                 elif key == u'COUNT':
-                    kwargs[str(key.lower())] = int(value[0])
+                    try:
+                        kwargs[str(key.lower())] = int(value[0])
+                    except ValueError:
+                        raise exceptions.DeserializationError(
+                            'bad count value: %r' % value[0])
                 elif key == u'UNTIL':
                     kwargs[str(key.lower())] = deserialize_dt(value[0])
                 elif key == u'BYDAY':
-                    kwargs[str(key.lower())] = map(lambda v: to_weekday(v), value)
+                    bydays = []
+                    for v in value:
+                        try:
+                            bydays.append(to_weekday(v))
+                        except ValueError:
+                            raise exceptions.DeserializationError(
+                                'bad weekday value: %r' % v)
+                    kwargs[str(key.lower())] = bydays
+                elif key.lower() in Rule.byparams:
+                    numbers = []
+                    for v in value:
+                        try:
+                            numbers.append(int(v))
+                        except ValueError:
+                            raise exceptions.DeserializationError(
+                                'bad value: %r' % value)
+                    kwargs[str(key.lower())] = numbers
                 else:
-                    kwargs[str(key.lower())] = map(lambda v: int(v), value)
+                    raise exceptions.DeserializationError('bad parameter: %r' % key)
+            if 'freq' not in kwargs:
+                raise exceptions.DeserializationError(
+                    'frequency parameter missing from rule')
             if label == u'RRULE':
                 rrules.append(Rule(**kwargs))
             else:
