@@ -733,7 +733,8 @@ recurrence.deserialize = function(text) {
                         var value = item[1];
 
                         if (key == 'FREQ')
-                            freq = recurrence.frequencies.indexOf(value[0]);
+                            if (recurrence.frequencies.indexOf(value[0]) != -1)
+                                freq = recurrence.frequencies.indexOf(value[0]);
                         else if (key == 'INTERVAL')
                             options[param] = parseInt(value[0]);
                         else if (key == 'WKST')
