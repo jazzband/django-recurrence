@@ -670,7 +670,7 @@ def validate(rule_or_recurrence):
         raise exceptions.ValidationError('incompatible object')    
     
     def validate_dt(dt):
-        if not isinstance(dt, datetime):
+        if not isinstance(dt, datetime.datetime):
             raise exceptions.ValidationError('invalid datetime: %r' % dt)
 
     def validate_iterable(rule, param):
