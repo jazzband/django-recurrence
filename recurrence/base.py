@@ -1023,7 +1023,7 @@ def deserialize(text):
             if label == u'RRULE':
                 rrules.append(Rule(**kwargs))
             else:
-                exrule.append(Rule(**kwargs))
+                exrules.append(Rule(**kwargs))
         elif label == u'DTSTART':
             dtstart = deserialize_dt(params)
         elif label == u'DTEND':
