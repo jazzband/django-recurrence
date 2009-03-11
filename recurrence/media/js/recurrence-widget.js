@@ -58,7 +58,7 @@ recurrence.widget.Calendar = function(date, options) {
 };
 recurrence.widget.Calendar.prototype = {
     init: function(date, options) {
-        this.date = date || new Date();
+        this.date = date || recurrence.widget.date_today();
         this.month = this.date.getMonth();
         this.year = this.date.getFullYear();
         this.options = options || {};
@@ -351,7 +351,7 @@ recurrence.widget.DateSelector.prototype = {
         
         if (!this.calendar) {
             this.calendar = new recurrence.widget.Calendar(
-                new Date((this.date || new Date()).valueOf()), {
+                new Date((this.date || recurrence.widget.date_today()).valueOf()), {
                     'onchange': function() {
                         dateselector.set_date(
                             recurrence.date.format(this.date, '%Y-%m-%d'));
@@ -403,7 +403,7 @@ recurrence.widget.DateSelector.prototype = {
                  day != this.date.getDate())) {
 
                 if (!this.date)
-                    this.date = new Date();
+                    this.date = recurrence.widget.date_today();
                 this.date.setFullYear(year);
                 this.date.setMonth(month);
                 this.date.setDate(day);
@@ -574,7 +574,7 @@ recurrence.widget.Widget.prototype = {
     },
 
     add_date: function(date) {
-        var date = date || new Date();
+        var date = date || recurrence.widget.date_today();
         this.data.rdates.push(date);
         this.add_date_panel(recurrence.widget.INCLUSION, date).expand();
     },
@@ -1748,6 +1748,15 @@ recurrence.widget.textareas_to_widgets = function(token) {
         elements, function(e) {
             new recurrence.widget.Widget(e, window[e.id] || {});
         });
+};
+
+
+recurrence.widget.date_today = function() {
+    var date = new Date();
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    return date;
 };
 
 
