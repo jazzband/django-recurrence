@@ -1056,15 +1056,17 @@ recurrence.widget.RuleForm.prototype = {
     set_mode: function(mode) {
         if (this.mode != mode) {
             if (this.mode == recurrence.widget.INCLUSION) {
-                this.panel.widget.data.exrules.push(
-                    this.panel.widget.data.rrules.pop(this.rule));
+                recurrence.array.remove(
+                    this.panel.widget.data.rrules, this.rule);
+                this.panel.widget.data.exrules.push(this.rule);
                 recurrence.widget.remove_class(
                     this.panel.elements.root, 'inclusion');
                 recurrence.widget.add_class(
                     this.panel.elements.root, 'exclusion');
             } else {
-                this.panel.widget.data.rrules.push(
-                    this.panel.widget.data.exrules.pop(this.rule));
+                recurrence.array.remove(
+                    this.panel.widget.data.exrules, this.rule);
+                this.panel.widget.data.rrules.push(this.rule);
                 recurrence.widget.remove_class(
                     this.panel.elements.root, 'exclusion');
                 recurrence.widget.add_class(
@@ -1086,9 +1088,9 @@ recurrence.widget.RuleForm.prototype = {
         if (parent)
             parent.removeChild(this.elements.root);
         if (this.mode == recurrence.widget.INCLUSION)
-            this.panel.widget.data.rrules.pop(this.rule);
+            recurrence.array.remove(this.panel.widget.data.rrules, this.rule);
         else
-            this.panel.widget.data.exrules.pop(this.rule);
+            recurrence.array.remove(this.panel.widget.data.exrules, this.rule);
         this.panel.widget.update();
     }
 };
@@ -1613,16 +1615,18 @@ recurrence.widget.DateForm.prototype = {
     set_mode: function(mode) {
         if (this.mode != mode) {
             if (this.mode == recurrence.widget.INCLUSION) {
-                this.panel.widget.data.exdates.push(
-                    this.panel.widget.data.rdates.pop(this.date));
+                recurrence.array.remove(
+                    this.panel.widget.data.rdates, this.date);
+                this.panel.widget.data.exdates.push(this.date);
                 recurrence.widget.remove_class(
                     this.elements.root, 'inclusion');
                 recurrence.widget.add_class(
                     this.elements.root, 'exclusion');
                 this.update();
             } else {
-                this.panel.widget.data.rdates.push(
-                    this.panel.widget.data.exdates.pop(this.date));
+                recurrence.array.remove(
+                    this.panel.widget.data.exdates, this.date);
+                this.panel.widget.data.rdates.push(this.date);
                 recurrence.widget.remove_class(
                     this.elements.root, 'exclusion');
                 recurrence.widget.add_class(
@@ -1644,9 +1648,9 @@ recurrence.widget.DateForm.prototype = {
         if (parent)
             parent.removeChild(this.elements.root);
         if (this.mode == recurrence.widget.INCLUSION)
-            this.panel.widget.data.rdates.pop(this.date);
+            recurrence.array.remove(this.panel.widget.data.rdates, this.date);
         else
-            this.panel.widget.data.exdates.pop(this.date);
+            recurrence.array.remove(this.panel.widget.data.exdates, this.date);
         this.panel.widget.update();
     }
 };
@@ -1690,7 +1694,7 @@ recurrence.widget.add_class = function(element, class_name) {
 recurrence.widget.remove_class = function(element, class_name) {
     var names = (element.className || '').split(/[ \r\n\t]+/g);
     if (names.indexOf(class_name) > -1) {
-        names.pop(class_name);
+        recurrence.array.remove(names, class_name);
         element.className = names.join(' ');
     }
 };

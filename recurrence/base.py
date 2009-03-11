@@ -868,7 +868,7 @@ def serialize(rule_or_recurrence):
     for rrule in obj.rrules:
         items.append((u'RRULE', serialize_rule(rrule)))
     for exrule in obj.exrules:
-        items.append((u'EXRULES', serialize_rule(exrule)))
+        items.append((u'EXRULE', serialize_rule(exrule)))
 
     for rdate in obj.rdates:
         if rdate.tzinfo:

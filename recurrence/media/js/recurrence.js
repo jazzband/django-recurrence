@@ -892,6 +892,10 @@ recurrence.array = {
                 results.push(iterable[i]);
             return results;
         }
+    },
+
+    remove: function(array, item) {
+        array.splice(array.indexOf(item), 1);
     }
 };
 
