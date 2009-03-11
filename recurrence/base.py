@@ -231,6 +231,8 @@ class Rule(object):
             if dtend:
                 if until > dtend:
                     until = dtend
+        elif dtend:
+            until = dtend
 
         return dateutil.rrule.rrule(
             self.freq, dtstart, self.interval, self.wkst, self.count, until,
@@ -372,7 +374,7 @@ class Recurrence(object):
                 Whether to cache the occurence set generator.
 
         :Returns:
-            The number of ocurrences in this occurence set.
+            The number of occurrences in this occurence set.
         """
         return self.to_dateutil_rruleset(dtstart, dtend, cache).count()
 
