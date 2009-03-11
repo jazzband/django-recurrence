@@ -550,7 +550,9 @@ class Recurrence(object):
 
         for exdate in self.exdates:
             exdate = normalize_offset_awareness(exdate, dtstart)
-            if exdate < dtend:
+            if dtend is not None and exdate < dtend:
+                rruleset.exdate(exdate)
+            elif not dtend:
                 rruleset.exdate(exdate)
 
         if cache:
