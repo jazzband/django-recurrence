@@ -179,11 +179,13 @@ class Rule(object):
                 setattr(self, param, [])
 
     def __hash__(self):
+        byparam_values = []
+        for param in self.byparams:
+            byparam_values.append(param)
+            byparam_values.extend(getattr(self, param, []) or [])
         return hash((
             self.freq, self.interval, self.wkst, self.count, self.until,
-            tuple(map(
-                lambda p: map(lambda v: tuple(v), getattr(self, p, []) or []),
-                self.byparams))))
+            tuple(byparam_values)))
 
     def __eq__(self, other):
         if not isinstance(other, Rule):
