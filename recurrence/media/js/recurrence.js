@@ -544,7 +544,7 @@ recurrence.to_weekday = function(token) {
         else
             return new recurrence.Weekday(weekday, nth || null);
     } else {
-        return new recurrence.Weekday(parseInt(token));
+        return new recurrence.Weekday(parseInt(token, 10));
     }
     throw Error('Invalid weekday token.');
 };
@@ -658,13 +658,13 @@ recurrence.serialize = function(rule_or_recurrence) {
 
 recurrence.deserialize = function(text) {
     var deserialize_dt = function(text) {
-        var year = parseInt(text.slice(0, 4));
-        var month = parseInt(text.slice(4, 6));
-        var day = parseInt(text.slice(6, 8));
+        var year = parseInt(text.slice(0, 4), 10);
+        var month = parseInt(text.slice(4, 6), 10);
+        var day = parseInt(text.slice(6, 8), 10);
         if (text.indexOf('T') > 0) {
-            var hour = parseInt(text.slice(9, 11));
-            var minute = parseInt(text.slice(11, 13));
-            var second = parseInt(text.slice(13, 15));
+            var hour = parseInt(text.slice(9, 11), 10);
+            var minute = parseInt(text.slice(11, 13), 10);
+            var second = parseInt(text.slice(13, 15), 10);
         } else {
             var hour = 0;
             var minute = 0;
@@ -737,11 +737,11 @@ recurrence.deserialize = function(text) {
                                 freq = recurrence.frequencies.indexOf(value[0]);
                             }
                         } else if (key == 'INTERVAL') {
-                            options[param] = parseInt(value[0]);
+                            options[param] = parseInt(value[0], 10);
                         } else if (key == 'WKST') {
                             options[param] = recurrence.to_weekday(value[0]);
                         } else if (key == 'COUNT') {
-                            options[param] = parseInt(value[0]);
+                            options[param] = parseInt(value[0], 10);
                         } else if (key == 'UNTIL') {
                             options[param] = deserialize_dt(value[0]);
                         } else if (key == 'BYDAY') {
@@ -752,7 +752,7 @@ recurrence.deserialize = function(text) {
                         } else {
                             options[param] = recurrence.array.foreach(
                                 value, function(item) {
-                                    return parseInt(item);
+                                    return parseInt(item, 10);
                                 });
                         }
                     });

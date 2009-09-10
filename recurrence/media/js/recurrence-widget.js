@@ -184,7 +184,7 @@ recurrence.widget.Calendar.prototype = {
                     cell.onclick = function () {
                         calendar.set_date(
                             calendar.year, calendar.month,
-                            parseInt(this.innerHTML));
+                            parseInt(this.innerHTML, 10));
                     };
                 }
             }, this);
@@ -244,7 +244,7 @@ recurrence.widget.Calendar.prototype = {
             recurrence.array.foreach(
                 this.elements.month_grid.cells, function(cell) {
                     if (recurrence.widget.has_class(cell, 'day')) {
-                        var number = parseInt(cell.innerHTML);
+                        var number = parseInt(cell.innerHTML, 10);
                         if (number == day) {
                             recurrence.widget.add_class(cell, 'active');
                         } else {
@@ -380,9 +380,9 @@ recurrence.widget.DateSelector.prototype = {
 
     set_date: function(datestring) {
         var tokens = datestring.split('-');
-        var year = parseInt(tokens[0]);
-        var month = parseInt(tokens[1]) - 1;
-        var day = parseInt(tokens[2]);
+        var year = parseInt(tokens[0], 10);
+	var month = parseInt(tokens[1], 10) - 1;
+        var day = parseInt(tokens[2], 10);
         var dt = new Date(year, month, day);
 
         if (String(dt) == 'Invalid Date' || String(dt) == 'NaN') {
@@ -878,11 +878,11 @@ recurrence.widget.RuleForm.prototype = {
         };
 
         freq_select.onchange = function() {
-            form.set_freq(parseInt(this.value));
+            form.set_freq(parseInt(this.value), 10);
         };
 
         interval_field.onchange = function() {
-            form.set_interval(parseInt(this.value));
+            form.set_interval(parseInt(this.value), 10);
         };
 
         limit_checkbox.onclick = function () {
@@ -939,11 +939,11 @@ recurrence.widget.RuleForm.prototype = {
             count_field.disabled = false;
             until_radio.checked = false;
             until_date_selector.disable();
-            form.set_count(parseInt(count_field.value));
+            form.set_count(parseInt(count_field.value), 10);
         };
 
         count_field.onchange = function () {
-            form.set_count(parseInt(this.value));
+            form.set_count(parseInt(this.value), 10);
         };
 
         // freq forms
@@ -1018,7 +1018,7 @@ recurrence.widget.RuleForm.prototype = {
     },
 
     set_interval: function(interval) {
-        interval = parseInt(interval);
+        interval = parseInt(interval, 10);
         if (String(interval) == 'NaN') {
             // invalid value, reset to previous value
             this.elements.interval_field.value = (
@@ -1049,7 +1049,7 @@ recurrence.widget.RuleForm.prototype = {
         this.elements.freq_select.value = freq;
         this.selected_freq = freq;
         // need to update interval to display different label
-        this.set_interval(parseInt(this.elements.interval_field.value));
+        this.set_interval(parseInt(this.elements.interval_field.value), 10);
         this.update();
     },
 
@@ -1223,8 +1223,8 @@ recurrence.widget.RuleYearlyForm.prototype = {
     },
 
     get_weekday: function() {
-        var number = parseInt(this.elements.weekday_select.value);
-        var index = parseInt(this.elements.position_select.value);
+        var number = parseInt(this.elements.weekday_select.value, 10);
+        var index = parseInt(this.elements.position_select.value, 10);
         return new recurrence.Weekday(number, index);
     },
 
@@ -1286,7 +1286,7 @@ recurrence.widget.RuleMonthlyForm.prototype = {
                     cell.onclick = function () {
                         if (monthday_grid.disabled)
                             return;
-                        var day = parseInt(this.innerHTML) || null;
+                        var day = parseInt(this.innerHTML, 10) || null;
                         if (day) {
                             if (recurrence.widget.has_class(this, 'active'))
                                 recurrence.widget.remove_class(this, 'active');
@@ -1414,8 +1414,8 @@ recurrence.widget.RuleMonthlyForm.prototype = {
     },
 
     get_weekday: function() {
-        var number = parseInt(this.elements.weekday_select.value);
-        var index = parseInt(this.elements.position_select.value);
+        var number = parseInt(this.elements.weekday_select.value, 10);
+        var index = parseInt(this.elements.position_select.value, 10);
         return new recurrence.Weekday(number, index);
     },
 
@@ -1432,7 +1432,7 @@ recurrence.widget.RuleMonthlyForm.prototype = {
         var monthdays = [];
         recurrence.array.foreach(
             this.elements.monthday_grid.cells, function(cell) {
-                var day = parseInt(cell.innerHTML) || null;
+                var day = parseInt(cell.innerHTML, 10) || null;
                 if (day && recurrence.widget.has_class(cell, 'active'))
                     monthdays.push(day);
             });

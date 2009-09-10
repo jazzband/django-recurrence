@@ -210,7 +210,7 @@ class Rule(object):
                 The rule should not yield occurrences past this
                 date. Replaces `until` if `until` is greater than
                 `dtend`. Note: `dtend` in this case does not count for
-                an occurence itself.
+                an occurrence itself.
 
             `cache` : bool
                 If given, it must be a boolean value specifying to
@@ -258,7 +258,7 @@ class Recurrence(object):
     :Variables:
         `dtstart` : datetime.datetime
             Optionally specify the first occurrence. This defaults to
-            `datetime.datetime.now()` when the occurence set is
+            `datetime.datetime.now()` when the occurrence set is
             generated.
 
         `dtend` : datetime.datetime
@@ -277,11 +277,11 @@ class Recurrence(object):
 
         `rdates` : list
             A list of `datetime.datetime` instances to include in the
-            occurence set generation.
+            occurrence set generation.
 
         `exdates` : list
             A list of `datetime.datetime` instances to exclude in the
-            occurence set generation. Dates included that way will
+            occurrence set generation. Dates included that way will
             not be generated, even if some inclusive `Rule` or
             `datetime.datetime` instances matches them.
     """
@@ -305,7 +305,7 @@ class Recurrence(object):
         self.exdates = list(exdates)
 
     def __iter__(self):
-        return self.occurences()
+        return self.occurrences()
 
     def __unicode__(self):
         return serialize(self)
@@ -336,21 +336,21 @@ class Recurrence(object):
         self, dtstart=None, dtend=None, cache=False):
         """
         Get a generator yielding `datetime.datetime` instances in this
-        occurence set.
+        occurrence set.
 
         :Parameters:
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                occurence set is generated.
+                occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defauts to `self.dtend` if specified.
 
             `cache` : bool
-                Whether to cache the occurence set generator.
+                Whether to cache the occurrence set generator.
 
         :Returns:
             A sequence of `datetime.datetime` instances.
@@ -359,24 +359,24 @@ class Recurrence(object):
 
     def count(self, dtstart=None, dtend=None, cache=False):
         """
-        Returns the number of occurrences in this occurence set.
+        Returns the number of occurrences in this occurrence set.
 
         :Parameters:
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                occurence set is generated.
+                occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defauts to `self.dtend` if specified.
 
             `cache` : bool
-                Whether to cache the occurence set generator.
+                Whether to cache the occurrence set generator.
 
         :Returns:
-            The number of occurrences in this occurence set.
+            The number of occurrences in this occurrence set.
         """
         return self.to_dateutil_rruleset(dtstart, dtend, cache).count()
 
@@ -398,16 +398,16 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                occurence set is generated.
+                occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defauts to `self.dtend` if specified.
 
             `cache` : bool
-                Whether to cache the occurence set generator.
+                Whether to cache the occurrence set generator.
 
         :Returns:
             A `datetime.datetime` instance.
@@ -433,16 +433,16 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                occurence set is generated.
+                occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defauts to `self.dtend` if specified.
 
             `cache` : bool
-                Whether to cache the occurence set generator.
+                Whether to cache the occurrence set generator.
 
         :Returns:
             A `datetime.datetime` instance.
@@ -467,20 +467,20 @@ class Recurrence(object):
                 Defines what happens if `after` and/or `before` are
                 themselves occurrences. With `inc == True`, they will
                 be included in the list, if they are found in the
-                occurence set.
+                occurrence set.
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                occurence set is generated.
+                occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defauts to `self.dtend` if specified.
 
             `cache` : bool
-                Whether to cache the occurence set generator.
+                Whether to cache the occurrence set generator.
 
         :Returns:
             A sequence of `datetime.datetime` instances.
@@ -501,9 +501,9 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defauts to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
-                occurence set is generated.
+                occurrence set is generated.
 
             `cache` : bool
                 If given, it must be a boolean value specifying to
