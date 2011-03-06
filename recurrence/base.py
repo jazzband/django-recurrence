@@ -325,6 +325,8 @@ class Recurrence(object):
             return False
 
     def __eq__(self, other):
+        if type(other) != type(self):
+            return False
         if not isinstance(other, Recurrence):
             raise TypeError('object to compare must be Recurrence object')
         return hash(self) == hash(other)
