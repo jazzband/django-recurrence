@@ -34,7 +34,7 @@ class RecurrenceWidget(forms.Textarea):
             widget_init_js))
 
     def get_media(self):
-        media_prefix = getattr(settings, 'RECURRENCE_MEDIA_PREFIX', '/')
+        media_prefix = getattr(settings, 'STATIC_URL', '/')
         js = [
             media_prefix + 'js/recurrence.js',
             media_prefix + 'js/recurrence-widget.js',
