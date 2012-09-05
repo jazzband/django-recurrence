@@ -1,4 +1,4 @@
 include LICENSE
 include MANIFEST.in
-recursive-include recurrence/media *
+recursive-include recurrence/static *
 recursive-include recurrence/locale *
