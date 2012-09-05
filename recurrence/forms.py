@@ -16,7 +16,7 @@ class RecurrenceWidget(forms.Textarea):
         if attrs is not None:
             defaults.update(attrs)
         super(RecurrenceWidget, self).__init__(defaults)
-        
+
     def render(self, name, value, attrs=None):
         if value is None:
             value = ''
@@ -36,8 +36,8 @@ class RecurrenceWidget(forms.Textarea):
     def get_media(self):
         media_prefix = getattr(settings, 'STATIC_URL', '/')
         js = [
-            media_prefix + 'js/recurrence.js',
-            media_prefix + 'js/recurrence-widget.js',
+            media_prefix + 'recurrence/js/recurrence.js',
+            media_prefix + 'recurrence/js/recurrence-widget.js',
         ]
         i18n_media = find_recurrence_i18n_js_catalog()
         if i18n_media:
@@ -46,7 +46,7 @@ class RecurrenceWidget(forms.Textarea):
         return forms.Media(
             js=js, css={
                 'all': (
-                    media_prefix + 'css/recurrence.css',
+                    media_prefix + 'recurrence/css/recurrence.css',
                 ),
             },
         )
@@ -216,4 +216,4 @@ def find_recurrence_i18n_js_catalog():
     # cache it for subsequent use
     _recurrence_javascript_catalog_url = url
     return url
-    
+
