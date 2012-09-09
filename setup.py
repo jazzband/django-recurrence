@@ -57,9 +57,9 @@ setup(
     },
     package_data={
         'recurrence': [
-            os.path.join('media', '*.css'),
-            os.path.join('media', '*.png'),
-            os.path.join('media', '*.js'),
+            os.path.join('static', '*.css'),
+            os.path.join('static', '*.png'),
+            os.path.join('static', '*.js'),
             os.path.join('locale','*.po'),
             os.path.join('locale', '*.mo'),
         ],
