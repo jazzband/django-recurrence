@@ -23,7 +23,7 @@ class RecurrenceField(fields.Field):
         value = super(RecurrenceField, self).to_python(value) or u''
         return recurrence.deserialize(value)
 
-    def get_db_prep_value(self, value):
+    def get_db_prep_value(self, value, connection=None, prepared=False):
         if isinstance(value, basestring):
             value = recurrence.deserialize(value)
         return recurrence.serialize(value)
