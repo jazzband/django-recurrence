@@ -4,6 +4,15 @@ from django.db.models.fields import related, subclassing
 import recurrence
 from recurrence import models, forms
 
+try:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([], [
+        "^recurrence\.fields\.RecurrenceField",
+        "^recurrence\.fields\.RecurrenceModelField",
+    ])
+except ImportError:
+    pass 
+
 
 class RecurrenceField(fields.Field):
     """
