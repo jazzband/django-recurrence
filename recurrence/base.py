@@ -259,7 +259,9 @@ class Recurrence(object):
         `dtstart` : datetime.datetime
             Optionally specify the first occurrence. This defaults to
             `datetime.datetime.now()` when the occurrence set is
-            generated.
+            generated. NOTE: Time is set to (0, 0) midnight to assist
+            in testing a recurrence for a particular date.  E.g.
+            `mydatetime_atmidnight in reccurrence == True | False`.
 
         `dtend` : datetime.datetime
             Optionally specify the last occurrence.
@@ -296,7 +298,10 @@ class Recurrence(object):
         """
         self._cache = {}
 
-        self.dtstart = dtstart
+        if dtstart:
+            self.dtstart = dtstart
+        else:
+            self.dtstart = datetime.datetime.combine(datetime.datetime.now(), datetime.time(0, 0))
         self.dtend = dtend
 
         self.rrules = list(rrules)
