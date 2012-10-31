@@ -236,6 +236,13 @@ class Rule(object):
         elif dtend:
             until = dtend
 
+        # Change yearly frequency to daily since recurrence is bymonth
+        # and the date (datetime.now()) is arbitrary and not transparent
+        # to the user.  A single event per month can be specified by 
+        # selecting a day of the month.
+        if self.freq == YEARLY and not kwargs.get('byweekday'):
+            self.freq = DAILY
+
         return dateutil.rrule.rrule(
             self.freq, dtstart, self.interval, self.wkst, self.count, until,
             cache=cache, **kwargs)
