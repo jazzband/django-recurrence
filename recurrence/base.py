@@ -677,8 +677,8 @@ def validate(rule_or_recurrence):
         if not isinstance(obj, Rule) and not isinstance(obj, Recurrence):
             raise exceptions.ValidationError('incompatible object')
     except TypeError:
-        raise exceptions.ValidationError('incompatible object')    
-    
+        raise exceptions.ValidationError('incompatible object')
+
     def validate_dt(dt):
         if not isinstance(dt, datetime.datetime):
             raise exceptions.ValidationError('invalid datetime: %r' % dt)
@@ -703,7 +703,7 @@ def validate(rule_or_recurrence):
             except ValueError:
                 raise exceptions.ValidationError(
                     'invalid %s parameter: %r' % param, value)
-            
+
     def validate_rule(rule):
         # validate freq
         try:
@@ -906,7 +906,7 @@ def deserialize(text):
       - Does not capture parameter options (i.e. RDATE;VALUE=PERIOD).
         `dateutil.rrule` does not support anything other than
         `DATE-TIME` parameter types.
-    
+
       - `VTIMEZONE` and `TZID` can't be specified, so dates without
         the 'Z' marker will be localized to
         `settings.TIME_ZONE`. `datetime.datetime` objects in
