@@ -1145,10 +1145,10 @@ def rule_to_text(rule, short=False):
 
     if rule.freq == MONTHLY:
         if rule.bymonthday:
-            items = [
+            items = _(', ').join([
                 dateformat.format(
                     datetime.datetime(1, 1, day), 'jS')
-                for day in rule.bymonthday]
+                for day in rule.bymonthday])
             parts.append(_('on the %(items)s') % {'items': items})
         elif rule.byday:
             if rule.byday or rule.bysetpos:
