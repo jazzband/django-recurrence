@@ -12,7 +12,7 @@ div.recurrence-widget input {
     margin: 0 .5em;
 }
 
-div.recurrence-widget a.label {
+div.recurrence-widget a.recurrence-label {
     display: block;
     cursor: pointer;
     padding: .5em .75em;
