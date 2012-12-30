@@ -35,7 +35,7 @@ setup(
     author_email='tamas.kemenczy@gmail.com',
 
     classifiers=(
-        'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Framework :: Django',
         'Intended Audience :: Developers',
