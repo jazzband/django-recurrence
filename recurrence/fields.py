@@ -33,6 +33,11 @@ class RecurrenceField(fields.Field):
         return recurrence.deserialize(value)
 
     def get_db_prep_value(self, value, connection=None, prepared=False):
+        if value is None and self.null == False:
+            raise ValueError(
+                'Cannot assign None: "%s.%s" does not allow null values.' % (
+                self.model._meta.object_name, self.name))
+
         if isinstance(value, basestring):
             value = recurrence.deserialize(value)
         return recurrence.serialize(value)
