@@ -845,6 +845,9 @@ def serialize(rule_or_recurrence):
 
         return u';'.join(u'%s=%s' % (i[0], u','.join(i[1])) for i in values)
 
+    if rule_or_recurrence is None:
+        return None
+
     try:
         validate(rule_or_recurrence)
     except exceptions.ValidationError, error:
