@@ -9,6 +9,8 @@ Utility for working with recurring dates in Django.
 For example. Say you were storing information about a university course in your app. You could use a model like the below.
 
 ```python
+import recurrence.fields
+
 class Course(models.Model):
     title = models.CharField(max_length = 200)
     start = models.TimeField()
