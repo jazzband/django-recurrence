@@ -156,7 +156,8 @@ recurrence.widget.Calendar.prototype = {
         var dt = new Date(year, month, 1);
         var start = dt.getDay();
         var days = recurrence.date.days_in_month(dt);
-        var grid = new recurrence.widget.Grid(7, Math.ceil(days / 7) + 1);
+        var rows = Math.ceil((days + start) / 7) + 1;
+        var grid = new recurrence.widget.Grid(7, rows);
 
         var number = 1;
         recurrence.array.foreach(
