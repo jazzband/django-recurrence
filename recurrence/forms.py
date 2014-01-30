@@ -2,11 +2,17 @@ from django import forms
 from django.conf import settings
 from django.core import urlresolvers
 from django.views import i18n
-from django.utils import safestring, simplejson
+from django.utils import safestring
 from django.utils.translation import ugettext_lazy as _
 
 import recurrence
 from recurrence import exceptions
+
+# Django 1.5+ compatibility
+try:
+    import json
+except ImportError:
+    import django.utils.simplejson as json
 
 
 class RecurrenceWidget(forms.Textarea):
@@ -27,7 +33,7 @@ class RecurrenceWidget(forms.Textarea):
             '<script type="text/javascript">'
             'new recurrence.widget.Widget(\'%s\', %s);'
             '</script>'
-        ) % (attrs['id'], simplejson.dumps(self.js_widget_options))
+        ) % (attrs['id'], json.dumps(self.js_widget_options))
 
         return safestring.mark_safe(u'%s\n%s' % (
             super(RecurrenceWidget, self).render(name, value, attrs),
@@ -216,4 +222,3 @@ def find_recurrence_i18n_js_catalog():
     # cache it for subsequent use
     _recurrence_javascript_catalog_url = url
     return url
-
