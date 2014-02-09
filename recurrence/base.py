@@ -850,7 +850,7 @@ def serialize(rule_or_recurrence):
 
     try:
         validate(rule_or_recurrence)
-    except exceptions.ValidationError, error:
+    except exceptions.ValidationError as error:
         raise exceptions.SerializationError(error.args[0])
 
     obj = rule_or_recurrence
