@@ -4,6 +4,7 @@ from django.core import urlresolvers
 from django.views import i18n
 from django.utils import safestring
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 import recurrence
 from recurrence import exceptions
@@ -40,10 +41,9 @@ class RecurrenceWidget(forms.Textarea):
             widget_init_js))
 
     def get_media(self):
-        media_prefix = getattr(settings, 'STATIC_URL', '/')
         js = [
-            media_prefix + 'recurrence/js/recurrence.js',
-            media_prefix + 'recurrence/js/recurrence-widget.js',
+            staticfiles_storage.url('recurrence/js/recurrence.js'),
+            staticfiles_storage.url('recurrence/js/recurrence-widget.js'),
         ]
         i18n_media = find_recurrence_i18n_js_catalog()
         if i18n_media:
@@ -52,7 +52,7 @@ class RecurrenceWidget(forms.Textarea):
         return forms.Media(
             js=js, css={
                 'all': (
-                    media_prefix + 'recurrence/css/recurrence.css',
+                    staticfiles_storage.url('recurrence/css/recurrence.css'),
                 ),
             },
         )
