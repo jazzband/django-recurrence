@@ -205,7 +205,7 @@ recurrence.Rule.prototype = {
         } else if (this.until) {
             parts.push(
                 interpolate(
-                    recurrence.display.tokens.until, 
+                    recurrence.display.tokens.until,
                     {'date': recurrence.date.format(this.until, '%Y-%m-%d')}, true));
         }
 
@@ -564,7 +564,7 @@ recurrence.serialize = function(rule_or_recurrence) {
                 return initial;
             }
         };
-        return pad(dt.getUTCFullYear(), 4) + 
+        return pad(dt.getUTCFullYear(), 4) +
             pad(dt.getUTCMonth() + 1, 2) +
             pad(dt.getUTCDate(), 2) + 'T' +
             pad(dt.getUTCHours(), 2) +
@@ -973,8 +973,10 @@ recurrence.weekdays = [
 
 // i18n no-ops if jsi18n not loaded
 
-if (!catalog) {
+if (!django.catalog) {
     var catalog = [];
+} else {
+    var catalog = django.catalog;
 }
 
 if (!gettext) {
