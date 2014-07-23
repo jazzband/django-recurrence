@@ -541,23 +541,33 @@ class Recurrence(object):
         for exrule in self.exrules:
             rruleset.exrule(exrule.to_dateutil_rrule(dtstart, dtend, cache))
 
+        def include_date(_date, dtstart, dtend):
+            if dtstart is not None and dtend is not None:
+                if dtstart <= _date <= dtend:
+                    return _date
+            elif dtstart is not None:
+                if dtstart <= _date:
+                    return _date
+            elif dtend is not None:
+                if _date <= dtend:
+                    return _date
+            return None
+
         # if dtstart is not None:
         #     rruleset.rdate(dtstart)
         for rdate in self.rdates:
             rdate = normalize_offset_awareness(rdate, dtstart)
-            if dtend is not None and rdate < dtend:
-                rruleset.rdate(rdate)
-            elif not dtend:
-                rruleset.rdate(rdate)
-        if dtend is not None:
-            rruleset.rdate(dtend)
+            dt = include_date(rdate, dtstart, dtend)
+            if dt:
+                rruleset.rdate(dt)
 
+        # if dtend is not None:
+        #     rruleset.rdate(dtend)
         for exdate in self.exdates:
             exdate = normalize_offset_awareness(exdate, dtstart)
-            if dtend is not None and exdate < dtend:
-                rruleset.exdate(exdate)
-            elif not dtend:
-                rruleset.exdate(exdate)
+            dt = include_date(rdate, dtstart, dtend)
+            if dt:
+                rruleset.exdate(dt)
 
         if cache:
             self._cache[dtstart] = rruleset
