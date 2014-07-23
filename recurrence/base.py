@@ -552,8 +552,8 @@ class Recurrence(object):
         for exrule in self.exrules:
             rruleset.exrule(exrule.to_dateutil_rrule(dtstart, dtend, cache))
 
-        if dtstart is not None:
-            rruleset.rdate(dtstart)
+        # if dtstart is not None:
+        #     rruleset.rdate(dtstart)
         for rdate in self.rdates:
             rdate = normalize_offset_awareness(rdate, dtstart)
             if dtend is not None and rdate < dtend:
