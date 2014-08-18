@@ -637,7 +637,8 @@ class Weekday(object):
 
 
 MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY = (
-    MO, TU, WE, TH, FR, SA, SU) = WEEKDAYS = map(lambda n: Weekday(n), range(7))
+    MO, TU, WE, TH, FR, SA, SU) = WEEKDAYS = \
+    list(map(lambda n: Weekday(n), range(7)))
 
 
 def to_weekday(token):
