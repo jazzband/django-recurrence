@@ -343,13 +343,13 @@ class Recurrence(object):
         :Parameters:
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -366,13 +366,13 @@ class Recurrence(object):
         :Parameters:
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -400,13 +400,13 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -435,13 +435,13 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -473,13 +473,13 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -503,7 +503,7 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
