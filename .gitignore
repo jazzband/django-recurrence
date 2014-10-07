@@ -2,3 +2,4 @@
 *.egg-info/
 tests/test_db.sqlite
 .coverage
+htmlcov/

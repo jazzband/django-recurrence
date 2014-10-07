@@ -1,5 +1,5 @@
 coverage:
-	py.test --cov-report term-missing --cov recurrence
+	py.test --cov-report html --cov-report term-missing --cov recurrence
 
 test:
 	py.test
