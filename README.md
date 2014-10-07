@@ -36,3 +36,20 @@ would be "every Friday".
 one-to-one relation to recurrence information stored using the
 recurrence apps model. For this to work, you'll of course need to put
 the `recurrence` application into your `INSTALLED_APPS`
+
+
+## Running the tests
+
+Our test coverage is currently fairly poor (we're working on it!),
+but you can run the tests by making sure you've got the test
+requirements installed:
+
+    pip install -r requirements_test.txt
+
+Once you've done that, you can run the tests using:
+
+    make test
+
+You can generate a coverage report by running:
+
+    make coverage
