@@ -20,7 +20,7 @@ def test_recurrence_text_pattern_is_saved():
 
 
 @pytest.mark.django_db
-def test_recurrence_recurrence_object_is_saved():
+def test_recurrence_object_is_saved():
     rule = Rule(
         recurrence.WEEKLY
     )
