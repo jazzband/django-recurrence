@@ -54,3 +54,67 @@ def test_recurrence_object_is_saved():
         datetime(2010, 1, 1, 0, 0, 0),
         datetime(2020, 12, 31, 0, 0, 0)
     ) == instances
+
+
+@pytest.mark.django_db
+def test_invalid_frequency_recurrence_object_raises():
+    with pytest.raises(recurrence.SerializationError):
+        event = EventWithNoNulls.objects.create(
+            recurs=Recurrence(
+                rrules=[Rule('fish')]
+            )
+        )
+
+    with pytest.raises(recurrence.SerializationError):
+        event = EventWithNoNulls.objects.create(
+            recurs=Recurrence(
+                rrules=[Rule(42)]
+            )
+        )
+
+
+@pytest.mark.django_db
+def test_invalid_interval_recurrence_object_raises():
+    with pytest.raises(recurrence.SerializationError):
+        event = EventWithNoNulls.objects.create(
+            recurs=Recurrence(
+                rrules=[Rule(recurrence.DAILY, interval=0)]
+            )
+        )
+
+    with pytest.raises(recurrence.SerializationError):
+        event = EventWithNoNulls.objects.create(
+            recurs=Recurrence(
+                rrules=[Rule(recurrence.DAILY, interval='cat')]
+            )
+        )
+
+
+@pytest.mark.django_db
+def test_invalid_exclusion_interval_recurrence_object_raises():
+    with pytest.raises(recurrence.SerializationError):
+        event = EventWithNoNulls.objects.create(
+            recurs=Recurrence(
+                exrules=[Rule(recurrence.DAILY, interval=0)]
+            )
+        )
+
+
+@pytest.mark.django_db
+def test_invalid_date_recurrence_object_raises():
+    with pytest.raises(recurrence.SerializationError):
+        event = EventWithNoNulls.objects.create(
+            recurs=Recurrence(
+                rdates=["fish"]
+            )
+        )
+
+
+@pytest.mark.django_db
+def test_invalid_exclusion_date_recurrence_object_raises():
+    with pytest.raises(recurrence.SerializationError):
+        event = EventWithNoNulls.objects.create(
+            recurs=Recurrence(
+                exdates=["fish"]
+            )
+        )
