@@ -95,3 +95,44 @@ def test_occurrences_with_explicit_start_and_end():
         dtstart=datetime(2014, 1, 1, 0, 0, 0),
         dtend=datetime(2014, 1, 4, 0, 0, 0),
     )
+
+
+def test_occurrences_with_specific_include_dates():
+    pattern = Recurrence(
+        rdates=[
+            datetime(2014, 1, 1, 0, 0, 0),
+            datetime(2014, 1, 2, 0, 0, 0),
+        ]
+    )
+
+    occurrences = [
+        instance for instance in
+        pattern.occurrences(
+            dtstart=datetime(2014, 1, 1, 0, 0, 0),
+            dtend=datetime(2014, 1, 4, 0, 0, 0),
+        )
+    ]
+
+    assert occurrences == [
+        datetime(2014, 1, 1, 0, 0, 0),
+        datetime(2014, 1, 2, 0, 0, 0),
+        datetime(2014, 1, 4, 0, 0, 0),
+    ]
+
+    assert 3 == pattern.count(
+        dtstart=datetime(2014, 1, 1, 0, 0, 0),
+        dtend=datetime(2014, 1, 4, 0, 0, 0),
+    )
+
+
+    all_occurrences = [
+        instance for instance in
+        pattern.occurrences()
+    ]
+
+    assert all_occurrences == [
+        datetime(2014, 1, 1, 0, 0, 0),
+        datetime(2014, 1, 2, 0, 0, 0),
+    ]
+
+    assert 2 == pattern.count()
