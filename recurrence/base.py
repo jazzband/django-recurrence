@@ -737,6 +737,8 @@ def validate(rule_or_recurrence):
             try:
                 validate_dt(rule.until)
             except ValueError:
+                # TODO: I'm not sure it's possible to get here
+                # (validate_dt doesn't raise ValueError)
                 raise exceptions.ValidationError(
                     'invalid until parameter: %r' % rule.until)
 
