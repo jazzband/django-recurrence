@@ -136,3 +136,78 @@ def test_occurrences_with_specific_include_dates():
     ]
 
     assert 2 == pattern.count()
+
+
+def test_occurrences_until():
+    rule = Rule(
+        recurrence.DAILY,
+        until=datetime(2014, 1, 3, 0, 0, 0)
+    )
+
+    pattern = Recurrence(
+        rrules=[
+            rule
+        ]
+    )
+
+    occurrences = [
+        instance for instance in
+        pattern.occurrences(
+            dtstart=datetime(2014, 1, 1, 0, 0, 0),
+            dtend=datetime(2014, 1, 5, 0, 0, 0),
+        )
+    ]
+
+    assert occurrences == [
+        datetime(2014, 1, 1, 0, 0, 0),
+        datetime(2014, 1, 2, 0, 0, 0),
+        datetime(2014, 1, 3, 0, 0, 0),
+        # We always get dtend, for reasons that aren't entirely clear
+        datetime(2014, 1, 5, 0, 0, 0),
+    ]
+
+    assert 4 == pattern.count(
+        dtstart=datetime(2014, 1, 1, 0, 0, 0),
+        dtend=datetime(2014, 1, 5, 0, 0, 0),
+    )
+
+
+    occurrences = [
+        instance for instance in
+        pattern.occurrences(
+            dtstart=datetime(2014, 1, 1, 0, 0, 0),
+            dtend=datetime(2014, 1, 2, 0, 0, 0),
+        )
+    ]
+
+    assert occurrences == [
+        datetime(2014, 1, 1, 0, 0, 0),
+        datetime(2014, 1, 2, 0, 0, 0),
+    ]
+
+    assert 2 == pattern.count(
+        dtstart=datetime(2014, 1, 1, 0, 0, 0),
+        dtend=datetime(2014, 1, 2, 0, 0, 0),
+    )
+
+
+def test_before():
+    assert PATTERN.before(
+        datetime(2014, 1, 3, 0, 0, 0)
+    ) == datetime(2014, 1, 2, 0, 0, 0)
+
+    assert PATTERN.before(
+        datetime(2014, 1, 3, 0, 0, 0),
+        inc=True
+    ) == datetime(2014, 1, 3, 0, 0, 0)
+
+
+def test_after():
+    assert PATTERN.after(
+        datetime(2014, 1, 2, 0, 0, 0)
+    ) == datetime(2014, 1, 3, 0, 0, 0)
+
+    assert PATTERN.after(
+        datetime(2014, 1, 2, 0, 0, 0),
+        inc=True
+    ) == datetime(2014, 1, 2, 0, 0, 0)
