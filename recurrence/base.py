@@ -702,7 +702,7 @@ def validate(rule_or_recurrence):
                         raise ValueError
             except ValueError:
                 raise exceptions.ValidationError(
-                    'invalid %s parameter: %r' % param, value)
+                    'invalid %s parameter: %r' % (param, value))
 
     def validate_rule(rule):
         # validate freq
