@@ -840,6 +840,9 @@ def serialize(rule_or_recurrence):
             days = []
             for d in rule.byday:
                 d = to_weekday(d)
+                # TODO - this if/else copies what Weekday's __repr__
+                # does - perhaps we should refactor it into a __str__
+                # method on Weekday?
                 if d.index:
                     days.append(u'%s%s' % (d.index, Rule.weekdays[d.number]))
                 else:
