@@ -50,6 +50,9 @@ def test_recurrence_object_is_saved():
     ]
 
     event = EventWithNoNulls.objects.get(pk=event.pk)
+
+    assert event.recurs == limits
+
     assert event.recurs.between(
         datetime(2010, 1, 1, 0, 0, 0),
         datetime(2020, 12, 31, 0, 0, 0)
