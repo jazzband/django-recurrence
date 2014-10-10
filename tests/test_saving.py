@@ -143,11 +143,20 @@ def test_invalid_byday_recurrence_object_raises():
 
 
 @pytest.mark.django_db
-def test_invalid_bymonth_recurrence_object_raises():
+def test_invalid_bymonth_too_high_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
         event = EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule(recurrence.DAILY, bymonth=[1, 32])]
+            )
+        )
+
+@pytest.mark.django_db
+def test_invalid_bymonth_toolow_recurrence_object_raises():
+    with pytest.raises(recurrence.SerializationError):
+        event = EventWithNoNulls.objects.create(
+            recurs=Recurrence(
+                rrules=[Rule(recurrence.DAILY, bymonth=[0, ])]
             )
         )
 
