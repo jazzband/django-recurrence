@@ -687,6 +687,9 @@ def validate(rule_or_recurrence):
         try:
             [v for v in getattr(rule, param, []) if v]
         except TypeError:
+            # TODO: I'm not sure it's possible to get here - all the
+            # places we call validate_iterable convert single ints to
+            # sequences, and other types raise TypeErrors earlier.
             raise exceptions.ValidationError(
                 '%s parameter must be iterable' % param)
 
