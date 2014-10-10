@@ -753,6 +753,10 @@ def validate(rule_or_recurrence):
                 raise exceptions.ValidationError(
                     'invalid count parameter: %r' % rule.count)
 
+        # TODO: Should we check that you haven't specified both
+        # rule.count and rule.until? Note that we only serialize
+        # rule.until if there's no rule.count.
+
         # validate byparams
         for param in Rule.byparams:
             validate_iterable(rule, param)
@@ -826,6 +830,7 @@ def serialize(rule_or_recurrence):
             values.append((u'INTERVAL', [str(int(rule.interval))]))
         if rule.wkst:
             values.append((u'WKST', [Rule.weekdays[rule.wkst]]))
+
         if rule.count is not None:
             values.append((u'COUNT', [str(rule.count)]))
         elif rule.until is not None:
