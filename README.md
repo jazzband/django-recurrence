@@ -52,3 +52,8 @@ Once you've done that, you can run the tests using:
 You can generate a coverage report by running:
 
     make coverage
+
+You can run tests on multiple versions of Python and Django by
+installing tox (`pip install tox`) and running:
+
+    tox
