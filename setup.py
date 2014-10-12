@@ -1,13 +1,13 @@
 import os
 try:
     from setuptools import setup
-    setuptools = True
+    has_setuptools = True
 except ImportError:
     from distutils.core import setup
-    setuptools = False
+    has_setuptools = False
 
 
-if setuptools:
+if has_setuptools:
     setup_options = dict(
         install_requires=(
             'pytz',
