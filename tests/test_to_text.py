@@ -40,3 +40,15 @@ def test_rule_to_text_yearly_bymonth():
         recurrence.YEARLY,
         bymonth=[1,3],
     ).to_text(True) == 'annually, each Feb, Apr'
+
+
+def test_rule_to_text_yearly_byday():
+    assert Rule(
+        recurrence.YEARLY,
+        byday=[1,3],
+    ).to_text() == 'annually, on the Tuesday, Thursday'
+
+    assert Rule(
+        recurrence.YEARLY,
+        byday=[1,3],
+    ).to_text(True) == 'annually, on the Tue, Thu'

@@ -1134,7 +1134,7 @@ def rule_to_text(rule, short=False):
             for byday in rule.byday:
                 byday = to_weekday(byday)
                 items.append(
-                    positional_display.get(byday.index) % {
+                    positional_display.get(byday.index, '%(weekday)s') % {
                         'weekday': weekdays_display[byday.number]})
         return _(', ').join(items)
 
