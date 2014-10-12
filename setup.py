@@ -1,13 +1,27 @@
 import os
+import sys
+
 try:
     from setuptools import setup
-    setuptools = True
+    has_setuptools = True
 except ImportError:
     from distutils.core import setup
-    setuptools = False
+    has_setuptools = False
 
 
-if setuptools:
+if has_setuptools:
+    from setuptools.command.test import test as TestCommand
+    class PyTest(TestCommand):
+        def finalize_options(self):
+            TestCommand.finalize_options(self)
+            self.test_args = []
+            self.test_suite = True
+
+        def run_tests(self):
+            import pytest
+            errno = pytest.main(self.test_args)
+            sys.exit(errno)
+
     setup_options = dict(
         install_requires=(
             'pytz',
@@ -15,6 +29,7 @@ if setuptools:
         ),
         zip_safe=False,
         include_package_data=True,
+        cmdclass = {'test': PyTest},
     )
 else:
     setup_options = dict(
@@ -45,6 +60,7 @@ setup(
     ),
 
     requires=(
+        'Django',
         'pytz',
         'python_dateutil',
     ),

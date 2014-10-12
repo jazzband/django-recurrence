@@ -31,11 +31,24 @@ You'll notice that I'm storing my own start and end time. The
 recurrence field only deals with _recurrences_ not with specific time
 information. I have an event that starts at 2pm. Its recurrences
 would be "every Friday".
-
-`RecurrenceModelField` provides a django model field which is a
-one-to-one relations to recurrence information stored using the
+`RecurrenceModelField` provides a Django model field which is a
+one-to-one relation to recurrence information stored using the
 recurrence apps model. For this to work, you'll of course need to put
-the recurrence application into your `INSTALLED_APPS`. You'll need
-`django.contrib.staticfiles` in your `INSTALLED_APPS` as well, but
-this has been the
-[default since Django 1.3](https://docs.djangoproject.com/en/1.3/intro/tutorial01/#database-setup).
+the `recurrence` application into your `INSTALLED_APPS`
+
+
+## Running the tests
+
+Our test coverage is currently fairly poor (we're working on it!),
+but you can run the tests by making sure you've got the test
+requirements installed:
+
+    pip install -r requirements_test.txt
+
+Once you've done that, you can run the tests using:
+
+    make test
+
+You can generate a coverage report by running:
+
+    make coverage

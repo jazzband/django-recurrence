@@ -343,13 +343,13 @@ class Recurrence(object):
         :Parameters:
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -366,13 +366,13 @@ class Recurrence(object):
         :Parameters:
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -400,13 +400,13 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -435,13 +435,13 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -473,13 +473,13 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -503,7 +503,7 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
@@ -687,6 +687,9 @@ def validate(rule_or_recurrence):
         try:
             [v for v in getattr(rule, param, []) if v]
         except TypeError:
+            # TODO: I'm not sure it's possible to get here - all the
+            # places we call validate_iterable convert single ints to
+            # sequences, and other types raise TypeErrors earlier.
             raise exceptions.ValidationError(
                 '%s parameter must be iterable' % param)
 
@@ -702,7 +705,7 @@ def validate(rule_or_recurrence):
                         raise ValueError
             except ValueError:
                 raise exceptions.ValidationError(
-                    'invalid %s parameter: %r' % param, value)
+                    'invalid %s parameter: %r' % (param, value))
 
     def validate_rule(rule):
         # validate freq
@@ -737,6 +740,8 @@ def validate(rule_or_recurrence):
             try:
                 validate_dt(rule.until)
             except ValueError:
+                # TODO: I'm not sure it's possible to get here
+                # (validate_dt doesn't raise ValueError)
                 raise exceptions.ValidationError(
                     'invalid until parameter: %r' % rule.until)
 
@@ -747,6 +752,10 @@ def validate(rule_or_recurrence):
             except ValueError:
                 raise exceptions.ValidationError(
                     'invalid count parameter: %r' % rule.count)
+
+        # TODO: Should we check that you haven't specified both
+        # rule.count and rule.until? Note that we only serialize
+        # rule.until if there's no rule.count.
 
         # validate byparams
         for param in Rule.byparams:
@@ -821,6 +830,7 @@ def serialize(rule_or_recurrence):
             values.append((u'INTERVAL', [str(int(rule.interval))]))
         if rule.wkst:
             values.append((u'WKST', [Rule.weekdays[rule.wkst]]))
+
         if rule.count is not None:
             values.append((u'COUNT', [str(rule.count)]))
         elif rule.until is not None:
@@ -830,6 +840,9 @@ def serialize(rule_or_recurrence):
             days = []
             for d in rule.byday:
                 d = to_weekday(d)
+                # TODO - this if/else copies what Weekday's __repr__
+                # does - perhaps we should refactor it into a __str__
+                # method on Weekday?
                 if d.index:
                     days.append(u'%s%s' % (d.index, Rule.weekdays[d.number]))
                 else:
@@ -1121,7 +1134,7 @@ def rule_to_text(rule, short=False):
             for byday in rule.byday:
                 byday = to_weekday(byday)
                 items.append(
-                    positional_display.get(byday.index) % {
+                    positional_display.get(byday.index, '%(weekday)s') % {
                         'weekday': weekdays_display[byday.number]})
         return _(', ').join(items)
 
