@@ -1,5 +1,7 @@
 from django.db.models import fields
+from django.db.models.fields.subclassing import SubfieldBase
 from django.db.models.fields import related, subclassing
+from django.utils.six import string_types, with_metaclass
 
 import recurrence
 from recurrence import models, forms
@@ -14,12 +16,11 @@ except ImportError:
     pass 
 
 
-class RecurrenceField(fields.Field):
+class RecurrenceField(with_metaclass(SubfieldBase, fields.Field)):
     """
     Field that stores a `recurrence.base.Recurrence` object to the
     database.
     """
-    __metaclass__ = subclassing.SubfieldBase
 
     def get_internal_type(self):
         return 'TextField'
@@ -38,7 +39,7 @@ class RecurrenceField(fields.Field):
                 'Cannot assign None: "%s.%s" does not allow null values.' % (
                 self.model._meta.object_name, self.name))
 
-        if isinstance(value, basestring):
+        if isinstance(value, string_types):
             value = recurrence.deserialize(value)
         return recurrence.serialize(value)
 

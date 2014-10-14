@@ -18,6 +18,7 @@ import dateutil.rrule
 from django.conf import settings
 from django.utils import dateformat
 from django.utils.translation import ugettext as _
+from django.utils.six import string_types
 
 from recurrence import exceptions
 
@@ -595,6 +596,8 @@ class Weekday(object):
                 month. A value of ``None`` or ``0`` means the index is
                 ambiguous and represents all weekdays of that number.
         """
+        int(number)
+
         if number > 6:
             raise ValueError('number must be in range(7)')
         self.number = number
@@ -627,7 +630,7 @@ class Weekday(object):
 
 
 MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY = (
-    MO, TU, WE, TH, FR, SA, SU) = WEEKDAYS = map(lambda n: Weekday(n), range(7))
+    MO, TU, WE, TH, FR, SA, SU) = WEEKDAYS = list(map(lambda n: Weekday(n), range(7)))
 
 
 def to_weekday(token):
@@ -653,11 +656,11 @@ def to_weekday(token):
         return WEEKDAYS[token]
     elif not token:
         raise ValueError
-    elif isinstance(token, basestring) and token.isdigit():
+    elif isinstance(token, string_types) and token.isdigit():
         if int(token) > 6:
             raise ValueError
         return WEEKDAYS[int(token)]
-    elif isinstance(token, basestring):
+    elif isinstance(token, string_types):
         const = token[-2:].upper()
         if const not in Rule.weekdays:
             raise ValueError
@@ -785,13 +788,13 @@ def validate(rule_or_recurrence):
     if obj.dtend:
         validate_dt(obj.dtend)
     if obj.rrules:
-        map(lambda rule: validate_rule(rule), obj.rrules)
+        list(map(lambda rule: validate_rule(rule), obj.rrules))
     if obj.exrules:
-        map(lambda rule: validate_rule(rule), obj.exrules)
+        list(map(lambda rule: validate_rule(rule), obj.exrules))
     if obj.rdates:
-        map(lambda dt: validate_dt(dt), obj.rdates)
+        list(map(lambda dt: validate_dt(dt), obj.rdates))
     if obj.exdates:
-        map(lambda dt: validate_dt(dt), obj.exdates)
+        list(map(lambda dt: validate_dt(dt), obj.exdates))
 
 
 def serialize(rule_or_recurrence):
@@ -990,8 +993,8 @@ def deserialize(text):
                 except ValueError:
                     raise exceptions.DeserializationError(
                         'missing parameter value: %r' % item)
-                params[param_name] = map(
-                    lambda i: i.strip(), param_value.split(u','))
+                params[param_name] = list(map(
+                    lambda i: i.strip(), param_value.split(u',')))
 
         if label in (u'RRULE', u'EXRULE'):
             kwargs = {}
