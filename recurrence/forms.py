@@ -67,7 +67,7 @@ class RecurrenceField(forms.CharField):
     """
     widget = RecurrenceWidget
     default_error_messages = {
-        'invalid_freqency': _(
+        'invalid_frequency': _(
             u'Invalid frequency.'),
         'max_rrules_exceeded': _(
             u'Max rules exceeded. The limit is %(limit)s'),
