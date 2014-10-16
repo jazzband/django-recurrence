@@ -23,7 +23,7 @@ class RuleManager(manager.Manager):
             'interval': rule_model.interval,
             'wkst': rule_model.wkst,
             'count': rule_model.count,
-            'until': pytz.utc.localize(rule_model.until),}
+            'until': to_utc(rule_model.until),}
 
         for param in recurrence.Rule.byparams:
             if param == 'byday':
