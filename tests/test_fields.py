@@ -4,7 +4,6 @@ from recurrence import Recurrence, Rule
 from recurrence.forms import RecurrenceField
 import pytest
 import recurrence
-import sys
 
 
 def test_clean_normal_value():
@@ -17,17 +16,13 @@ def test_clean_normal_value():
     assert obj.rrules[0].to_text() == "weekly, each Tuesday"
 
 
-@pytest.mark.skipif(
-    sys.version_info > (2, 8),
-    reason="The error message doesn't include unicode markers"
-)
 def test_clean_invalid_value():
     field = RecurrenceField()
     value = "RRULE:FREQS=WEEKLY"
 
     with pytest.raises(forms.ValidationError) as e:
         field.clean(value)
-    assert e.value.messages[0] == "bad parameter: u'FREQS'"
+    assert e.value.messages[0] == "bad parameter: FREQS"
 
 
 def test_strip_dtstart_and_dtend_if_required():

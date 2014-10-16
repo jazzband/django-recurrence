@@ -1045,7 +1045,7 @@ def deserialize(text):
                                 'bad value: %r' % value)
                     kwargs[str(key.lower())] = numbers
                 else:
-                    raise exceptions.DeserializationError('bad parameter: %r' % key)
+                    raise exceptions.DeserializationError('bad parameter: %s' % key)
             if 'freq' not in kwargs:
                 raise exceptions.DeserializationError(
                     'frequency parameter missing from rule')
