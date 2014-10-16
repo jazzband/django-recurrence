@@ -5,6 +5,17 @@ import recurrence
 from recurrence import choices
 
 
+# All datetimes are stored as utc.
+def to_utc(dt):
+    if not dt:
+        return dt
+
+    if dt.tzinfo:
+        return dt.astimezone(pytz.utc)
+
+    return pytz.utc.localize(dt)
+
+
 class RuleManager(manager.Manager):
     def to_rule_object(self, rule_model):
         rule_args = (rule_model.freq,)
@@ -30,12 +41,7 @@ class RuleManager(manager.Manager):
         return recurrence.Rule(*rule_args, **rule_kwargs)
 
     def create_from_rule_object(self, mode, rule_obj, recurrence_model):
-        until = rule_obj.until
-        if until:
-            if until.tzinfo:
-                until = until.tzinfo.astimezone(pytz.utc)
-            else:
-                until = pytz.utc.localize(until)
+        until = to_utc(rule_obj.until)
 
         rule_model = self.create(
             recurrence=recurrence_model, mode=mode,
@@ -85,15 +91,6 @@ class RecurrenceManager(manager.Manager):
 
     def create_from_recurrence_object(self, recurrence_obj):
         from recurrence import models
-
-        # all datetimes are stored as utc.
-        def to_utc(dt):
-            if not dt:
-                return dt
-            if dt.tzinfo:
-                return dt.tzinfo.astimezone(pytz.utc)
-            else:
-                return pytz.utc.localize(dt)
 
         recurrence_model = self.create(
             dtstart=to_utc(recurrence_obj.dtstart),
