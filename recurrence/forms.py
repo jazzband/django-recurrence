@@ -145,8 +145,6 @@ class RecurrenceField(forms.CharField):
             recurrence_obj = recurrence.deserialize(value)
         except exceptions.DeserializationError as error:
             raise forms.ValidationError(error.args[0])
-        except exceptions.ValidationError as error:
-            raise forms.ValidationError(error.args[0])
 
         if not self.accept_dtstart:
             recurrence_obj.dtstart = None
