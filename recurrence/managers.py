@@ -76,15 +76,12 @@ class RecurrenceManager(manager.Manager):
             exrules.append(exrule_model.to_rule_object())
 
         for rdate_model in recurrence_model.dates.filter(mode=choices.INCLUSION):
-            rdates.append(pytz.utc.localize(rdate_model.dt))
+            rdates.append(to_utc(rdate_model.dt))
         for exdate_model in recurrence_model.dates.filter(mode=choices.EXCLUSION):
-            exdates.append(pytz.utc.localize(exdate_model.dt))
+            exdates.append(to_utc(exdate_model.dt))
 
-        dtstart = dtend = None
-        if recurrence_model.dtstart:
-            dtstart = pytz.utc.localize(recurrence_model.dtstart)
-        if recurrence_model.dtend:
-            dtend = pytz.utc.localize(recurrence_model.dtend)
+        dtstart = to_utc(recurrence_model.dtstart)
+        dtend = to_utc(recurrence_model.dtend)
 
         return recurrence.Recurrence(
             dtstart, dtend, rrules, exrules, rdates, exdates)
