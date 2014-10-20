@@ -319,7 +319,7 @@ class Recurrence(object):
 
     def __nonzero__(self):
         if (self.dtstart or self.dtend or
-            tuple(self.rrules) or tuple(self.exrules),
+            tuple(self.rrules) or tuple(self.exrules) or
             tuple(self.rdates) or tuple(self.exdates)):
             return True
         else:

@@ -60,5 +60,4 @@ def test_truthiness_with_dtend():
 
 
 def test_falsiness_with_empty_recurrence_object():
-    # This is a bug, or at least, unintended
-    assert bool(Recurrence())
+    assert not bool(Recurrence())
