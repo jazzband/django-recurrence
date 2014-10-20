@@ -73,7 +73,7 @@ class RecurrenceManager(manager.Manager):
         for rule_model in recurrence_model.rules.filter(mode=choices.INCLUSION):
             rrules.append(rule_model.to_rule_object())
         for exrule_model in recurrence_model.rules.filter(mode=choices.EXCLUSION):
-            exrules.append(rule_model.to_rule_object())
+            exrules.append(exrule_model.to_rule_object())
 
         for rdate_model in recurrence_model.dates.filter(mode=choices.INCLUSION):
             rdates.append(pytz.utc.localize(rdate_model.dt))
