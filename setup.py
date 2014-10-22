@@ -42,7 +42,7 @@ else:
 
 setup(
     name='django-recurrence',
-    version='1.0.4dev',
+    version='1.1.0-dev',
     license='BSD',
 
     description='Django utility wrapping dateutil.rrule',
