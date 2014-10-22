@@ -3,3 +3,6 @@ coverage:
 
 test:
 	py.test
+
+testall:
+	tox
