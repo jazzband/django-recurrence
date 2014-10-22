@@ -1,3 +1,4 @@
+from recurrence import Recurrence
 from tests.models import EventWithNulls, EventWithNoNulls
 import pytest
 
@@ -17,3 +18,9 @@ def test_recurs_can_be_explicitly_none_if_none_is_allowed():
 def test_recurs_cannot_be_explicitly_none_if_none_is_disallowed():
     with pytest.raises(ValueError):
         EventWithNoNulls.objects.create(recurs=None)
+
+
+@pytest.mark.django_db
+def test_recurs_can_be_empty_even_if_none_is_disallowed():
+    event = EventWithNoNulls.objects.create(recurs=Recurrence())
+    assert event.recurs == Recurrence()
