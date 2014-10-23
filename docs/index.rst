@@ -119,10 +119,10 @@ Working with the documentation
 
 Our documentation is written with Sphinx, and can be built using::
 
-    make html
+    tox -e docs
 
-from our ``docs`` directory. You'll need to have Sphinx installed for
-this to work.
+Once this command is run, it'll print out the folder the generated
+HTML documentation is available in.
 
 Changelog
 =========
