@@ -1,3 +1,4 @@
+from django.db import IntegrityError
 from recurrence import Recurrence
 from tests.models import EventWithNulls, EventWithNoNulls
 import pytest
@@ -16,7 +17,7 @@ def test_recurs_can_be_explicitly_none_if_none_is_allowed():
 
 @pytest.mark.django_db
 def test_recurs_cannot_be_explicitly_none_if_none_is_disallowed():
-    with pytest.raises(ValueError):
+    with pytest.raises(IntegrityError):
         EventWithNoNulls.objects.create(recurs=None)
 
 
