@@ -317,13 +317,17 @@ class Recurrence(object):
             tuple(self.rrules), tuple(self.exrules),
             tuple(self.rdates), tuple(self.exdates)))
 
-    def __nonzero__(self):
+    def __bool__(self):
         if (self.dtstart or self.dtend or
             tuple(self.rrules) or tuple(self.exrules) or
             tuple(self.rdates) or tuple(self.exdates)):
             return True
         else:
             return False
+
+    def __nonzero__(self):
+        # Required for Python 2 compatibility
+        return type(self).__bool__(self)
 
     def __eq__(self, other):
         if type(other) != type(self):
