@@ -11,6 +11,7 @@ except ImportError:
 
 if has_setuptools:
     from setuptools.command.test import test as TestCommand
+
     class PyTest(TestCommand):
         def finalize_options(self):
             TestCommand.finalize_options(self)
@@ -76,7 +77,7 @@ setup(
             os.path.join('static', '*.css'),
             os.path.join('static', '*.png'),
             os.path.join('static', '*.js'),
-            os.path.join('locale','*.po'),
+            os.path.join('locale', '*.po'),
             os.path.join('locale', '*.mo'),
         ],
     },

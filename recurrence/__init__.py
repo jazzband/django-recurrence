@@ -1,3 +1,5 @@
+# flake8: noqa
+
 from recurrence.base import (
     MO, TU, WE, TH, FR, SA, SU,
     MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY,

@@ -99,6 +99,9 @@ don't have tox installed, you can install it with ``pip install
 tox``. Running all the tests also requires that you have Python 2.6,
 Python 2.7, and Python 3.3 installed locally.
 
+This will run tests against all supported Python and Django versions,
+and will also run ``flake8``, an automated code-linting tool.
+
 If that sounds like too much work, feel free to just run tests on
 whatever your local version of Python is. You can do this by
 running::

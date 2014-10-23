@@ -23,8 +23,8 @@ def test_create_from_rule_object():
     )
 
     assert rule.to_rule_object() == object.to_rule_object()
-    assert rule.mode == True
-    assert object.mode == False
+    assert rule.mode is True
+    assert object.mode is False
 
 
 @pytest.mark.django_db

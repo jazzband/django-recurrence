@@ -1,6 +1,6 @@
 from django.db.models import fields
 from django.db.models.fields.subclassing import SubfieldBase
-from django.db.models.fields import related, subclassing
+from django.db.models.fields import related
 from django.utils.six import string_types, with_metaclass
 
 import recurrence
@@ -13,7 +13,7 @@ try:
         "^recurrence\.fields\.RecurrenceModelField",
     ])
 except ImportError:
-    pass 
+    pass
 
 
 class RecurrenceField(with_metaclass(SubfieldBase, fields.Field)):
@@ -133,12 +133,15 @@ class RecurrenceModelDescriptor(related.ReverseSingleRelatedObjectDescriptor):
     def __set__(self, instance, value):
         if instance is None:
             raise AttributeError(
-                    "%s must be accessed via instance" % self._field.name)
+                "%s must be accessed via instance" % self._field.name
+            )
 
-        if value is None and self.field.null == False:
+        if value is None and self.field.null is False:
             raise ValueError(
                 'Cannot assign None: "%s.%s" does not allow null values.' % (
-                instance._meta.object_name, self.field.name))
+                    instance._meta.object_name, self.field.name
+                )
+            )
         elif value is not None and not isinstance(value, recurrence.Recurrence):
             raise ValueError(
                 'Cannot assign "%r": "%s.%s" must be a "%s" instance.' % (

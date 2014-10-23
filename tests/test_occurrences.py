@@ -124,7 +124,6 @@ def test_occurrences_with_specific_include_dates():
         dtend=datetime(2014, 1, 4, 0, 0, 0),
     )
 
-
     all_occurrences = [
         instance for instance in
         pattern.occurrences()
@@ -170,7 +169,6 @@ def test_occurrences_until():
         dtstart=datetime(2014, 1, 1, 0, 0, 0),
         dtend=datetime(2014, 1, 5, 0, 0, 0),
     )
-
 
     occurrences = [
         instance for instance in

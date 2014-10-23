@@ -83,7 +83,8 @@ class RecurrenceField(forms.CharField):
         self,
         frequencies=None, accept_dtstart=True, accept_dtend=True,
         max_rrules=None, max_exrules=None, max_rdates=None, max_exdates=None,
-        *args, **kwargs):
+        *args, **kwargs
+    ):
         """
         Create a recurrence field.
 
@@ -155,22 +156,30 @@ class RecurrenceField(forms.CharField):
             if len(recurrence_obj.rrules) > self.max_rrules:
                 raise forms.ValidationError(
                     self.error_messages['max_rrules_exceeded'] % {
-                    'limit': self.max_rrules})
+                        'limit': self.max_rrules
+                    }
+                )
         if self.max_exrules is not None:
             if len(recurrence_obj.exrules) > self.max_exrules:
                 raise forms.ValidationError(
                     self.error_messages['max_exrules_exceeded'] % {
-                    'limit': self.max_exrules})
+                        'limit': self.max_exrules
+                    }
+                )
         if self.max_rdates is not None:
             if len(recurrence_obj.rdates) > self.max_rdates:
                 raise forms.ValidationError(
                     self.error_messages['max_rdates_exceeded'] % {
-                    'limit': self.max_rdates})
+                        'limit': self.max_rdates
+                    }
+                )
         if self.max_exdates is not None:
             if len(recurrence_obj.exdates) > self.max_exdates:
                 raise forms.ValidationError(
                     self.error_messages['max_exdates_exceeded'] % {
-                    'limit': self.max_exdates})
+                        'limit': self.max_exdates
+                    }
+                )
 
         for rrule in recurrence_obj.rrules:
             if rrule.freq not in self.frequencies:

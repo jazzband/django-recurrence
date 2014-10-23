@@ -82,7 +82,8 @@ def test_check_max_exrules():
     field = RecurrenceField(max_exrules=0)
     with pytest.raises(forms.ValidationError) as e:
         field.clean(value)
-    assert e.value.messages[0] == "Max exclusion rules exceeded. The limit is 0"
+    assert e.value.messages[0] == ("Max exclusion rules exceeded. "
+                                   "The limit is 0")
 
 
 def test_check_max_rdates():
@@ -120,7 +121,8 @@ def test_check_max_exdates():
     field = RecurrenceField(max_exdates=1)
     with pytest.raises(forms.ValidationError) as e:
         field.clean(value)
-    assert e.value.messages[0] == "Max exclusion dates exceeded. The limit is 1"
+    assert e.value.messages[0] == ("Max exclusion dates exceeded. "
+                                   "The limit is 1")
 
 
 def test_check_allowable_frequencies():

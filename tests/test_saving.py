@@ -62,14 +62,14 @@ def test_recurrence_object_is_saved():
 @pytest.mark.django_db
 def test_invalid_frequency_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule('fish')]
             )
         )
 
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule(42)]
             )
@@ -79,14 +79,14 @@ def test_invalid_frequency_recurrence_object_raises():
 @pytest.mark.django_db
 def test_invalid_interval_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule(recurrence.DAILY, interval=0)]
             )
         )
 
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule(recurrence.DAILY, interval='cat')]
             )
@@ -96,7 +96,7 @@ def test_invalid_interval_recurrence_object_raises():
 @pytest.mark.django_db
 def test_invalid_wkst_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule(recurrence.DAILY, wkst=17)]
             )
@@ -106,7 +106,7 @@ def test_invalid_wkst_recurrence_object_raises():
 @pytest.mark.django_db
 def test_invalid_until_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule(recurrence.DAILY, until=17)]
             )
@@ -116,7 +116,7 @@ def test_invalid_until_recurrence_object_raises():
 @pytest.mark.django_db
 def test_invalid_count_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule(recurrence.DAILY, count='fish')]
             )
@@ -126,7 +126,7 @@ def test_invalid_count_recurrence_object_raises():
 @pytest.mark.django_db
 def test_invalid_byday_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule(recurrence.DAILY, byday='house')]
             )
@@ -136,16 +136,17 @@ def test_invalid_byday_recurrence_object_raises():
 @pytest.mark.django_db
 def test_invalid_bymonth_too_high_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule(recurrence.DAILY, bymonth=[1, 32])]
             )
         )
 
+
 @pytest.mark.django_db
 def test_invalid_bymonth_toolow_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rrules=[Rule(recurrence.DAILY, bymonth=[0, ])]
             )
@@ -155,7 +156,7 @@ def test_invalid_bymonth_toolow_recurrence_object_raises():
 @pytest.mark.django_db
 def test_invalid_exclusion_interval_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 exrules=[Rule(recurrence.DAILY, interval=0)]
             )
@@ -165,7 +166,7 @@ def test_invalid_exclusion_interval_recurrence_object_raises():
 @pytest.mark.django_db
 def test_invalid_date_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 rdates=["fish"]
             )
@@ -175,7 +176,7 @@ def test_invalid_date_recurrence_object_raises():
 @pytest.mark.django_db
 def test_invalid_exclusion_date_recurrence_object_raises():
     with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
+        EventWithNoNulls.objects.create(
             recurs=Recurrence(
                 exdates=["fish"]
             )

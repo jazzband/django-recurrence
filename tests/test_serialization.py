@@ -27,7 +27,8 @@ def test_complex_rule_serialization():
     )
 
     serialized = recurrence.serialize(rule)
-    assert 'RRULE:FREQ=WEEKLY;INTERVAL=17;WKST=TU;COUNT=7;BYDAY=-1MO,TU;BYMONTH=1,3' == serialized
+    assert ('RRULE:FREQ=WEEKLY;INTERVAL=17;WKST=TU;'
+            'COUNT=7;BYDAY=-1MO,TU;BYMONTH=1,3') == serialized
     assert recurrence.deserialize(serialized) == Recurrence(rrules=[rule])
 
 

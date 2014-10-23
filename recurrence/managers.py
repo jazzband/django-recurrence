@@ -1,5 +1,5 @@
 import pytz
-from django.db.models import manager, query
+from django.db.models import manager
 
 import recurrence
 from recurrence import choices
@@ -23,7 +23,8 @@ class RuleManager(manager.Manager):
             'interval': rule_model.interval,
             'wkst': rule_model.wkst,
             'count': rule_model.count,
-            'until': to_utc(rule_model.until),}
+            'until': to_utc(rule_model.until),
+        }
 
         for param in recurrence.Rule.byparams:
             if param == 'byday':
@@ -36,7 +37,9 @@ class RuleManager(manager.Manager):
                 rule_kwargs[param] = (map(
                     lambda v: v[0],
                     rule_model.params.filter(param=param).values_list(
-                    'value')) or None)
+                        'value'
+                    )
+                ) or None)
 
         return recurrence.Rule(*rule_args, **rule_kwargs)
 
