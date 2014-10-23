@@ -122,15 +122,6 @@ def test_invalid_count_recurrence_object_raises():
             )
         )
 
-@pytest.mark.django_db
-def test_invalid_count_recurrence_object_raises():
-    with pytest.raises(recurrence.SerializationError):
-        event = EventWithNoNulls.objects.create(
-            recurs=Recurrence(
-                rrules=[Rule(recurrence.DAILY, count='fish')]
-            )
-        )
-
 
 @pytest.mark.django_db
 def test_invalid_byday_recurrence_object_raises():
