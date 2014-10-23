@@ -1,7 +1,8 @@
 # django-recurrence
 
 django-recurrence is a utility for working with recurring dates in
-Django.
+Django. Documentation is available at
+https://django-recurrence.readthedocs.org/.
 
 It provides:
 
