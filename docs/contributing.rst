@@ -28,7 +28,8 @@ tox``. Running all the tests also requires that you have Python 2.6,
 Python 2.7, and Python 3.3 installed locally.
 
 This will run tests against all supported Python and Django versions,
-and will also run ``flake8``, an automated code-linting tool.
+check the documentation can be built, and will also run ``flake8``,
+an automated code-linting tool.
 
 If that sounds like too much work, feel free to just run tests on
 whatever your local version of Python is. You can do this by
@@ -38,7 +39,7 @@ running::
     make test
 
 If you want to see what our code coverage is like, install everything
-from ``requirements_test.txt``, then run::
+in ``requirements_test.txt`` (as shown above), then run::
 
     make coverage
 
