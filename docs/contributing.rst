@@ -23,7 +23,7 @@ from the root of your local copy of the django-recurrence
 repository. This will require that you have tox installed. If you
 don't have tox installed, you can install it with ``pip install
 tox``. Running all the tests also requires that you have Python 2.6,
-Python 2.7, and Python 3.3 installed locally.
+Python 2.7, Python 3.3 and Python 3.4 installed locally.
 
 This will run tests against all supported Python and Django versions,
 check the documentation can be built, and will also run ``flake8``,
