@@ -1,10 +1,9 @@
 from django.db.models import fields
 from django.db.models.fields.subclassing import SubfieldBase
-from django.db.models.fields import related
 from django.utils.six import string_types, with_metaclass
 
 import recurrence
-from recurrence import models, forms
+from recurrence import forms
 
 try:
     from south.modelsinspector import add_introspection_rules
