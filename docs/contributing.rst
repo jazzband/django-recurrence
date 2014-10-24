@@ -2,10 +2,8 @@ Contributing
 ============
 
 Contributions to django-recurrence are very welcome - whether in the
-form of bug reports, feature requests, or patches.
-
-Bug reports and feature requests are tracked on our `GitHub issues
-page
+form of bug reports, feature requests, or patches. Bug reports and
+feature requests are tracked on our `GitHub issues page
 <https://github.com/django-recurrence/django-recurrence/issues>`_.
 
 If you want to make changes to django-recurrence, you'll need to fork
