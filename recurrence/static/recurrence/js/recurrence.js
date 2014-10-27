@@ -973,36 +973,32 @@ recurrence.weekdays = [
 
 // i18n no-ops if jsi18n not loaded
 
-if (!django.catalog) {
+if (typeof(catalog) === 'undefined') {
     var catalog = [];
 } else {
-    var catalog = django.catalog;
+    var catalog = catalog;
 }
 
-if (!gettext) {
-    function gettext(msgid) {
-        var value = catalog[msgid];
-        if (typeof(value) == 'undefined') {
-            return msgid;
-        } else {
-            return (typeof(value) == 'string') ? value : value[0];
-        }
+var gettext = gettext || function(msgid) {
+    var value = catalog[msgid];
+    if (typeof(value) == 'undefined') {
+        return msgid;
+    } else {
+        return (typeof(value) == 'string') ? value : value[0];
     }
-}
+};
 
-if (!interpolate) {
-    function interpolate(fmt, obj, named) {
-        if (named) {
-            return fmt.replace(/%\(\w+\)s/g, function(match) {
-                return String(obj[match.slice(2,-2)])
-            });
-        } else {
-            return fmt.replace(/%s/g, function(match) {
-                return String(obj.shift())
-            });
-        }
+var interpolate = interpolate || function(fmt, obj, named) {
+    if (named) {
+        return fmt.replace(/%\(\w+\)s/g, function(match) {
+            return String(obj[match.slice(2,-2)])
+        });
+    } else {
+        return fmt.replace(/%s/g, function(match) {
+            return String(obj.shift())
+        });
     }
-}
+};
 
 
 // display
