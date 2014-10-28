@@ -21,7 +21,7 @@ If you use the ``Course`` model in Django's administrative interface,
 or in any forms, it should be rendered with a pretty form field,
 which makes selecting relatively complex recurrence patterns easy.
 
-.. figure:: _static/admin.png
+.. figure:: admin.png
    :alt: The form field for recurrence fields
 
 Using this form it's possible to specify relatively complex

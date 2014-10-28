@@ -19,6 +19,6 @@ Contents
    :maxdepth: 2
 
    installation
-   usage
+   usage/index
    contributing
    changelog
