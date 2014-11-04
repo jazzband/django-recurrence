@@ -223,6 +223,11 @@ msgstr "tweede %(weekday)s"
 msgid "third %(weekday)s"
 msgstr "derde %(weekday)s"
 
+#: base.py:906
+#, python-format
+msgid "fourth %(weekday)s"
+msgstr "vierde %(weekday)s"
+
 #: base.py:908
 #, python-format
 msgid "second last %(weekday)s"

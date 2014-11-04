@@ -292,6 +292,10 @@ msgstr ""
 msgid "third %(weekday)s"
 msgstr ""
 
+#: media/js/recurrence.js:1032
+msgid "fourth %(weekday)s"
+msgstr ""
+
 #: media/js/recurrence.js:1033 media/js/recurrence.js.py:1041
 msgid "last %(weekday)s"
 msgstr ""

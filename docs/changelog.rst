@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.1.1
+-----
+
+* Added an option for events to occur on the fourth of a given
+  weekday of the month (#29).
+
 1.1.0
 -----
 

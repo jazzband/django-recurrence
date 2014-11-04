@@ -221,6 +221,11 @@ msgstr ""
 msgid "third %(weekday)s"
 msgstr ""
 
+#: base.py:906
+#, python-format
+msgid "fourth %(weekday)s"
+msgstr ""
+
 #: base.py:908
 #, python-format
 msgid "second last %(weekday)s"
