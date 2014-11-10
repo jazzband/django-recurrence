@@ -33,12 +33,12 @@ def test_rule_to_text_yearly_bymonth():
     assert Rule(
         recurrence.YEARLY,
         bymonth=[1, 3],
-    ).to_text() == 'annually, each February, April'
+    ).to_text() == 'annually, each January, March'
 
     assert Rule(
         recurrence.YEARLY,
         bymonth=[1, 3],
-    ).to_text(True) == 'annually, each Feb, Apr'
+    ).to_text(True) == 'annually, each Jan, Mar'
 
 
 def test_rule_to_text_yearly_byday():

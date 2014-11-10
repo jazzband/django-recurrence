@@ -1161,8 +1161,11 @@ def rule_to_text(rule, short=False):
 
     if rule.freq == YEARLY:
         if rule.bymonth:
+            # bymonths are 1-indexed (January is 1), months_display
+            # are 0-indexed (January is 0).
             items = _(', ').join(
-                [months_display[month] for month in rule.bymonth])
+                [months_display[month] for month in
+                 [month_index - 1 for month_index in rule.bymonth]])
             parts.append(_('each %(items)s') % {'items': items})
         if rule.byday or rule.bysetpos:
             parts.append(

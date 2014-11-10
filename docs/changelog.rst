@@ -5,7 +5,9 @@ Changelog
 -----
 
 * Added an option for events to occur on the fourth of a given
-  weekday of the month (#29).
+  weekday of the month (#29);
+* Fixed an off-by-one bug in the ``to_text`` method for events
+  happening on a regular month each year (#30).
 
 1.1.0
 -----
