@@ -7,7 +7,11 @@ Changelog
 * Added an option for events to occur on the fourth of a given
   weekday of the month (#29);
 * Fixed an off-by-one bug in the ``to_text`` method for events
-  happening on a regular month each year (#30).
+  happening on a regular month each year (#30);
+* Fixed a bug in the JavaScript widget where the date for monthly
+  events on a fixed date of the month had the description rendered
+  incorrectly if the day selected was more than the number of days in
+  the current calendar month (#31).
 
 1.1.0
 -----
