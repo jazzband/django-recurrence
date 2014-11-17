@@ -435,16 +435,12 @@ recurrence.DateFormat.prototype = {
 
     S: function() {
         var day = this.data.getDate();
-        if (day == 11 || day == 12 || day == 13)
-            return 'th';
-        var last = day % 10;
-        if (last == 1)
-            return 'st';
-        if (last == 2)
-            return 'nd';
-        if (last == 3)
-            return 'rd';
-        return 'th';
+        var ordinal_indicator = recurrence.display.ordinal_indicator;
+        // backward compatibility : we fallback to en-us
+        var language_code = recurrence.language_code || 'en-us';
+        if (language_code in ordinal_indicator)
+            return ordinal_indicator[language_code](day);
+        return '';
     },
 
     t: function() {
@@ -1080,4 +1076,24 @@ recurrence.display.months_ap = [
 recurrence.display.ampm = {
     'am': gettext('a.m.'), 'pm': gettext('p.m.'),
     'AM': gettext('AM'), 'PM': gettext('PM')
+};
+
+recurrence.display.ordinal_indicator = {
+    'en-us': function(day) {
+        if (day == 11 || day == 12 || day == 13)
+            return 'th';
+        var last = day % 10;
+        if (last == 1)
+            return 'st';
+        if (last == 2)
+            return 'nd';
+        if (last == 3)
+            return 'rd';
+        return 'th';
+    },
+    'fr-FR': function(day) {
+        if (day == 1)
+            return 'er';
+        return '';
+    }
 };
