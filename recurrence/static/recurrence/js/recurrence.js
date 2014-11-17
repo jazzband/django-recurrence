@@ -146,6 +146,7 @@ recurrence.Rule.prototype = {
                 var items = recurrence.array.foreach(
                     this.bymonthday, function(day, i) {
                         var dt = new Date();
+                        dt.setMonth(0);
                         dt.setDate(day);
                         return recurrence.date.format(dt, '%j%S');
                 });
