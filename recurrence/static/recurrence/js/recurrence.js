@@ -1034,8 +1034,13 @@ recurrence.display.weekdays_short = [
     gettext('Fri'), gettext('Sat'), gettext('Sun')
 ];
 recurrence.display.weekdays_oneletter = [
-    gettext('M'), gettext('T'), gettext('W'), gettext('T'),
-    gettext('F'), gettext('S'), gettext('S')
+    pgettext('Monday first letter', 'M'),
+    pgettext('Tuesday first letter', 'T'),
+    pgettext('Wednesday first letter', 'W'),
+    pgettext('Thursday first letter', 'T'),
+    pgettext('Friday first letter', 'F'),
+    pgettext('Saturday first letter', 'S'),
+    pgettext('Sunday first letter', 'S')
 ];
 recurrence.display.weekdays_position = {
     '1': gettext('first %(weekday)s'),
