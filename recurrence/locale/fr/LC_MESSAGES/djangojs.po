@@ -78,7 +78,7 @@ msgstr "Ajouter une règle"
 
 #: media/js/recurrence-widget.js:1749
 msgid "Add date"
-msgstr "Ajoute une date"
+msgstr "Ajouter une date"
 
 #: media/js/recurrence-widget.js:1750
 msgid "Remove"
