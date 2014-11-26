@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-26 13:54+0000\n"
-"PO-Revision-Date: 2014-11-26 14:58+0100\n"
+"POT-Creation-Date: 2014-11-26 15:26+0000\n"
+"PO-Revision-Date: 2014-11-26 16:28+0100\n"
 "Last-Translator: Olivier Le Brouster <olivier.le-brouster@webu.coop>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -355,57 +355,58 @@ msgstr "3ème dernier %(weekday)s"
 
 #: static/recurrence/js/recurrence.js:1064
 msgid "January"
-msgstr "Janvier"
+msgstr "janvier"
 
 #: static/recurrence/js/recurrence.js:1064
 msgid "February"
-msgstr "Février"
+msgstr "février"
 
 #: static/recurrence/js/recurrence.js:1064
 #: static/recurrence/js/recurrence.js:1076
 msgid "March"
-msgstr "Mars"
+msgstr "mars"
 
 #: static/recurrence/js/recurrence.js:1065
 #: static/recurrence/js/recurrence.js:1077
 msgid "April"
-msgstr "Avril"
+msgstr "avril"
 
 #: static/recurrence/js/recurrence.js:1065
 #: static/recurrence/js/recurrence.js:1071
 #: static/recurrence/js/recurrence.js:1077
+msgctxt "month name"
 msgid "May"
-msgstr "Mai"
+msgstr "mai"
 
 #: static/recurrence/js/recurrence.js:1065
 #: static/recurrence/js/recurrence.js:1077
 msgid "June"
-msgstr "Juin"
+msgstr "juin"
 
 #: static/recurrence/js/recurrence.js:1066
 #: static/recurrence/js/recurrence.js:1078
 msgid "July"
-msgstr "Juillet"
+msgstr "juillet"
 
 #: static/recurrence/js/recurrence.js:1066
 msgid "August"
-msgstr "Août"
+msgstr "août"
 
 #: static/recurrence/js/recurrence.js:1066
 msgid "September"
-msgstr "Septembre"
+msgstr "septembre"
 
 #: static/recurrence/js/recurrence.js:1067
 msgid "October"
-msgstr "Octobre"
+msgstr "octobre"
 
 #: static/recurrence/js/recurrence.js:1067
 msgid "November"
-msgstr "Novembre"
+msgstr "novembre"
 
 #: static/recurrence/js/recurrence.js:1067
 msgid "December"
-msgstr "Décembre"
+msgstr "décembre"
 
 #: static/recurrence/js/recurrence.js:1070
 msgid "Jan"

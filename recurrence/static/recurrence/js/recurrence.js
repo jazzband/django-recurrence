@@ -1062,19 +1062,19 @@ recurrence.display.weekdays_position_short = {
 };
 recurrence.display.months = [
     gettext('January'), gettext('February'), gettext('March'),
-    gettext('April'), gettext('May'), gettext('June'),
+    gettext('April'), pgettext('month name', 'May'), gettext('June'),
     gettext('July'), gettext('August'), gettext('September'),
     gettext('October'), gettext('November'), gettext('December')
 ];
 recurrence.display.months_short = [
     gettext('Jan'), gettext('Feb'), gettext('Mar'),
-    gettext('Apr'), gettext('May'), gettext('Jun'),
+    gettext('Apr'), pgettext('month name', 'May'), gettext('Jun'),
     gettext('Jul'), gettext('Aug'), gettext('Sep'),
     gettext('Oct'), gettext('Nov'), gettext('Dec')
 ];
 recurrence.display.months_ap = [
     gettext('Jan.'), gettext('Feb.'), gettext('March'),
-    gettext('April'), gettext('May'), gettext('June'),
+    gettext('April'), pgettext('month name', 'May'), gettext('June'),
     gettext('July'), gettext('Aug.'), gettext('Sept.'),
     gettext('Oct.'), gettext('Nov.'), gettext('Dec.')
 ];
