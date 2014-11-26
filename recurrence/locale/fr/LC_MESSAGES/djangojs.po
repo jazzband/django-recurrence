@@ -38,7 +38,7 @@ msgstr "Chaque"
 
 #: media/js/recurrence-widget.js:1739
 msgid "Every"
-msgstr "Tout les"
+msgstr "Tou(te)s les"
 
 #: media/js/recurrence-widget.js:1740
 msgid "Until"
@@ -102,7 +102,7 @@ msgstr "pour le %(items)s"
 
 #: media/js/recurrence.js:998
 msgid "every %(number)s %(freq)s"
-msgstr "tous les %(number)s %(freq)s"
+msgstr "tou(te)s les %(number)s %(freq)s"
 
 #: media/js/recurrence.js:999
 msgid "each %(items)s"
