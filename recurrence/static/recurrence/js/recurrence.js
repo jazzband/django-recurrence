@@ -436,8 +436,7 @@ recurrence.DateFormat.prototype = {
     S: function() {
         var day = this.data.getDate();
         var ordinal_indicator = recurrence.display.ordinal_indicator;
-        // backward compatibility : we fallback to en-us
-        var language_code = recurrence.language_code || 'en-us';
+        var language_code = recurrence.language_code;
         if (language_code in ordinal_indicator)
             return ordinal_indicator[language_code](day);
         return '';
