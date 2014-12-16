@@ -5,3 +5,4 @@ tests/test_db.sqlite
 htmlcov/
 .tox/
 docs/_build
+.DS_Store
