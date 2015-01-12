@@ -17,7 +17,7 @@ import pytz
 import dateutil.rrule
 from django.conf import settings
 from django.utils import dateformat
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, pgettext as _p
 from django.utils.six import string_types
 
 from recurrence import exceptions
@@ -1107,7 +1107,7 @@ def rule_to_text(rule, short=False):
         )
         months_display = (
             _('Jan'), _('Feb'), _('Mar'), _('Apr'),
-            _('May'), _('Jun'), _('Jul'), _('Aug'),
+            _p('month name', 'May'), _('Jun'), _('Jul'), _('Aug'),
             _('Sep'), _('Oct'), _('Nov'), _('Dec'),
         )
 
@@ -1127,7 +1127,7 @@ def rule_to_text(rule, short=False):
         )
         months_display = (
             _('January'), _('February'), _('March'), _('April'),
-            _('May'), _('June'), _('July'), _('August'),
+            _p('month name', 'May'), _('June'), _('July'), _('August'),
             _('September'), _('October'), _('November'), _('December'),
         )
 

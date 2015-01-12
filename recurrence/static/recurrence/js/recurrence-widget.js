@@ -1607,7 +1607,7 @@ recurrence.widget.DateForm.prototype = {
     },
 
     get_display_text: function() {
-        var text = recurrence.date.format(this.date, '%l, %F %j, %Y');
+        var text = recurrence.date.format(this.date, pgettext('date', '%l, %F %j, %Y'));
         if (this.mode == recurrence.widget.EXCLUSION)
             text = recurrence.display.mode.exclusion + ' ' + text;
         return recurrence.string.capitalize(text);

@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core import urlresolvers
 from django.views import i18n
 from django.utils import safestring
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, get_language
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 import recurrence
@@ -32,9 +32,10 @@ class RecurrenceWidget(forms.Textarea):
 
         widget_init_js = (
             '<script type="text/javascript">'
+            'recurrence.language_code =\'%s\';'
             'new recurrence.widget.Widget(\'%s\', %s);'
             '</script>'
-        ) % (attrs['id'], json.dumps(self.js_widget_options))
+        ) % (get_language(), attrs['id'], json.dumps(self.js_widget_options))
 
         return safestring.mark_safe(u'%s\n%s' % (
             super(RecurrenceWidget, self).render(name, value, attrs),
