@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.1.1
------
+1.1.1 (as yet unreleased)
+-------------------------
 
 * Added an option for events to occur on the fourth of a given
   weekday of the month (#29);
@@ -12,6 +12,9 @@ Changelog
   events on a fixed date of the month had the description rendered
   incorrectly if the day selected was more than the number of days in
   the current calendar month (#31).
+* Added a French translation (#32) - this may be backwards
+  incompatible if have overriden the widget JavaScript such that
+  there is no ``language_code`` member of your recurrence object.
 
 1.1.0
 -----
