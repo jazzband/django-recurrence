@@ -572,7 +572,7 @@ class Recurrence(object):
 
         for exdate in self.exdates:
             exdate = normalize_offset_awareness(exdate, dtstart)
-            dt = include_date(rdate, dtstart, dtend)
+            dt = include_date(exdate, dtstart, dtend)
             if dt:
                 rruleset.exdate(dt)
 
