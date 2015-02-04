@@ -564,16 +564,12 @@ class Recurrence(object):
                     return _date
             return None
 
-        # if dtstart is not None:
-        #     rruleset.rdate(dtstart)
         for rdate in self.rdates:
             rdate = normalize_offset_awareness(rdate, dtstart)
             dt = include_date(rdate, dtstart, dtend)
             if dt:
                 rruleset.rdate(dt)
 
-        # if dtend is not None:
-        #     rruleset.rdate(dtend)
         for exdate in self.exdates:
             exdate = normalize_offset_awareness(exdate, dtstart)
             dt = include_date(rdate, dtstart, dtend)
