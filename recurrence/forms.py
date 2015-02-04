@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core import urlresolvers
 from django.views import i18n
 from django.utils import safestring
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, get_language
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 import recurrence
@@ -32,9 +32,10 @@ class RecurrenceWidget(forms.Textarea):
 
         widget_init_js = (
             '<script type="text/javascript">'
+            'recurrence.language_code =\'%s\';'
             'new recurrence.widget.Widget(\'%s\', %s);'
             '</script>'
-        ) % (attrs['id'], json.dumps(self.js_widget_options))
+        ) % (get_language(), attrs['id'], json.dumps(self.js_widget_options))
 
         return safestring.mark_safe(u'%s\n%s' % (
             super(RecurrenceWidget, self).render(name, value, attrs),
@@ -67,7 +68,7 @@ class RecurrenceField(forms.CharField):
     """
     widget = RecurrenceWidget
     default_error_messages = {
-        'invalid_freqency': _(
+        'invalid_frequency': _(
             u'Invalid frequency.'),
         'max_rrules_exceeded': _(
             u'Max rules exceeded. The limit is %(limit)s'),
@@ -83,7 +84,8 @@ class RecurrenceField(forms.CharField):
         self,
         frequencies=None, accept_dtstart=True, accept_dtend=True,
         max_rrules=None, max_exrules=None, max_rdates=None, max_exdates=None,
-        *args, **kwargs):
+        *args, **kwargs
+    ):
         """
         Create a recurrence field.
 
@@ -145,8 +147,6 @@ class RecurrenceField(forms.CharField):
             recurrence_obj = recurrence.deserialize(value)
         except exceptions.DeserializationError as error:
             raise forms.ValidationError(error.args[0])
-        except exceptions.ValidationError as error:
-            raise forms.ValidationError(error.args[0])
 
         if not self.accept_dtstart:
             recurrence_obj.dtstart = None
@@ -157,22 +157,30 @@ class RecurrenceField(forms.CharField):
             if len(recurrence_obj.rrules) > self.max_rrules:
                 raise forms.ValidationError(
                     self.error_messages['max_rrules_exceeded'] % {
-                    'limit': self.max_rrules})
+                        'limit': self.max_rrules
+                    }
+                )
         if self.max_exrules is not None:
             if len(recurrence_obj.exrules) > self.max_exrules:
                 raise forms.ValidationError(
                     self.error_messages['max_exrules_exceeded'] % {
-                    'limit': self.max_exrules})
+                        'limit': self.max_exrules
+                    }
+                )
         if self.max_rdates is not None:
             if len(recurrence_obj.rdates) > self.max_rdates:
                 raise forms.ValidationError(
                     self.error_messages['max_rdates_exceeded'] % {
-                    'limit': self.max_rdates})
+                        'limit': self.max_rdates
+                    }
+                )
         if self.max_exdates is not None:
             if len(recurrence_obj.exdates) > self.max_exdates:
                 raise forms.ValidationError(
                     self.error_messages['max_exdates_exceeded'] % {
-                    'limit': self.max_exdates})
+                        'limit': self.max_exdates
+                    }
+                )
 
         for rrule in recurrence_obj.rrules:
             if rrule.freq not in self.frequencies:

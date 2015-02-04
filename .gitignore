@@ -1,2 +1,7 @@
 *.pyc
 *.egg-info/
+tests/test_db.sqlite
+.coverage
+htmlcov/
+.tox/
+docs/_build

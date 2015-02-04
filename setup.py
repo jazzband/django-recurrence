@@ -1,13 +1,28 @@
 import os
+import sys
+
 try:
     from setuptools import setup
-    setuptools = True
+    has_setuptools = True
 except ImportError:
     from distutils.core import setup
-    setuptools = False
+    has_setuptools = False
 
 
-if setuptools:
+if has_setuptools:
+    from setuptools.command.test import test as TestCommand
+
+    class PyTest(TestCommand):
+        def finalize_options(self):
+            TestCommand.finalize_options(self)
+            self.test_args = []
+            self.test_suite = True
+
+        def run_tests(self):
+            import pytest
+            errno = pytest.main(self.test_args)
+            sys.exit(errno)
+
     setup_options = dict(
         install_requires=(
             'pytz',
@@ -15,6 +30,7 @@ if setuptools:
         ),
         zip_safe=False,
         include_package_data=True,
+        cmdclass = {'test': PyTest},
     )
 else:
     setup_options = dict(
@@ -27,7 +43,7 @@ else:
 
 setup(
     name='django-recurrence',
-    version='1.0.2',
+    version='1.1.1',
     license='BSD',
 
     description='Django utility wrapping dateutil.rrule',
@@ -42,9 +58,16 @@ setup(
         'License :: OSI Approved :: BSD License',
         'Operating System :: OS Independent',
         'Programming Language :: Python',
+        "Programming Language :: Python :: 2",
+        'Programming Language :: Python :: 2.6',
+        'Programming Language :: Python :: 2.7',
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
     ),
 
     requires=(
+        'Django',
         'pytz',
         'python_dateutil',
     ),
@@ -60,7 +83,7 @@ setup(
             os.path.join('static', '*.css'),
             os.path.join('static', '*.png'),
             os.path.join('static', '*.js'),
-            os.path.join('locale','*.po'),
+            os.path.join('locale', '*.po'),
             os.path.join('locale', '*.mo'),
         ],
     },

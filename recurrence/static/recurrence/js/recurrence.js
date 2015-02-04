@@ -146,6 +146,7 @@ recurrence.Rule.prototype = {
                 var items = recurrence.array.foreach(
                     this.bymonthday, function(day, i) {
                         var dt = new Date();
+                        dt.setMonth(0);
                         dt.setDate(day);
                         return recurrence.date.format(dt, '%j%S');
                 });
@@ -205,7 +206,7 @@ recurrence.Rule.prototype = {
         } else if (this.until) {
             parts.push(
                 interpolate(
-                    recurrence.display.tokens.until, 
+                    recurrence.display.tokens.until,
                     {'date': recurrence.date.format(this.until, '%Y-%m-%d')}, true));
         }
 
@@ -435,16 +436,11 @@ recurrence.DateFormat.prototype = {
 
     S: function() {
         var day = this.data.getDate();
-        if (day == 11 || day == 12 || day == 13)
-            return 'th';
-        var last = day % 10;
-        if (last == 1)
-            return 'st';
-        if (last == 2)
-            return 'nd';
-        if (last == 3)
-            return 'rd';
-        return 'th';
+        var ordinal_indicator = recurrence.display.ordinal_indicator;
+        var language_code = recurrence.language_code;
+        if (language_code in ordinal_indicator)
+            return ordinal_indicator[language_code](day);
+        return '';
     },
 
     t: function() {
@@ -564,7 +560,7 @@ recurrence.serialize = function(rule_or_recurrence) {
                 return initial;
             }
         };
-        return pad(dt.getUTCFullYear(), 4) + 
+        return pad(dt.getUTCFullYear(), 4) +
             pad(dt.getUTCMonth() + 1, 2) +
             pad(dt.getUTCDate(), 2) + 'T' +
             pad(dt.getUTCHours(), 2) +
@@ -973,34 +969,32 @@ recurrence.weekdays = [
 
 // i18n no-ops if jsi18n not loaded
 
-if (!catalog) {
+if (typeof(catalog) === 'undefined') {
     var catalog = [];
+} else {
+    var catalog = catalog;
 }
 
-if (!gettext) {
-    function gettext(msgid) {
-        var value = catalog[msgid];
-        if (typeof(value) == 'undefined') {
-            return msgid;
-        } else {
-            return (typeof(value) == 'string') ? value : value[0];
-        }
+var gettext = gettext || function(msgid) {
+    var value = catalog[msgid];
+    if (typeof(value) == 'undefined') {
+        return msgid;
+    } else {
+        return (typeof(value) == 'string') ? value : value[0];
     }
-}
+};
 
-if (!interpolate) {
-    function interpolate(fmt, obj, named) {
-        if (named) {
-            return fmt.replace(/%\(\w+\)s/g, function(match) {
-                return String(obj[match.slice(2,-2)])
-            });
-        } else {
-            return fmt.replace(/%s/g, function(match) {
-                return String(obj.shift())
-            });
-        }
+var interpolate = interpolate || function(fmt, obj, named) {
+    if (named) {
+        return fmt.replace(/%\(\w+\)s/g, function(match) {
+            return String(obj[match.slice(2,-2)])
+        });
+    } else {
+        return fmt.replace(/%s/g, function(match) {
+            return String(obj.shift())
+        });
     }
-}
+};
 
 
 // display
@@ -1040,13 +1034,19 @@ recurrence.display.weekdays_short = [
     gettext('Fri'), gettext('Sat'), gettext('Sun')
 ];
 recurrence.display.weekdays_oneletter = [
-    gettext('M'), gettext('T'), gettext('W'), gettext('T'),
-    gettext('F'), gettext('S'), gettext('S')
+    pgettext('Monday first letter', 'M'),
+    pgettext('Tuesday first letter', 'T'),
+    pgettext('Wednesday first letter', 'W'),
+    pgettext('Thursday first letter', 'T'),
+    pgettext('Friday first letter', 'F'),
+    pgettext('Saturday first letter', 'S'),
+    pgettext('Sunday first letter', 'S')
 ];
 recurrence.display.weekdays_position = {
     '1': gettext('first %(weekday)s'),
     '2': gettext('second %(weekday)s'),
     '3': gettext('third %(weekday)s'),
+    '4': gettext('fourth %(weekday)s'),
     '-1': gettext('last %(weekday)s'),
     '-2': gettext('second last %(weekday)s'),
     '-3': gettext('third last %(weekday)s')
@@ -1055,29 +1055,50 @@ recurrence.display.weekdays_position_short = {
     '1': gettext('1st %(weekday)s'),
     '2': gettext('2nd %(weekday)s'),
     '3': gettext('3rd %(weekday)s'),
+    '4': gettext('4th %(weekday)s'),
     '-1': gettext('last %(weekday)s'),
     '-2': gettext('2nd last %(weekday)s'),
     '-3': gettext('3rd last %(weekday)s')
 };
 recurrence.display.months = [
     gettext('January'), gettext('February'), gettext('March'),
-    gettext('April'), gettext('May'), gettext('June'),
+    gettext('April'), pgettext('month name', 'May'), gettext('June'),
     gettext('July'), gettext('August'), gettext('September'),
     gettext('October'), gettext('November'), gettext('December')
 ];
 recurrence.display.months_short = [
     gettext('Jan'), gettext('Feb'), gettext('Mar'),
-    gettext('Apr'), gettext('May'), gettext('Jun'),
+    gettext('Apr'), pgettext('month name', 'May'), gettext('Jun'),
     gettext('Jul'), gettext('Aug'), gettext('Sep'),
     gettext('Oct'), gettext('Nov'), gettext('Dec')
 ];
 recurrence.display.months_ap = [
     gettext('Jan.'), gettext('Feb.'), gettext('March'),
-    gettext('April'), gettext('May'), gettext('June'),
+    gettext('April'), pgettext('month name', 'May'), gettext('June'),
     gettext('July'), gettext('Aug.'), gettext('Sept.'),
     gettext('Oct.'), gettext('Nov.'), gettext('Dec.')
 ];
 recurrence.display.ampm = {
     'am': gettext('a.m.'), 'pm': gettext('p.m.'),
     'AM': gettext('AM'), 'PM': gettext('PM')
+};
+
+recurrence.display.ordinal_indicator = {
+    'en-us': function(day) {
+        if (day == 11 || day == 12 || day == 13)
+            return 'th';
+        var last = day % 10;
+        if (last == 1)
+            return 'st';
+        if (last == 2)
+            return 'nd';
+        if (last == 3)
+            return 'rd';
+        return 'th';
+    },
+    'fr-FR': function(day) {
+        if (day == 1)
+            return 'er';
+        return '';
+    }
 };

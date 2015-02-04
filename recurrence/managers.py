@@ -1,8 +1,19 @@
 import pytz
-from django.db.models import manager, query
+from django.db.models import manager
 
 import recurrence
 from recurrence import choices
+
+
+# All datetimes are stored as utc.
+def to_utc(dt):
+    if not dt:
+        return dt
+
+    if dt.tzinfo:
+        return dt.astimezone(pytz.utc)
+
+    return pytz.utc.localize(dt)
 
 
 class RuleManager(manager.Manager):
@@ -12,7 +23,8 @@ class RuleManager(manager.Manager):
             'interval': rule_model.interval,
             'wkst': rule_model.wkst,
             'count': rule_model.count,
-            'until': pytz.utc.localize(rule_model.until),}
+            'until': to_utc(rule_model.until),
+        }
 
         for param in recurrence.Rule.byparams:
             if param == 'byday':
@@ -25,17 +37,14 @@ class RuleManager(manager.Manager):
                 rule_kwargs[param] = (map(
                     lambda v: v[0],
                     rule_model.params.filter(param=param).values_list(
-                    'value')) or None)
+                        'value'
+                    )
+                ) or None)
 
         return recurrence.Rule(*rule_args, **rule_kwargs)
 
     def create_from_rule_object(self, mode, rule_obj, recurrence_model):
-        until = rule_obj.until
-        if until:
-            if until.tzinfo:
-                until = until.tzinfo.astimezone(pytz.utc)
-            else:
-                until = pytz.utc.localize(until)
+        until = to_utc(rule_obj.until)
 
         rule_model = self.create(
             recurrence=recurrence_model, mode=mode,
@@ -67,18 +76,15 @@ class RecurrenceManager(manager.Manager):
         for rule_model in recurrence_model.rules.filter(mode=choices.INCLUSION):
             rrules.append(rule_model.to_rule_object())
         for exrule_model in recurrence_model.rules.filter(mode=choices.EXCLUSION):
-            exrules.append(rule_model.to_rule_object())
+            exrules.append(exrule_model.to_rule_object())
 
         for rdate_model in recurrence_model.dates.filter(mode=choices.INCLUSION):
-            rdates.append(pytz.utc.localize(rdate_model.dt))
+            rdates.append(to_utc(rdate_model.dt))
         for exdate_model in recurrence_model.dates.filter(mode=choices.EXCLUSION):
-            exdates.append(pytz.utc.localize(exdate_model.dt))
+            exdates.append(to_utc(exdate_model.dt))
 
-        dtstart = dtend = None
-        if recurrence_model.dtstart:
-            dtstart = pytz.utc.localize(recurrence_model.dtstart)
-        if recurrence_model.dtend:
-            dtend = pytz.utc.localize(recurrence_model.dtend)
+        dtstart = to_utc(recurrence_model.dtstart)
+        dtend = to_utc(recurrence_model.dtend)
 
         return recurrence.Recurrence(
             dtstart, dtend, rrules, exrules, rdates, exdates)
@@ -86,24 +92,15 @@ class RecurrenceManager(manager.Manager):
     def create_from_recurrence_object(self, recurrence_obj):
         from recurrence import models
 
-        # all datetimes are stored as utc.
-        def to_utc(dt):
-            if not dt:
-                return dt
-            if dt.tzinfo:
-                return dt.tzinfo.astimezone(pytz.utc)
-            else:
-                return pytz.utc.localize(dt)
-
         recurrence_model = self.create(
             dtstart=to_utc(recurrence_obj.dtstart),
             dtend=to_utc(recurrence_obj.dtend))
 
         for rrule in recurrence_obj.rrules:
-            models.Rrule.objects.create_from_rule_object(
+            models.Rule.objects.create_from_rule_object(
                 choices.INCLUSION, rrule, recurrence_model)
         for exrule in recurrence_obj.exrules:
-            models.Exrule.objects.create_from_rule_object(
+            models.Rule.objects.create_from_rule_object(
                 choices.EXCLUSION, exrule, recurrence_model)
 
         for dt in recurrence_obj.rdates:

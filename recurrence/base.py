@@ -17,7 +17,8 @@ import pytz
 import dateutil.rrule
 from django.conf import settings
 from django.utils import dateformat
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext as _, pgettext as _p
+from django.utils.six import string_types
 
 from recurrence import exceptions
 
@@ -150,7 +151,8 @@ class Rule(object):
 
     def __init__(
         self, freq,
-        interval=1, wkst=None, count=None, until=None, **kwargs):
+        interval=1, wkst=None, count=None, until=None, **kwargs
+    ):
         """
         Create a new rule.
 
@@ -287,7 +289,8 @@ class Recurrence(object):
     """
     def __init__(
         self, dtstart=None, dtend=None,
-        rrules=[], exrules=[], rdates=[], exdates=[]):
+        rrules=[], exrules=[], rdates=[], exdates=[]
+    ):
         """
         Create a new recurrence.
 
@@ -316,13 +319,17 @@ class Recurrence(object):
             tuple(self.rrules), tuple(self.exrules),
             tuple(self.rdates), tuple(self.exdates)))
 
-    def __nonzero__(self):
+    def __bool__(self):
         if (self.dtstart or self.dtend or
-            tuple(self.rrules) or tuple(self.exrules),
+            tuple(self.rrules) or tuple(self.exrules) or
             tuple(self.rdates) or tuple(self.exdates)):
             return True
         else:
             return False
+
+    def __nonzero__(self):
+        # Required for Python 2 compatibility
+        return type(self).__bool__(self)
 
     def __eq__(self, other):
         if type(other) != type(self):
@@ -335,7 +342,8 @@ class Recurrence(object):
         return not self.__eq__(other)
 
     def occurrences(
-        self, dtstart=None, dtend=None, cache=False):
+        self, dtstart=None, dtend=None, cache=False
+    ):
         """
         Get a generator yielding `datetime.datetime` instances in this
         occurrence set.
@@ -343,13 +351,13 @@ class Recurrence(object):
         :Parameters:
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -366,13 +374,13 @@ class Recurrence(object):
         :Parameters:
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -384,7 +392,8 @@ class Recurrence(object):
 
     def before(
         self, dt, inc=False,
-        dtstart=None, dtend=None, cache=False):
+        dtstart=None, dtend=None, cache=False
+    ):
         """
         Returns the last recurrence before the given
         `datetime.datetime` instance.
@@ -400,13 +409,13 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -419,7 +428,8 @@ class Recurrence(object):
 
     def after(
         self, dt, inc=False,
-        dtstart=None, dtend=None, cache=False):
+        dtstart=None, dtend=None, cache=False
+    ):
         """
         Returns the first recurrence after the given
         `datetime.datetime` instance.
@@ -435,13 +445,13 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -453,7 +463,8 @@ class Recurrence(object):
 
     def between(
         self, after, before,
-        inc=False, dtstart=None, dtend=None, cache=False):
+        inc=False, dtstart=None, dtend=None, cache=False
+    ):
         """
         Returns the first recurrence after the given
         `datetime.datetime` instance.
@@ -473,13 +484,13 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
             `dtend` : datetime.datetime
                 Optionally specify the last occurrence of the
-                occurrence set. Defauts to `self.dtend` if specified.
+                occurrence set. Defaults to `self.dtend` if specified.
 
             `cache` : bool
                 Whether to cache the occurrence set generator.
@@ -503,7 +514,7 @@ class Recurrence(object):
 
             `dtstart` : datetime.datetime
                 Optionally specify the first occurrence of the
-                occurrence set. Defauts to `self.dtstart` if specified
+                occurrence set. Defaults to `self.dtstart` if specified
                 or `datetime.datetime.now()` if not when the
                 occurrence set is generated.
 
@@ -605,6 +616,8 @@ class Weekday(object):
                 month. A value of ``None`` or ``0`` means the index is
                 ambiguous and represents all weekdays of that number.
         """
+        int(number)
+
         if number > 6:
             raise ValueError('number must be in range(7)')
         self.number = number
@@ -632,13 +645,12 @@ class Weekday(object):
         else:
             return Rule.weekdays[self.number]
 
-    weekday = property(lambda self: self.number);
-    n = property(lambda self: self.index);
+    weekday = property(lambda self: self.number)
+    n = property(lambda self: self.index)
 
 
 MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY = (
-    MO, TU, WE, TH, FR, SA, SU) = WEEKDAYS = \
-    list(map(lambda n: Weekday(n), range(7)))
+    MO, TU, WE, TH, FR, SA, SU) = WEEKDAYS = list(map(lambda n: Weekday(n), range(7)))
 
 
 def to_weekday(token):
@@ -664,11 +676,11 @@ def to_weekday(token):
         return WEEKDAYS[token]
     elif not token:
         raise ValueError
-    elif isinstance(token, basestring) and token.isdigit():
+    elif isinstance(token, string_types) and token.isdigit():
         if int(token) > 6:
             raise ValueError
         return WEEKDAYS[int(token)]
-    elif isinstance(token, basestring):
+    elif isinstance(token, string_types):
         const = token[-2:].upper()
         if const not in Rule.weekdays:
             raise ValueError
@@ -698,6 +710,9 @@ def validate(rule_or_recurrence):
         try:
             [v for v in getattr(rule, param, []) if v]
         except TypeError:
+            # TODO: I'm not sure it's possible to get here - all the
+            # places we call validate_iterable convert single ints to
+            # sequences, and other types raise TypeErrors earlier.
             raise exceptions.ValidationError(
                 '%s parameter must be iterable' % param)
 
@@ -713,7 +728,7 @@ def validate(rule_or_recurrence):
                         raise ValueError
             except ValueError:
                 raise exceptions.ValidationError(
-                    'invalid %s parameter: %r' % param, value)
+                    'invalid %s parameter: %r' % (param, value))
 
     def validate_rule(rule):
         # validate freq
@@ -738,7 +753,7 @@ def validate(rule_or_recurrence):
         # validate wkst
         if rule.wkst:
             try:
-                wkst = to_weekday(rule.wkst)
+                to_weekday(rule.wkst)
             except ValueError:
                 raise exceptions.ValidationError(
                     'invalide wkst parameter: %r' % rule.wkst)
@@ -748,6 +763,8 @@ def validate(rule_or_recurrence):
             try:
                 validate_dt(rule.until)
             except ValueError:
+                # TODO: I'm not sure it's possible to get here
+                # (validate_dt doesn't raise ValueError)
                 raise exceptions.ValidationError(
                     'invalid until parameter: %r' % rule.until)
 
@@ -758,6 +775,10 @@ def validate(rule_or_recurrence):
             except ValueError:
                 raise exceptions.ValidationError(
                     'invalid count parameter: %r' % rule.count)
+
+        # TODO: Should we check that you haven't specified both
+        # rule.count and rule.until? Note that we only serialize
+        # rule.until if there's no rule.count.
 
         # validate byparams
         for param in Rule.byparams:
@@ -787,13 +808,13 @@ def validate(rule_or_recurrence):
     if obj.dtend:
         validate_dt(obj.dtend)
     if obj.rrules:
-        map(lambda rule: validate_rule(rule), obj.rrules)
+        list(map(lambda rule: validate_rule(rule), obj.rrules))
     if obj.exrules:
-        map(lambda rule: validate_rule(rule), obj.exrules)
+        list(map(lambda rule: validate_rule(rule), obj.exrules))
     if obj.rdates:
-        map(lambda dt: validate_dt(dt), obj.rdates)
+        list(map(lambda dt: validate_dt(dt), obj.rdates))
     if obj.exdates:
-        map(lambda dt: validate_dt(dt), obj.exdates)
+        list(map(lambda dt: validate_dt(dt), obj.exdates))
 
 
 def serialize(rule_or_recurrence):
@@ -832,6 +853,7 @@ def serialize(rule_or_recurrence):
             values.append((u'INTERVAL', [str(int(rule.interval))]))
         if rule.wkst:
             values.append((u'WKST', [Rule.weekdays[rule.wkst]]))
+
         if rule.count is not None:
             values.append((u'COUNT', [str(rule.count)]))
         elif rule.until is not None:
@@ -841,6 +863,9 @@ def serialize(rule_or_recurrence):
             days = []
             for d in rule.byday:
                 d = to_weekday(d)
+                # TODO - this if/else copies what Weekday's __repr__
+                # does - perhaps we should refactor it into a __str__
+                # method on Weekday?
                 if d.index:
                     days.append(u'%s%s' % (d.index, Rule.weekdays[d.number]))
                 else:
@@ -988,8 +1013,8 @@ def deserialize(text):
                 except ValueError:
                     raise exceptions.DeserializationError(
                         'missing parameter value: %r' % item)
-                params[param_name] = map(
-                    lambda i: i.strip(), param_value.split(u','))
+                params[param_name] = list(map(
+                    lambda i: i.strip(), param_value.split(u',')))
 
         if label in (u'RRULE', u'EXRULE'):
             kwargs = {}
@@ -1040,7 +1065,7 @@ def deserialize(text):
                                 'bad value: %r' % value)
                     kwargs[str(key.lower())] = numbers
                 else:
-                    raise exceptions.DeserializationError('bad parameter: %r' % key)
+                    raise exceptions.DeserializationError('bad parameter: %s' % key)
             if 'freq' not in kwargs:
                 raise exceptions.DeserializationError(
                     'frequency parameter missing from rule')
@@ -1073,10 +1098,6 @@ def rule_to_text(rule, short=False):
         _('hourly'), _('minutely'), _('secondly'),
     )
     timeintervals = (
-        _('year'), _('month'), _('week'), _('day'),
-        _('hour'), _('minute'), _('second'),
-    )
-    timeintervals_plural = (
         _('years'), _('months'), _('weeks'), _('days'),
         _('hours'), _('minutes'), _('seconds'),
     )
@@ -1096,7 +1117,7 @@ def rule_to_text(rule, short=False):
         )
         months_display = (
             _('Jan'), _('Feb'), _('Mar'), _('Apr'),
-            _('May'), _('Jun'), _('Jul'), _('Aug'),
+            _p('month name', 'May'), _('Jun'), _('Jul'), _('Aug'),
             _('Sep'), _('Oct'), _('Nov'), _('Dec'),
         )
 
@@ -1105,6 +1126,7 @@ def rule_to_text(rule, short=False):
             1: _('first %(weekday)s'),
             2: _('second %(weekday)s'),
             3: _('third %(weekday)s'),
+            4: _('fourth %(weekday)s'),
             -1: _('last %(weekday)s'),
             -2: _('second last %(weekday)s'),
             -3: _('third last %(weekday)s'),
@@ -1115,7 +1137,7 @@ def rule_to_text(rule, short=False):
         )
         months_display = (
             _('January'), _('February'), _('March'), _('April'),
-            _('May'), _('June'), _('July'), _('August'),
+            _p('month name', 'May'), _('June'), _('July'), _('August'),
             _('September'), _('October'), _('November'), _('December'),
         )
 
@@ -1132,7 +1154,7 @@ def rule_to_text(rule, short=False):
             for byday in rule.byday:
                 byday = to_weekday(byday)
                 items.append(
-                    positional_display.get(byday.index) % {
+                    positional_display.get(byday.index, '%(weekday)s') % {
                         'weekday': weekdays_display[byday.number]})
         return _(', ').join(items)
 
@@ -1142,15 +1164,18 @@ def rule_to_text(rule, short=False):
         parts.append(
             _('every %(number)s %(freq)s') % {
                 'number': rule.interval,
-                'freq': timeintervals_plural[rule.freq]
+                'freq': timeintervals[rule.freq]
             })
     else:
         parts.append(frequencies[rule.freq])
 
     if rule.freq == YEARLY:
         if rule.bymonth:
+            # bymonths are 1-indexed (January is 1), months_display
+            # are 0-indexed (January is 0).
             items = _(', ').join(
-                [months_display[month] for month in rule.bymonth])
+                [months_display[month] for month in
+                 [month_index - 1 for month_index in rule.bymonth]])
             parts.append(_('each %(items)s') % {'items': items})
         if rule.byday or rule.bysetpos:
             parts.append(
@@ -1259,7 +1284,7 @@ def from_dateutil_rrule(rrule):
 
     if rrule._bymonthday is not None and len(rrule._bymonthday) > 0:
         if not (rrule._freq <= MONTHLY and len(rrule._bymonthday) == 1 and
-            rrule._bymonthday[0] == rrule._dtstart.day):
+                rrule._bymonthday[0] == rrule._dtstart.day):
             # ignore bymonthday if it's generated by dateutil
             kwargs['bymonthday'] = list(rrule._bymonthday)
 
