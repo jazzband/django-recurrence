@@ -14,6 +14,25 @@ PATTERN = Recurrence(
 )
 
 
+def test_occurrences_with_start_and_end_weekly_tuesdays():
+    rule = Rule(
+        recurrence.WEEKLY,
+        byday=recurrence.TU
+    )
+    pattern = Recurrence(
+        dtstart=datetime(2015, 1, 1, 0, 0, 0),
+        dtend=datetime(2015, 1, 8, 0, 0, 0),
+        rrules=[rule]
+    )
+    occurrences = [
+        instance for instance in
+        pattern.occurrences()
+    ]
+    assert occurrences == [
+        datetime(2015, 1, 6, 0, 0, 0),
+    ]
+
+
 def test_occurrences_with_implicit_start_and_end():
     occurrences = [
         instance for instance in
@@ -116,10 +135,9 @@ def test_occurrences_with_specific_include_dates():
     assert occurrences == [
         datetime(2014, 1, 1, 0, 0, 0),
         datetime(2014, 1, 2, 0, 0, 0),
-        datetime(2014, 1, 4, 0, 0, 0),
     ]
 
-    assert 3 == pattern.count(
+    assert 2 == pattern.count(
         dtstart=datetime(2014, 1, 1, 0, 0, 0),
         dtend=datetime(2014, 1, 4, 0, 0, 0),
     )
@@ -161,11 +179,9 @@ def test_occurrences_until():
         datetime(2014, 1, 1, 0, 0, 0),
         datetime(2014, 1, 2, 0, 0, 0),
         datetime(2014, 1, 3, 0, 0, 0),
-        # We always get dtend, for reasons that aren't entirely clear
-        datetime(2014, 1, 5, 0, 0, 0),
     ]
 
-    assert 4 == pattern.count(
+    assert 3 == pattern.count(
         dtstart=datetime(2014, 1, 1, 0, 0, 0),
         dtend=datetime(2014, 1, 5, 0, 0, 0),
     )
