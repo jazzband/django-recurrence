@@ -6,3 +6,4 @@ Usage
 
    getting_started
    recurrence_field
+   api
