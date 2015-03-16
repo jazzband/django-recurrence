@@ -30,7 +30,7 @@ if has_setuptools:
         ),
         zip_safe=False,
         include_package_data=True,
-        cmdclass = {'test': PyTest},
+        cmdclass={'test': PyTest},
     )
 else:
     setup_options = dict(
