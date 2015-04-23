@@ -170,7 +170,7 @@ don't want that behaviour, you'll probably want to specify
    # Get the first course on or after 1st January 2010
    course.recurrences.after(
        datetime(2010, 1, 1, 0, 0, 0),
-       inc=True
+       inc=True,
        dtstart=datetime(2010, 1, 1, 0, 0, 0),
    )
 
