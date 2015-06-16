@@ -842,7 +842,7 @@ def serialize(rule_or_recurrence):
         if rule.interval != 1:
             values.append((u'INTERVAL', [str(int(rule.interval))]))
         if rule.wkst:
-            values.append((u'WKST', [Rule.weekdays[rule.wkst]]))
+            values.append((u'WKST', [Rule.weekdays[rule.wkst.weekday]]))
 
         if rule.count is not None:
             values.append((u'COUNT', [str(rule.count)]))
