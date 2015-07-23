@@ -1,0 +1,467 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# FULL NAME <EMAIL@ADDRESS>, 2015.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-02-05 13:26-0600\n"
+"PO-Revision-Date: 2015-07-21 09:45+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Gtranslator 2.91.7\n"
+
+#: media/js/recurrence-widget.js:1732
+msgid "including"
+msgstr "Incluido"
+
+#: media/js/recurrence-widget.js:1732
+msgid "excluding"
+msgstr "Excluido"
+
+#: media/js/recurrence-widget.js:1736
+msgid "Frequency"
+msgstr "Frecuencia"
+
+#: media/js/recurrence-widget.js:1737
+msgid "On the"
+msgstr "El"
+
+#: media/js/recurrence-widget.js:1738
+msgid "Each"
+msgstr "Cada"
+
+#: media/js/recurrence-widget.js:1739
+msgid "Every"
+msgstr "Cada"
+
+#: media/js/recurrence-widget.js:1740
+msgid "Until"
+msgstr "Hasta"
+
+#: media/js/recurrence-widget.js:1741
+msgid "Occurs %(number)s time"
+msgstr "Ocurre %(number)s vez"
+
+#: media/js/recurrence-widget.js:1742
+msgid "Occurs %(number)s times"
+msgstr "Ocurre %(number)s veces"
+
+#: media/js/recurrence-widget.js:1743
+msgid "Date"
+msgstr "Fecha"
+
+#: media/js/recurrence-widget.js:1744
+msgid "Time"
+msgstr "Hora"
+
+#: media/js/recurrence-widget.js:1745
+msgid "Repeat until"
+msgstr "Repetir hasta"
+
+#: media/js/recurrence-widget.js:1746
+msgid "Exclude these occurences"
+msgstr "Excluir estas ocurrencias"
+
+#: media/js/recurrence-widget.js:1747
+msgid "Exclude this date"
+msgstr "Excluir esta fecha"
+
+#: media/js/recurrence-widget.js:1748
+msgid "Add rule"
+msgstr "Añadir regla"
+
+#: media/js/recurrence-widget.js:1749
+msgid "Add date"
+msgstr "Añadir fecha"
+
+#: media/js/recurrence-widget.js:1750
+msgid "Remove"
+msgstr "Eliminar"
+
+#: media/js/recurrence-widget.js:1751
+msgid "Calendar"
+msgstr "Calendario"
+
+#: media/js/recurrence.js:995
+msgid "midnight"
+msgstr "Media noche"
+
+#: media/js/recurrence.js:996
+msgid "noon"
+msgstr "Medio día"
+
+#: media/js/recurrence.js:997
+msgid "on the %(items)s"
+msgstr "en %(items)s"
+
+#: media/js/recurrence.js:998
+msgid "every %(number)s %(freq)s"
+msgstr "cada %(number)s %(freq)s"
+
+#: media/js/recurrence.js:999
+msgid "each %(items)s"
+msgstr "cada %(items)s"
+
+#: media/js/recurrence.js:1000
+msgid "occuring %(number)s time"
+msgstr "ocurre %(number)s "
+
+#: media/js/recurrence.js:1001
+msgid "occuring %(number)s times"
+msgstr "ocurre %(number)s veces"
+
+#: media/js/recurrence.js:1002
+msgid "until %(date)s"
+msgstr "hasta %(date)s"
+
+#: media/js/recurrence.js:1006
+msgid "year"
+msgstr "año"
+
+#: media/js/recurrence.js:1006
+msgid "month"
+msgstr "mes"
+
+#: media/js/recurrence.js:1006
+msgid "week"
+msgstr "semana"
+
+#: media/js/recurrence.js:1006
+msgid "day"
+msgstr "día"
+
+#: media/js/recurrence.js:1007
+msgid "hour"
+msgstr "hora"
+
+#: media/js/recurrence.js:1007
+msgid "minute"
+msgstr "minuto"
+
+#: media/js/recurrence.js:1007
+msgid "second"
+msgstr "segundo"
+
+#: media/js/recurrence.js:1010
+msgid "years"
+msgstr "años"
+
+#: media/js/recurrence.js:1010
+msgid "months"
+msgstr "meses"
+
+#: media/js/recurrence.js:1010
+msgid "weeks"
+msgstr "semanas"
+
+#: media/js/recurrence.js:1010
+msgid "days"
+msgstr "días"
+
+#: media/js/recurrence.js:1011
+msgid "hours"
+msgstr "horas"
+
+#: media/js/recurrence.js:1011
+msgid "minutes"
+msgstr "minutos\t"
+
+#: media/js/recurrence.js:1011
+msgid "seconds"
+msgstr "segundos"
+
+#: media/js/recurrence.js:1014
+msgid "annually"
+msgstr "anualmente"
+
+#: media/js/recurrence.js:1014
+msgid "monthly"
+msgstr "mensualmente"
+
+#: media/js/recurrence.js:1014
+msgid "weekly"
+msgstr "semanalmente"
+
+#: media/js/recurrence.js:1014
+msgid "daily"
+msgstr "diariamente"
+
+#: media/js/recurrence.js:1015
+msgid "hourly"
+msgstr "cada hora"
+
+#: media/js/recurrence.js:1015
+msgid "minutely"
+msgstr "cada minuto"
+
+#: media/js/recurrence.js:1015
+msgid "secondly"
+msgstr "cada segundo"
+
+#: media/js/recurrence.js:1018
+msgid "Monday"
+msgstr "Lunes"
+
+#: media/js/recurrence.js:1018
+msgid "Tuesday"
+msgstr "Martes"
+
+#: media/js/recurrence.js:1018
+msgid "Wednesday"
+msgstr "Miércoles"
+
+#: media/js/recurrence.js:1018
+msgid "Thursday"
+msgstr "Jueves"
+
+#: media/js/recurrence.js:1019
+msgid "Friday"
+msgstr "Viernes"
+
+#: media/js/recurrence.js:1019
+msgid "Saturday"
+msgstr "Sábado"
+
+#: media/js/recurrence.js:1019
+msgid "Sunday"
+msgstr "Domingo"
+
+#: media/js/recurrence.js:1022
+msgid "Mon"
+msgstr "Lun"
+
+#: media/js/recurrence.js:1022
+msgid "Tue"
+msgstr "Mar"
+
+#: media/js/recurrence.js:1022
+msgid "Wed"
+msgstr "Mie"
+
+#: media/js/recurrence.js:1022
+msgid "Thu"
+msgstr "Jue"
+
+#: media/js/recurrence.js:1023
+msgid "Fri"
+msgstr "Vie"
+
+#: media/js/recurrence.js:1023
+msgid "Sat"
+msgstr "Sab"
+
+#: media/js/recurrence.js:1023
+msgid "Sun"
+msgstr "Dom"
+
+#: media/js/recurrence.js:1026
+msgid "M"
+msgstr "M"
+
+#: media/js/recurrence.js:1026
+msgid "T"
+msgstr "J"
+
+#: media/js/recurrence.js:1026
+msgid "W"
+msgstr "X"
+
+#: media/js/recurrence.js:1027
+msgid "F"
+msgstr "V"
+
+#: media/js/recurrence.js:1027
+msgid "S"
+msgstr "S"
+
+#: media/js/recurrence.js:1030
+msgid "first %(weekday)s"
+msgstr "primer %(weekday)s"
+
+#: media/js/recurrence.js:1031
+msgid "second %(weekday)s"
+msgstr "segundo %(weekday)s"
+
+#: media/js/recurrence.js:1032
+msgid "third %(weekday)s"
+msgstr "tercero %(weekday)s"
+
+#: media/js/recurrence.js:1032
+msgid "fourth %(weekday)s"
+msgstr "cuarto %(weekday)s"
+
+#: media/js/recurrence.js:1033 media/js/recurrence.js.py:1041
+msgid "last %(weekday)s"
+msgstr "último %(weekday)s"
+
+#: media/js/recurrence.js:1034
+msgid "second last %(weekday)s"
+msgstr "segundo último %(weekday)s"
+
+#: media/js/recurrence.js:1035
+msgid "third last %(weekday)s"
+msgstr "tercer último %(weekday)s"
+
+#: media/js/recurrence.js:1038
+msgid "1st %(weekday)s"
+msgstr "1º %(weekday)s"
+
+#: media/js/recurrence.js:1039
+msgid "2nd %(weekday)s"
+msgstr "2º %(weekday)s"
+
+#: media/js/recurrence.js:1040
+msgid "3rd %(weekday)s"
+msgstr "3º %(weekday)s"
+
+#: media/js/recurrence.js:1042
+msgid "2nd last %(weekday)s"
+msgstr "2º último %(weekday)s"
+
+#: media/js/recurrence.js:1043
+msgid "3rd last %(weekday)s"
+msgstr "3º último %(weekday)s"
+
+#: media/js/recurrence.js:1046
+msgid "January"
+msgstr "Enero"
+
+#: media/js/recurrence.js:1046
+msgid "February"
+msgstr "Febrero"
+
+#: media/js/recurrence.js:1046 media/js/recurrence.js.py:1058
+msgid "March"
+msgstr "Marzo"
+
+#: media/js/recurrence.js:1047 media/js/recurrence.js.py:1059
+msgid "April"
+msgstr "Abril"
+
+#: media/js/recurrence.js:1047 media/js/recurrence.js.py:1053
+#: media/js/recurrence.js:1059
+msgid "May"
+msgstr "Mayo"
+
+#: media/js/recurrence.js:1047 media/js/recurrence.js.py:1059
+msgid "June"
+msgstr "Junio"
+
+#: media/js/recurrence.js:1048 media/js/recurrence.js.py:1060
+msgid "July"
+msgstr "Julio"
+
+#: media/js/recurrence.js:1048
+msgid "August"
+msgstr "Agosto"
+
+#: media/js/recurrence.js:1048
+msgid "September"
+msgstr "Septiembre"
+
+#: media/js/recurrence.js:1049
+msgid "October"
+msgstr "Octubre"
+
+#: media/js/recurrence.js:1049
+msgid "November"
+msgstr "Noviembre"
+
+#: media/js/recurrence.js:1049
+msgid "December"
+msgstr "Diciembre"
+
+#: media/js/recurrence.js:1052
+msgid "Jan"
+msgstr "Ene"
+
+#: media/js/recurrence.js:1052
+msgid "Feb"
+msgstr ""
+
+#: media/js/recurrence.js:1052
+msgid "Mar"
+msgstr ""
+
+#: media/js/recurrence.js:1053
+msgid "Apr"
+msgstr "Abr"
+
+#: media/js/recurrence.js:1053
+msgid "Jun"
+msgstr ""
+
+#: media/js/recurrence.js:1054
+msgid "Jul"
+msgstr ""
+
+#: media/js/recurrence.js:1054
+msgid "Aug"
+msgstr "Ago"
+
+#: media/js/recurrence.js:1054
+msgid "Sep"
+msgstr ""
+
+#: media/js/recurrence.js:1055
+msgid "Oct"
+msgstr ""
+
+#: media/js/recurrence.js:1055
+msgid "Nov"
+msgstr ""
+
+#: media/js/recurrence.js:1055
+msgid "Dec"
+msgstr "Dic"
+
+#: media/js/recurrence.js:1058
+msgid "Jan."
+msgstr "Ene."
+
+#: media/js/recurrence.js:1058
+msgid "Feb."
+msgstr ""
+
+#: media/js/recurrence.js:1060
+msgid "Aug."
+msgstr "Ago."
+
+#: media/js/recurrence.js:1060
+msgid "Sept."
+msgstr ""
+
+#: media/js/recurrence.js:1061
+msgid "Oct."
+msgstr ""
+
+#: media/js/recurrence.js:1061
+msgid "Nov."
+msgstr ""
+
+#: media/js/recurrence.js:1061
+msgid "Dec."
+msgstr "Dic."
+
+#: media/js/recurrence.js:1064
+msgid "a.m."
+msgstr ""
+
+#: media/js/recurrence.js:1064
+msgid "p.m."
+msgstr ""
+
+#: media/js/recurrence.js:1065
+msgid "AM"
+msgstr ""
+
+#: media/js/recurrence.js:1065
+msgid "PM"
+msgstr ""
