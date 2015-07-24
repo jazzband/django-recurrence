@@ -15,7 +15,10 @@ Changelog
 * Added a French translation (#32) - this may be backwards
   incompatible if have overriden the widget JavaScript such that
   there is no ``language_code`` member of your recurrence object;
-* Added a Spanish translation (#49).
+* Added a Spanish translation (#49);
+* Added database migrations - running ``python manage.py migrate
+  recurrence --fake`` should be sufficient for this version - nothing
+  has changed about the database schema between 1.1.0 and 1.2.0.
 
 1.1.0
 -----
