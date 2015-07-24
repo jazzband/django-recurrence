@@ -18,7 +18,8 @@ Changelog
 * Added a Spanish translation (#49);
 * Added database migrations - running ``python manage.py migrate
   recurrence --fake`` should be sufficient for this version - nothing
-  has changed about the database schema between 1.1.0 and 1.2.0.
+  has changed about the database schema between 1.1.0 and 1.2.0;
+* Fix broken tests for Django 1.4.
 
 1.1.0
 -----
