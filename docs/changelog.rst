@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.1.1 (as yet unreleased)
+1.2.0 (as yet unreleased)
 -------------------------
 
 * Added an option for events to occur on the fourth of a given
@@ -11,10 +11,11 @@ Changelog
 * Fixed a bug in the JavaScript widget where the date for monthly
   events on a fixed date of the month had the description rendered
   incorrectly if the day selected was more than the number of days in
-  the current calendar month (#31).
+  the current calendar month (#31);
 * Added a French translation (#32) - this may be backwards
   incompatible if have overriden the widget JavaScript such that
-  there is no ``language_code`` member of your recurrence object.
+  there is no ``language_code`` member of your recurrence object;
+* Added a Spanish translation (#49).
 
 1.1.0
 -----
