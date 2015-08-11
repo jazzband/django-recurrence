@@ -3,3 +3,4 @@ include MANIFEST.in
 recursive-include docs *
 recursive-include recurrence/static *
 recursive-include recurrence/locale *
+recursive-include tests *
