@@ -1,5 +1,7 @@
 include LICENSE
 include MANIFEST.in
+include pytest.ini
 recursive-include docs *
 recursive-include recurrence/static *
 recursive-include recurrence/locale *
+recursive-include tests *
