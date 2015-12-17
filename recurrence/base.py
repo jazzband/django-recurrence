@@ -706,16 +706,17 @@ def validate(rule_or_recurrence):
             raise exceptions.ValidationError(
                 '%s parameter must be iterable' % param)
 
-    def validate_iterable_ints(rule, param, min_value=None, max_value=None):
+    def validate_iterable_ints(rule, param, min_value=None, max_value=None, other_accepted_values=[]):
         for value in getattr(rule, param, []):
             try:
                 value = int(value)
-                if min_value is not None:
-                    if value < min_value:
-                        raise ValueError
-                if max_value is not None:
-                    if value > max_value:
-                        raise ValueError
+                if value not in other_accepted_values:
+                    if min_value is not None:
+                        if value < min_value:
+                            raise ValueError
+                    if max_value is not None:
+                        if value > max_value:
+                            raise ValueError
             except ValueError:
                 raise exceptions.ValidationError(
                     'invalid %s parameter: %r' % (param, value))
@@ -783,7 +784,7 @@ def validate(rule_or_recurrence):
             elif param == 'bymonth':
                 validate_iterable_ints(rule, param, 1, 12)
             elif param == 'bymonthday':
-                validate_iterable_ints(rule, param, 1, 31)
+                validate_iterable_ints(rule, param, 1, 31, other_accepted_values=[-1])
             elif param == 'byhour':
                 validate_iterable_ints(rule, param, 0, 23)
             elif param == 'byminute':
