@@ -706,7 +706,7 @@ def validate(rule_or_recurrence):
             raise exceptions.ValidationError(
                 '%s parameter must be iterable' % param)
 
-    def validate_iterable_ints(rule, param, min_value=None, max_value=None):
+    def validate_iterable_ints(rule, param, min_value=None, max_value=None, exclude=None):
         for value in getattr(rule, param, []):
             try:
                 value = int(value)
@@ -715,6 +715,9 @@ def validate(rule_or_recurrence):
                         raise ValueError
                 if max_value is not None:
                     if value > max_value:
+                        raise ValueError
+                if exclude is not None:
+                    if value in exclude:
                         raise ValueError
             except ValueError:
                 raise exceptions.ValidationError(
@@ -783,7 +786,7 @@ def validate(rule_or_recurrence):
             elif param == 'bymonth':
                 validate_iterable_ints(rule, param, 1, 12)
             elif param == 'bymonthday':
-                validate_iterable_ints(rule, param, 1, 31)
+                validate_iterable_ints(rule, param, -31, 31, exclude=[0])
             elif param == 'byhour':
                 validate_iterable_ints(rule, param, 0, 23)
             elif param == 'byminute':
@@ -1110,6 +1113,11 @@ def rule_to_text(rule, short=False):
             _p('month name', 'May'), _('Jun'), _('Jul'), _('Aug'),
             _('Sep'), _('Oct'), _('Nov'), _('Dec'),
         )
+        last_display = {
+            -1: _('last day'),
+            -2: _('2nd last'),
+            -3: _('3rd last'),
+        }
 
     else:
         positional_display = {
@@ -1130,6 +1138,11 @@ def rule_to_text(rule, short=False):
             _p('month name', 'May'), _('June'), _('July'), _('August'),
             _('September'), _('October'), _('November'), _('December'),
         )
+        last_display = {
+            -1: _('last day'),
+            -2: _('second last'),
+            -3: _('third last'),
+        }
 
     def get_positional_weekdays(rule):
         items = []
@@ -1175,9 +1188,10 @@ def rule_to_text(rule, short=False):
     if rule.freq == MONTHLY:
         if rule.bymonthday:
             items = _(', ').join([
-                dateformat.format(
-                    datetime.datetime(1, 1, day), 'jS')
-                for day in rule.bymonthday])
+                dateformat.format(datetime.datetime(1, 1, day), 'jS') if day > 0
+                else last_display.get(day, day)
+                for day in rule.bymonthday
+            ])
             parts.append(_('on the %(items)s') % {'items': items})
         elif rule.byday:
             if rule.byday or rule.bysetpos:

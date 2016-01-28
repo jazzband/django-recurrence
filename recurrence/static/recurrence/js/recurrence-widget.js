@@ -1270,20 +1270,30 @@ recurrence.widget.RuleMonthlyForm.prototype = {
         var form = this;
 
         // monthday
-
+        // RFC 2445:
+        //  Valid values are 1 to 31 or -31 to -1. For example, -10 represents 
+        //  the tenth to the last day of the month.
+        // Let's map numbers after 31 to negative values
+        
+        var negative_numbers_amount = 3;
         var monthday_grid = new recurrence.widget.Grid(7, Math.ceil(31 / 7));
         var number = 0;
         for (var y=0; y < Math.ceil(31 / 7); y++) {
             for (var x=0; x < 7; x++) {
                 number += 1;
                 var cell = monthday_grid.cell(x, y);
-                if (number > 31) {
+                if (number > 31 + negative_numbers_amount) {
                     recurrence.widget.add_class(cell, 'empty');
                     continue;
                 } else {
                     cell.innerHTML = number;
                     if (this.rule.bymonthday.indexOf(number) > -1)
                         recurrence.widget.add_class(cell, 'active');
+                    if (number > 31) {
+                        cell.innerHTML = 31 - number;
+                        if (this.rule.bymonthday.indexOf(31 - number) > -1)
+                        recurrence.widget.add_class(cell, 'active');
+                    }
                     cell.onclick = function () {
                         if (monthday_grid.disabled)
                             return;

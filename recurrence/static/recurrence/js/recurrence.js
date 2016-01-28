@@ -148,6 +148,11 @@ recurrence.Rule.prototype = {
                         var dt = new Date();
                         dt.setMonth(0);
                         dt.setDate(day);
+                        if (day == -1) return "last day";
+                        if (-31 <= day && day < 0) {
+                            dt.setDate(Math.abs(day));
+                            return recurrence.date.format(dt, '%j%S') + " last";
+                        }
                         return recurrence.date.format(dt, '%j%S');
                 });
                 items = items.join(', ');
