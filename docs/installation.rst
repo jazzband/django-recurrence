@@ -41,14 +41,13 @@ Set up internationalization
 
 .. note::
 
-    If you just want to use the ``en`` translation, you can skip this
-    step.
+    This step is currently mandatory, but may be bypassed with an extra bit of javascript. See [issue #47](https://github.com/django-recurrence/django-recurrence/issues/47) for details.
 
-If you want to use a translation of django-recurrence other than
-``en``, you'll need to ensure django-recurrence's JavaScript can
+Using a translation of django-recurrence other than
+``en`` requires that django-recurrence's JavaScript can
 access the translation strings. This is handled with Django's built
-in ``javascript_catalog`` view, which you install by adding the
-following to your ``urls.py`` file:
+in ``javascript_catalog`` view, which you must install by adding the
+following to your project ``urls.py`` file:
 
 .. code-block:: python
 
@@ -75,3 +74,6 @@ to ensure you also have ``django.contrib.staticfiles`` in your
 ``INSTALLED_APPS`` setting, and run::
 
     python manage.py collectstatic
+
+.. note::
+   After collecting static files, you can use {{ form.media }} to include recurrence's static files within your templates. 
