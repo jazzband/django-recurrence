@@ -1,3 +1,4 @@
+from django import VERSION
 from django.db.models import fields
 from django.db.models.fields.subclassing import SubfieldBase
 from django.utils.six import string_types, with_metaclass
@@ -14,7 +15,15 @@ except ImportError:
     pass
 
 
-class RecurrenceField(with_metaclass(SubfieldBase, fields.Field)):
+if VERSION >= (1, 8):
+    _RecurrenceField = fields.Field
+else:
+    # Django < 1.8, deprecated code remove it after Django 1.9 release
+    # in December 2015
+    _RecurrenceField = with_metaclass(SubfieldBase, fields.Field)
+
+
+class RecurrenceField(_RecurrenceField):
     """
     Field that stores a `recurrence.base.Recurrence` object to the
     database.
