@@ -1,6 +1,5 @@
 from django import VERSION
 from django.db.models import fields
-from django.db.models.fields.subclassing import SubfieldBase
 from django.utils.six import string_types, with_metaclass
 
 import recurrence
@@ -20,6 +19,7 @@ if VERSION >= (1, 8):
 else:
     # Django < 1.8, deprecated code remove it after Django 1.9 release
     # in December 2015
+    from django.db.models.fields.subclassing import SubfieldBase
     _RecurrenceField = with_metaclass(SubfieldBase, fields.Field)
 
 
