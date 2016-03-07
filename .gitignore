@@ -3,5 +3,6 @@
 tests/test_db.sqlite
 .coverage
 htmlcov/
+.cache/
 .tox/
 docs/_build
