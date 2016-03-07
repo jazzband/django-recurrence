@@ -40,6 +40,9 @@ class RecurrenceField(_RecurrenceField):
         value = super(RecurrenceField, self).to_python(value) or u''
         return recurrence.deserialize(value)
 
+    def from_db_value(self, value, *args, **kwargs):
+        return self.to_python(value)
+
     def get_db_prep_value(self, value, connection=None, prepared=False):
         if isinstance(value, string_types):
             value = recurrence.deserialize(value)
