@@ -1,6 +1,15 @@
 Changelog
 =========
 
+1.3.0
+-----
+
+* Drop official support for Django 1.4, Django 1.5, Django 1.6 and
+  Python 2.6 (no changes have been made to deliberately break older
+  versions, but older versions will not be tested going forward);
+* Fix for a bug in ``Rule`` creation where the weekday parameter is
+  an instance of ``Weekday`` rather than an integer (#57).
+
 1.2.0
 -----
 
