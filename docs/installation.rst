@@ -27,21 +27,21 @@ Then, make sure ``recurrence`` is in your ``INSTALLED_APPS`` setting:
 Supported Django and Python versions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Currently, django-recurrence supports Python 2.6, Python 2.7, Python
-3.3 and Python 3.4. Python 3 support is experimental (we run our
-tests against Python 3, but have not yet tried it in production).
+Currently, django-recurrence supports Python 2.7, Python 3.3 and
+Python 3.4.
 
-django-recurrence works with Django from versions 1.4 to 1.7 (though
-note that Django 1.4 does not support Python 3, Django 1.7 does not
-support Python 2.6, and Python 3.4 is only supported with Django
-1.7).
+django-recurrence works with Django from versions 1.7 to 1.8 (we're
+working on support for 1.9 at present).
 
 Set up internationalization
 ---------------------------
 
 .. note::
 
-    This step is currently mandatory, but may be bypassed with an extra bit of javascript. See [issue #47](https://github.com/django-recurrence/django-recurrence/issues/47) for details.
+    This step is currently mandatory, but may be bypassed with an
+    extra bit of javascript. See [issue
+    #47](https://github.com/django-recurrence/django-recurrence/issues/47)
+    for details.
 
 Using a translation of django-recurrence other than
 ``en`` requires that django-recurrence's JavaScript can
@@ -76,4 +76,4 @@ to ensure you also have ``django.contrib.staticfiles`` in your
     python manage.py collectstatic
 
 .. note::
-   After collecting static files, you can use {{ form.media }} to include recurrence's static files within your templates. 
+   After collecting static files, you can use {{ form.media }} to include recurrence's static files within your templates.
