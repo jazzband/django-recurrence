@@ -289,7 +289,7 @@ class Recurrence(object):
     """
     def __init__(
         self, dtstart=None, dtend=None,
-        rrules=[], exrules=[], rdates=[], exdates=[]
+        rrules=(), exrules=(), rdates=(), exdates=()
     ):
         """
         Create a new recurrence.
