@@ -27,11 +27,10 @@ Then, make sure ``recurrence`` is in your ``INSTALLED_APPS`` setting:
 Supported Django and Python versions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Currently, django-recurrence supports Python 2.7, Python 3.3 and
-Python 3.4.
+Currently, django-recurrence supports Python 2.7, Python 3.3, Python
+3.4 and Python 3.5.
 
-django-recurrence works with Django from versions 1.7 to 1.8 (we're
-working on support for 1.9 at present).
+django-recurrence works with Django from versions 1.7 to 1.9.
 
 Set up internationalization
 ---------------------------
