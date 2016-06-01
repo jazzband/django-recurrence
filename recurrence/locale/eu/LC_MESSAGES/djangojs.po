@@ -1,0 +1,499 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-14 18:13+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: static/recurrence/js/recurrence-widget.js:1610
+msgctxt "date"
+msgid "%l, %F %j, %Y"
+msgstr "%Yko %Fk %j, %l"
+
+#: static/recurrence/js/recurrence-widget.js:1775
+msgid "including"
+msgstr "barnean hartuz"
+
+#: static/recurrence/js/recurrence-widget.js:1775
+msgid "excluding"
+msgstr "kanpoan utziz"
+
+#: static/recurrence/js/recurrence-widget.js:1779
+msgid "Frequency"
+msgstr "Maiztasuna"
+
+#: static/recurrence/js/recurrence-widget.js:1780
+msgid "On the"
+msgstr "Hemen"
+
+#: static/recurrence/js/recurrence-widget.js:1781
+msgid "Each"
+msgstr "Edozein"
+
+#: static/recurrence/js/recurrence-widget.js:1782
+msgid "Every"
+msgstr "Edozein"
+
+#: static/recurrence/js/recurrence-widget.js:1783
+msgid "Until"
+msgstr "Bukatzen"
+
+#: static/recurrence/js/recurrence-widget.js:1784
+msgid "Occurs %(number)s time"
+msgstr "Behin gertatzen da"
+
+#: static/recurrence/js/recurrence-widget.js:1785
+msgid "Occurs %(number)s times"
+msgstr "%(number)s aldiz gertatzen da"
+
+#: static/recurrence/js/recurrence-widget.js:1786
+msgid "Date"
+msgstr "Data"
+
+#: static/recurrence/js/recurrence-widget.js:1787
+msgid "Time"
+msgstr "Ordua"
+
+#: static/recurrence/js/recurrence-widget.js:1788
+msgid "Repeat until"
+msgstr "Errepikatu honerarte"
+
+#: static/recurrence/js/recurrence-widget.js:1789
+msgid "Exclude these occurences"
+msgstr "Gertaera hauek kanpoan utzi"
+
+#: static/recurrence/js/recurrence-widget.js:1790
+msgid "Exclude this date"
+msgstr "Data hau kanpoan utzi"
+
+#: static/recurrence/js/recurrence-widget.js:1791
+msgid "Add rule"
+msgstr "Erregela gehitu"
+
+#: static/recurrence/js/recurrence-widget.js:1792
+msgid "Add date"
+msgstr "Data gehitu"
+
+#: static/recurrence/js/recurrence-widget.js:1793
+msgid "Remove"
+msgstr "Kendu"
+
+#: static/recurrence/js/recurrence-widget.js:1794
+msgid "Calendar"
+msgstr "Egutegia"
+
+#: static/recurrence/js/recurrence.js:1006
+msgid "midnight"
+msgstr "gauerdia"
+
+#: static/recurrence/js/recurrence.js:1007
+msgid "noon"
+msgstr "eguerdia"
+
+#: static/recurrence/js/recurrence.js:1008
+msgid "on the %(items)s"
+msgstr "%(items)setan"
+
+#: static/recurrence/js/recurrence.js:1009
+msgid "every %(number)s %(freq)s"
+msgstr "%(number)s %(freq)s(e)ro"
+
+#: static/recurrence/js/recurrence.js:1010
+msgid "each %(items)s"
+msgstr "%(items)s bakoitzero"
+
+#: static/recurrence/js/recurrence.js:1011
+msgid "occuring %(number)s time"
+msgstr "behin gertatuz"
+
+#: static/recurrence/js/recurrence.js:1012
+msgid "occuring %(number)s times"
+msgstr "%(number)s aldiz gertatuz"
+
+#: static/recurrence/js/recurrence.js:1013
+msgid "until %(date)s"
+msgstr "%(date)s arte"
+
+#: static/recurrence/js/recurrence.js:1017
+msgid "year"
+msgstr "urtea"
+
+#: static/recurrence/js/recurrence.js:1017
+msgid "month"
+msgstr "hilabetea"
+
+#: static/recurrence/js/recurrence.js:1017
+msgid "week"
+msgstr "astea"
+
+#: static/recurrence/js/recurrence.js:1017
+msgid "day"
+msgstr "eguna"
+
+#: static/recurrence/js/recurrence.js:1018
+msgid "hour"
+msgstr "ordua"
+
+#: static/recurrence/js/recurrence.js:1018
+msgid "minute"
+msgstr "minutua"
+
+#: static/recurrence/js/recurrence.js:1018
+msgid "second"
+msgstr "segundua"
+
+#: static/recurrence/js/recurrence.js:1021
+msgid "years"
+msgstr "urte"
+
+#: static/recurrence/js/recurrence.js:1021
+msgid "months"
+msgstr "hilabete"
+
+#: static/recurrence/js/recurrence.js:1021
+msgid "weeks"
+msgstr "aste"
+
+#: static/recurrence/js/recurrence.js:1021
+msgid "days"
+msgstr "egun"
+
+#: static/recurrence/js/recurrence.js:1022
+msgid "hours"
+msgstr "ordu"
+
+#: static/recurrence/js/recurrence.js:1022
+msgid "minutes"
+msgstr "minutu"
+
+#: static/recurrence/js/recurrence.js:1022
+msgid "seconds"
+msgstr "segundu"
+
+#: static/recurrence/js/recurrence.js:1025
+msgid "annually"
+msgstr "urtero"
+
+#: static/recurrence/js/recurrence.js:1025
+msgid "monthly"
+msgstr "hilabetero"
+
+#: static/recurrence/js/recurrence.js:1025
+msgid "weekly"
+msgstr "astero"
+
+#: static/recurrence/js/recurrence.js:1025
+msgid "daily"
+msgstr "egunero"
+
+#: static/recurrence/js/recurrence.js:1026
+msgid "hourly"
+msgstr "orduro"
+
+#: static/recurrence/js/recurrence.js:1026
+msgid "minutely"
+msgstr "minuturo"
+
+#: static/recurrence/js/recurrence.js:1026
+msgid "secondly"
+msgstr "segunduro"
+
+#: static/recurrence/js/recurrence.js:1029
+msgid "Monday"
+msgstr "Astelehena"
+
+#: static/recurrence/js/recurrence.js:1029
+msgid "Tuesday"
+msgstr "Asteartea"
+
+#: static/recurrence/js/recurrence.js:1029
+msgid "Wednesday"
+msgstr "Asteazkena"
+
+#: static/recurrence/js/recurrence.js:1029
+msgid "Thursday"
+msgstr "Osteguna"
+
+#: static/recurrence/js/recurrence.js:1030
+msgid "Friday"
+msgstr "Ostirala"
+
+#: static/recurrence/js/recurrence.js:1030
+msgid "Saturday"
+msgstr "Larunbata"
+
+#: static/recurrence/js/recurrence.js:1030
+msgid "Sunday"
+msgstr "Igandea"
+
+#: static/recurrence/js/recurrence.js:1033
+msgid "Mon"
+msgstr "Astl"
+
+#: static/recurrence/js/recurrence.js:1033
+msgid "Tue"
+msgstr "Astr"
+
+#: static/recurrence/js/recurrence.js:1033
+msgid "Wed"
+msgstr "Astz"
+
+#: static/recurrence/js/recurrence.js:1033
+msgid "Thu"
+msgstr "Ostg"
+
+#: static/recurrence/js/recurrence.js:1034
+msgid "Fri"
+msgstr "Osti"
+
+#: static/recurrence/js/recurrence.js:1034
+msgid "Sat"
+msgstr "Lar"
+
+#: static/recurrence/js/recurrence.js:1034
+msgid "Sun"
+msgstr "Iga"
+
+#: static/recurrence/js/recurrence.js:1037
+msgctxt "Monday first letter"
+msgid "M"
+msgstr "Al"
+
+#: static/recurrence/js/recurrence.js:1038
+msgctxt "Tuesday first letter"
+msgid "T"
+msgstr "Ar"
+
+#: static/recurrence/js/recurrence.js:1039
+msgctxt "Wednesday first letter"
+msgid "W"
+msgstr "Az"
+
+#: static/recurrence/js/recurrence.js:1040
+msgctxt "Thursday first letter"
+msgid "T"
+msgstr "Og"
+
+#: static/recurrence/js/recurrence.js:1041
+msgctxt "Friday first letter"
+msgid "F"
+msgstr "Or"
+
+#: static/recurrence/js/recurrence.js:1042
+msgctxt "Saturday first letter"
+msgid "S"
+msgstr "L"
+
+#: static/recurrence/js/recurrence.js:1043
+msgctxt "Sunday first letter"
+msgid "S"
+msgstr "I"
+
+#: static/recurrence/js/recurrence.js:1046
+msgid "first %(weekday)s"
+msgstr "lehen %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1047
+msgid "second %(weekday)s"
+msgstr "bigarren %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1048
+msgid "third %(weekday)s"
+msgstr "hirugarren %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1049
+msgid "fourth %(weekday)s"
+msgstr "hirugarren %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1050
+#: static/recurrence/js/recurrence.js:1059
+msgid "last %(weekday)s"
+msgstr "azken %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1051
+msgid "second last %(weekday)s"
+msgstr "azkenaurreko %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1052
+msgid "third last %(weekday)s"
+msgstr "azken-hirugarren %(weekday)"
+
+#: static/recurrence/js/recurrence.js:1055
+msgid "1st %(weekday)s"
+msgstr "1. %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1056
+msgid "2nd %(weekday)s"
+msgstr "2. %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1057
+msgid "3rd %(weekday)s"
+msgstr "3. %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1058
+msgid "4th %(weekday)s"
+msgstr "4. %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1060
+msgid "2nd last %(weekday)s"
+msgstr "2. azken %(weekday)"
+
+#: static/recurrence/js/recurrence.js:1061
+msgid "3rd last %(weekday)s"
+msgstr "3. azken %(weekday)"
+
+#: static/recurrence/js/recurrence.js:1064
+msgid "January"
+msgstr "Urtarrila"
+
+#: static/recurrence/js/recurrence.js:1064
+msgid "February"
+msgstr "Otsaila"
+
+#: static/recurrence/js/recurrence.js:1064
+#: static/recurrence/js/recurrence.js:1076
+msgid "March"
+msgstr "Martxoa"
+
+#: static/recurrence/js/recurrence.js:1065
+#: static/recurrence/js/recurrence.js:1077
+msgid "April"
+msgstr "Apirila"
+
+#: static/recurrence/js/recurrence.js:1065
+#: static/recurrence/js/recurrence.js:1071
+#: static/recurrence/js/recurrence.js:1077
+msgctxt "month name"
+msgid "May"
+msgstr "Maiatza"
+
+#: static/recurrence/js/recurrence.js:1065
+#: static/recurrence/js/recurrence.js:1077
+msgid "June"
+msgstr "Ekaina"
+
+#: static/recurrence/js/recurrence.js:1066
+#: static/recurrence/js/recurrence.js:1078
+msgid "July"
+msgstr "Uztaila"
+
+#: static/recurrence/js/recurrence.js:1066
+msgid "August"
+msgstr "Abuztua"
+
+#: static/recurrence/js/recurrence.js:1066
+msgid "September"
+msgstr "Iraila"
+
+#: static/recurrence/js/recurrence.js:1067
+msgid "October"
+msgstr "Urria"
+
+#: static/recurrence/js/recurrence.js:1067
+msgid "November"
+msgstr "Azaroa"
+
+#: static/recurrence/js/recurrence.js:1067
+msgid "December"
+msgstr "Abendua"
+
+#: static/recurrence/js/recurrence.js:1070
+msgid "Jan"
+msgstr "Urt"
+
+#: static/recurrence/js/recurrence.js:1070
+msgid "Feb"
+msgstr "Ots"
+
+#: static/recurrence/js/recurrence.js:1070
+msgid "Mar"
+msgstr "Mar"
+
+#: static/recurrence/js/recurrence.js:1071
+msgid "Apr"
+msgstr "Api"
+
+#: static/recurrence/js/recurrence.js:1071
+msgid "Jun"
+msgstr "Eka"
+
+#: static/recurrence/js/recurrence.js:1072
+msgid "Jul"
+msgstr "Uzt"
+
+#: static/recurrence/js/recurrence.js:1072
+msgid "Aug"
+msgstr "Abu"
+
+#: static/recurrence/js/recurrence.js:1072
+msgid "Sep"
+msgstr "Ira"
+
+#: static/recurrence/js/recurrence.js:1073
+msgid "Oct"
+msgstr "Urr"
+
+#: static/recurrence/js/recurrence.js:1073
+msgid "Nov"
+msgstr "Aza"
+
+#: static/recurrence/js/recurrence.js:1073
+msgid "Dec"
+msgstr "Abe"
+
+#: static/recurrence/js/recurrence.js:1076
+msgid "Jan."
+msgstr "Urt."
+
+#: static/recurrence/js/recurrence.js:1076
+msgid "Feb."
+msgstr "Ots."
+
+#: static/recurrence/js/recurrence.js:1078
+msgid "Aug."
+msgstr "Eka."
+
+#: static/recurrence/js/recurrence.js:1078
+msgid "Sept."
+msgstr "Ira."
+
+#: static/recurrence/js/recurrence.js:1079
+msgid "Oct."
+msgstr "Urr."
+
+#: static/recurrence/js/recurrence.js:1079
+msgid "Nov."
+msgstr "Aza."
+
+#: static/recurrence/js/recurrence.js:1079
+msgid "Dec."
+msgstr "Abe."
+
+#: static/recurrence/js/recurrence.js:1082
+msgid "a.m."
+msgstr "a.m."
+
+#: static/recurrence/js/recurrence.js:1082
+msgid "p.m."
+msgstr "p.m."
+
+#: static/recurrence/js/recurrence.js:1083
+msgid "AM"
+msgstr "AM"
+
+#: static/recurrence/js/recurrence.js:1083
+msgid "PM"
+msgstr "PM"

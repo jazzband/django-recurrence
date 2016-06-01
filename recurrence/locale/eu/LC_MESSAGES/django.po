@@ -1,0 +1,374 @@
+# Basque translations for django-recurrence
+# Copyright (C) Tamas Kemenczy and individual contributors
+# This file is distributed under the same license as the django-recurrence package.
+# Unai Zalakain <unai@gisa-elkartea.org>, 2016.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.3.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-14 17:08+0000\n"
+"PO-Revision-Date: 2016-05-14 19:21+01:00\n"
+"Last-Translator: Unai Zalakain <unai@gisa-elkartea.org>\n"
+"Language: eu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: base.py:1087
+msgid "annually"
+msgstr "urtero"
+
+#: base.py:1087
+msgid "monthly"
+msgstr "hilabetero"
+
+#: base.py:1087
+msgid "weekly"
+msgstr "astero"
+
+#: base.py:1087
+msgid "daily"
+msgstr "egunero"
+
+#: base.py:1088
+msgid "hourly"
+msgstr "orduro"
+
+#: base.py:1088
+msgid "minutely"
+msgstr "minuturo"
+
+#: base.py:1088
+msgid "secondly"
+msgstr "segunduro"
+
+#: base.py:1091
+msgid "years"
+msgstr "urteak"
+
+#: base.py:1091
+msgid "months"
+msgstr "hilabeteak"
+
+#: base.py:1091
+msgid "weeks"
+msgstr "asteak"
+
+#: base.py:1091
+msgid "days"
+msgstr "egunak"
+
+#: base.py:1092
+msgid "hours"
+msgstr "orduak"
+
+#: base.py:1092
+msgid "minutes"
+msgstr "minutuak"
+
+#: base.py:1092
+msgid "seconds"
+msgstr "segunduak"
+
+#: base.py:1097
+#, python-format
+msgid "1st %(weekday)s"
+msgstr "1. %(weekday)s"
+
+#: base.py:1098
+#, python-format
+msgid "2nd %(weekday)s"
+msgstr "2. %(weekday)s"
+
+#: base.py:1099
+#, python-format
+msgid "3rd %(weekday)s"
+msgstr "3. %(weekday)s"
+
+#: base.py:1100 base.py:1120
+#, python-format
+msgid "last %(weekday)s"
+msgstr "azken %(weekday)s"
+
+#: base.py:1101
+#, python-format
+msgid "2nd last %(weekday)s"
+msgstr "azkenaurreko %(weekday)s"
+
+#: base.py:1102
+#, python-format
+msgid "3rd last %(weekday)s"
+msgstr "azken-hirugarren %(weekday)s"
+
+#: base.py:1105
+msgid "Mon"
+msgstr "Astl"
+
+#: base.py:1105
+msgid "Tue"
+msgstr "Astr"
+
+#: base.py:1105
+msgid "Wed"
+msgstr "Astz"
+
+#: base.py:1106
+msgid "Thu"
+msgstr "Ostg"
+
+#: base.py:1106
+msgid "Fri"
+msgstr "Osti"
+
+#: base.py:1106
+msgid "Sat"
+msgstr "Lar"
+
+#: base.py:1106
+msgid "Sun"
+msgstr "Iga"
+
+#: base.py:1109
+msgid "Jan"
+msgstr "Urt"
+
+#: base.py:1109
+msgid "Feb"
+msgstr "Ots"
+
+#: base.py:1109
+msgid "Mar"
+msgstr "Mar"
+
+#: base.py:1109
+msgid "Apr"
+msgstr "Api"
+
+#: base.py:1110
+msgid "Jun"
+msgstr "Eka"
+
+#: base.py:1110
+msgid "Jul"
+msgstr "Uzt"
+
+#: base.py:1110
+msgid "Aug"
+msgstr "Abu"
+
+#: base.py:1111
+msgid "Sep"
+msgstr "Ira"
+
+#: base.py:1111
+msgid "Oct"
+msgstr "Urr"
+
+#: base.py:1111
+msgid "Nov"
+msgstr "Aza"
+
+#: base.py:1111
+msgid "Dec"
+msgstr "Abe"
+
+#: base.py:1116
+#, python-format
+msgid "first %(weekday)s"
+msgstr "lehen %(weekday)s"
+
+#: base.py:1117
+#, python-format
+msgid "second %(weekday)s"
+msgstr "bigarren %(weekday)s"
+
+#: base.py:1118
+#, python-format
+msgid "third %(weekday)s"
+msgstr "hirugarren %(weekday)s"
+
+#: base.py:1119
+#, python-format
+msgid "fourth %(weekday)s"
+msgstr "laugarren %(weekday)s"
+
+#: base.py:1121
+#, python-format
+msgid "second last %(weekday)s"
+msgstr "azkenaurreko %(weekday)s"
+
+#: base.py:1122
+#, python-format
+msgid "third last %(weekday)s"
+msgstr "azken-hirugarren %(weekday)s"
+
+#: base.py:1125 choices.py:17
+msgid "Monday"
+msgstr "Astelehena"
+
+#: base.py:1125 choices.py:18
+msgid "Tuesday"
+msgstr "Asteartea"
+
+#: base.py:1125 choices.py:19
+msgid "Wednesday"
+msgstr "Asteazkena"
+
+#: base.py:1126 choices.py:20
+msgid "Thursday"
+msgstr "Osteguna"
+
+#: base.py:1126 choices.py:21
+msgid "Friday"
+msgstr "Ostirala"
+
+#: base.py:1126 choices.py:22
+msgid "Saturday"
+msgstr "Larunbata"
+
+#: base.py:1126 choices.py:23
+msgid "Sunday"
+msgstr "Igandea"
+
+#: base.py:1129 choices.py:27
+msgid "January"
+msgstr "Urtarrila"
+
+#: base.py:1129 choices.py:28
+msgid "February"
+msgstr "Otsaila"
+
+#: base.py:1129 choices.py:29
+msgid "March"
+msgstr "Martxoa"
+
+#: base.py:1129 choices.py:30
+msgid "April"
+msgstr "Apirila"
+
+#: base.py:1130 choices.py:32
+msgid "June"
+msgstr "Ekaina"
+
+#: base.py:1130 choices.py:33
+msgid "July"
+msgstr "Uztaila"
+
+#: base.py:1130 choices.py:34
+msgid "August"
+msgstr "Abuztua"
+
+#: base.py:1131 choices.py:35
+msgid "September"
+msgstr "Iraila"
+
+#: base.py:1131 choices.py:36
+msgid "October"
+msgstr "Urria"
+
+#: base.py:1131 choices.py:37
+msgid "November"
+msgstr "Azaroa"
+
+#: base.py:1131 choices.py:38
+msgid "December"
+msgstr "Abendua"
+
+#: base.py:1149 base.py:1166 base.py:1177 base.py:1190 base.py:1208
+msgid ", "
+msgstr ", "
+
+#: base.py:1155
+#, python-format
+msgid "every %(number)s %(freq)s"
+msgstr "%(number)s %(freq)sero"
+
+#: base.py:1169 base.py:1193
+#, python-format
+msgid "each %(items)s"
+msgstr "%(items)sero"
+
+#: base.py:1172 base.py:1181 base.py:1185
+#, python-format
+msgid "on the %(items)s"
+msgstr "%(items)setan"
+
+#: base.py:1200
+msgid "occuring once"
+msgstr "behin gertatzen"
+
+#: base.py:1202
+#, python-format
+msgid "occuring %(number)s times"
+msgstr "%(number)stan gertatzen"
+
+#: base.py:1205
+#, python-format
+msgid "until %(date)s"
+msgstr "%(date)s arte"
+
+#: choices.py:7
+msgid "Secondly"
+msgstr "Segunduro"
+
+#: choices.py:8
+msgid "Minutely"
+msgstr "Minuturo"
+
+#: choices.py:9
+msgid "Hourly"
+msgstr "Orduro"
+
+#: choices.py:10
+msgid "Daily"
+msgstr "Egunero"
+
+#: choices.py:11
+msgid "Weekly"
+msgstr "Astero"
+
+#: choices.py:12
+msgid "Monthly"
+msgstr "Hilabetero"
+
+#: choices.py:13
+msgid "Yearly"
+msgstr "Urtero"
+
+#: choices.py:31
+msgid "May"
+msgstr "Maiatza"
+
+#: choices.py:44
+msgid "Inclusion"
+msgstr "Inklusio"
+
+#: choices.py:45
+msgid "Exclusion"
+msgstr "Exklusio"
+
+#: forms.py:72
+msgid "Invalid frequency."
+msgstr "Maiztasun baliogabea."
+
+#: forms.py:74
+#, python-format
+msgid "Max rules exceeded. The limit is %(limit)s"
+msgstr "Erregelen kopuru maximoa gainditua. Muga %(limit)s da"
+
+#: forms.py:76
+#, python-format
+msgid "Max exclusion rules exceeded. The limit is %(limit)s"
+msgstr "Exklusio erregelen kopuru maximoa gainditua. Muga %(limit)s da"
+
+#: forms.py:78
+#, python-format
+msgid "Max dates exceeded. The limit is %(limit)s"
+msgstr "Daten kopuru maximoa gainditua. Muga %(limit)s da"
+
+#: forms.py:80
+#, python-format
+msgid "Max exclusion dates exceeded. The limit is %(limit)s"
+msgstr "Exklusio daten kopuru maximoa gainditua. Muga %(limit)s da"
