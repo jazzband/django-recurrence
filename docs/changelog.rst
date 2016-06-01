@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.3.1
+-----
+
+* Add Basque translations (:issue:`67`).
+
 1.3.0
 -----
 
