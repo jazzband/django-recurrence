@@ -1,9 +1,8 @@
 from django.db.models import fields
 from django.utils.six import string_types
-from django.db.models.fields.subclassing import Creator
-
 import recurrence
 from recurrence import forms
+from recurrence.compat import Creator
 
 try:
     from south.modelsinspector import add_introspection_rules
