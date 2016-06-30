@@ -20,7 +20,7 @@ def make_issue_node(rawtext, app, slug, options):
         base = app.config.github_project_url
         if not base:
             raise AttributeError
-    except AttributeError, err:
+    except AttributeError as err:
         raise ValueError('github_project_url configuration value is not set (%s)' % str(err))
 
     slash = '/' if base[-1] != '/' else ''
