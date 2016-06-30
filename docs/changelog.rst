@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.4.0
+-----
+
+* Improve our testing setup to also cover Python 3.5;
+* Fixes for Django 1.10 (:issue:`69`).
+
 1.3.1
 -----
 
