@@ -234,6 +234,13 @@ recurrence.widget.Calendar.prototype = {
     },
 
     set_date: function(year, month, day) {
+        // always reset time part
+        if (this.date){
+            this.date.setHours(0);
+            this.date.setMinutes(0);
+            this.date.setSeconds(0);
+            this.date._timezone = 'server';
+        }
         if (year != this.date.getFullYear() ||
             month != this.date.getMonth() ||
             day != this.date.getDate()) {
@@ -301,10 +308,13 @@ recurrence.widget.DateSelector.prototype = {
     init_dom: function() {
         var dateselector = this;
 
-        if (this.date)
+        if (this.date){
+            recurrence.convertToServerDate(this.date);
             var date_value = recurrence.date.format(this.date, '%Y-%m-%d');
-        else
+        }
+        else{
             var date_value = '';
+        }
         var date_field = recurrence.widget.e(
             'input', {
                 'class': 'date-field', 'size': 10,
@@ -351,6 +361,7 @@ recurrence.widget.DateSelector.prototype = {
         };
 
         if (!this.calendar) {
+            recurrence.convertToServerDate(this.date);
             this.calendar = new recurrence.widget.Calendar(
                 new Date((this.date || recurrence.widget.date_today()).valueOf()), {
                     'onchange': function() {
@@ -398,6 +409,13 @@ recurrence.widget.DateSelector.prototype = {
                 this.elements.date_field.value = '';
             }
         } else {
+            if(this.date){
+                this.date.setHours(0);
+                this.date.setMinutes(0);
+                this.date.setSeconds(0);
+                this.date._timezone= 'server';
+            }
+
             if (!this.date ||
                 (year != this.date.getFullYear() ||
                  month != this.date.getMonth() ||
@@ -1607,6 +1625,7 @@ recurrence.widget.DateForm.prototype = {
     },
 
     get_display_text: function() {
+        recurrence.convertToServerDate(this.date)
         var text = recurrence.date.format(this.date, pgettext('date', '%l, %F %j, %Y'));
         if (this.mode == recurrence.widget.EXCLUSION)
             text = recurrence.display.mode.exclusion + ' ' + text;
