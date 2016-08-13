@@ -560,12 +560,12 @@ recurrence.serialize = function(rule_or_recurrence) {
                 return initial;
             }
         };
-        return pad(dt.getUTCFullYear(), 4) +
-            pad(dt.getUTCMonth() + 1, 2) +
-            pad(dt.getUTCDate(), 2) + 'T' +
-            pad(dt.getUTCHours(), 2) +
-            pad(dt.getUTCMinutes(), 2) +
-            pad(dt.getUTCSeconds(), 2) + 'Z';
+        return pad(dt.getFullYear(), 4) +
+            pad(dt.getMonth() + 1, 2) +
+            pad(dt.getDate(), 2) + 'T' +
+            pad(dt.getHours(), 2) +
+            pad(dt.getMinutes(), 2) +
+            pad(dt.getSeconds(), 2);
     };
 
     var serialize_rule = function(rule) {
@@ -657,31 +657,16 @@ recurrence.deserialize = function(text) {
         var year = parseInt(text.slice(0, 4), 10);
         var month = parseInt(text.slice(4, 6), 10);
         var day = parseInt(text.slice(6, 8), 10);
-        if (text.indexOf('T') > 0) {
-            var hour = parseInt(text.slice(9, 11), 10);
-            var minute = parseInt(text.slice(11, 13), 10);
-            var second = parseInt(text.slice(13, 15), 10);
-        } else {
-            var hour = 0;
-            var minute = 0;
-            var second = 0;
-        }
+        var hour = parseInt(text.slice(9, 11), 10);
+        var minute = parseInt(text.slice(11, 13), 10);
+        var second = parseInt(text.slice(13, 15), 10);
         var dt = new Date();
-        if (text.indexOf('Z') > 0) {
-            dt.setUTCFullYear(year);
-            dt.setUTCMonth(month - 1);
-            dt.setUTCDate(day);
-            dt.setUTCHours(hour);
-            dt.setUTCMinutes(minute);
-            dt.setUTCSeconds(second);
-        } else {
-            dt.setFullYear(year);
-            dt.setMonth(month - 1);
-            dt.setDate(day);
-            dt.setHours(hour);
-            dt.setMinutes(minute);
-            dt.setSeconds(second);
-        }
+        dt.setFullYear(year);
+        dt.setMonth(month - 1);
+        dt.setDate(day);
+        dt.setHours(hour);
+        dt.setMinutes(minute);
+        dt.setSeconds(second);
         return dt;
     };
 
