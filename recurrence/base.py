@@ -554,7 +554,7 @@ class Recurrence(object):
 
         if dtstart is not None:
             rruleset.rdate(dtstart)
-        for rdate in self.rdates: # FIXME:
+        for rdate in self.rdates:
             rdate = normalize_offset_awareness(rdate, dtstart)
             if dtend is not None and rdate < dtend:
                 rruleset.rdate(rdate)
@@ -563,7 +563,7 @@ class Recurrence(object):
         if dtend is not None:
             rruleset.rdate(dtend)
 
-        for exdate in self.exdates: # FIXME:
+        for exdate in self.exdates:
             exdate = normalize_offset_awareness(exdate, dtstart)
             if dtend is not None and exdate < dtend:
                 rruleset.exdate(exdate)
@@ -951,15 +951,7 @@ def deserialize(text):
             # just use the time zone specified in the Django settings.
             tzinfo = localtz
 
-        dt = datetime.datetime(
-            year, month, day, hour, minute, second, tzinfo=tzinfo)
         return tzinfo.localize(datetime.datetime(year, month, day, hour, minute, second))
-
-        dt = dt.astimezone(localtz)
-
-        # set tz to settings.TIME_ZONE and return offset-naive datetime
-        return datetime.datetime(
-            dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
 
     dtstart, dtend, rrules, exrules, rdates, exdates = None, None, [], [], [], []
 
