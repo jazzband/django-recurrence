@@ -46,7 +46,8 @@ Using a translation of django-recurrence other than
 ``en`` requires that django-recurrence's JavaScript can
 access the translation strings. This is handled with Django's built
 in ``javascript_catalog`` view, which you must install by adding the
-following to your project ``urls.py`` file:
+following to your project ``urls.py`` file (the following will work
+for versions of Django before 1.10:
 
 .. code-block:: python
 
@@ -60,6 +61,24 @@ following to your project ``urls.py`` file:
     urlpatterns = patterns(
         '',
         (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
+    )
+
+For Django 1.10 and above, you'll need:
+
+.. code-block:: python
+
+    import django
+    from django.conf.urls import url
+
+    # If you already have a js_info_dict dictionary, just add
+    # 'recurrence' to the existing 'packages' tuple.
+    js_info_dict = {
+        'packages': ('recurrence', ),
+    }
+
+    # jsi18n can be anything you like here
+    urlpatterns = [
+        url(r'^jsi18n/$', django.views.i18n.javascript_catalog, js_info_dict),
     )
 
 
