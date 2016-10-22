@@ -38,9 +38,7 @@ Set up internationalization
 .. note::
 
     This step is currently mandatory, but may be bypassed with an
-    extra bit of javascript. See [issue
-    #47](https://github.com/django-recurrence/django-recurrence/issues/47)
-    for details.
+    extra bit of javascript. See :issue:`47` for details.
 
 Using a translation of django-recurrence other than
 ``en`` requires that django-recurrence's JavaScript can
