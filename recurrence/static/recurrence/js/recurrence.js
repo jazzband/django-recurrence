@@ -148,7 +148,7 @@ recurrence.Rule.prototype = {
                         var dt = new Date();
                         dt.setMonth(0);
                         dt.setDate(day);
-                        return recurrence.date.format(dt, '%j%S');
+                        return recurrence.date.format(dt, recurrence.display.month_day);
                 });
                 items = items.join(', ');
                 parts.push(
@@ -207,7 +207,7 @@ recurrence.Rule.prototype = {
             parts.push(
                 interpolate(
                     recurrence.display.tokens.until,
-                    {'date': recurrence.date.format(this.until, '%Y-%m-%d')}, true));
+                    {'date': recurrence.date.format(this.until, pgettext('Until date format', '%Y-%m-%d'))}, true));
         }
 
         return parts.join(', ');
@@ -1082,6 +1082,7 @@ recurrence.display.ampm = {
     'am': gettext('a.m.'), 'pm': gettext('p.m.'),
     'AM': gettext('AM'), 'PM': gettext('PM')
 };
+recurrence.display.month_day = pgettext('Day of month', '%j%S');
 
 recurrence.display.ordinal_indicator = {
     'en-us': function(day) {
