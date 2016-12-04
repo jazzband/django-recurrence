@@ -5,7 +5,8 @@ Changelog
 -----
 
 * Make PO-Revision-Date parseable by babel (:issue:`75`);
-* Update installation notes to cover Django 1.10 (:issue:`74`).
+* Update installation notes to cover Django 1.10 (:issue:`74`);
+* Add German translation (:issue:`77`).
 
 1.4.0
 -----
