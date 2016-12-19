@@ -45,9 +45,11 @@ Using a translation of django-recurrence other than
 access the translation strings. This is handled with Django's built
 in ``javascript_catalog`` view, which you must install by adding the
 following to your project ``urls.py`` file (the following will work
-for versions of Django before 1.10:
+for versions of Django before 1.10):
 
 .. code-block:: python
+
+    # Your normal URLs here...
 
     # If you already have a js_info_dict dictionary, just add
     # 'recurrence' to the existing 'packages' tuple.
@@ -56,8 +58,7 @@ for versions of Django before 1.10:
     }
 
     # jsi18n can be anything you like here
-    urlpatterns = patterns(
-        '',
+    urlpatterns += (
         (r'^jsi18n/$', 'django.views.i18n.javascript_catalog', js_info_dict),
     )
 
@@ -68,6 +69,8 @@ For Django 1.10 and above, you'll need:
     import django
     from django.conf.urls import url
 
+    # Your normal URLs here...
+
     # If you already have a js_info_dict dictionary, just add
     # 'recurrence' to the existing 'packages' tuple.
     js_info_dict = {
@@ -75,7 +78,7 @@ For Django 1.10 and above, you'll need:
     }
 
     # jsi18n can be anything you like here
-    urlpatterns = [
+    urlpatterns += [
         url(r'^jsi18n/$', django.views.i18n.javascript_catalog, js_info_dict),
     )
 
