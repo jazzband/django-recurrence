@@ -459,7 +459,7 @@ class Recurrence(object):
         :Returns:
             A `datetime.datetime` instance.
         """
-        return self.to_dateutil_rruleset(dtstart, cache).after(dt, inc)
+        return self.to_dateutil_rruleset(dtstart, dtend, cache).after(dt, inc)
 
     def between(
         self, after, before,
