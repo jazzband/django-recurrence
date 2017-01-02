@@ -8,7 +8,8 @@ Changelog
 * Update installation notes to cover Django 1.10 (:issue:`74`);
 * Add German translation (:issue:`77`);
 * Add Brazilian translation (:issue:`79`);
-* Ensure the migrations are included when installing (:issue:`78`).
+* Ensure the migrations are included when installing (:issue:`78`);
+* Fix order of arguments to `to_dateutil_rruleset` (:issue:`81`).
 
 1.4.0
 -----
