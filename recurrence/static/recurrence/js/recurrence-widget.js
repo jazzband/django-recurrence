@@ -135,8 +135,7 @@ recurrence.widget.Calendar.prototype = {
         var tr = recurrence.widget.e('tr', {}, [td]);
         var tbody = recurrence.widget.e('tbody', {}, [tr]);
         var root = recurrence.widget.e(
-            'table', {'class': 'recurrence-calendar'}, [tbody]);
-        root.style.display = 'none';
+            'table', {'class': 'recurrence-calendar hidden'}, [tbody]);
 
         this.elements = {
             'root': root,
@@ -265,11 +264,11 @@ recurrence.widget.Calendar.prototype = {
     },
 
     show: function() {
-        this.elements.root.style.display = '';
+        recurrence.widget.remove_class(this.elements.root, 'hidden');
     },
 
     hide: function() {
-        this.elements.root.style.display = 'none';
+        recurrence.widget.add_class(this.elements.root, 'hidden');
     },
 
     close: function() {
@@ -504,7 +503,7 @@ recurrence.widget.Widget.prototype = {
         };
 
         // attach immediately
-        this.textarea.style.display = 'none';
+        recurrence.widget.add_class(this.textarea, 'hidden');
         this.textarea.parentNode.insertBefore(
             this.elements.root, this.textarea);
     },
@@ -684,14 +683,14 @@ recurrence.widget.Panel.prototype = {
 
     expand: function() {
         this.collapsed = false;
-        this.elements.body.style.display = '';
+        recurrence.widget.remove_class(this.elements.body, 'hidden');
         if (this.onexpand)
             this.onexpand(this);
     },
 
     collapse: function() {
         this.collapsed = true;
-        this.elements.body.style.display = 'none';
+        recurrence.widget.add_class(this.elements.body, 'hidden');
         if (this.oncollapse)
             this.oncollapse(this);
     },
@@ -1176,7 +1175,7 @@ recurrence.widget.RuleYearlyForm.prototype = {
         var root = recurrence.widget.e(
             'div', {'class': 'yearly'},
             [year, byday_container, weekday_position_container]);
-        root.style.display = 'none';
+        recurrence.widget.add_class(root, 'hidden');
 
         if (this.rule.byday.length) {
             if (form.rule.bysetpos.length) {
@@ -1246,11 +1245,11 @@ recurrence.widget.RuleYearlyForm.prototype = {
     },
 
     show: function() {
-        this.elements.root.style.display = '';
+        recurrence.widget.remove_class(this.elements.root, 'hidden');
     },
 
     hide: function() {
-        this.elements.root.style.display = 'none';
+        recurrence.widget.add_class(this.elements.root, 'hidden');
     }
 };
 
@@ -1356,7 +1355,7 @@ recurrence.widget.RuleMonthlyForm.prototype = {
 
         var root = recurrence.widget.e(
             'div', {'class': 'monthly'}, [monthday_weekday_container]);
-        root.style.display = 'none';
+        recurrence.widget.add_class(root, 'hidden');
 
         // events
 
@@ -1442,11 +1441,11 @@ recurrence.widget.RuleMonthlyForm.prototype = {
     },
 
     show: function() {
-        this.elements.root.style.display = '';
+        recurrence.widget.remove_class(this.elements.root, 'hidden');
     },
 
     hide: function() {
-        this.elements.root.style.display = 'none';
+        recurrence.widget.add_class(this.elements.root, 'hidden');
     }
 };
 
@@ -1492,8 +1491,7 @@ recurrence.widget.RuleWeeklyForm.prototype = {
             'div', {'class': 'section'});
         weekday_container.appendChild(weekday_grid.elements.root);
         var root = recurrence.widget.e(
-            'div', {'class': 'weekly'}, [weekday_container]);
-        root.style.display = 'none';
+            'div', {'class': 'weekly hidden'}, [weekday_container]);
 
         this.elements = {
             'root': root,
@@ -1513,11 +1511,11 @@ recurrence.widget.RuleWeeklyForm.prototype = {
     },
 
     show: function() {
-        this.elements.root.style.display = '';
+        recurrence.widget.remove_class(this.elements.root, 'hidden');
     },
 
     hide: function() {
-        this.elements.root.style.display = 'none';
+        recurrence.widget.add_class(this.elements.root, 'hidden');
     }
 };
 
@@ -1534,17 +1532,16 @@ recurrence.widget.RuleDailyForm.prototype = {
     },
 
     init_dom: function() {
-        var root = recurrence.widget.e('div', {'class': 'daily'});
-        root.style.display = 'none';
+        var root = recurrence.widget.e('div', {'class': 'daily hidden'});
         this.elements = {'root': root};
     },
 
     show: function() {
-        // this.elements.root.style.display = '';
+        // recurrence.widget.remove_class(this.elements.root, 'hidden');
     },
 
     hide: function() {
-        // this.elements.root.style.display = 'none';
+        // recurrence.widget.add_class(this.elements.root, 'hidden');
     }
 };
 

@@ -189,6 +189,10 @@ div.recurrence-widget .date-selector .calendar-button {
     padding: .25em;
 }
 
+.recurrence-widget.hidden, div.recurrence-widget .hidden {
+    display: none;
+}
+
 table.recurrence-calendar {
     position: absolute;
     background-color: white;
