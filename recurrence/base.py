@@ -783,7 +783,7 @@ def validate(rule_or_recurrence):
             elif param == 'bymonth':
                 validate_iterable_ints(rule, param, 1, 12)
             elif param == 'bymonthday':
-                validate_iterable_ints(rule, param, 1, 31)
+                validate_iterable_ints(rule, param, -4, 31)
             elif param == 'byhour':
                 validate_iterable_ints(rule, param, 0, 23)
             elif param == 'byminute':
@@ -1101,6 +1101,12 @@ def rule_to_text(rule, short=False):
             -2: _('2nd last %(weekday)s'),
             -3: _('3rd last %(weekday)s'),
         }
+        last_of_month_display = {
+            -1: _('last'),
+            -2: _('2nd last'),
+            -3: _('3rd last'),
+            -4: _('4th last'),
+        }
         weekdays_display = (
             _('Mon'), _('Tue'), _('Wed'),
             _('Thu'), _('Fri'), _('Sat'), _('Sun'),
@@ -1120,6 +1126,12 @@ def rule_to_text(rule, short=False):
             -1: _('last %(weekday)s'),
             -2: _('second last %(weekday)s'),
             -3: _('third last %(weekday)s'),
+        }
+        last_of_month_display = {
+            -1: _('last'),
+            -2: _('second last'),
+            -3: _('third last'),
+            -4: _('fourth last'),
         }
         weekdays_display = (
             _('Monday'), _('Tuesday'), _('Wednesday'),
@@ -1175,8 +1187,8 @@ def rule_to_text(rule, short=False):
     if rule.freq == MONTHLY:
         if rule.bymonthday:
             items = _(', ').join([
-                dateformat.format(
-                    datetime.datetime(1, 1, day), 'jS')
+                dateformat.format(datetime.datetime(1, 1, day), 'jS') if day > 0
+                else last_of_month_display.get(day, day)
                 for day in rule.bymonthday])
             parts.append(_('on the %(items)s') % {'items': items})
         elif rule.byday:

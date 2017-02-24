@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-26 15:26+0000\n"
-"PO-Revision-Date: 2014-11-26 16:28+0100\n"
+"POT-Creation-Date: 2017-02-24 23:21+0100\n"
+"PO-Revision-Date: 2017-02-24 23:23+0100\n"
 "Last-Translator: Olivier Le Brouster <olivier.le-brouster@webu.coop>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -88,7 +89,7 @@ msgstr "2ème %(weekday)s"
 msgid "3rd %(weekday)s"
 msgstr "3ème %(weekday)s"
 
-#: base.py:1100 base.py:1120
+#: base.py:1100 base.py:1126
 #, python-format
 msgid "last %(weekday)s"
 msgstr "dernier %(weekday)s"
@@ -103,209 +104,237 @@ msgstr "avant dernier %(weekday)s"
 msgid "3rd last %(weekday)s"
 msgstr "3ème dernier %(weekday)s"
 
-#: base.py:1105
+#: base.py:1105 base.py:1131
+msgid "last"
+msgstr "dernier"
+
+#: base.py:1106
+msgid "2nd last"
+msgstr "2ème dernier"
+
+#: base.py:1107
+msgid "3rd last"
+msgstr "3ème dernier"
+
+#: base.py:1108
+msgid "4th last"
+msgstr "4ème dernier"
+
+#: base.py:1111
 msgid "Mon"
 msgstr "Lun"
 
-#: base.py:1105
+#: base.py:1111
 msgid "Tue"
 msgstr "Mar"
 
-#: base.py:1105
+#: base.py:1111
 msgid "Wed"
 msgstr "Mer"
 
-#: base.py:1106
+#: base.py:1112
 msgid "Thu"
 msgstr "Jeu"
 
-#: base.py:1106
+#: base.py:1112
 msgid "Fri"
 msgstr "Ven"
 
-#: base.py:1106
+#: base.py:1112
 msgid "Sat"
 msgstr "Sam"
 
-#: base.py:1106
+#: base.py:1112
 msgid "Sun"
 msgstr "Dim"
 
-#: base.py:1109
+#: base.py:1115
 msgid "Jan"
 msgstr "Jan"
 
-#: base.py:1109
+#: base.py:1115
 msgid "Feb"
 msgstr "Fév"
 
-#: base.py:1109
+#: base.py:1115
 msgid "Mar"
 msgstr "Mar"
 
-#: base.py:1109
+#: base.py:1115
 msgid "Apr"
 msgstr "Avr"
 
-#: base.py:1110
+#: base.py:1116
 msgid "Jun"
 msgstr "Juin"
 
-#: base.py:1110
+#: base.py:1116
 msgid "Jul"
 msgstr "Juil"
 
-#: base.py:1110
+#: base.py:1116
 msgid "Aug"
 msgstr "Aoû"
 
-#: base.py:1111
+#: base.py:1117
 msgid "Sep"
 msgstr "Sep"
 
-#: base.py:1111
+#: base.py:1117
 msgid "Oct"
 msgstr "Oct"
 
-#: base.py:1111
+#: base.py:1117
 msgid "Nov"
 msgstr "Nov"
 
-#: base.py:1111
+#: base.py:1117
 msgid "Dec"
 msgstr "Déc"
 
-#: base.py:1116
+#: base.py:1122
 #, python-format
 msgid "first %(weekday)s"
 msgstr "premier %(weekday)s"
 
-#: base.py:1117
+#: base.py:1123
 #, python-format
 msgid "second %(weekday)s"
 msgstr "deuxième %(weekday)s"
 
-#: base.py:1118
+#: base.py:1124
 #, python-format
 msgid "third %(weekday)s"
 msgstr "troisième %(weekday)s"
 
-#: base.py:1119
+#: base.py:1125
 #, python-format
 msgid "fourth %(weekday)s"
 msgstr "quatrième %(weekday)s"
 
-#: base.py:1121
+#: base.py:1127
 #, python-format
 msgid "second last %(weekday)s"
 msgstr "avant dernier %(weekday)s"
 
-#: base.py:1122
+#: base.py:1128
 #, python-format
 msgid "third last %(weekday)s"
 msgstr "troisième dernier %(weekday)s"
 
-#: base.py:1125 choices.py:17
+#: base.py:1132
+msgid "second last"
+msgstr "pénultième"
+
+#: base.py:1133
+msgid "third last"
+msgstr "antépénultième"
+
+#: base.py:1134
+msgid "fourth last"
+msgstr "quatrième dernier"
+
+#: base.py:1137 choices.py:17
 msgid "Monday"
 msgstr "lundi"
 
-#: base.py:1125 choices.py:18
+#: base.py:1137 choices.py:18
 msgid "Tuesday"
 msgstr "mardi"
 
-#: base.py:1125 choices.py:19
+#: base.py:1137 choices.py:19
 msgid "Wednesday"
 msgstr "mercredi"
 
-#: base.py:1126 choices.py:20
+#: base.py:1138 choices.py:20
 msgid "Thursday"
 msgstr "jeudi"
 
-#: base.py:1126 choices.py:21
+#: base.py:1138 choices.py:21
 msgid "Friday"
 msgstr "vendredi"
 
-#: base.py:1126 choices.py:22
+#: base.py:1138 choices.py:22
 msgid "Saturday"
 msgstr "samedi"
 
-#: base.py:1126 choices.py:23
+#: base.py:1138 choices.py:23
 msgid "Sunday"
 msgstr "dimanche"
 
-#: base.py:1129 choices.py:27
+#: base.py:1141 choices.py:27
 msgid "January"
 msgstr "janvier"
 
-#: base.py:1129 choices.py:28
+#: base.py:1141 choices.py:28
 msgid "February"
 msgstr "février"
 
-#: base.py:1129 choices.py:29
+#: base.py:1141 choices.py:29
 msgid "March"
 msgstr "mars"
 
-#: base.py:1129 choices.py:30
+#: base.py:1141 choices.py:30
 msgid "April"
 msgstr "avril"
 
-#: base.py:1130 choices.py:32
+#: base.py:1142 choices.py:32
 msgid "June"
 msgstr "juin"
 
-#: base.py:1130 choices.py:33
+#: base.py:1142 choices.py:33
 msgid "July"
 msgstr "juillet"
 
-#: base.py:1130 choices.py:34
+#: base.py:1142 choices.py:34
 msgid "August"
 msgstr "août"
 
-#: base.py:1131 choices.py:35
+#: base.py:1143 choices.py:35
 msgid "September"
 msgstr "septembre"
 
-#: base.py:1131 choices.py:36
+#: base.py:1143 choices.py:36
 msgid "October"
 msgstr "octobre"
 
-#: base.py:1131 choices.py:37
+#: base.py:1143 choices.py:37
 msgid "November"
 msgstr "novembre"
 
-#: base.py:1131 choices.py:38
+#: base.py:1143 choices.py:38
 msgid "December"
 msgstr "décembre"
 
-#: base.py:1149 base.py:1166 base.py:1177 base.py:1190 base.py:1208
+#: base.py:1161 base.py:1178 base.py:1189 base.py:1202 base.py:1220
 msgid ", "
 msgstr ", "
 
-#: base.py:1155
+#: base.py:1167
 #, python-format
 msgid "every %(number)s %(freq)s"
 msgstr "tous les %(number)s %(freq)s"
 
-#: base.py:1169 base.py:1193
+#: base.py:1181 base.py:1205
 #, python-format
 msgid "each %(items)s"
 msgstr "chaque %(items)s"
 
-#: base.py:1172 base.py:1181 base.py:1185
+#: base.py:1184 base.py:1193 base.py:1197
 #, python-format
 msgid "on the %(items)s"
 msgstr "pour le %(items)s"
 
-#: base.py:1200
+#: base.py:1212
 msgid "occuring once"
 msgstr "se répète une fois"
 
-#: base.py:1202
+#: base.py:1214
 #, python-format
 msgid "occuring %(number)s times"
 msgstr "se répète %(number)s fois"
 
-#: base.py:1205
+#: base.py:1217
 #, python-format
 msgid "until %(date)s"
 msgstr "jusqu'à %(date)s"
