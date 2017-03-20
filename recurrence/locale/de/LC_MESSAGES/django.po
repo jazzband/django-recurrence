@@ -7,336 +7,332 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Django Recurrence 1.4.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-02-05 13:25-0600\n"
-"PO-Revision-Date: 2016-11-22 01:09+0100\n"
+"POT-Creation-Date: 2017-02-24 23:21+0100\n"
+"PO-Revision-Date: 2017-02-24 23:22+0100\n"
 "Last-Translator: Denis Anuschewski\n"
 "Language-Team: \n"
+"Language: German\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: German\n"
 
-#: base.py:871
+#: base.py:1087
 msgid "annually"
 msgstr "jährlich"
 
-#: base.py:871
+#: base.py:1087
 msgid "monthly"
 msgstr "monatlich"
 
-#: base.py:871
+#: base.py:1087
 msgid "weekly"
 msgstr "wöchentlich"
 
-#: base.py:871
+#: base.py:1087
 msgid "daily"
 msgstr "täglich"
 
-#: base.py:872
+#: base.py:1088
 msgid "hourly"
 msgstr "stündlich"
 
-#: base.py:872
+#: base.py:1088
 msgid "minutely"
 msgstr "minütlich"
 
-#: base.py:872
+#: base.py:1088
 msgid "secondly"
 msgstr "sekündlich"
 
-#: base.py:875
-msgid "year"
-msgstr "Jahr"
-
-#: base.py:875
-msgid "month"
-msgstr "Monat"
-
-#: base.py:875
-msgid "week"
-msgstr "Woche"
-
-#: base.py:875
-msgid "day"
-msgstr "Tag"
-
-#: base.py:876
-msgid "hour"
-msgstr "Stunde"
-
-#: base.py:876
-msgid "minute"
-msgstr "Minute"
-
-#: base.py:876
-msgid "second"
-msgstr "Sekunde"
-
-#: base.py:879
+#: base.py:1091
 msgid "years"
 msgstr "Jahre"
 
-#: base.py:879
+#: base.py:1091
 msgid "months"
 msgstr "Monate"
 
-#: base.py:879
+#: base.py:1091
 msgid "weeks"
 msgstr "Wochen"
 
-#: base.py:879
+#: base.py:1091
 msgid "days"
 msgstr "Tage"
 
-#: base.py:880
+#: base.py:1092
 msgid "hours"
 msgstr "Stunden"
 
-#: base.py:880
+#: base.py:1092
 msgid "minutes"
 msgstr "Minuten"
 
-#: base.py:880
+#: base.py:1092
 msgid "seconds"
 msgstr "Sekunden"
 
-#: base.py:885
+#: base.py:1097
 #, python-format
 msgid "1st %(weekday)s"
 msgstr "1. %(weekday)s"
 
-#: base.py:886
+#: base.py:1098
 #, python-format
 msgid "2nd %(weekday)s"
 msgstr "2. %(weekday)s"
 
-#: base.py:887
+#: base.py:1099
 #, python-format
 msgid "3rd %(weekday)s"
 msgstr "3. %(weekday)s"
 
-#: base.py:888 base.py:907
+#: base.py:1100 base.py:1126
 #, python-format
 msgid "last %(weekday)s"
 msgstr "letzten %(weekday)s"
 
-#: base.py:889
+#: base.py:1101
 #, python-format
 msgid "2nd last %(weekday)s"
-msgstr "zweitletzten %(weekday)s"
+msgstr "2. letzten %(weekday)s"
 
-#: base.py:890
+#: base.py:1102
 #, python-format
 msgid "3rd last %(weekday)s"
-msgstr "drittletzten %(weekday)s"
+msgstr "3. letzten %(weekday)s"
 
-#: base.py:893
+#: base.py:1105 base.py:1131
+msgid "last"
+msgstr "letzten"
+
+#: base.py:1106
+msgid "2nd last"
+msgstr "2. letzten"
+
+#: base.py:1107
+msgid "3rd last"
+msgstr "3. letzten"
+
+#: base.py:1108
+msgid "4th last"
+msgstr "4. letzten"
+
+#: base.py:1111
 msgid "Mon"
 msgstr "Mo"
 
-#: base.py:893
+#: base.py:1111
 msgid "Tue"
 msgstr "Di"
 
-#: base.py:893
+#: base.py:1111
 msgid "Wed"
 msgstr "Mi"
 
-#: base.py:894
+#: base.py:1112
 msgid "Thu"
 msgstr "Do"
 
-#: base.py:894
+#: base.py:1112
 msgid "Fri"
 msgstr "Fr"
 
-#: base.py:894
+#: base.py:1112
 msgid "Sat"
 msgstr "Sa"
 
-#: base.py:894
+#: base.py:1112
 msgid "Sun"
 msgstr "So"
 
-#: base.py:897
+#: base.py:1115
 msgid "Jan"
 msgstr "Jan"
 
-#: base.py:897
+#: base.py:1115
 msgid "Feb"
 msgstr "Feb"
 
-#: base.py:897
+#: base.py:1115
 msgid "Mar"
 msgstr "Mrz"
 
-#: base.py:897
+#: base.py:1115
 msgid "Apr"
 msgstr "Apr"
 
-#: base.py:898 base.py:917 choices.py:31
-msgid "May"
-msgstr "Mai"
-
-#: base.py:898
+#: base.py:1116
 msgid "Jun"
 msgstr "Jun"
 
-#: base.py:898
+#: base.py:1116
 msgid "Jul"
 msgstr "Jul"
 
-#: base.py:898
+#: base.py:1116
 msgid "Aug"
 msgstr "Aug"
 
-#: base.py:899
+#: base.py:1117
 msgid "Sep"
 msgstr "Sep"
 
-#: base.py:899
+#: base.py:1117
 msgid "Oct"
 msgstr "Okt"
 
-#: base.py:899
+#: base.py:1117
 msgid "Nov"
 msgstr "Nov"
 
-#: base.py:899
+#: base.py:1117
 msgid "Dec"
 msgstr "Dez"
 
-#: base.py:904
+#: base.py:1122
 #, python-format
 msgid "first %(weekday)s"
 msgstr "ersten %(weekday)s"
 
-#: base.py:905
+#: base.py:1123
 #, python-format
 msgid "second %(weekday)s"
 msgstr "zweiten %(weekday)s"
 
-#: base.py:906
+#: base.py:1124
 #, python-format
 msgid "third %(weekday)s"
 msgstr "dritten %(weekday)s"
 
-#: base.py:906
+#: base.py:1125
 #, python-format
 msgid "fourth %(weekday)s"
 msgstr "vierten %(weekday)s"
 
-#: base.py:908
+#: base.py:1127
 #, python-format
 msgid "second last %(weekday)s"
-msgstr "zweitletzten %(weekday)s"
+msgstr "vorletzten %(weekday)s"
 
-#: base.py:909
+#: base.py:1128
 #, python-format
 msgid "third last %(weekday)s"
 msgstr "drittletzten %(weekday)s"
 
-#: base.py:912 choices.py:17
+#: base.py:1132
+msgid "second last"
+msgstr "vorletzten"
+
+#: base.py:1133
+msgid "third last"
+msgstr "drittletzten"
+
+#: base.py:1134
+msgid "fourth last"
+msgstr "viertletzten"
+
+#: base.py:1137 choices.py:17
 msgid "Monday"
 msgstr "Montag"
 
-#: base.py:912 choices.py:18
+#: base.py:1137 choices.py:18
 msgid "Tuesday"
 msgstr "Dienstag"
 
-#: base.py:912 choices.py:19
+#: base.py:1137 choices.py:19
 msgid "Wednesday"
 msgstr "Mittwoch"
 
-#: base.py:913 choices.py:20
+#: base.py:1138 choices.py:20
 msgid "Thursday"
 msgstr "Donnerstag"
 
-#: base.py:913 choices.py:21
+#: base.py:1138 choices.py:21
 msgid "Friday"
 msgstr "Freitag"
 
-#: base.py:913 choices.py:22
+#: base.py:1138 choices.py:22
 msgid "Saturday"
 msgstr "Samstag"
 
-#: base.py:913 choices.py:23
+#: base.py:1138 choices.py:23
 msgid "Sunday"
 msgstr "Sonntag"
 
-#: base.py:916 choices.py:27
+#: base.py:1141 choices.py:27
 msgid "January"
 msgstr "Januar"
 
-#: base.py:916 choices.py:28
+#: base.py:1141 choices.py:28
 msgid "February"
 msgstr "Februar"
 
-#: base.py:916 choices.py:29
+#: base.py:1141 choices.py:29
 msgid "March"
 msgstr "März"
 
-#: base.py:916 choices.py:30
+#: base.py:1141 choices.py:30
 msgid "April"
 msgstr "April"
 
-#: base.py:917 choices.py:32
+#: base.py:1142 choices.py:32
 msgid "June"
 msgstr "Juni"
 
-#: base.py:917 choices.py:33
+#: base.py:1142 choices.py:33
 msgid "July"
 msgstr "Juli"
 
-#: base.py:917 choices.py:34
+#: base.py:1142 choices.py:34
 msgid "August"
 msgstr "August"
 
-#: base.py:918 choices.py:35
+#: base.py:1143 choices.py:35
 msgid "September"
 msgstr "September"
 
-#: base.py:918 choices.py:36
+#: base.py:1143 choices.py:36
 msgid "October"
 msgstr "Oktober"
 
-#: base.py:918 choices.py:37
+#: base.py:1143 choices.py:37
 msgid "November"
 msgstr "November"
 
-#: base.py:918 choices.py:38
+#: base.py:1143 choices.py:38
 msgid "December"
 msgstr "Dezember"
 
-#: base.py:936 base.py:951 base.py:974 base.py:992
+#: base.py:1161 base.py:1178 base.py:1189 base.py:1202 base.py:1220
 msgid ", "
 msgstr ""
 
-#: base.py:942
+#: base.py:1167
 #, python-format
 msgid "every %(number)s %(freq)s"
 msgstr "alle %(number)s %(freq)s"
 
-#: base.py:953 base.py:977
+#: base.py:1181 base.py:1205
 #, python-format
 msgid "each %(items)s"
 msgstr "jeden %(items)s"
 
-#: base.py:956 base.py:965 base.py:969
+#: base.py:1184 base.py:1193 base.py:1197
 #, python-format
 msgid "on the %(items)s"
 msgstr "am %(items)s"
 
-#: base.py:984
+#: base.py:1212
 msgid "occuring once"
 msgstr "einmalig"
 
-#: base.py:986
+#: base.py:1214
 #, python-format
 msgid "occuring %(number)s times"
 msgstr "bis zum %(number)s. Mal"
 
-#: base.py:989
+#: base.py:1217
 #, python-format
 msgid "until %(date)s"
 msgstr "bis %(date)s"
@@ -369,6 +365,10 @@ msgstr "Monatlich"
 msgid "Yearly"
 msgstr "Jährlich"
 
+#: choices.py:31
+msgid "May"
+msgstr "Mai"
+
 #: choices.py:44
 msgid "Inclusion"
 msgstr "Einschließlich"
@@ -377,27 +377,48 @@ msgstr "Einschließlich"
 msgid "Exclusion"
 msgstr "Ohne"
 
-#: forms.py:64
+#: forms.py:72
 msgid "Invalid frequency."
 msgstr "Ungültige Frequenz."
 
-#: forms.py:66
+#: forms.py:74
 #, python-format
 msgid "Max rules exceeded. The limit is %(limit)s"
 msgstr "Maximale Anzahl an %(limit)s Regeln ist überschritten."
 
-#: forms.py:68
+#: forms.py:76
 #, python-format
 msgid "Max exclusion rules exceeded. The limit is %(limit)s"
 msgstr "Maximale Anzahl an %(limit)s Ausschlussregeln ist überschritten."
 
-#: forms.py:70
+#: forms.py:78
 #, python-format
 msgid "Max dates exceeded. The limit is %(limit)s"
 msgstr "Maximale Anzahl an %(limit)s Datumsangaben ist überschritten."
 
-#: forms.py:72
+#: forms.py:80
 #, python-format
 msgid "Max exclusion dates exceeded. The limit is %(limit)s"
-msgstr "Maximale Anzahl an %(limit)s ausschließenden Datumsangaben ist überschritten."
+msgstr ""
+"Maximale Anzahl an %(limit)s ausschließenden Datumsangaben ist überschritten."
 
+#~ msgid "year"
+#~ msgstr "Jahr"
+
+#~ msgid "month"
+#~ msgstr "Monat"
+
+#~ msgid "week"
+#~ msgstr "Woche"
+
+#~ msgid "day"
+#~ msgstr "Tag"
+
+#~ msgid "hour"
+#~ msgstr "Stunde"
+
+#~ msgid "minute"
+#~ msgstr "Minute"
+
+#~ msgid "second"
+#~ msgstr "Sekunde"
