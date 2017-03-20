@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.5.0
+-----
+
+* Add support for events occurring at a fixed point before the
+  end of the month - e.g. the second last Tuesday before the end of
+  the month (:issue:`88`).
+
 1.4.1
 -----
 
