@@ -32,6 +32,25 @@ def test_complex_rule_serialization():
     assert recurrence.deserialize(serialized) == Recurrence(rrules=[rule])
 
 
+def test_complex_rule_serialization_with_weekday_instance():
+    rule = Rule(
+        recurrence.WEEKLY,
+        interval=17,
+        wkst=recurrence.to_weekday(1),
+        count=7,
+        byday=[
+            recurrence.to_weekday('-1MO'),
+            recurrence.to_weekday('TU')
+        ],
+        bymonth=[1, 3]
+    )
+
+    serialized = recurrence.serialize(rule)
+    assert ('RRULE:FREQ=WEEKLY;INTERVAL=17;WKST=TU;'
+            'COUNT=7;BYDAY=-1MO,TU;BYMONTH=1,3') == serialized
+    assert recurrence.deserialize(serialized) == Recurrence(rrules=[rule])
+
+
 def test_bug_in_count_and_until_rule_serialization():
     # This tests a bug in the way we serialize rules with instance
     # counts and an until date. We should really raise a

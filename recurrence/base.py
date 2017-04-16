@@ -15,8 +15,7 @@ import calendar
 
 import pytz
 import dateutil.rrule
-from django.conf import settings
-from django.utils import dateformat
+from django.utils import dateformat, timezone
 from django.utils.translation import ugettext as _, pgettext as _p
 from django.utils.six import string_types
 
@@ -29,7 +28,8 @@ YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY = range(7)
  SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER) = range(1, 13)
 
 
-localtz = pytz.timezone(settings.TIME_ZONE)
+def localtz():
+    return timezone.get_current_timezone()
 
 
 class Rule(object):
@@ -289,7 +289,7 @@ class Recurrence(object):
     """
     def __init__(
         self, dtstart=None, dtend=None,
-        rrules=[], exrules=[], rdates=[], exdates=[]
+        rrules=(), exrules=(), rdates=(), exdates=()
     ):
         """
         Create a new recurrence.
@@ -459,7 +459,7 @@ class Recurrence(object):
         :Returns:
             A `datetime.datetime` instance.
         """
-        return self.to_dateutil_rruleset(dtstart, cache).after(dt, inc)
+        return self.to_dateutil_rruleset(dtstart, dtend, cache).after(dt, inc)
 
     def between(
         self, after, before,
@@ -791,7 +791,7 @@ def validate(rule_or_recurrence):
             elif param == 'bymonth':
                 validate_iterable_ints(rule, param, 1, 12)
             elif param == 'bymonthday':
-                validate_iterable_ints(rule, param, 1, 31)
+                validate_iterable_ints(rule, param, -4, 31)
             elif param == 'byhour':
                 validate_iterable_ints(rule, param, 0, 23)
             elif param == 'byminute':
@@ -831,7 +831,7 @@ def serialize(rule_or_recurrence):
     """
     def serialize_dt(dt):
         if not dt.tzinfo:
-            dt = localtz.localize(dt)
+            dt = localtz().localize(dt)
         dt = dt.astimezone(pytz.utc)
 
         return u'%s%s%sT%s%s%sZ' % (
@@ -850,7 +850,7 @@ def serialize(rule_or_recurrence):
         if rule.interval != 1:
             values.append((u'INTERVAL', [str(int(rule.interval))]))
         if rule.wkst:
-            values.append((u'WKST', [Rule.weekdays[rule.wkst]]))
+            values.append((u'WKST', [Rule.weekdays[getattr(rule.wkst, 'number', rule.wkst)]]))
 
         if rule.count is not None:
             values.append((u'COUNT', [str(rule.count)]))
@@ -898,14 +898,14 @@ def serialize(rule_or_recurrence):
             dtstart = serialize_dt(obj.dtstart.astimezone(pytz.utc))
         else:
             dtstart = serialize_dt(
-                localtz.localize(obj.dtstart).astimezone(pytz.utc))
+                localtz().localize(obj.dtstart).astimezone(pytz.utc))
         items.append((u'DTSTART', dtstart))
     if obj.dtend:
         if obj.dtend.tzinfo:
             dtend = serialize_dt(obj.dtend.astimezone(pytz.utc))
         else:
             dtend = serialize_dt(
-                localtz.localize(obj.dtend).astimezone(pytz.utc))
+                localtz().localize(obj.dtend).astimezone(pytz.utc))
         items.append((u'DTEND', dtend))
 
     for rrule in obj.rrules:
@@ -917,13 +917,13 @@ def serialize(rule_or_recurrence):
         if rdate.tzinfo:
             rdate = rdate.astimezone(pytz.utc)
         else:
-            rdate = localtz.localize(rdate).astimezone(pytz.utc)
+            rdate = localtz().localize(rdate).astimezone(pytz.utc)
         items.append((u'RDATE', serialize_dt(rdate)))
     for exdate in obj.exdates:
         if exdate.tzinfo:
             exdate = exdate.astimezone(pytz.utc)
         else:
-            exdate = localtz.localize(exdate).astimezone(pytz.utc)
+            exdate = localtz().localize(exdate).astimezone(pytz.utc)
         items.append((u'EXDATE', serialize_dt(exdate)))
 
     return u'\n'.join(u'%s:%s' % i for i in items)
@@ -977,11 +977,11 @@ def deserialize(text):
             # right now there is no support for VTIMEZONE/TZID since
             # this is a partial implementation of rfc2445 so we'll
             # just use the time zone specified in the Django settings.
-            tzinfo = localtz
+            tzinfo = localtz()
 
         dt = datetime.datetime(
             year, month, day, hour, minute, second, tzinfo=tzinfo)
-        dt = dt.astimezone(localtz)
+        dt = dt.astimezone(localtz())
 
         # set tz to settings.TIME_ZONE and return offset-naive datetime
         return datetime.datetime(
@@ -1109,6 +1109,12 @@ def rule_to_text(rule, short=False):
             -2: _('2nd last %(weekday)s'),
             -3: _('3rd last %(weekday)s'),
         }
+        last_of_month_display = {
+            -1: _('last'),
+            -2: _('2nd last'),
+            -3: _('3rd last'),
+            -4: _('4th last'),
+        }
         weekdays_display = (
             _('Mon'), _('Tue'), _('Wed'),
             _('Thu'), _('Fri'), _('Sat'), _('Sun'),
@@ -1128,6 +1134,12 @@ def rule_to_text(rule, short=False):
             -1: _('last %(weekday)s'),
             -2: _('second last %(weekday)s'),
             -3: _('third last %(weekday)s'),
+        }
+        last_of_month_display = {
+            -1: _('last'),
+            -2: _('second last'),
+            -3: _('third last'),
+            -4: _('fourth last'),
         }
         weekdays_display = (
             _('Monday'), _('Tuesday'), _('Wednesday'),
@@ -1183,8 +1195,8 @@ def rule_to_text(rule, short=False):
     if rule.freq == MONTHLY:
         if rule.bymonthday:
             items = _(', ').join([
-                dateformat.format(
-                    datetime.datetime(1, 1, day), 'jS')
+                dateformat.format(datetime.datetime(1, 1, day), 'jS') if day > 0
+                else last_of_month_display.get(day, day)
                 for day in rule.bymonthday])
             parts.append(_('on the %(items)s') % {'items': items})
         elif rule.byday:
@@ -1238,9 +1250,9 @@ def normalize_offset_awareness(dt, from_dt=None):
     if from_dt and from_dt.tzinfo and dt.tzinfo:
         return dt
     elif from_dt and from_dt.tzinfo and not dt.tzinfo:
-        dt = localtz.localize(dt)
+        dt = localtz().localize(dt)
     elif dt.tzinfo:
-        dt = dt.astimezone(localtz)
+        dt = dt.astimezone(localtz())
         dt = datetime.datetime(
             dt.year, dt.month, dt.day,
             dt.hour, dt.minute, dt.second)

@@ -30,7 +30,7 @@ if has_setuptools:
         ),
         zip_safe=False,
         include_package_data=True,
-        cmdclass = {'test': PyTest},
+        cmdclass={'test': PyTest},
     )
 else:
     setup_options = dict(
@@ -43,7 +43,7 @@ else:
 
 setup(
     name='django-recurrence',
-    version='1.1.1',
+    version='1.5.0',
     license='BSD',
 
     description='Django utility wrapping dateutil.rrule',
@@ -59,11 +59,11 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
         "Programming Language :: Python :: 2",
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
     ),
 
     requires=(
@@ -74,6 +74,7 @@ setup(
 
     packages=(
         'recurrence',
+        'recurrence.migrations'
     ),
     package_dir={
         'recurrence': 'recurrence'

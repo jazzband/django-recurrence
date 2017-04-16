@@ -1,425 +1,424 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Diego Ponciano <dgo.ponciano@gmail.com>, 2016.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Django Recurrence 1.0.1\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-24 23:21+0100\n"
-"PO-Revision-Date: 2017-02-24 23:28+0100\n"
-"Last-Translator: Bart Heesink <bheesink@jouwomgeving.nl>\n"
-"Language-Team:  <bheesink@jouwomgeving.nl>\n"
-"Language: Dutch\n"
+"PO-Revision-Date: 2017-02-24 23:32+0100\n"
+"Last-Translator: Diego Ponciano <dgo.ponciano@gmail.com>\n"
+"Language-Team: \n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.7\n"
-"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Gtranslator 2.91.7\n"
 
 #: base.py:1087
 msgid "annually"
-msgstr "jaarlijks"
+msgstr "anualmente"
 
 #: base.py:1087
 msgid "monthly"
-msgstr "maandelijks"
+msgstr "mensalmente"
 
 #: base.py:1087
 msgid "weekly"
-msgstr "wekelijks"
+msgstr "semanalmente"
 
 #: base.py:1087
 msgid "daily"
-msgstr "dagelijks"
+msgstr "diariamente"
 
 #: base.py:1088
 msgid "hourly"
-msgstr "elk uur"
+msgstr "a cada hora"
 
 #: base.py:1088
 msgid "minutely"
-msgstr "elke minuut"
+msgstr "a cada minuto"
 
 #: base.py:1088
 msgid "secondly"
-msgstr "elke seconde"
+msgstr "a cada segundo"
 
 #: base.py:1091
 msgid "years"
-msgstr "jaren"
+msgstr "anos"
 
 #: base.py:1091
 msgid "months"
-msgstr "maanden"
+msgstr "meses"
 
 #: base.py:1091
 msgid "weeks"
-msgstr "weken"
+msgstr "semanas"
 
 #: base.py:1091
 msgid "days"
-msgstr "dagen"
+msgstr "dias"
 
 #: base.py:1092
 msgid "hours"
-msgstr "uren"
+msgstr "horas"
 
 #: base.py:1092
 msgid "minutes"
-msgstr "minuten"
+msgstr "minutos"
 
 #: base.py:1092
 msgid "seconds"
-msgstr "seconden"
+msgstr "segundos"
 
 #: base.py:1097
 #, python-format
 msgid "1st %(weekday)s"
-msgstr "1e %(weekday)s"
+msgstr "1º %(weekday)s"
 
 #: base.py:1098
 #, python-format
 msgid "2nd %(weekday)s"
-msgstr "2e %(weekday)s"
+msgstr "2º %(weekday)s"
 
 #: base.py:1099
 #, python-format
 msgid "3rd %(weekday)s"
-msgstr "3e %(weekday)s"
+msgstr "3º %(weekday)s"
 
 #: base.py:1100 base.py:1126
 #, python-format
 msgid "last %(weekday)s"
-msgstr "laatste %(weekday)s"
+msgstr "último %(weekday)s"
 
 #: base.py:1101
 #, python-format
 msgid "2nd last %(weekday)s"
-msgstr "2 na laatste %(weekday)s"
+msgstr "2º último %(weekday)s"
 
 #: base.py:1102
 #, python-format
 msgid "3rd last %(weekday)s"
-msgstr "3 na laatste %(weekday)s"
+msgstr "3º último %(weekday)s"
 
 #: base.py:1105 base.py:1131
 msgid "last"
-msgstr "laatste"
+msgstr "último"
 
 #: base.py:1106
 msgid "2nd last"
-msgstr "2 na laatste"
+msgstr "2º último"
 
 #: base.py:1107
 msgid "3rd last"
-msgstr "3 na laatste"
+msgstr "3º último"
 
 #: base.py:1108
 msgid "4th last"
-msgstr "4 na laatste"
+msgstr "4º último"
 
 #: base.py:1111
 msgid "Mon"
-msgstr "ma"
+msgstr "Seg"
 
 #: base.py:1111
 msgid "Tue"
-msgstr "di"
+msgstr "Ter"
 
 #: base.py:1111
 msgid "Wed"
-msgstr "wo"
+msgstr "Qua"
 
 #: base.py:1112
 msgid "Thu"
-msgstr "do"
+msgstr "Qui"
 
 #: base.py:1112
 msgid "Fri"
-msgstr "vr"
+msgstr "Sex"
 
 #: base.py:1112
 msgid "Sat"
-msgstr "za"
+msgstr "Sáb"
 
 #: base.py:1112
 msgid "Sun"
-msgstr "zo"
+msgstr "Dom"
 
 #: base.py:1115
 msgid "Jan"
-msgstr "jan"
+msgstr "Jan"
 
 #: base.py:1115
 msgid "Feb"
-msgstr "feb"
+msgstr "Fev"
 
 #: base.py:1115
 msgid "Mar"
-msgstr "mrt"
+msgstr "Mar"
 
 #: base.py:1115
 msgid "Apr"
-msgstr "apr"
+msgstr "Abr"
 
 #: base.py:1116
 msgid "Jun"
-msgstr "jun"
+msgstr "Jun"
 
 #: base.py:1116
 msgid "Jul"
-msgstr "jul"
+msgstr "Jul"
 
 #: base.py:1116
 msgid "Aug"
-msgstr "aug"
+msgstr "Ago"
 
 #: base.py:1117
 msgid "Sep"
-msgstr "sep"
+msgstr "Set"
 
 #: base.py:1117
 msgid "Oct"
-msgstr "okt"
+msgstr "Out"
 
 #: base.py:1117
 msgid "Nov"
-msgstr "nov"
+msgstr "Nov"
 
 #: base.py:1117
 msgid "Dec"
-msgstr "dec"
+msgstr "Dez"
 
 #: base.py:1122
 #, python-format
 msgid "first %(weekday)s"
-msgstr "eerste %(weekday)s"
+msgstr "primeiro %(weekday)s"
 
 #: base.py:1123
 #, python-format
 msgid "second %(weekday)s"
-msgstr "tweede %(weekday)s"
+msgstr "segundo %(weekday)s"
 
 #: base.py:1124
 #, python-format
 msgid "third %(weekday)s"
-msgstr "derde %(weekday)s"
+msgstr "terceiro %(weekday)s"
 
 #: base.py:1125
 #, python-format
 msgid "fourth %(weekday)s"
-msgstr "vierde %(weekday)s"
+msgstr "quarto %(weekday)s"
 
 #: base.py:1127
 #, python-format
 msgid "second last %(weekday)s"
-msgstr "twee na laatste %(weekday)s"
+msgstr "penúltimo %(weekday)s"
 
 #: base.py:1128
 #, python-format
 msgid "third last %(weekday)s"
-msgstr "drie na laatste %(weekday)s"
+msgstr "antepenúltimo %(weekday)s"
 
 #: base.py:1132
 msgid "second last"
-msgstr "voorlaatste"
+msgstr "penúltimo"
 
 #: base.py:1133
 msgid "third last"
-msgstr "derde laatste"
+msgstr "antepenúltimo"
 
 #: base.py:1134
 msgid "fourth last"
-msgstr "vierde laatste"
+msgstr "quarto último"
 
 #: base.py:1137 choices.py:17
 msgid "Monday"
-msgstr "maandag"
+msgstr "Segunda"
 
 #: base.py:1137 choices.py:18
 msgid "Tuesday"
-msgstr "dinsdag"
+msgstr "Terça"
 
 #: base.py:1137 choices.py:19
 msgid "Wednesday"
-msgstr "woensdag"
+msgstr "Quarta"
 
 #: base.py:1138 choices.py:20
 msgid "Thursday"
-msgstr "donderdag"
+msgstr "Quinta"
 
 #: base.py:1138 choices.py:21
 msgid "Friday"
-msgstr "vrijdag"
+msgstr "Sexta"
 
 #: base.py:1138 choices.py:22
 msgid "Saturday"
-msgstr "zaterdag"
+msgstr "Sábado"
 
 #: base.py:1138 choices.py:23
 msgid "Sunday"
-msgstr "zondag"
+msgstr "Domingo"
 
 #: base.py:1141 choices.py:27
 msgid "January"
-msgstr "januari"
+msgstr "Janeiro"
 
 #: base.py:1141 choices.py:28
 msgid "February"
-msgstr "februari"
+msgstr "Fevereiro"
 
 #: base.py:1141 choices.py:29
 msgid "March"
-msgstr "maart"
+msgstr "Março"
 
 #: base.py:1141 choices.py:30
 msgid "April"
-msgstr "april"
+msgstr "Abril"
 
 #: base.py:1142 choices.py:32
 msgid "June"
-msgstr "juni"
+msgstr "Junho"
 
 #: base.py:1142 choices.py:33
 msgid "July"
-msgstr "juli"
+msgstr "Julho"
 
 #: base.py:1142 choices.py:34
 msgid "August"
-msgstr "augustus"
+msgstr "Agosto"
 
 #: base.py:1143 choices.py:35
 msgid "September"
-msgstr "september"
+msgstr "Setembro"
 
 #: base.py:1143 choices.py:36
 msgid "October"
-msgstr "oktober"
+msgstr "Outubro"
 
 #: base.py:1143 choices.py:37
 msgid "November"
-msgstr "november"
+msgstr "Novembro"
 
 #: base.py:1143 choices.py:38
 msgid "December"
-msgstr "december"
+msgstr "Dezembro"
 
 #: base.py:1161 base.py:1178 base.py:1189 base.py:1202 base.py:1220
 msgid ", "
-msgstr ""
+msgstr ","
 
 #: base.py:1167
 #, python-format
 msgid "every %(number)s %(freq)s"
-msgstr "elke %(number)s %(freq)s"
+msgstr "a cada %(number)s %(freq)s"
 
 #: base.py:1181 base.py:1205
 #, python-format
 msgid "each %(items)s"
-msgstr "iedere %(items)s"
+msgstr "cada %(items)s"
 
 #: base.py:1184 base.py:1193 base.py:1197
 #, python-format
 msgid "on the %(items)s"
-msgstr "op de %(items)s"
+msgstr "nos %(items)s"
 
 #: base.py:1212
 msgid "occuring once"
-msgstr "éénmalig"
+msgstr "que ocorre uma vez"
 
 #: base.py:1214
 #, python-format
 msgid "occuring %(number)s times"
-msgstr "%(number)s keer herhalen"
+msgstr "que ocorre %(number)s vezes"
 
 #: base.py:1217
 #, python-format
 msgid "until %(date)s"
-msgstr "tot %(date)s"
+msgstr "até %(date)s"
 
 #: choices.py:7
 msgid "Secondly"
-msgstr "Elke seconde"
+msgstr "A cada segundo"
 
 #: choices.py:8
 msgid "Minutely"
-msgstr "Elke minuut"
+msgstr "A cada minuto"
 
 #: choices.py:9
 msgid "Hourly"
-msgstr "Elk uur"
+msgstr "A cada hora"
 
 #: choices.py:10
 msgid "Daily"
-msgstr "Dagelijks"
+msgstr "Diariamente"
 
 #: choices.py:11
 msgid "Weekly"
-msgstr "Wekelijks"
+msgstr "Semanalmente"
 
 #: choices.py:12
 msgid "Monthly"
-msgstr "Maandelijks"
+msgstr "Mensalmente"
 
 #: choices.py:13
 msgid "Yearly"
-msgstr "Jaarlijks"
+msgstr "Anualmente"
 
 #: choices.py:31
 msgid "May"
-msgstr "mei"
+msgstr "Mai"
 
 #: choices.py:44
 msgid "Inclusion"
-msgstr "Inclusief"
+msgstr "Inclusão"
 
 #: choices.py:45
 msgid "Exclusion"
-msgstr "Uitgezonderd"
+msgstr "Exclusão"
 
 #: forms.py:72
 msgid "Invalid frequency."
-msgstr "Ongeldige herhaling."
+msgstr "Freqência inválida."
 
 #: forms.py:74
 #, python-format
 msgid "Max rules exceeded. The limit is %(limit)s"
-msgstr "Maximaal aantal van %(limit)s regels is overschreden."
+msgstr "Máximo de regras excedido. O limite é %(limit)s"
 
 #: forms.py:76
 #, python-format
 msgid "Max exclusion rules exceeded. The limit is %(limit)s"
-msgstr "Maximaal aantal van %(limit)s uitgezonderde regels is overschreden."
+msgstr "Máximo de regras de exclusão excedido. O limite é %(limit)s"
 
 #: forms.py:78
 #, python-format
 msgid "Max dates exceeded. The limit is %(limit)s"
-msgstr "Maximaal aantal van %(limit)s data overschreden."
+msgstr "Máximo de datas excedido. O limite é %(limit)s"
 
 #: forms.py:80
 #, python-format
 msgid "Max exclusion dates exceeded. The limit is %(limit)s"
-msgstr "Maximaal aantal van %(limit)s uitgezonderde data is overschreden."
+msgstr "Máximo de datas excluídas excedido. O limite é %(limit)s"
 
 #~ msgid "year"
-#~ msgstr "jaar"
+#~ msgstr "ano"
 
 #~ msgid "month"
-#~ msgstr "maand"
+#~ msgstr "mês"
 
 #~ msgid "week"
-#~ msgstr "week"
+#~ msgstr "semana"
 
 #~ msgid "day"
-#~ msgstr "dag"
+#~ msgstr "dia"
 
 #~ msgid "hour"
-#~ msgstr "uur"
+#~ msgstr "hora"
 
 #~ msgid "minute"
-#~ msgstr "minuut"
+#~ msgstr "minuto"
 
 #~ msgid "second"
-#~ msgstr "seconde"
+#~ msgstr "segundo"
