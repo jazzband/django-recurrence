@@ -46,7 +46,6 @@ def test_recurrence_object_is_saved():
         datetime(2014, 1, 15, 0, 0),
         datetime(2014, 1, 22, 0, 0),
         datetime(2014, 1, 29, 0, 0),
-        datetime(2014, 2, 3, 0, 0)  # We always get dtend
     ]
 
     event = EventWithNoNulls.objects.get(pk=event.pk)
