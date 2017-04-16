@@ -171,7 +171,7 @@ recurrence.widget.Calendar.prototype = {
                         weekday_number = 0;
                     cell.innerHTML = recurrence.display.weekdays_oneletter[
                         weekday_number];
-                    recurrence.widget.add_class(cell, 'header');
+                    recurrence.widget.add_class(cell, '');
                 } else if (i - 7 < start || number > days) {
                     recurrence.widget.add_class(cell, 'empty');
                 } else {
@@ -307,7 +307,7 @@ recurrence.widget.DateSelector.prototype = {
             var date_value = '';
         var date_field = recurrence.widget.e(
             'input', {
-                'class': 'date-field', 'size': 10,
+                'class': 'vDateField', 'size': 10,
                 'value': date_value,
                 'onchange': function() {dateselector.set_date(this.value);}});
         var calendar_button = recurrence.widget.e(
@@ -321,6 +321,7 @@ recurrence.widget.DateSelector.prototype = {
                 }
             },
             '&nbsp;&nbsp;&nbsp;&nbsp;');
+
         var root = recurrence.widget.e(
             'span', {'class': 'date-selector'},
             [date_field, calendar_button]);
@@ -382,7 +383,7 @@ recurrence.widget.DateSelector.prototype = {
     set_date: function(datestring) {
         var tokens = datestring.split('-');
         var year = parseInt(tokens[0], 10);
-	var month = parseInt(tokens[1], 10) - 1;
+    var month = parseInt(tokens[1], 10) - 1;
         var day = parseInt(tokens[2], 10);
         var dt = new Date(year, month, day);
 
@@ -497,6 +498,48 @@ recurrence.widget.Widget.prototype = {
         recurrence.widget.add_class(add_date.elements.root, 'add-date');
         control.appendChild(add_date.elements.root);
 
+        var dtstart = new recurrence.widget.DateSelector(
+            widget.data.dtstart, {
+                'onchange': function () {
+                    widget.data.dtstart = this.date;
+                    widget.update();
+                }
+            }
+        );
+
+        var dtstart_label = recurrence.widget.e(
+            'span', {'class': 'recurrence-label-date'},
+            recurrence.display.labels.start_date);
+
+        var start_date_row = recurrence.widget.e(
+            'div',
+            {'class': 'control-group form-row'},
+            [dtstart_label, dtstart.elements.root]
+        );
+
+        var dtend = new recurrence.widget.DateSelector(
+            widget.data.dtend, {
+                'onchange': function () {
+                    widget.data.dtend = this.date;
+                    widget.update();
+                }
+            }
+        );
+        var dtend_label = recurrence.widget.e(
+            'span', {'class': 'recurrence-label-date'},
+            recurrence.display.labels.end_date);
+
+        var end_date_row  = recurrence.widget.e(
+            'div',
+            {'class': 'control-group form-row'},
+            [dtend_label, dtend.elements.root]
+        );
+
+        var rows = recurrence.widget.e(
+            'div', {'class': 'rows'}, [start_date_row, end_date_row]
+        );
+        control.appendChild(rows);
+
         this.elements = {
             'root': root,
             'panels': panels,
@@ -544,7 +587,6 @@ recurrence.widget.Widget.prototype = {
 
         this.elements.panels.appendChild(panel.elements.root);
         this.panels.push(panel);
-        this.update();
         return panel;
     },
 
@@ -658,7 +700,7 @@ recurrence.widget.Panel.prototype = {
            }
         }, '&nbsp;');
         var header = recurrence.widget.e(
-             'div', {'class': 'header'}, [remove, label]);
+             'div', {'class': ''}, [remove, label]);
         var body = recurrence.widget.e(
             'div', {'class': 'body'});
         var root = recurrence.widget.e(
@@ -1789,6 +1831,10 @@ recurrence.display.labels = {
     'exclude_date': gettext('Exclude this date'),
     'add_rule': gettext('Add rule'),
     'add_date': gettext('Add date'),
+
+    'start_date': gettext('Start date'),
+    'end_date': gettext('End date'),
+
     'remove': gettext('Remove'),
     'calendar': gettext('Calendar')
 };
