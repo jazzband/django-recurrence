@@ -15,6 +15,7 @@ import calendar
 
 import pytz
 import dateutil.rrule
+from django.conf import settings
 from django.utils import dateformat, timezone
 from django.utils.translation import ugettext as _, pgettext as _p
 from django.utils.six import string_types
@@ -26,6 +27,10 @@ YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY = range(7)
 
 (JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST,
  SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER) = range(1, 13)
+
+DTSTART_INCLUDE = settings.RECURRENCE_DTSTART_INCLUDE if hasattr(
+    settings, 'RECURRENCE_DTSTART_INCLUDE') and isinstance(
+    settings.RECURRENCE_DTSTART_INCLUDE, bool) else True
 
 
 def localtz():
@@ -249,7 +254,7 @@ class Recurrence(object):
 
     A `Recurrence` instance provides the combined behavior of the
     rfc2445 `DTSTART`, `DTEND`, `RRULE`, `EXRULE`, `RDATE`, and
-    `EXDATE` propeties in generating recurring date/times.
+    `EXDATE` properties in generating recurring date/times.
 
     This is a wrapper around the `dateutil.rrule.rruleset` class while
     adhering to the rfc2445 spec. Notably a `dtstart` parameter can be
@@ -286,10 +291,18 @@ class Recurrence(object):
             occurrence set generation. Dates included that way will
             not be generated, even if some inclusive `Rule` or
             `datetime.datetime` instances matches them.
+
+        `dtstart_inc` : bool
+            Defines if `dtstart` is included in the recurrence set as
+            the first occurrence. With `dtstart_inc == True` it is
+            both the starting point for recurrences and the first
+            recurrence in the set (according to the rfc2445 spec).
+            With `dtstart_inc == False` `dtstart` is only the rule's
+            starting point like in python's rrule util.
     """
     def __init__(
-        self, dtstart=None, dtend=None,
-        rrules=(), exrules=(), rdates=(), exdates=()
+        self, dtstart=None, dtend=None, rrules=(), exrules=(),
+            rdates=(), exdates=(), dtstart_inc=DTSTART_INCLUDE
     ):
         """
         Create a new recurrence.
@@ -306,6 +319,7 @@ class Recurrence(object):
         self.exrules = list(exrules)
         self.rdates = list(rdates)
         self.exdates = list(exdates)
+        self.dtstart_inc = dtstart_inc
 
     def __iter__(self):
         return self.occurrences()
@@ -535,6 +549,8 @@ class Recurrence(object):
 
         dtstart = dtstart or self.dtstart
         dtend = dtend or self.dtend
+        dtstart_inc = self.dtstart_inc
+
         if dtend:
             dtend = normalize_offset_awareness(dtend or self.dtend, dtstart)
 
@@ -552,7 +568,7 @@ class Recurrence(object):
         for exrule in self.exrules:
             rruleset.exrule(exrule.to_dateutil_rrule(dtstart, dtend, cache))
 
-        if dtstart is not None:
+        if dtstart_inc and dtstart is not None:
             rruleset.rdate(dtstart)
         for rdate in self.rdates:
             rdate = normalize_offset_awareness(rdate, dtstart)
