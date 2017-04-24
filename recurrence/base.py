@@ -15,7 +15,6 @@ import calendar
 
 import pytz
 import dateutil.rrule
-from django.conf import settings
 from django.utils import dateformat, timezone
 from django.utils.translation import ugettext as _, pgettext as _p
 from django.utils.six import string_types
@@ -27,10 +26,6 @@ YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY = range(7)
 
 (JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST,
  SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER) = range(1, 13)
-
-DTSTART_INCLUDE = settings.RECURRENCE_DTSTART_INCLUDE if hasattr(
-    settings, 'RECURRENCE_DTSTART_INCLUDE') and isinstance(
-    settings.RECURRENCE_DTSTART_INCLUDE, bool) else True
 
 
 def localtz():
@@ -298,11 +293,11 @@ class Recurrence(object):
             both the starting point for recurrences and the first
             recurrence in the set (according to the rfc2445 spec).
             With `dtstart_inc == False` `dtstart` is only the rule's
-            starting point like in python's rrule util.
+            starting point like in python's `dateutil.rrule`.
     """
     def __init__(
         self, dtstart=None, dtend=None, rrules=(), exrules=(),
-            rdates=(), exdates=(), dtstart_inc=DTSTART_INCLUDE
+            rdates=(), exdates=(), dtstart_inc=True
     ):
         """
         Create a new recurrence.
