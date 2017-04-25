@@ -76,6 +76,42 @@ The effective starting date for any recurrence pattern is essentially
 the later of the first argument and ``dtstart``. To minimize
 confusion, you probably want to set them both to the same value.
 
+.. warning::
+
+   Note that per default ``dtstart`` will be the first occurence in
+   your list if specified, according to RFC 2445. This practice
+   deviates from how ``dateutil.rrule`` handles ``dtstart`` and can
+   therefore lead to confusion. Read on for how you can control this
+   behavior for your own recurrence patterns.
+
+To switch off the automatic inclusion of ``dtstart`` into the
+occurence list, set ``dtstart_inc=False`` as an argument for the
+``RecurrenceField`` whose behavior you want to change:
+
+.. code-block:: python
+    :emphasize-lines: 3
+
+    class Course(models.Model):
+        title = models.CharField(max_length=200)
+        recurrences = RecurrenceField(dtstart_inc=False)
+
+With this change any ``dtstart`` value will only be an occurence if
+it matches the pattern specified in ``recurrences``. This also works
+for instantiating ``Recurrence`` objects directly:
+
+.. code-block:: python
+    :emphasize-lines: 3
+
+    pattern = recurrence.Recurrence(
+       rrules=[recurrence.Rule(recurrence.WEEKLY, byday=recurrence.MONDAY)],
+       dtstart_inc=False).between(
+          datetime(2010, 1, 1, 0, 0, 0),
+          datetime(2014, 12, 31, 0, 0, 0),
+          dtstart=datetime(2010, 1, 1, 0, 0, 0),
+          inc=True
+       )
+    )
+
 .. _occurrences:
 
 Getting all occurrences
