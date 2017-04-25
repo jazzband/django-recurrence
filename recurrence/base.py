@@ -932,7 +932,7 @@ def serialize(rule_or_recurrence):
     return u'\n'.join(u'%s:%s' % i for i in items)
 
 
-def deserialize(text):
+def deserialize(text, dtstart_inc=True):
     """
     Deserialize a rfc2445 formatted string.
 
@@ -1083,7 +1083,7 @@ def deserialize(text):
         elif label == u'EXDATE':
             exdates.append(deserialize_dt(params))
 
-    return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates)
+    return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates, dtstart_inc)
 
 
 def rule_to_text(rule, short=False):
