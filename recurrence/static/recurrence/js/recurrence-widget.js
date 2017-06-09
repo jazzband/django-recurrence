@@ -490,12 +490,12 @@ recurrence.widget.Widget.prototype = {
         recurrence.widget.add_class(add_rule.elements.root, 'add-rule');
         control.appendChild(add_rule.elements.root);
 
-        var add_date = new recurrence.widget.AddButton(
-            recurrence.display.labels.add_date, {
-            'onclick': function () {widget.add_date();}
-        });
-        recurrence.widget.add_class(add_date.elements.root, 'add-date');
-        control.appendChild(add_date.elements.root);
+        // var add_date = new recurrence.widget.AddButton(
+        //     recurrence.display.labels.add_date, {
+        //     'onclick': function () {widget.add_date();}
+        // });
+        // recurrence.widget.add_class(add_date.elements.root, 'add-date');
+        // control.appendChild(add_date.elements.root);
 
         this.elements = {
             'root': root,
