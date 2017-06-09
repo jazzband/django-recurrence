@@ -43,7 +43,7 @@ else:
 
 setup(
     name='django-recurrence',
-    version='1.4.0',
+    version='1.5.0',
     license='BSD',
 
     description='Django utility wrapping dateutil.rrule',
@@ -74,6 +74,7 @@ setup(
 
     packages=(
         'recurrence',
+        'recurrence.migrations'
     ),
     package_dir={
         'recurrence': 'recurrence'

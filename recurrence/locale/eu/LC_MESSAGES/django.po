@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-14 17:08+0000\n"
-"PO-Revision-Date: 2016-05-14 19:21+01:00\n"
+"POT-Creation-Date: 2017-02-24 23:21+0100\n"
+"PO-Revision-Date: 2016-05-14 19:21+0100\n"
 "Last-Translator: Unai Zalakain <unai@gisa-elkartea.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
@@ -87,7 +87,7 @@ msgstr "2. %(weekday)s"
 msgid "3rd %(weekday)s"
 msgstr "3. %(weekday)s"
 
-#: base.py:1100 base.py:1120
+#: base.py:1100 base.py:1126
 #, python-format
 msgid "last %(weekday)s"
 msgstr "azken %(weekday)s"
@@ -102,209 +102,251 @@ msgstr "azkenaurreko %(weekday)s"
 msgid "3rd last %(weekday)s"
 msgstr "azken-hirugarren %(weekday)s"
 
-#: base.py:1105
+#: base.py:1105 base.py:1131
+#, fuzzy
+#| msgid "last %(weekday)s"
+msgid "last"
+msgstr "azken %(weekday)s"
+
+#: base.py:1106
+#, fuzzy
+#| msgid "2nd last %(weekday)s"
+msgid "2nd last"
+msgstr "azkenaurreko %(weekday)s"
+
+#: base.py:1107
+#, fuzzy
+#| msgid "3rd last %(weekday)s"
+msgid "3rd last"
+msgstr "azken-hirugarren %(weekday)s"
+
+#: base.py:1108
+#, fuzzy
+#| msgid "third last %(weekday)s"
+msgid "4th last"
+msgstr "azken-hirugarren %(weekday)s"
+
+#: base.py:1111
 msgid "Mon"
 msgstr "Astl"
 
-#: base.py:1105
+#: base.py:1111
 msgid "Tue"
 msgstr "Astr"
 
-#: base.py:1105
+#: base.py:1111
 msgid "Wed"
 msgstr "Astz"
 
-#: base.py:1106
+#: base.py:1112
 msgid "Thu"
 msgstr "Ostg"
 
-#: base.py:1106
+#: base.py:1112
 msgid "Fri"
 msgstr "Osti"
 
-#: base.py:1106
+#: base.py:1112
 msgid "Sat"
 msgstr "Lar"
 
-#: base.py:1106
+#: base.py:1112
 msgid "Sun"
 msgstr "Iga"
 
-#: base.py:1109
+#: base.py:1115
 msgid "Jan"
 msgstr "Urt"
 
-#: base.py:1109
+#: base.py:1115
 msgid "Feb"
 msgstr "Ots"
 
-#: base.py:1109
+#: base.py:1115
 msgid "Mar"
 msgstr "Mar"
 
-#: base.py:1109
+#: base.py:1115
 msgid "Apr"
 msgstr "Api"
 
-#: base.py:1110
+#: base.py:1116
 msgid "Jun"
 msgstr "Eka"
 
-#: base.py:1110
+#: base.py:1116
 msgid "Jul"
 msgstr "Uzt"
 
-#: base.py:1110
+#: base.py:1116
 msgid "Aug"
 msgstr "Abu"
 
-#: base.py:1111
+#: base.py:1117
 msgid "Sep"
 msgstr "Ira"
 
-#: base.py:1111
+#: base.py:1117
 msgid "Oct"
 msgstr "Urr"
 
-#: base.py:1111
+#: base.py:1117
 msgid "Nov"
 msgstr "Aza"
 
-#: base.py:1111
+#: base.py:1117
 msgid "Dec"
 msgstr "Abe"
 
-#: base.py:1116
+#: base.py:1122
 #, python-format
 msgid "first %(weekday)s"
 msgstr "lehen %(weekday)s"
 
-#: base.py:1117
+#: base.py:1123
 #, python-format
 msgid "second %(weekday)s"
 msgstr "bigarren %(weekday)s"
 
-#: base.py:1118
+#: base.py:1124
 #, python-format
 msgid "third %(weekday)s"
 msgstr "hirugarren %(weekday)s"
 
-#: base.py:1119
+#: base.py:1125
 #, python-format
 msgid "fourth %(weekday)s"
 msgstr "laugarren %(weekday)s"
 
-#: base.py:1121
+#: base.py:1127
 #, python-format
 msgid "second last %(weekday)s"
 msgstr "azkenaurreko %(weekday)s"
 
-#: base.py:1122
+#: base.py:1128
 #, python-format
 msgid "third last %(weekday)s"
 msgstr "azken-hirugarren %(weekday)s"
 
-#: base.py:1125 choices.py:17
+#: base.py:1132
+#, fuzzy
+#| msgid "second last %(weekday)s"
+msgid "second last"
+msgstr "azkenaurreko %(weekday)s"
+
+#: base.py:1133
+#, fuzzy
+#| msgid "third last %(weekday)s"
+msgid "third last"
+msgstr "azken-hirugarren %(weekday)s"
+
+#: base.py:1134
+#, fuzzy
+#| msgid "fourth %(weekday)s"
+msgid "fourth last"
+msgstr "laugarren %(weekday)s"
+
+#: base.py:1137 choices.py:17
 msgid "Monday"
 msgstr "Astelehena"
 
-#: base.py:1125 choices.py:18
+#: base.py:1137 choices.py:18
 msgid "Tuesday"
 msgstr "Asteartea"
 
-#: base.py:1125 choices.py:19
+#: base.py:1137 choices.py:19
 msgid "Wednesday"
 msgstr "Asteazkena"
 
-#: base.py:1126 choices.py:20
+#: base.py:1138 choices.py:20
 msgid "Thursday"
 msgstr "Osteguna"
 
-#: base.py:1126 choices.py:21
+#: base.py:1138 choices.py:21
 msgid "Friday"
 msgstr "Ostirala"
 
-#: base.py:1126 choices.py:22
+#: base.py:1138 choices.py:22
 msgid "Saturday"
 msgstr "Larunbata"
 
-#: base.py:1126 choices.py:23
+#: base.py:1138 choices.py:23
 msgid "Sunday"
 msgstr "Igandea"
 
-#: base.py:1129 choices.py:27
+#: base.py:1141 choices.py:27
 msgid "January"
 msgstr "Urtarrila"
 
-#: base.py:1129 choices.py:28
+#: base.py:1141 choices.py:28
 msgid "February"
 msgstr "Otsaila"
 
-#: base.py:1129 choices.py:29
+#: base.py:1141 choices.py:29
 msgid "March"
 msgstr "Martxoa"
 
-#: base.py:1129 choices.py:30
+#: base.py:1141 choices.py:30
 msgid "April"
 msgstr "Apirila"
 
-#: base.py:1130 choices.py:32
+#: base.py:1142 choices.py:32
 msgid "June"
 msgstr "Ekaina"
 
-#: base.py:1130 choices.py:33
+#: base.py:1142 choices.py:33
 msgid "July"
 msgstr "Uztaila"
 
-#: base.py:1130 choices.py:34
+#: base.py:1142 choices.py:34
 msgid "August"
 msgstr "Abuztua"
 
-#: base.py:1131 choices.py:35
+#: base.py:1143 choices.py:35
 msgid "September"
 msgstr "Iraila"
 
-#: base.py:1131 choices.py:36
+#: base.py:1143 choices.py:36
 msgid "October"
 msgstr "Urria"
 
-#: base.py:1131 choices.py:37
+#: base.py:1143 choices.py:37
 msgid "November"
 msgstr "Azaroa"
 
-#: base.py:1131 choices.py:38
+#: base.py:1143 choices.py:38
 msgid "December"
 msgstr "Abendua"
 
-#: base.py:1149 base.py:1166 base.py:1177 base.py:1190 base.py:1208
+#: base.py:1161 base.py:1178 base.py:1189 base.py:1202 base.py:1220
 msgid ", "
 msgstr ", "
 
-#: base.py:1155
+#: base.py:1167
 #, python-format
 msgid "every %(number)s %(freq)s"
 msgstr "%(number)s %(freq)sero"
 
-#: base.py:1169 base.py:1193
+#: base.py:1181 base.py:1205
 #, python-format
 msgid "each %(items)s"
 msgstr "%(items)sero"
 
-#: base.py:1172 base.py:1181 base.py:1185
+#: base.py:1184 base.py:1193 base.py:1197
 #, python-format
 msgid "on the %(items)s"
 msgstr "%(items)setan"
 
-#: base.py:1200
+#: base.py:1212
 msgid "occuring once"
 msgstr "behin gertatzen"
 
-#: base.py:1202
+#: base.py:1214
 #, python-format
 msgid "occuring %(number)s times"
 msgstr "%(number)stan gertatzen"
 
-#: base.py:1205
+#: base.py:1217
 #, python-format
 msgid "until %(date)s"
 msgstr "%(date)s arte"

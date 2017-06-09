@@ -15,8 +15,7 @@ import calendar
 
 import pytz
 import dateutil.rrule
-from django.conf import settings
-from django.utils import dateformat
+from django.utils import dateformat, timezone
 from django.utils.translation import ugettext as _, pgettext as _p
 from django.utils.six import string_types
 
@@ -29,7 +28,8 @@ YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY = range(7)
  SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER) = range(1, 13)
 
 
-localtz = pytz.timezone(settings.TIME_ZONE)
+def localtz():
+    return timezone.get_current_timezone()
 
 
 class Rule(object):
@@ -459,7 +459,7 @@ class Recurrence(object):
         :Returns:
             A `datetime.datetime` instance.
         """
-        return self.to_dateutil_rruleset(dtstart, cache).after(dt, inc)
+        return self.to_dateutil_rruleset(dtstart, dtend, cache).after(dt, inc)
 
     def between(
         self, after, before,
@@ -783,7 +783,7 @@ def validate(rule_or_recurrence):
             elif param == 'bymonth':
                 validate_iterable_ints(rule, param, 1, 12)
             elif param == 'bymonthday':
-                validate_iterable_ints(rule, param, 1, 31)
+                validate_iterable_ints(rule, param, -4, 31)
             elif param == 'byhour':
                 validate_iterable_ints(rule, param, 0, 23)
             elif param == 'byminute':
@@ -949,7 +949,7 @@ def deserialize(text):
             # right now there is no support for VTIMEZONE/TZID since
             # this is a partial implementation of rfc2445 so we'll
             # just use the time zone specified in the Django settings.
-            tzinfo = localtz
+            tzinfo = localtz()
 
         return tzinfo.localize(datetime.datetime(year, month, day, hour, minute, second))
 
@@ -1075,6 +1075,12 @@ def rule_to_text(rule, short=False):
             -2: _('2nd last %(weekday)s'),
             -3: _('3rd last %(weekday)s'),
         }
+        last_of_month_display = {
+            -1: _('last'),
+            -2: _('2nd last'),
+            -3: _('3rd last'),
+            -4: _('4th last'),
+        }
         weekdays_display = (
             _('Mon'), _('Tue'), _('Wed'),
             _('Thu'), _('Fri'), _('Sat'), _('Sun'),
@@ -1094,6 +1100,12 @@ def rule_to_text(rule, short=False):
             -1: _('last %(weekday)s'),
             -2: _('second last %(weekday)s'),
             -3: _('third last %(weekday)s'),
+        }
+        last_of_month_display = {
+            -1: _('last'),
+            -2: _('second last'),
+            -3: _('third last'),
+            -4: _('fourth last'),
         }
         weekdays_display = (
             _('Monday'), _('Tuesday'), _('Wednesday'),
@@ -1149,8 +1161,8 @@ def rule_to_text(rule, short=False):
     if rule.freq == MONTHLY:
         if rule.bymonthday:
             items = _(', ').join([
-                dateformat.format(
-                    datetime.datetime(1, 1, day), 'jS')
+                dateformat.format(datetime.datetime(1, 1, day), 'jS') if day > 0
+                else last_of_month_display.get(day, day)
                 for day in rule.bymonthday])
             parts.append(_('on the %(items)s') % {'items': items})
         elif rule.byday:
@@ -1204,9 +1216,9 @@ def normalize_offset_awareness(dt, from_dt=None):
     if from_dt and from_dt.tzinfo and dt.tzinfo:
         return dt
     elif from_dt and from_dt.tzinfo and not dt.tzinfo:
-        dt = localtz.localize(dt)
+        dt = localtz().localize(dt)
     elif dt.tzinfo:
-        dt = dt.astimezone(localtz)
+        dt = dt.astimezone(localtz())
         dt = datetime.datetime(
             dt.year, dt.month, dt.day,
             dt.hour, dt.minute, dt.second)

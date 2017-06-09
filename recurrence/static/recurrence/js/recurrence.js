@@ -145,10 +145,18 @@ recurrence.Rule.prototype = {
                 // i.e. 'on the 1st, 5th, 10th'
                 var items = recurrence.array.foreach(
                     this.bymonthday, function(day, i) {
-                        var dt = new Date();
-                        dt.setMonth(0);
-                        dt.setDate(day);
-                        return recurrence.date.format(dt, '%j%S');
+			if (day < 0) {
+			    if (short) {
+				return recurrence.display.last_of_month_short[String(day)]
+			    } else {
+				return recurrence.display.last_of_month[String(day)]
+			    }
+			} else {
+                            var dt = new Date();
+                            dt.setMonth(0);
+                            dt.setDate(day);
+                            return recurrence.date.format(dt, recurrence.display.month_day);
+			}
                 });
                 items = items.join(', ');
                 parts.push(
@@ -207,7 +215,7 @@ recurrence.Rule.prototype = {
             parts.push(
                 interpolate(
                     recurrence.display.tokens.until,
-                    {'date': recurrence.date.format(this.until, '%Y-%m-%d')}, true));
+                    {'date': recurrence.date.format(this.until, pgettext('Until date format', '%Y-%m-%d'))}, true));
         }
 
         return parts.join(', ');
@@ -438,8 +446,11 @@ recurrence.DateFormat.prototype = {
         var day = this.data.getDate();
         var ordinal_indicator = recurrence.display.ordinal_indicator;
         var language_code = recurrence.language_code;
-        if (language_code in ordinal_indicator)
+        if (language_code in ordinal_indicator) {
             return ordinal_indicator[language_code](day);
+	} else if (language_code.split('-')[0] in ordinal_indicator) {
+	    return ordinal_indicator[language_code.split('-')[0]](day)
+	}
         return '';
     },
 
@@ -1045,6 +1056,18 @@ recurrence.display.weekdays_position_short = {
     '-2': gettext('2nd last %(weekday)s'),
     '-3': gettext('3rd last %(weekday)s')
 };
+recurrence.display.last_of_month = {
+    '-1': gettext('last'),
+    '-2': gettext('second last'),
+    '-3': gettext('third last'),
+    '-4': gettext('fourth last')
+}
+recurrence.display.last_of_month_short = {
+    '-1': gettext('last'),
+    '-2': gettext('2nd last'),
+    '-3': gettext('3rd last'),
+    '-4': gettext('4th last')
+}
 recurrence.display.months = [
     gettext('January'), gettext('February'), gettext('March'),
     gettext('April'), pgettext('month name', 'May'), gettext('June'),
@@ -1067,9 +1090,10 @@ recurrence.display.ampm = {
     'am': gettext('a.m.'), 'pm': gettext('p.m.'),
     'AM': gettext('AM'), 'PM': gettext('PM')
 };
+recurrence.display.month_day = pgettext('Day of month', '%j%S');
 
 recurrence.display.ordinal_indicator = {
-    'en-us': function(day) {
+    'en': function(day) {
         if (day == 11 || day == 12 || day == 13)
             return 'th';
         var last = day % 10;
@@ -1081,7 +1105,7 @@ recurrence.display.ordinal_indicator = {
             return 'rd';
         return 'th';
     },
-    'fr-FR': function(day) {
+    'fr': function(day) {
         if (day == 1)
             return 'er';
         return '';
