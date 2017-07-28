@@ -1,0 +1,537 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-24 23:11+0100\n"
+"PO-Revision-Date: 2017-07-28 14:23+0200\n"
+"Language: sk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.0.1\n"
+
+#: static/recurrence/js/recurrence-widget.js:1609
+msgctxt "date"
+msgid "%l, %F %j, %Y"
+msgstr "%l, %F %j, %Y"
+
+#: static/recurrence/js/recurrence-widget.js:1774
+msgid "including"
+msgstr "zahŕňa"
+
+#: static/recurrence/js/recurrence-widget.js:1774
+msgid "excluding"
+msgstr "vylučuje"
+
+#: static/recurrence/js/recurrence-widget.js:1778
+msgid "Frequency"
+msgstr "FrekvenciaNesprávna frekvencia."
+
+#: static/recurrence/js/recurrence-widget.js:1779
+msgid "On the"
+msgstr ""
+
+#: static/recurrence/js/recurrence-widget.js:1780
+msgid "Each"
+msgstr "Každý"
+
+#: static/recurrence/js/recurrence-widget.js:1781
+msgid "Every"
+msgstr "Každý"
+
+#: static/recurrence/js/recurrence-widget.js:1782
+msgid "Until"
+msgstr "Do"
+
+#: static/recurrence/js/recurrence-widget.js:1783
+msgid "Occurs %(number)s time"
+msgstr "Nastáva %(number)s krát"
+
+#: static/recurrence/js/recurrence-widget.js:1784
+msgid "Occurs %(number)s times"
+msgstr "Nastáva %(number)s krát"
+
+#: static/recurrence/js/recurrence-widget.js:1785
+msgid "Date"
+msgstr "Dátum"
+
+#: static/recurrence/js/recurrence-widget.js:1786
+msgid "Time"
+msgstr "Čas"
+
+#: static/recurrence/js/recurrence-widget.js:1787
+msgid "Repeat until"
+msgstr "Opakovať do"
+
+#: static/recurrence/js/recurrence-widget.js:1788
+msgid "Exclude these occurences"
+msgstr "Vylúčiť tieto pravidlá"
+
+#: static/recurrence/js/recurrence-widget.js:1789
+msgid "Exclude this date"
+msgstr "Vylúčiť tento dátum"
+
+#: static/recurrence/js/recurrence-widget.js:1790
+msgid "Add rule"
+msgstr "Pridať pravidlo"
+
+#: static/recurrence/js/recurrence-widget.js:1791
+msgid "Add date"
+msgstr "Pridať dátum"
+
+#: static/recurrence/js/recurrence-widget.js:1792
+msgid "Remove"
+msgstr "Odstrániť"
+
+#: static/recurrence/js/recurrence-widget.js:1793
+msgid "Calendar"
+msgstr "Kalendár"
+
+#: static/recurrence/js/recurrence.js:218
+msgctxt "Until date format"
+msgid "%Y-%m-%d"
+msgstr "%d.%m.%Y"
+
+#: static/recurrence/js/recurrence.js:1017
+msgid "midnight"
+msgstr "polnoc"
+
+#: static/recurrence/js/recurrence.js:1018
+msgid "noon"
+msgstr "poludnie"
+
+#: static/recurrence/js/recurrence.js:1019
+msgid "on the %(items)s"
+msgstr "o %(items)s"
+
+#: static/recurrence/js/recurrence.js:1020
+msgid "every %(number)s %(freq)s"
+msgstr "každý %(number)s %(freq)s"
+
+#: static/recurrence/js/recurrence.js:1021
+msgid "each %(items)s"
+msgstr "každý %(items)s"
+
+#: static/recurrence/js/recurrence.js:1022
+msgid "occuring %(number)s time"
+msgstr "nastáva %(number)s krát"
+
+#: static/recurrence/js/recurrence.js:1023
+msgid "occuring %(number)s times"
+msgstr "nastáva %(number)s krát"
+
+#: static/recurrence/js/recurrence.js:1024
+msgid "until %(date)s"
+msgstr "do %(date)s"
+
+#: static/recurrence/js/recurrence.js:1028
+msgid "year"
+msgstr "rok"
+
+#: static/recurrence/js/recurrence.js:1028
+msgid "month"
+msgstr "mesiac"
+
+#: static/recurrence/js/recurrence.js:1028
+msgid "week"
+msgstr "týždeň"
+
+#: static/recurrence/js/recurrence.js:1028
+msgid "day"
+msgstr "deň"
+
+#: static/recurrence/js/recurrence.js:1029
+msgid "hour"
+msgstr "hodina"
+
+#: static/recurrence/js/recurrence.js:1029
+msgid "minute"
+msgstr "minúta"
+
+#: static/recurrence/js/recurrence.js:1029
+msgid "second"
+msgstr "sekunda"
+
+#: static/recurrence/js/recurrence.js:1032
+msgid "years"
+msgstr "rokyroky"
+
+#: static/recurrence/js/recurrence.js:1032
+msgid "months"
+msgstr "mesiace"
+
+#: static/recurrence/js/recurrence.js:1032
+msgid "weeks"
+msgstr "týždne"
+
+#: static/recurrence/js/recurrence.js:1032
+msgid "days"
+msgstr "dni"
+
+#: static/recurrence/js/recurrence.js:1033
+msgid "hours"
+msgstr "hodiny"
+
+#: static/recurrence/js/recurrence.js:1033
+msgid "minutes"
+msgstr "minúty"
+
+#: static/recurrence/js/recurrence.js:1033
+msgid "seconds"
+msgstr "sekundy"
+
+#: static/recurrence/js/recurrence.js:1036
+msgid "annually"
+msgstr "ročne"
+
+#: static/recurrence/js/recurrence.js:1036
+msgid "monthly"
+msgstr "mesačne"
+
+#: static/recurrence/js/recurrence.js:1036
+msgid "weekly"
+msgstr "týždenne"
+
+#: static/recurrence/js/recurrence.js:1036
+msgid "daily"
+msgstr "denne"
+
+#: static/recurrence/js/recurrence.js:1037
+msgid "hourly"
+msgstr "každú zvolenú hodinu"
+
+#: static/recurrence/js/recurrence.js:1037
+msgid "minutely"
+msgstr "každú zvolenú minútu"
+
+#: static/recurrence/js/recurrence.js:1037
+msgid "secondly"
+msgstr "každú zvolenú sekundu"
+
+#: static/recurrence/js/recurrence.js:1040
+msgid "Monday"
+msgstr "Pondelok"
+
+#: static/recurrence/js/recurrence.js:1040
+msgid "Tuesday"
+msgstr "Utorok"
+
+#: static/recurrence/js/recurrence.js:1040
+msgid "Wednesday"
+msgstr "Streda"
+
+#: static/recurrence/js/recurrence.js:1040
+msgid "Thursday"
+msgstr "Štvrtok"
+
+#: static/recurrence/js/recurrence.js:1041
+msgid "Friday"
+msgstr "Piatok"
+
+#: static/recurrence/js/recurrence.js:1041
+msgid "Saturday"
+msgstr "Sobota"
+
+#: static/recurrence/js/recurrence.js:1041
+msgid "Sunday"
+msgstr "Nedeľa"
+
+#: static/recurrence/js/recurrence.js:1044
+msgid "Mon"
+msgstr "Po"
+
+#: static/recurrence/js/recurrence.js:1044
+msgid "Tue"
+msgstr "Ut"
+
+#: static/recurrence/js/recurrence.js:1044
+msgid "Wed"
+msgstr "St"
+
+#: static/recurrence/js/recurrence.js:1044
+msgid "Thu"
+msgstr "Št"
+
+#: static/recurrence/js/recurrence.js:1045
+msgid "Fri"
+msgstr "Pi"
+
+#: static/recurrence/js/recurrence.js:1045
+msgid "Sat"
+msgstr "So"
+
+#: static/recurrence/js/recurrence.js:1045
+msgid "Sun"
+msgstr "Ne"
+
+#: static/recurrence/js/recurrence.js:1048
+msgctxt "Monday first letter"
+msgid "M"
+msgstr "P"
+
+#: static/recurrence/js/recurrence.js:1049
+msgctxt "Tuesday first letter"
+msgid "T"
+msgstr "U"
+
+#: static/recurrence/js/recurrence.js:1050
+msgctxt "Wednesday first letter"
+msgid "W"
+msgstr "S"
+
+#: static/recurrence/js/recurrence.js:1051
+msgctxt "Thursday first letter"
+msgid "T"
+msgstr "Š"
+
+#: static/recurrence/js/recurrence.js:1052
+msgctxt "Friday first letter"
+msgid "F"
+msgstr "P"
+
+#: static/recurrence/js/recurrence.js:1053
+msgctxt "Saturday first letter"
+msgid "S"
+msgstr "S"
+
+#: static/recurrence/js/recurrence.js:1054
+msgctxt "Sunday first letter"
+msgid "S"
+msgstr "N"
+
+#: static/recurrence/js/recurrence.js:1057
+msgid "first %(weekday)s"
+msgstr "prvý %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1058
+msgid "second %(weekday)s"
+msgstr "druhý %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1059
+msgid "third %(weekday)s"
+msgstr "tretí %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1060
+msgid "fourth %(weekday)s"
+msgstr "štvrtý %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1061
+#: static/recurrence/js/recurrence.js:1070
+msgid "last %(weekday)s"
+msgstr "posledný %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1062
+msgid "second last %(weekday)s"
+msgstr "predposledný %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1063
+msgid "third last %(weekday)s"
+msgstr "tretí %(weekday)s od konca"
+
+#: static/recurrence/js/recurrence.js:1066
+msgid "1st %(weekday)s"
+msgstr "prvý %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1067
+msgid "2nd %(weekday)s"
+msgstr "druhý %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1068
+msgid "3rd %(weekday)s"
+msgstr "tretí %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1069
+msgid "4th %(weekday)s"
+msgstr "prvý %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1071
+msgid "2nd last %(weekday)s"
+msgstr "predposledný %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1072
+msgid "3rd last %(weekday)s"
+msgstr "predpredposledný %(weekday)s"
+
+#: static/recurrence/js/recurrence.js:1075
+#: static/recurrence/js/recurrence.js:1081
+msgid "last"
+msgstr "posledný"
+
+#: static/recurrence/js/recurrence.js:1076
+msgid "second last"
+msgstr "predpokledný"
+
+#: static/recurrence/js/recurrence.js:1077
+msgid "third last"
+msgstr "tretí od konca"
+
+#: static/recurrence/js/recurrence.js:1078
+msgid "fourth last"
+msgstr "štvrtý od konca"
+
+#: static/recurrence/js/recurrence.js:1082
+msgid "2nd last"
+msgstr "predposledný"
+
+#: static/recurrence/js/recurrence.js:1083
+msgid "3rd last"
+msgstr "tretí od konca"
+
+#: static/recurrence/js/recurrence.js:1084
+msgid "4th last"
+msgstr "štvrý od konca"
+
+#: static/recurrence/js/recurrence.js:1087
+msgid "January"
+msgstr "Január"
+
+#: static/recurrence/js/recurrence.js:1087
+msgid "February"
+msgstr "Február"
+
+#: static/recurrence/js/recurrence.js:1087
+#: static/recurrence/js/recurrence.js:1099
+msgid "March"
+msgstr "Marec"
+
+#: static/recurrence/js/recurrence.js:1088
+#: static/recurrence/js/recurrence.js:1100
+msgid "April"
+msgstr "Apríl"
+
+#: static/recurrence/js/recurrence.js:1088
+#: static/recurrence/js/recurrence.js:1094
+#: static/recurrence/js/recurrence.js:1100
+msgctxt "month name"
+msgid "May"
+msgstr "Máj"
+
+#: static/recurrence/js/recurrence.js:1088
+#: static/recurrence/js/recurrence.js:1100
+msgid "June"
+msgstr "Jún"
+
+#: static/recurrence/js/recurrence.js:1089
+#: static/recurrence/js/recurrence.js:1101
+msgid "July"
+msgstr "Júl"
+
+#: static/recurrence/js/recurrence.js:1089
+msgid "August"
+msgstr "August"
+
+#: static/recurrence/js/recurrence.js:1089
+msgid "September"
+msgstr "September"
+
+#: static/recurrence/js/recurrence.js:1090
+msgid "October"
+msgstr "Október"
+
+#: static/recurrence/js/recurrence.js:1090
+msgid "November"
+msgstr "November"
+
+#: static/recurrence/js/recurrence.js:1090
+msgid "December"
+msgstr "December"
+
+#: static/recurrence/js/recurrence.js:1093
+msgid "Jan"
+msgstr "Jan"
+
+#: static/recurrence/js/recurrence.js:1093
+msgid "Feb"
+msgstr "Feb"
+
+#: static/recurrence/js/recurrence.js:1093
+msgid "Mar"
+msgstr "Mar"
+
+#: static/recurrence/js/recurrence.js:1094
+msgid "Apr"
+msgstr "Apr"
+
+#: static/recurrence/js/recurrence.js:1094
+msgid "Jun"
+msgstr "Jún"
+
+#: static/recurrence/js/recurrence.js:1095
+msgid "Jul"
+msgstr "Júl"
+
+#: static/recurrence/js/recurrence.js:1095
+msgid "Aug"
+msgstr "Aug"
+
+#: static/recurrence/js/recurrence.js:1095
+msgid "Sep"
+msgstr "Sep"
+
+#: static/recurrence/js/recurrence.js:1096
+msgid "Oct"
+msgstr "Okt"
+
+#: static/recurrence/js/recurrence.js:1096
+msgid "Nov"
+msgstr "Nov"
+
+#: static/recurrence/js/recurrence.js:1096
+msgid "Dec"
+msgstr "Dec"
+
+#: static/recurrence/js/recurrence.js:1099
+msgid "Jan."
+msgstr "Jan."
+
+#: static/recurrence/js/recurrence.js:1099
+msgid "Feb."
+msgstr "Feb."
+
+#: static/recurrence/js/recurrence.js:1101
+msgid "Aug."
+msgstr "Aug."
+
+#: static/recurrence/js/recurrence.js:1101
+msgid "Sept."
+msgstr "Sept."
+
+#: static/recurrence/js/recurrence.js:1102
+msgid "Oct."
+msgstr "Okt."
+
+#: static/recurrence/js/recurrence.js:1102
+msgid "Nov."
+msgstr "Nov."
+
+#: static/recurrence/js/recurrence.js:1102
+msgid "Dec."
+msgstr "Dec."
+
+#: static/recurrence/js/recurrence.js:1105
+msgid "a.m."
+msgstr "predobedom"
+
+#: static/recurrence/js/recurrence.js:1105
+msgid "p.m."
+msgstr "poobede"
+
+#: static/recurrence/js/recurrence.js:1106
+msgid "AM"
+msgstr "predobedom"
+
+#: static/recurrence/js/recurrence.js:1106
+msgid "PM"
+msgstr "poobede"
+
+#: static/recurrence/js/recurrence.js:1108
+msgctxt "Day of month"
+msgid "%j%S"
+msgstr "%j%S"
