@@ -31,10 +31,10 @@ class RecurrenceWidget(forms.Textarea):
             value = recurrence.serialize(value)
 
         widget_init_js = (
-            '<div data-aftervue="'
+            '<script type="text/javascript">'
             'recurrence.language_code =\'%s\';'
             'new recurrence.widget.Widget(\'%s\', %s);'
-            '"></div>'
+            '</script>'
         ) % (get_language(), attrs['id'], json.dumps(self.js_widget_options))
 
         return safestring.mark_safe(u'%s\n%s' % (
