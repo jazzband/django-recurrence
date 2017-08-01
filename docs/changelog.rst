@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.5.1
+-----
+
+* Add Slovakian translations (:issue:`98`).
+
 1.5.0
 -----
 
