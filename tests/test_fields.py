@@ -177,24 +177,19 @@ def test_dtstart_inc_from_field():
     rec_obj = model_field.to_python(value)
     assert rec_obj == limits
     # 2nd of August (dtstart) is expected but only for inc=True
-    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=True,
-                                 dtstart=datetime(2015, 8, 2)) == [datetime(2015, 8, 2, 0, 0),
-                                                                   datetime(2015, 8, 3, 0, 0),
-                                                                   datetime(2015, 8, 10, 0, 0)]
-    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=False,
-                                 dtstart=datetime(2015, 8, 2)) == [datetime(2015, 8, 3, 0, 0),
-                                                                   datetime(2015, 8, 10, 0, 0)]
+    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=True, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 2, 0, 0), datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=False, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
 
     model_field = recurrence.fields.RecurrenceField(dtstart_inc=False)  # Test with dtstart_inc=False
     rec_obj = model_field.to_python(value)
     assert rec_obj == limits
     # 2nd of August (dtstart) is not expected regardless of inc
-    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=True,
-                                 dtstart=datetime(2015, 8, 2)) == [datetime(2015, 8, 3, 0, 0),
-                                                                   datetime(2015, 8, 10, 0, 0)]
-    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=False,
-                                 dtstart=datetime(2015, 8, 2)) == [datetime(2015, 8, 3, 0, 0),
-                                                                   datetime(2015, 8, 10, 0, 0)]
+    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=True, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=False, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
 
 
 def test_dtstart_inc_from_object():
