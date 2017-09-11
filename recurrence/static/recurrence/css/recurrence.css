@@ -10,6 +10,7 @@ div.recurrence-widget div.panel {
 div.recurrence-widget select,
 div.recurrence-widget input {
     margin: 0 .5em;
+    width: auto;
 }
 
 div.recurrence-widget a.recurrence-label {
@@ -292,3 +293,11 @@ table.recurrence-calendar .footer {
     border-right: 1px solid #ccc;
 }
 
+input[type=checkbox]:before {
+    width: auto;
+    height: auto;
+}
+
+input[type=radio]:before {
+    padding: 0px;
+}
