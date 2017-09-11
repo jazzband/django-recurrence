@@ -87,6 +87,11 @@ div.recurrence-widget .form {
 
 div.recurrence-widget .radio {
     margin-left: 0;
+    padding: 0px;
+}
+
+div.recurrence-widget .radio:before {
+    padding: 0px;
 }
 
 div.recurrence-widget .form ul {
@@ -175,6 +180,13 @@ div.recurrence-widget .yearly td {
 
 div.recurrence-widget .checkbox {
     margin-left: 0;
+    width: auto;
+    height: auto;
+}
+
+div.recurrence-widget .checkbox:before {
+    width: auto;
+    height: auto;
 }
 
 div.recurrence-widget .until-count {
@@ -291,13 +303,4 @@ table.recurrence-calendar .footer {
     overflow: hidden;
     border-bottom: 1px solid #ccc;
     border-right: 1px solid #ccc;
-}
-
-input[type=checkbox]:before {
-    width: auto;
-    height: auto;
-}
-
-input[type=radio]:before {
-    padding: 0px;
 }
