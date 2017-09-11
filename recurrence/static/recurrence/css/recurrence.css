@@ -87,7 +87,6 @@ div.recurrence-widget .form {
 
 div.recurrence-widget .radio {
     margin-left: 0;
-    padding: 0px;
 }
 
 div.recurrence-widget .radio:before {
@@ -180,8 +179,6 @@ div.recurrence-widget .yearly td {
 
 div.recurrence-widget .checkbox {
     margin-left: 0;
-    width: auto;
-    height: auto;
 }
 
 div.recurrence-widget .checkbox:before {
