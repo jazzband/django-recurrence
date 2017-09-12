@@ -1,17 +1,15 @@
 Changelog
 =========
 
-1.5.1
------
+1.5.0 (pending)
+---------------
 
-* Add Slovakian translations (:issue:`98`).
-
-1.5.0
------
-
+* Add Slovakian translations (:issue:`98`);
 * Add support for events occurring at a fixed point before the
   end of the month - e.g. the second last Tuesday before the end of
-  the month (:issue:`88`).
+  the month (:issue:`88`);
+* Add minor style changes to make django-recurrence compatible with
+  Wagtail (:issue:`100`).
 
 1.4.1
 -----
