@@ -287,17 +287,17 @@ class Recurrence(object):
             not be generated, even if some inclusive `Rule` or
             `datetime.datetime` instances matches them.
 
-        `dtstart_inc` : bool
+        `include_dtstart` : bool
             Defines if `dtstart` is included in the recurrence set as
-            the first occurrence. With `dtstart_inc == True` it is
+            the first occurrence. With `include_dtstart == True` it is
             both the starting point for recurrences and the first
             recurrence in the set (according to the rfc2445 spec).
-            With `dtstart_inc == False` `dtstart` is only the rule's
+            With `include_dtstart == False` `dtstart` is only the rule's
             starting point like in python's `dateutil.rrule`.
     """
     def __init__(
         self, dtstart=None, dtend=None, rrules=(), exrules=(),
-            rdates=(), exdates=(), dtstart_inc=True
+            rdates=(), exdates=(), include_dtstart=True
     ):
         """
         Create a new recurrence.
@@ -314,7 +314,7 @@ class Recurrence(object):
         self.exrules = list(exrules)
         self.rdates = list(rdates)
         self.exdates = list(exdates)
-        self.dtstart_inc = dtstart_inc
+        self.include_dtstart = include_dtstart
 
     def __iter__(self):
         return self.occurrences()
@@ -544,7 +544,7 @@ class Recurrence(object):
 
         dtstart = dtstart or self.dtstart
         dtend = dtend or self.dtend
-        dtstart_inc = self.dtstart_inc
+        include_dtstart = self.include_dtstart
 
         if dtend:
             dtend = normalize_offset_awareness(dtend or self.dtend, dtstart)
@@ -563,7 +563,7 @@ class Recurrence(object):
         for exrule in self.exrules:
             rruleset.exrule(exrule.to_dateutil_rrule(dtstart, dtend, cache))
 
-        if dtstart_inc and dtstart is not None:
+        if include_dtstart and dtstart is not None:
             rruleset.rdate(dtstart)
         for rdate in self.rdates:
             rdate = normalize_offset_awareness(rdate, dtstart)
@@ -932,7 +932,7 @@ def serialize(rule_or_recurrence):
     return u'\n'.join(u'%s:%s' % i for i in items)
 
 
-def deserialize(text, dtstart_inc=True):
+def deserialize(text, include_dtstart=True):
     """
     Deserialize a rfc2445 formatted string.
 
@@ -1083,7 +1083,7 @@ def deserialize(text, dtstart_inc=True):
         elif label == u'EXDATE':
             exdates.append(deserialize_dt(params))
 
-    return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates, dtstart_inc)
+    return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates, include_dtstart)
 
 
 def rule_to_text(rule, short=False):

@@ -85,7 +85,7 @@ confusion, you probably want to set them both to the same value.
    behavior for your own recurrence patterns.
 
 To switch off the automatic inclusion of ``dtstart`` into the
-occurence list, set ``dtstart_inc=False`` as an argument for the
+occurence list, set ``include_dtstart=False`` as an argument for the
 ``RecurrenceField`` whose behavior you want to change:
 
 .. code-block:: python
@@ -93,7 +93,7 @@ occurence list, set ``dtstart_inc=False`` as an argument for the
 
     class Course(models.Model):
         title = models.CharField(max_length=200)
-        recurrences = RecurrenceField(dtstart_inc=False)
+        recurrences = RecurrenceField(include_dtstart=False)
 
 With this change any ``dtstart`` value will only be an occurence if
 it matches the pattern specified in ``recurrences``. This also works
@@ -104,7 +104,7 @@ for instantiating ``Recurrence`` objects directly:
 
     pattern = recurrence.Recurrence(
        rrules=[recurrence.Rule(recurrence.WEEKLY, byday=recurrence.MONDAY)],
-       dtstart_inc=False).between(
+       include_dtstart=False).between(
           datetime(2010, 1, 1, 0, 0, 0),
           datetime(2014, 12, 31, 0, 0, 0),
           dtstart=datetime(2010, 1, 1, 0, 0, 0),
