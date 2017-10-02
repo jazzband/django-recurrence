@@ -249,7 +249,7 @@ class Recurrence(object):
 
     A `Recurrence` instance provides the combined behavior of the
     rfc2445 `DTSTART`, `DTEND`, `RRULE`, `EXRULE`, `RDATE`, and
-    `EXDATE` propeties in generating recurring date/times.
+    `EXDATE` properties in generating recurring date/times.
 
     This is a wrapper around the `dateutil.rrule.rruleset` class while
     adhering to the rfc2445 spec. Notably a `dtstart` parameter can be
@@ -286,10 +286,18 @@ class Recurrence(object):
             occurrence set generation. Dates included that way will
             not be generated, even if some inclusive `Rule` or
             `datetime.datetime` instances matches them.
+
+        `include_dtstart` : bool
+            Defines if `dtstart` is included in the recurrence set as
+            the first occurrence. With `include_dtstart == True` it is
+            both the starting point for recurrences and the first
+            recurrence in the set (according to the rfc2445 spec).
+            With `include_dtstart == False` `dtstart` is only the rule's
+            starting point like in python's `dateutil.rrule`.
     """
     def __init__(
-        self, dtstart=None, dtend=None,
-        rrules=(), exrules=(), rdates=(), exdates=()
+        self, dtstart=None, dtend=None, rrules=(), exrules=(),
+            rdates=(), exdates=(), include_dtstart=True
     ):
         """
         Create a new recurrence.
@@ -306,6 +314,7 @@ class Recurrence(object):
         self.exrules = list(exrules)
         self.rdates = list(rdates)
         self.exdates = list(exdates)
+        self.include_dtstart = include_dtstart
 
     def __iter__(self):
         return self.occurrences()
@@ -535,6 +544,8 @@ class Recurrence(object):
 
         dtstart = dtstart or self.dtstart
         dtend = dtend or self.dtend
+        include_dtstart = self.include_dtstart
+
         if dtend:
             dtend = normalize_offset_awareness(dtend or self.dtend, dtstart)
 
@@ -552,7 +563,7 @@ class Recurrence(object):
         for exrule in self.exrules:
             rruleset.exrule(exrule.to_dateutil_rrule(dtstart, dtend, cache))
 
-        if dtstart is not None:
+        if include_dtstart and dtstart is not None:
             rruleset.rdate(dtstart)
         for rdate in self.rdates:
             rdate = normalize_offset_awareness(rdate, dtstart)
@@ -921,7 +932,7 @@ def serialize(rule_or_recurrence):
     return u'\n'.join(u'%s:%s' % i for i in items)
 
 
-def deserialize(text):
+def deserialize(text, include_dtstart=True):
     """
     Deserialize a rfc2445 formatted string.
 
@@ -1072,7 +1083,7 @@ def deserialize(text):
         elif label == u'EXDATE':
             exdates.append(deserialize_dt(params))
 
-    return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates)
+    return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates, include_dtstart)
 
 
 def rule_to_text(rule, short=False):

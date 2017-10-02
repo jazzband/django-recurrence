@@ -1,9 +1,11 @@
 from datetime import datetime
+
+import pytest
 from django import forms
+
+import recurrence
 from recurrence import Recurrence, Rule
 from recurrence.forms import RecurrenceField
-import pytest
-import recurrence
 
 
 def test_clean_normal_value():
@@ -157,3 +159,60 @@ def test_check_allowable_frequencies():
     with pytest.raises(forms.ValidationError) as e:
         field.clean(value)
     assert e.value.messages[0] == "Invalid frequency."
+
+
+def test_include_dtstart_from_field():
+    rule = Rule(
+        recurrence.WEEKLY,
+        byday=recurrence.MONDAY
+    )
+
+    limits = Recurrence(
+        rrules=[rule]
+    )
+
+    value = recurrence.serialize(limits)
+
+    model_field = recurrence.fields.RecurrenceField()  # Test with include_dtstart=True (default)
+    rec_obj = model_field.to_python(value)
+    assert rec_obj == limits
+    # 2nd of August (dtstart) is expected but only for inc=True
+    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=True, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 2, 0, 0), datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=False, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+
+    model_field = recurrence.fields.RecurrenceField(include_dtstart=False)  # Test with include_dtstart=False
+    rec_obj = model_field.to_python(value)
+    assert rec_obj == limits
+    # 2nd of August (dtstart) is not expected regardless of inc
+    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=True, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+    assert rec_obj.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=False, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+
+
+def test_include_dtstart_from_object():
+    rule = Rule(
+        recurrence.WEEKLY,
+        byday=recurrence.MONDAY
+    )
+
+    limits = Recurrence(  # include_dtstart=True (default)
+        rrules=[rule]
+    )
+
+    assert limits.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=True, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 2, 0, 0), datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+    assert limits.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=False, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+
+    limits = Recurrence(  # include_dtstart=False (dtstart is expected to not be included)
+        include_dtstart=False,
+        rrules=[rule]
+    )
+
+    assert limits.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=True, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+    assert limits.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=False, dtstart=datetime(2015, 8, 2)) == [
+        datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
