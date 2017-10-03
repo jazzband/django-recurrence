@@ -30,7 +30,7 @@ Supported Django and Python versions
 Currently, django-recurrence supports Python 2.7, Python 3.3, Python
 3.4 and Python 3.5.
 
-django-recurrence works with Django from versions 1.7 to 1.9.
+django-recurrence works with Django from versions 1.7 to 1.11.
 
 Set up internationalization
 ---------------------------
