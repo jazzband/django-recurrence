@@ -9,7 +9,11 @@ Changelog
   end of the month - e.g. the second last Tuesday before the end of
   the month (:issue:`88`);
 * Add minor style changes to make django-recurrence compatible with
-  Wagtail (:issue:`100`).
+  Wagtail (:issue:`100`);
+* Allow changing the behaviour of generating recurrences on
+  ``dtstart`` by default. You can opt in to this by setting
+  ``include_dtstart=False`` on your ``RecurrenceField``
+  (:issue:`93`).
 
 1.4.1
 -----
