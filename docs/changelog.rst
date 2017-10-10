@@ -13,7 +13,9 @@ Changelog
 * Allow changing the behaviour of generating recurrences on
   ``dtstart`` by default. You can opt in to this by setting
   ``include_dtstart=False`` on your ``RecurrenceField``
-  (:issue:`93`).
+  (:issue:`93`);
+* Ensure broken values raise ``DeserializationError`` where expected
+  (:issue:`103`).
 
 1.4.1
 -----
