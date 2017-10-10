@@ -1002,9 +1002,8 @@ def deserialize(text, include_dtstart=True):
     for label, param_text in tokens:
         if not param_text:
             raise exceptions.DeserializationError('empty property: %r' % label)
-        if u'=' not in param_text:
-            params = param_text
-        else:
+
+        if label in (u'RRULE', u'EXRULE'):
             params = {}
             param_tokens = filter(lambda p: p, param_text.split(u';'))
             for item in param_tokens:
@@ -1017,7 +1016,6 @@ def deserialize(text, include_dtstart=True):
                 params[param_name] = list(map(
                     lambda i: i.strip(), param_value.split(u',')))
 
-        if label in (u'RRULE', u'EXRULE'):
             kwargs = {}
             for key, value in params.items():
                 if key == u'FREQ':
@@ -1075,13 +1073,13 @@ def deserialize(text, include_dtstart=True):
             else:
                 exrules.append(Rule(**kwargs))
         elif label == u'DTSTART':
-            dtstart = deserialize_dt(params)
+            dtstart = deserialize_dt(param_text)
         elif label == u'DTEND':
-            dtend = deserialize_dt(params)
+            dtend = deserialize_dt(param_text)
         elif label == u'RDATE':
-            rdates.append(deserialize_dt(params))
+            rdates.append(deserialize_dt(param_text))
         elif label == u'EXDATE':
-            exdates.append(deserialize_dt(params))
+            exdates.append(deserialize_dt(param_text))
 
     return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates, include_dtstart)
 
