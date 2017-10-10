@@ -1,5 +1,7 @@
 from datetime import datetime
 from recurrence import Recurrence, Rule
+from recurrence.exceptions import DeserializationError
+import pytest
 import recurrence
 
 
@@ -11,6 +13,51 @@ def test_rule_serialization():
     serialized = recurrence.serialize(rule)
     assert 'RRULE:FREQ=WEEKLY' == serialized
     assert recurrence.deserialize(serialized) == Recurrence(rrules=[rule])
+
+
+def test_no_equal_sign():
+    with pytest.raises(DeserializationError):
+        recurrence.deserialize('RRULE:A')
+
+
+def test_no_value():
+    with pytest.raises(DeserializationError):
+        recurrence.deserialize('RRULE:A=')
+
+
+def test_unknown_key():
+    with pytest.raises(DeserializationError):
+        recurrence.deserialize('RRULE:A=X')
+
+
+def test_bad_freq():
+    with pytest.raises(DeserializationError):
+        recurrence.deserialize('RRULE:FREQ=X')
+
+
+def test_bad_interval():
+    with pytest.raises(DeserializationError):
+        recurrence.deserialize('RRULE:INTERVAL=X')
+
+
+def test_bad_wkst():
+    with pytest.raises(DeserializationError):
+        recurrence.deserialize('RRULE:WKST=X')
+
+
+def test_bad_count():
+    with pytest.raises(DeserializationError):
+        recurrence.deserialize('RRULE:COUNT=X')
+
+
+def test_bad_byday():
+    with pytest.raises(DeserializationError):
+        recurrence.deserialize('RRULE:BYDAY=X')
+
+
+def test_bad_BYMONTH():
+    with pytest.raises(DeserializationError):
+        recurrence.deserialize('RRULE:BYMONTH=X')
 
 
 def test_complex_rule_serialization():
