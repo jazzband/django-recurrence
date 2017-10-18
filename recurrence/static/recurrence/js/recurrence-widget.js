@@ -1753,9 +1753,9 @@ recurrence.widget.textareas_to_widgets = function(token) {
 
 recurrence.widget.date_today = function() {
     var date = new Date();
-    date.setHours(0);
-    date.setMinutes(0);
-    date.setSeconds(0);
+    date.setUTCHours(0);
+    date.setUTCMinutes(0);
+    date.setUTCSeconds(0);
     return date;
 };
 
