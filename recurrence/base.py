@@ -15,6 +15,7 @@ import calendar
 
 import pytz
 import dateutil.rrule
+from django.conf import settings
 from django.utils import dateformat, timezone
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _, pgettext as _p
@@ -989,8 +990,11 @@ def deserialize(text, include_dtstart=True):
         dt = dt.astimezone(localtz())
 
         # set tz to settings.TIME_ZONE and return offset-naive datetime
+        if not settings.USE_TZ:
+            tzinfo = None
+
         return datetime.datetime(
-            dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+            dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second, tzinfo=tzinfo)
 
     dtstart, dtend, rrules, exrules, rdates, exdates = None, None, [], [], [], []
 
