@@ -51,11 +51,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='param',
             name='rule',
-            field=models.ForeignKey(related_name='params', to='recurrence.Rule'),
+            field=models.ForeignKey(related_name='params', to='recurrence.Rule', on_delete=models.DO_NOTHING),
         ),
         migrations.AddField(
             model_name='date',
             name='recurrence',
-            field=models.ForeignKey(related_name='dates', to='recurrence.Recurrence'),
+            field=models.ForeignKey(related_name='dates', to='recurrence.Recurrence', on_delete=models.DO_NOTHING),
         ),
     ]
