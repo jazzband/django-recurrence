@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                 ('wkst', models.PositiveIntegerField(default=0, null=True, blank=True)),
                 ('count', models.PositiveIntegerField(null=True, blank=True)),
                 ('until', models.DateTimeField(null=True, blank=True)),
-                ('recurrence', models.ForeignKey(related_name='rules', to='recurrence.Recurrence')),
+                ('recurrence', models.ForeignKey(related_name='rules', to='recurrence.Recurrence', on_delete=models.DO_NOTHING)),
             ],
         ),
         migrations.AddField(
