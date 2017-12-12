@@ -45,17 +45,17 @@ class Migration(migrations.Migration):
                 ('wkst', models.PositiveIntegerField(default=0, null=True, blank=True)),
                 ('count', models.PositiveIntegerField(null=True, blank=True)),
                 ('until', models.DateTimeField(null=True, blank=True)),
-                ('recurrence', models.ForeignKey(related_name='rules', to='recurrence.Recurrence')),
+                ('recurrence', models.ForeignKey(related_name='rules', to='recurrence.Recurrence', on_delete=models.DO_NOTHING)),
             ],
         ),
         migrations.AddField(
             model_name='param',
             name='rule',
-            field=models.ForeignKey(related_name='params', to='recurrence.Rule'),
+            field=models.ForeignKey(related_name='params', to='recurrence.Rule', on_delete=models.DO_NOTHING),
         ),
         migrations.AddField(
             model_name='date',
             name='recurrence',
-            field=models.ForeignKey(related_name='dates', to='recurrence.Recurrence'),
+            field=models.ForeignKey(related_name='dates', to='recurrence.Recurrence', on_delete=models.DO_NOTHING),
         ),
     ]
