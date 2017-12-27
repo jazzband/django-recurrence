@@ -15,7 +15,7 @@ class Recurrence(models.Model):
 
 
 class Rule(models.Model):
-    recurrence = models.ForeignKey(Recurrence, related_name='rules')
+    recurrence = models.ForeignKey(Recurrence, related_name='rules', on_delete=models.CASCADE)
     mode = models.BooleanField(default=True, choices=choices.MODE_CHOICES)
     freq = models.PositiveIntegerField(choices=choices.FREQUENCY_CHOICES)
     interval = models.PositiveIntegerField(default=1)
@@ -31,13 +31,13 @@ class Rule(models.Model):
 
 
 class Date(models.Model):
-    recurrence = models.ForeignKey(Recurrence, related_name='dates')
+    recurrence = models.ForeignKey(Recurrence, related_name='dates', on_delete=models.CASCADE)
     mode = models.BooleanField(default=True, choices=choices.MODE_CHOICES)
     dt = models.DateTimeField()
 
 
 class Param(models.Model):
-    rule = models.ForeignKey(Rule, related_name='params')
+    rule = models.ForeignKey(Rule, related_name='params', on_delete=models.CASCADE)
     param = models.CharField(max_length=16)
     value = models.IntegerField()
     index = models.IntegerField(default=0)
