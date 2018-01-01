@@ -22,6 +22,7 @@ env:
   - TOX_ENV=py35-19
   - TOX_ENV=py35-110
   - TOX_ENV=py35-111
+  - TOX_ENV=py35-20
   - TOX_ENV=py35-master
   - TOX_ENV=docs
   - TOX_ENV=flake8

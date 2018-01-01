@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -45,17 +46,17 @@ class Migration(migrations.Migration):
                 ('wkst', models.PositiveIntegerField(default=0, null=True, blank=True)),
                 ('count', models.PositiveIntegerField(null=True, blank=True)),
                 ('until', models.DateTimeField(null=True, blank=True)),
-                ('recurrence', models.ForeignKey(related_name='rules', to='recurrence.Recurrence')),
+                ('recurrence', models.ForeignKey(related_name='rules', on_delete=django.db.models.deletion.CASCADE, to='recurrence.Recurrence')),
             ],
         ),
         migrations.AddField(
             model_name='param',
             name='rule',
-            field=models.ForeignKey(related_name='params', to='recurrence.Rule'),
+            field=models.ForeignKey(related_name='params', on_delete=django.db.models.deletion.CASCADE, to='recurrence.Rule'),
         ),
         migrations.AddField(
             model_name='date',
             name='recurrence',
-            field=models.ForeignKey(related_name='dates', to='recurrence.Recurrence'),
+            field=models.ForeignKey(related_name='dates', on_delete=django.db.models.deletion.CASCADE, to='recurrence.Recurrence'),
         ),
     ]
