@@ -1,5 +1,6 @@
 from django.db.models import fields
 from django.utils.six import string_types
+from django.core.exceptions import ValidationError
 import recurrence
 from recurrence import forms
 from recurrence.compat import Creator
@@ -29,7 +30,12 @@ class RecurrenceField(fields.Field):
         if value is None or isinstance(value, recurrence.Recurrence):
             return value
         value = super(RecurrenceField, self).to_python(value) or u''
-        return recurrence.deserialize(value, self.include_dtstart)
+        try:
+            return recurrence.deserialize(value, self.include_dtstart)
+        except recurrence.DeserializationError as e:
+            raise ValidationError(
+                str(e), code='invalid', params={'value': value}
+            )
 
     def from_db_value(self, value, *args, **kwargs):
         return self.to_python(value)
