@@ -42,7 +42,12 @@ class RecurrenceField(fields.Field):
 
     def get_prep_value(self, value):
         if not isinstance(value, string_types):
-            value = recurrence.serialize(value)
+            try:
+                value = recurrence.serialize(value)
+            except recurrence.SerializationError as e:
+                raise ValidationError(
+                    str(e), code='invalid', params={'value': value}
+                )
         return value
 
     def contribute_to_class(self, cls, *args, **kwargs):
