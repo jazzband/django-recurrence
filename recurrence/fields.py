@@ -1,6 +1,5 @@
 from django.db.models import fields
 from django.utils.six import string_types
-from django.core.exceptions import ValidationError
 import recurrence
 from recurrence import forms
 from recurrence.compat import Creator
@@ -30,24 +29,14 @@ class RecurrenceField(fields.Field):
         if value is None or isinstance(value, recurrence.Recurrence):
             return value
         value = super(RecurrenceField, self).to_python(value) or u''
-        try:
-            return recurrence.deserialize(value, self.include_dtstart)
-        except recurrence.DeserializationError as e:
-            raise ValidationError(
-                str(e), code='invalid', params={'value': value}
-            )
+        return recurrence.deserialize(value, self.include_dtstart)
 
     def from_db_value(self, value, *args, **kwargs):
         return self.to_python(value)
 
     def get_prep_value(self, value):
         if not isinstance(value, string_types):
-            try:
-                value = recurrence.serialize(value)
-            except recurrence.SerializationError as e:
-                raise ValidationError(
-                    str(e), code='invalid', params={'value': value}
-                )
+            value = recurrence.serialize(value)
         return value
 
     def contribute_to_class(self, cls, *args, **kwargs):
