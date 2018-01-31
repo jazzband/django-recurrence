@@ -239,8 +239,8 @@ recurrence.widget.Calendar.prototype = {
             day != this.date.getDate()) {
 
             this.date.setFullYear(year);
-            this.date.setMonth(month);
             this.date.setDate(day);
+            this.date.setMonth(month);
 
             recurrence.array.foreach(
                 this.elements.month_grid.cells, function(cell) {
@@ -406,8 +406,8 @@ recurrence.widget.DateSelector.prototype = {
                 if (!this.date)
                     this.date = recurrence.widget.date_today();
                 this.date.setFullYear(year);
-                this.date.setMonth(month);
                 this.date.setDate(day);
+                this.date.setMonth(month);
 
                 this.elements.date_field.value = datestring;
 
