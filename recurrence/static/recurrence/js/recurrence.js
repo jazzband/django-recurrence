@@ -681,7 +681,7 @@ recurrence.deserialize = function(text) {
         if (text.indexOf('Z') > 0) {
             dt.setTime(Date.UTC(year, month - 1, day, hour, minute, second) / 1);
         } else {
-            dt.setTime(new Date(year, month - 1, day, hour, minute, second) / 1);
+            dt.setTime(new Date(year, month - 1, day, hour, minute, second).getTime());
         }
         return dt;
     };
