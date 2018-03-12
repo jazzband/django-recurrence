@@ -1,8 +1,16 @@
 Changelog
 =========
 
-1.5.0 (pending)
+1.6.0 (Pending)
 ---------------
+
+* Fixes for Python 3 (:issue:`105`);
+* Support for Django 2.0 (:issue:`109`, :issue:`110`);
+* Switch back a couple of instances of ``DeserializationError`` to
+``ValidationError`` (:issue:`111`).
+
+1.5.0
+-----
 
 * Add Slovakian translations (:issue:`98`);
 * Add support for events occurring at a fixed point before the
