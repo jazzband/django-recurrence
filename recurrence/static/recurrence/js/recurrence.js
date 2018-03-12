@@ -679,19 +679,9 @@ recurrence.deserialize = function(text) {
         }
         var dt = new Date();
         if (text.indexOf('Z') > 0) {
-            dt.setUTCFullYear(year);
-            dt.setUTCMonth(month - 1);
-            dt.setUTCDate(day);
-            dt.setUTCHours(hour);
-            dt.setUTCMinutes(minute);
-            dt.setUTCSeconds(second);
+            dt.setTime(Date.UTC(year, month - 1, day, hour, minute, second) / 1);
         } else {
-            dt.setFullYear(year);
-            dt.setMonth(month - 1);
-            dt.setDate(day);
-            dt.setHours(hour);
-            dt.setMinutes(minute);
-            dt.setSeconds(second);
+            dt.setTime(new Date(year, month - 1, day, hour, minute, second).getTime());
         }
         return dt;
     };
