@@ -7,7 +7,9 @@ Changelog
 * Fixes for Python 3 (:issue:`105`);
 * Support for Django 2.0 (:issue:`109`, :issue:`110`);
 * Switch back a couple of instances of ``DeserializationError`` to
-``ValidationError`` (:issue:`111`).
+  ``ValidationError`` (:issue:`111`);
+* Switch around how we set dates in the date selector widget to avoid
+  issues with short months (:issue:`113`).
 
 1.5.0
 -----
