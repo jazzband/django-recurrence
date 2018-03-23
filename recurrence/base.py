@@ -16,6 +16,7 @@ import calendar
 import pytz
 import dateutil.rrule
 from django.utils import dateformat, timezone
+from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext as _, pgettext as _p
 from django.utils.six import string_types
 
@@ -243,6 +244,7 @@ class Rule(object):
             cache=cache, **kwargs)
 
 
+@python_2_unicode_compatible
 class Recurrence(object):
     """
     A combination of `Rule` and `datetime.datetime` instances.
@@ -319,7 +321,7 @@ class Recurrence(object):
     def __iter__(self):
         return self.occurrences()
 
-    def __unicode__(self):
+    def __str__(self):
         return serialize(self)
 
     def __hash__(self):

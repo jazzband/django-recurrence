@@ -6,3 +6,5 @@ htmlcov/
 .cache/
 .tox/
 docs/_build
+build/
+dist/

@@ -68,6 +68,7 @@ For Django 1.10 and above, you'll need:
 
     import django
     from django.conf.urls import url
+    from django.views.i18n import JavaScriptCatalog
 
     # Your normal URLs here...
 
@@ -79,7 +80,7 @@ For Django 1.10 and above, you'll need:
 
     # jsi18n can be anything you like here
     urlpatterns += [
-        url(r'^jsi18n/$', django.views.i18n.javascript_catalog, js_info_dict),
+        url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict),
     )
 
 

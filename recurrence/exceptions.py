@@ -1,4 +1,7 @@
-class RecurrenceError(Exception):
+from django.core.exceptions import ValidationError
+
+
+class RecurrenceError(ValidationError):
     pass
 
 
@@ -7,8 +10,4 @@ class SerializationError(RecurrenceError):
 
 
 class DeserializationError(RecurrenceError):
-    pass
-
-
-class ValidationError(RecurrenceError):
     pass
