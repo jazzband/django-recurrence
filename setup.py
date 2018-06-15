@@ -43,7 +43,7 @@ else:
 
 setup(
     name='django-recurrence',
-    version='1.5.0',
+    version='1.6.0',
     license='BSD',
 
     description='Django utility wrapping dateutil.rrule',
