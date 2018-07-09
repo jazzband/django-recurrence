@@ -216,3 +216,13 @@ def test_include_dtstart_from_object():
         datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
     assert limits.between(datetime(2015, 8, 2), datetime(2015, 8, 11), inc=False, dtstart=datetime(2015, 8, 2)) == [
         datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+
+
+def test_none_fieldvalue():
+
+    field = RecurrenceField()
+    value = None
+    return_obj = field.clean(value)
+
+    assert isinstance(return_obj, Recurrence) or return_obj is None
+
