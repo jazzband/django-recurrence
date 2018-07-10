@@ -225,4 +225,3 @@ def test_none_fieldvalue():
     return_obj = field.clean(value)
 
     assert isinstance(return_obj, Recurrence) or return_obj is None
-
