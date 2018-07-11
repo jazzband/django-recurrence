@@ -1,8 +1,14 @@
 Changelog
 =========
 
-1.6.0 (Pending)
+1.7.0 (Pending)
 ---------------
+
+* Fixes for saving ``None`` into a ``RecurrenceField`` causing a
+  ``TypeError`` (:issue:`89`, :issue:`122`);
+
+1.6.0
+-----
 
 * Fixes for Python 3 (:issue:`105`);
 * Support for Django 2.0 (:issue:`109`, :issue:`110`);
