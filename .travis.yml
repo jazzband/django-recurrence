@@ -10,9 +10,6 @@ env:
   - TOX_ENV=py35-111
   - TOX_ENV=py35-20
   - TOX_ENV=py35-master
-  - TOX_ENV=py36-111
-  - TOX_ENV=py36-20
-  - TOX_ENV=py36-master
   - TOX_ENV=docs
   - TOX_ENV=flake8
 
