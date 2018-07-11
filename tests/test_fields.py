@@ -219,7 +219,6 @@ def test_include_dtstart_from_object():
 
 
 def test_none_fieldvalue():
-
     field = RecurrenceField()
     value = None
     return_obj = field.clean(value)
