@@ -1,5 +1,7 @@
 # django-recurrence
 
+[![Build Status](https://travis-ci.org/django-recurrence/django-recurrence.svg?branch=master)](https://travis-ci.org/django-recurrence/django-recurrence)
+
 django-recurrence is a utility for working with recurring dates in
 Django. Documentation is available at
 https://django-recurrence.readthedocs.org/.
