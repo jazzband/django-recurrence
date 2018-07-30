@@ -1,5 +1,5 @@
-pytest==2.6.3
+pytest==3.6.3
 pytest-cov==1.7.0
-pytest-django==2.6.2
-pytest-sugar==0.3.4
+pytest-django==3.3.2
+pytest-sugar==0.9.1
 tox==1.8.0
