@@ -11,7 +11,9 @@ Changelog
 * Provisional support for Python 3.7 (only for Django 2.0 and up);
 * Ensure use of ``render`` on Django widgets always passes the
   ``renderer`` argument, to ensure support for Django 2.1
-  (:issue:`125`).
+  (:issue:`125`);
+* Django 2.0 compatibility fix for usage of django-recurrence with
+  Django REST framework (:issue:`126`).
 
 1.6.0
 -----
