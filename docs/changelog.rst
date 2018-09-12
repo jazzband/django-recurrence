@@ -4,11 +4,14 @@ Changelog
 1.7.0 (Pending)
 ---------------
 
+* Drop official support for Django versions 1.7, 1.8, 1.9, 1.10;
 * Fixes for saving ``None`` into a ``RecurrenceField`` causing a
   ``TypeError`` (:issue:`89`, :issue:`122`);
 * Drop official support for Python 3.3 and Python 3.4;
 * Provisional support for Python 3.7 (only for Django 2.0 and up);
-* Drop official support for Django versions 1.7, 1.8, 1.9, 1.10.
+* Ensure use of ``render`` on Django widgets always passes the
+  ``renderer`` argument, to ensure support for Django 2.1
+  (:issue:`125`).
 
 1.6.0
 -----
