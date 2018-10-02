@@ -30,14 +30,12 @@ class TestTimezoneSettings(TestCase):
     def test_recurrence_tz_false(self):
         assert not r_settings.deserialize_tz()
 
-    @override_settings()
+    @override_settings(USE_TZ=True)
     def test_fallback_to_use_tz_true(self):
         del settings.RECURRENCE_USE_TZ
-        settings.USE_TZ = True
         assert r_settings.deserialize_tz()
 
-    @override_settings()
+    @override_settings(USE_TZ=False)
     def test_fallback_to_use_tz_false(self):
         del settings.RECURRENCE_USE_TZ
-        settings.USE_TZ = False
         assert not r_settings.deserialize_tz()

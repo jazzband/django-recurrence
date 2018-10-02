@@ -21,7 +21,7 @@ from django.utils.translation import ugettext as _, pgettext as _p
 from django.utils.six import string_types
 
 from recurrence import exceptions
-
+from recurrence import settings
 
 YEARLY, MONTHLY, WEEKLY, DAILY, HOURLY, MINUTELY, SECONDLY = range(7)
 
@@ -961,6 +961,17 @@ def deserialize(text, include_dtstart=True):
         A `Recurrence` instance.
     """
     def deserialize_dt(text):
+        """
+        Deserialize a rfc2445 text to a datetime.
+
+        The setting RECURRENCE_USE_TZ determines if a a naive or
+        timezone aware datetime is returned.
+
+        If this setting is not present the setting USE_TZ is used
+        as a default.
+
+        Package local this setting is referred to as DESERIALIZE_TZ.
+        """
         try:
             year, month, day = int(text[:4]), int(text[4:6]), int(text[6:8])
         except ValueError:
@@ -986,6 +997,10 @@ def deserialize(text, include_dtstart=True):
 
         dt = datetime.datetime(
             year, month, day, hour, minute, second, tzinfo=tzinfo)
+
+        if settings.deserialize_tz():
+            return dt
+
         dt = dt.astimezone(localtz())
 
         # set tz to settings.TIME_ZONE and return offset-naive datetime
