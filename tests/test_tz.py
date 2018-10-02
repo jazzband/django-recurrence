@@ -4,7 +4,6 @@
 from datetime import datetime
 import pytz
 
-from django.conf import settings
 from django.test import TestCase
 from django.test import override_settings
 
@@ -87,9 +86,6 @@ class FieldTest(TestCase):
                 datetime(2014, 1, 1, 0, 0, 0, tzinfo=tz),
                 datetime(2014, 1, 2, 0, 0, 0, tzinfo=tz),
             ],
-            #exdates=[
-            #    datetime(2014, 1, 2, 0, 0, 0)
-            #]
         )
 
         value = recurrence.serialize(limits)
@@ -142,13 +138,12 @@ class FieldTest(TestCase):
         for rdate in cleaned_value.exdates:
             assert rdate.tzname() == 'UTC'
 
-
     def test_naive_until_gets_converted_to_utc(self):
         recurs = Recurrence(
-                rrules=[Rule(
-                    recurrence.DAILY,
-                    until=datetime(2014, 1, 1, 0, 0, 0))
-                    ],
+            rrules=[Rule(
+                recurrence.DAILY,
+                until=datetime(2014, 1, 1, 0, 0, 0))
+            ],
         )
         value = recurrence.serialize(recurs)
         field = RecurrenceField()
@@ -159,10 +154,10 @@ class FieldTest(TestCase):
         tz = pytz.timezone('America/Adak')
         until = datetime(2014, 1, 1, 0, 0, 0, tzinfo=tz)
         recurs = Recurrence(
-                rrules=[Rule(
-                    recurrence.DAILY,
-                    until=until)
-                    ],
+            rrules=[Rule(
+                recurrence.DAILY,
+                until=until)
+            ],
         )
         value = recurrence.serialize(recurs)
         field = RecurrenceField()

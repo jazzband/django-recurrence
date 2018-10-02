@@ -17,6 +17,7 @@ as a default.
 
 from django.conf import settings
 
+
 def deserialize_tz():
     try:
         return settings.RECURRENCE_USE_TZ
