@@ -15,6 +15,7 @@ Changelog
 * Django 2.0 compatibility fix for usage of django-recurrence with
   Django REST framework (:issue:`126`).
 
+
 1.6.0
 -----
 

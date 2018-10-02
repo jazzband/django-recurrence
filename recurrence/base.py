@@ -964,13 +964,14 @@ def deserialize(text, include_dtstart=True):
         """
         Deserialize a rfc2445 text to a datetime.
 
-        The setting RECURRENCE_USE_TZ determines if a a naive or
+        The setting RECURRENCE_USE_TZ determines if a naive or
         timezone aware datetime is returned.
 
         If this setting is not present the setting USE_TZ is used
         as a default.
 
-        Package local this setting is referred to as DESERIALIZE_TZ.
+        This setting is accessed via the `.settings.deserialize_tz`
+        function.
         """
         try:
             year, month, day = int(text[:4]), int(text[4:6]), int(text[6:8])
