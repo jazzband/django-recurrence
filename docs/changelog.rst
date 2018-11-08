@@ -4,7 +4,8 @@ Changelog
 1.8.0 (Pending)
 ---------------
 
-* Fixes for timezone support (:issue:`130`).
+* Fixes for timezone support (:issue:`130`);
+* Improvements to avoid inline styles (:issue:`85`).
 
 
 1.7.0
