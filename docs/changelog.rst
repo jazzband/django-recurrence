@@ -1,8 +1,14 @@
 Changelog
 =========
 
-1.7.0 (Pending)
+1.8.0 (Pending)
 ---------------
+
+* Fixes for timezone support (:issue:`130`).
+
+
+1.7.0
+-----
 
 * Drop official support for Django versions 1.7, 1.8, 1.9, 1.10;
 * Fixes for saving ``None`` into a ``RecurrenceField`` causing a
@@ -14,7 +20,6 @@ Changelog
   (:issue:`125`);
 * Django 2.0 compatibility fix for usage of django-recurrence with
   Django REST framework (:issue:`126`).
-
 
 1.6.0
 -----
