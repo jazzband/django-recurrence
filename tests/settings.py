@@ -53,3 +53,4 @@ USE_L10N = True
 USE_TZ = True
 SECRET_KEY = 'thisbagismadefromrecycledmaterial'
 TEMPLATE_DEBUG = True
+RECURRENCE_USE_TZ = False
