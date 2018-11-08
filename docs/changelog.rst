@@ -5,7 +5,9 @@ Changelog
 ---------------
 
 * Fixes for timezone support (:issue:`130`);
-* Improvements to avoid inline styles (:issue:`85`).
+* Improvements to avoid inline styles (:issue:`85`);
+* Handle changes to ``javascript_catalog`` in Django 2
+  (:issue:`131`).
 
 
 1.7.0
