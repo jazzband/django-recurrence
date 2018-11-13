@@ -199,10 +199,11 @@ class RecurrenceField(forms.CharField):
                 raise forms.ValidationError(
                     self.error_messages['invalid_frequency'])
 
-        if self.required and not recurrence_obj.rrules and not recurrence_obj.rdates:
-            raise forms.ValidationError(
-                self.error_messages['recurrence_required']
-            )
+        if self.required:
+            if not recurrence_obj.rrules and not recurrence_obj.rdates and not recurrence_obj.exdates and not recurrence_obj.exrules:
+                raise forms.ValidationError(
+                    self.error_messages['recurrence_required']
+                )
 
         return recurrence_obj
 
