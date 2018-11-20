@@ -233,7 +233,7 @@ def find_recurrence_i18n_js_catalog():
                 match = check_urlpatterns(pattern.url_patterns)
                 if match:
                     return match
-            elif (pattern.callback == i18n.javascript_catalog and
+            elif (hasattr(i18n, 'javascript_catalog') and pattern.callback == i18n.javascript_catalog and
                   'recurrence' in pattern.default_args.get('packages', [])):
                 if pattern.name:
                     return urls.reverse(pattern.name)
