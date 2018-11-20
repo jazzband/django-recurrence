@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.8.1
+-----
+
+* More changes to ``javascript_catalog`` for Django 2.0
+  (:issue:`134`).
+
 1.8.0
 -----
 
@@ -22,7 +28,7 @@ please read the notes below for details.
   just set ``require=False`` on your field.
 * Improvements to avoid inline styles (:issue:`85`);
 * Handle changes to ``javascript_catalog`` in Django 2
-  (:issue:`131`, :issue:`134`);
+  (:issue:`131`).
 
 
 1.7.0
