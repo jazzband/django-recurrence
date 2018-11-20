@@ -21,6 +21,7 @@ except ImportError:
 
 
 class RecurrenceWidget(forms.Textarea):
+
     def __init__(self, attrs=None, **kwargs):
         self.js_widget_options = kwargs
         defaults = {'class': 'recurrence-widget'}
@@ -82,6 +83,8 @@ class RecurrenceField(forms.CharField):
             u'Max dates exceeded. The limit is %(limit)s'),
         'max_exdates_exceeded': _(
             u'Max exclusion dates exceeded. The limit is %(limit)s'),
+        'recurrence_required': _(
+            u'This field is required. Set either a recurrence rule or date.'),
     }
 
     def __init__(
@@ -195,6 +198,12 @@ class RecurrenceField(forms.CharField):
             if exrule.freq not in self.frequencies:
                 raise forms.ValidationError(
                     self.error_messages['invalid_frequency'])
+
+        if self.required:
+            if not recurrence_obj.rrules and not recurrence_obj.rdates and not recurrence_obj.exdates and not recurrence_obj.exrules:
+                raise forms.ValidationError(
+                    self.error_messages['recurrence_required']
+                )
 
         return recurrence_obj
 
