@@ -53,7 +53,7 @@ class FieldTest(TestCase):
 
         value = recurrence.serialize(limits)
 
-        field = RecurrenceField()
+        field = RecurrenceField(required=False)
         cleaned_value = field.clean(value)
         assert cleaned_value.dtstart == datetime(2014, 1, 1, 0, 0, 0, tzinfo=tz).astimezone(pytz.utc)
         assert cleaned_value.dtend == datetime(2014, 2, 3, 0, 0, 0, tzinfo=tz).astimezone(pytz.utc)
