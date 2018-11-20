@@ -14,7 +14,7 @@ clean:
 	rm -rf dist/*
 	rm -rf build/*
 
-push:
+push: build
 	twine upload -r pypi dist/*
 
 .PHONY: coverage test testall build clean push
