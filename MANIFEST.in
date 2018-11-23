@@ -2,7 +2,7 @@ include README.md
 include LICENSE
 include MANIFEST.in
 include pytest.ini
-recursive-include docs *
-recursive-include recurrence/static *
-recursive-include recurrence/locale *
-recursive-include tests *
+recursive-include docs Makefile make.bat *.rst *.py *.png
+recursive-include recurrence/static *.css *.png *.js
+recursive-include recurrence/locale *.mo *.po
+recursive-include tests *.py
