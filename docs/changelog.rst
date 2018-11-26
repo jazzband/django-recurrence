@@ -1,11 +1,16 @@
 Changelog
 =========
 
+1.8.2
+-----
+
+* Minor fix for Django 2.0 (:issue:`134`);
+* Minor packaging fix (:issue:`135`).
+
 1.8.1
 -----
 
-* More changes to ``javascript_catalog`` for Django 2.0
-  (:issue:`134`).
+* Bad release, do not use.
 
 1.8.0
 -----
