@@ -30,7 +30,7 @@ please read the notes below for details.
   require at least one rule or date. This change is intended to bring
   django-recurrence into line with how custom fields should
   behave. If you don't want to require at least one rule or date,
-  just set ``require=False`` on your field.
+  just set ``require=False`` on your field (:issue:`133`).
 * Improvements to avoid inline styles (:issue:`85`);
 * Handle changes to ``javascript_catalog`` in Django 2
   (:issue:`131`).
