@@ -1,8 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.views import i18n
-from django.utils import safestring
-from django.utils.translation import ugettext_lazy as _, get_language
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 try:
@@ -12,12 +11,6 @@ except ImportError:
 
 import recurrence
 from recurrence import exceptions
-
-# Django 1.5+ compatibility
-try:
-    import json
-except ImportError:
-    import django.utils.simplejson as json
 
 
 class RecurrenceWidget(forms.Textarea):
