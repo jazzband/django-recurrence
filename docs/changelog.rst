@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.9.0
+-----
+
+* Fix for using the recurrence widget in admin inlines
+  (:issue:`137`).
+
 1.8.2
 -----
 
