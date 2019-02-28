@@ -2,7 +2,7 @@ django.jQuery(document).ready(function () {
 	// Init on all existing recurrence fields
 	initRecurrenceWidget();
 	// Begin DOM observation for new inline additions
-	const targetNode = document.getElementById('grp-content-container');
+	const targetNode = document.getElementById('container');
 	const config = { attributes: false, childList: true, subtree: true };
 	observer.observe(targetNode, config);
 });
