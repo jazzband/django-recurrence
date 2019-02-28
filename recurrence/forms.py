@@ -1,8 +1,7 @@
 from django import forms
 from django.conf import settings
 from django.views import i18n
-from django.utils import safestring
-from django.utils.translation import ugettext_lazy as _, get_language
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 try:
@@ -12,12 +11,6 @@ except ImportError:
 
 import recurrence
 from recurrence import exceptions
-
-# Django 1.5+ compatibility
-try:
-    import json
-except ImportError:
-    import django.utils.simplejson as json
 
 
 class RecurrenceWidget(forms.Textarea):
@@ -29,27 +22,11 @@ class RecurrenceWidget(forms.Textarea):
             defaults.update(attrs)
         super(RecurrenceWidget, self).__init__(defaults)
 
-    def render(self, name, value, attrs=None, renderer=None):
-        if value is None:
-            value = ''
-        elif isinstance(value, recurrence.Recurrence):
-            value = recurrence.serialize(value)
-
-        widget_init_js = (
-            '<script type="text/javascript">'
-            'recurrence.language_code =\'%s\';'
-            'new recurrence.widget.Widget(\'%s\', %s);'
-            '</script>'
-        ) % (get_language(), attrs['id'], json.dumps(self.js_widget_options))
-
-        return safestring.mark_safe(u'%s\n%s' % (
-            super(RecurrenceWidget, self).render(name, value, attrs),
-            widget_init_js))
-
     def get_media(self):
         js = [
             staticfiles_storage.url('recurrence/js/recurrence.js'),
             staticfiles_storage.url('recurrence/js/recurrence-widget.js'),
+            staticfiles_storage.url('recurrence/js/recurrence-widget.init.js'),
         ]
         i18n_media = find_recurrence_i18n_js_catalog()
         if i18n_media:
