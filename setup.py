@@ -35,14 +35,19 @@ if has_setuptools:
 else:
     setup_options = dict(requires=("pytz", "python_dateutil"))
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 
 setup(
     name="django-recurrence",
     version="1.9.0",
     license="BSD",
     description="Django utility wrapping dateutil.rrule",
+    long_description=long_description,
     author="Tamas Kemenczy",
     author_email="tamas.kemenczy@gmail.com",
+    url="https://github.com/django-recurrence/django-recurrence",
     classifiers=(
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
