@@ -835,11 +835,7 @@ def serialize(rule_or_recurrence):
         A rfc2445 formatted unicode string.
     """
     def serialize_dt(dt):
-        if not dt.tzinfo:
-            dt = localtz().localize(dt)
-        dt = dt.astimezone(pytz.utc)
-
-        return u'%s%s%sT%s%s%sZ' % (
+        return u'%s%s%sT%s%s%s' % (
             str(dt.year).rjust(4, '0'),
             str(dt.month).rjust(2, '0'),
             str(dt.day).rjust(2, '0'),
@@ -899,18 +895,10 @@ def serialize(rule_or_recurrence):
     items = []
 
     if obj.dtstart:
-        if obj.dtstart.tzinfo:
-            dtstart = serialize_dt(obj.dtstart.astimezone(pytz.utc))
-        else:
-            dtstart = serialize_dt(
-                localtz().localize(obj.dtstart).astimezone(pytz.utc))
+        dtstart = serialize_dt(obj.dtstart)
         items.append((u'DTSTART', dtstart))
     if obj.dtend:
-        if obj.dtend.tzinfo:
-            dtend = serialize_dt(obj.dtend.astimezone(pytz.utc))
-        else:
-            dtend = serialize_dt(
-                localtz().localize(obj.dtend).astimezone(pytz.utc))
+        dtend = serialize_dt(obj.dtend)
         items.append((u'DTEND', dtend))
 
     for rrule in obj.rrules:
@@ -919,16 +907,8 @@ def serialize(rule_or_recurrence):
         items.append((u'EXRULE', serialize_rule(exrule)))
 
     for rdate in obj.rdates:
-        if rdate.tzinfo:
-            rdate = rdate.astimezone(pytz.utc)
-        else:
-            rdate = localtz().localize(rdate).astimezone(pytz.utc)
         items.append((u'RDATE', serialize_dt(rdate)))
     for exdate in obj.exdates:
-        if exdate.tzinfo:
-            exdate = exdate.astimezone(pytz.utc)
-        else:
-            exdate = localtz().localize(exdate).astimezone(pytz.utc)
         items.append((u'EXDATE', serialize_dt(exdate)))
 
     return u'\n'.join(u'%s:%s' % i for i in items)
@@ -1002,11 +982,7 @@ def deserialize(text, include_dtstart=True):
         if settings.deserialize_tz():
             return dt
 
-        dt = dt.astimezone(localtz())
-
-        # set tz to settings.TIME_ZONE and return offset-naive datetime
-        return datetime.datetime(
-            dt.year, dt.month, dt.day, dt.hour, dt.minute, dt.second)
+        return tzinfo.localize(datetime.datetime(year, month, day, hour, minute, second))
 
     dtstart, dtend, rrules, exrules, rdates, exdates = None, None, [], [], [], []
 
