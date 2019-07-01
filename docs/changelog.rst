@@ -1,6 +1,12 @@
 Changelog
 =========
 
+1.9.1
+-----
+
+* Fixes and official support for Django 2.1 and 2.2 (:issue:`143`,
+  :issue:`142`).
+
 1.9.0
 -----
 
