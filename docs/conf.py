@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # flake8: noqa
 #
 # This file is execfile()d with the current directory set to its containing dir.

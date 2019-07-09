@@ -1,13 +1,8 @@
-from django import forms
+from django import forms, urls
 from django.conf import settings
 from django.views import i18n
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
-
-try:
-    from django import urls
-except ImportError:
-    from django.core import urlresolvers as urls
 
 import recurrence
 from recurrence import exceptions
@@ -20,7 +15,7 @@ class RecurrenceWidget(forms.Textarea):
         defaults = {'class': 'recurrence-widget'}
         if attrs is not None:
             defaults.update(attrs)
-        super(RecurrenceWidget, self).__init__(defaults)
+        super().__init__(defaults)
 
     def get_media(self):
         extra = '' if settings.DEBUG else '.min'
@@ -122,7 +117,7 @@ class RecurrenceField(forms.CharField):
                 recurrence.HOURLY, recurrence.MINUTELY,
                 recurrence.SECONDLY,
             )
-        super(RecurrenceField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def clean(self, value):
         """

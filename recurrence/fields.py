@@ -1,16 +1,7 @@
 from django.db.models import fields
-from django.utils.six import string_types
 import recurrence
 from recurrence import forms
 from recurrence.compat import Creator
-
-try:
-    from south.modelsinspector import add_introspection_rules
-    add_introspection_rules([], [
-        "^recurrence\.fields\.RecurrenceField",
-    ])
-except ImportError:
-    pass
 
 
 # Do not use SubfieldBase meta class because is removed in Django 1.10
@@ -35,7 +26,7 @@ class RecurrenceField(fields.Field):
         return self.to_python(value)
 
     def get_prep_value(self, value):
-        if not isinstance(value, string_types):
+        if not isinstance(value, str):
             value = recurrence.serialize(value)
         return value
 
@@ -52,4 +43,4 @@ class RecurrenceField(fields.Field):
             'widget': forms.RecurrenceWidget,
         }
         defaults.update(kwargs)
-        return super(RecurrenceField, self).formfield(**defaults)
+        return super().formfield(**defaults)
