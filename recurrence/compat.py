@@ -4,7 +4,7 @@ except ImportError:
     # This class was removed in Django 1.10, so I've pulled it into
     # django-recurrence.
 
-    class Creator(object):
+    class Creator:
         """
         A placeholder class that provides a way to set the attribute
         on the model.

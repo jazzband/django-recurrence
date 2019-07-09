@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Test timezone aware recurrence date times."""
 
 from datetime import datetime

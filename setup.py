@@ -1,39 +1,23 @@
 import os
 import sys
 
-try:
-    from setuptools import setup
-
-    has_setuptools = True
-except ImportError:
-    from distutils.core import setup
-
-    has_setuptools = False
+from setuptools import setup
+from setuptools.command.test import test as TestCommand
 
 
-if has_setuptools:
-    from setuptools.command.test import test as TestCommand
+class PyTest(TestCommand):
+    def finalize_options(self):
+        self.test_args = []
+        self.test_suite = True
 
-    class PyTest(TestCommand):
-        def finalize_options(self):
-            TestCommand.finalize_options(self)
-            self.test_args = []
-            self.test_suite = True
+        super().finalize_options()
 
-        def run_tests(self):
-            import pytest
+    def run_tests(self):
+        import pytest
 
-            errno = pytest.main(self.test_args)
-            sys.exit(errno)
+        errno = pytest.main(self.test_args)
+        sys.exit(errno)
 
-    setup_options = dict(
-        install_requires=("pytz", "python-dateutil"),
-        zip_safe=False,
-        include_package_data=True,
-        cmdclass={"test": PyTest},
-    )
-else:
-    setup_options = dict(requires=("pytz", "python_dateutil"))
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -56,14 +40,11 @@ setup(
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
     ),
-    requires=("Django", "pytz", "python_dateutil"),
+    install_requires=("Django", "pytz", "python-dateutil"),
     packages=("recurrence", "recurrence.migrations"),
     package_dir={"recurrence": "recurrence"},
     package_data={
@@ -75,5 +56,7 @@ setup(
             os.path.join("locale", "*.mo"),
         ]
     },
-    **setup_options
+    zip_safe=False,
+    include_package_data=True,
+    cmdclass={"test": PyTest},
 )

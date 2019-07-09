@@ -6,9 +6,7 @@ cache:
     - $HOME/.pip-cache/
 
 env:
-  - TOX_ENV=py27-111
   - TOX_ENV=py36-111
-  - TOX_ENV=py36-20
   - TOX_ENV=py36-21
   - TOX_ENV=py36-22
   - TOX_ENV=py36-master
