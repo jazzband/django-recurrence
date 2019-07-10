@@ -1,11 +1,13 @@
 Changelog
 =========
 
-1.9.1
------
+1.10.0
+------
 
 * Fixes and official support for Django 2.1 and 2.2 (:issue:`143`,
-  :issue:`142`).
+  :issue:`142`);
+* Remove support for Python 2.7 and 3.5, remove support for Django
+  2.0 (:issue:`145`).
 
 1.9.0
 -----
