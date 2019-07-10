@@ -29,6 +29,7 @@ setup(
     license="BSD",
     description="Django utility wrapping dateutil.rrule",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     author="Tamas Kemenczy",
     author_email="tamas.kemenczy@gmail.com",
     url="https://github.com/django-recurrence/django-recurrence",
