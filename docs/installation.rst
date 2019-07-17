@@ -77,5 +77,5 @@ to ensure you also have ``django.contrib.staticfiles`` in your
     python manage.py collectstatic
 
 .. note::
-   After collecting static files, you can use {{ form.media }} to
+   After collecting static files, you can use ``{{ form.media }}`` to
    include recurrence's static files within your templates.
