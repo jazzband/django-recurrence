@@ -39,17 +39,18 @@ Form Usage
       class Meta:
          model = Course
          fields = ('title', 'recurrences',)
-         
+
 .. note::
 
-   Be sure to add {{ form.media }} to your template or statically link recurrence.css and recurrence.js. 
+   Be sure to add ``{{ form.media }}`` to your template or
+   statically link recurrence.css and recurrence.js.
 
 .. code-block:: html
 
-   
+
    <form method="POST" class="post-form">
        {% csrf_token %}
        {{ form.media }}
        {{ form }}
        <button type="submit">Submit</button>
-   </form>     
+   </form>
