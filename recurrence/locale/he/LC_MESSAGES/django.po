@@ -1,0 +1,389 @@
+#: recurrence/base.py:1111
+msgid "annually"
+msgstr "שנתי"
+
+#: recurrence/base.py:1111
+msgid "monthly"
+msgstr "חודשי"
+
+#: recurrence/base.py:1111
+msgid "weekly"
+msgstr "שבועי"
+
+#: recurrence/base.py:1111
+msgid "daily"
+msgstr "יומי"
+
+#: recurrence/base.py:1112
+msgid "hourly"
+msgstr "שעתי"
+
+#: recurrence/base.py:1112
+msgid "minutely"
+msgstr "דקתי"
+
+#: recurrence/base.py:1112
+msgid "secondly"
+msgstr "שנייתי"
+
+#: recurrence/base.py:1115
+msgid "years"
+msgstr "שנים"
+
+#: recurrence/base.py:1115
+msgid "months"
+msgstr "חודשים"
+
+#: recurrence/base.py:1115
+msgid "weeks"
+msgstr "שבועות"
+
+#: recurrence/base.py:1115
+msgid "days"
+msgstr "ימים"
+
+#: recurrence/base.py:1116
+msgid "hours"
+msgstr "שעות"
+
+#: recurrence/base.py:1116
+msgid "minutes"
+msgstr "דקות"
+
+#: recurrence/base.py:1116
+msgid "seconds"
+msgstr "שניות"
+
+#: recurrence/base.py:1121
+#, python-format
+msgid "1st %(weekday)s"
+msgstr "%(weekday)s ראשון לפני אחרונים"
+
+#: recurrence/base.py:1122
+#, python-format
+msgid "2nd %(weekday)s"
+msgstr "%(weekday)s שני לפני אחרונים"
+
+#: recurrence/base.py:1123
+#, python-format
+msgid "3rd %(weekday)s"
+msgstr "%(weekday)s שלוש לפני אחרונים"
+
+#: recurrence/base.py:1124 recurrence/base.py:1150
+#, python-format
+msgid "last %(weekday)s"
+msgstr "%(weekday)s האחרונים"
+
+#: recurrence/base.py:1125
+#, python-format
+msgid "2nd last %(weekday)s"
+msgstr "%(weekday)s שני לפני אחרונים"
+
+#: recurrence/base.py:1126
+#, python-format
+msgid "3rd last %(weekday)s"
+msgstr "%(weekday)s שלישי לפני אחרונים"
+
+#: recurrence/base.py:1129 recurrence/base.py:1155
+msgid "last"
+msgstr "אחרון"
+
+#: recurrence/base.py:1130
+msgid "2nd last"
+msgstr "שני לפני האחרונים"
+
+#: recurrence/base.py:1131
+msgid "3rd last"
+msgstr "שלישי לפני אחרונים"
+
+#: recurrence/base.py:1132
+msgid "4th last"
+msgstr "רביעי לפני אחרונים"
+
+#: recurrence/base.py:1135
+msgid "Mon"
+msgstr "ב'"
+
+#: recurrence/base.py:1135
+msgid "Tue"
+msgstr "ג'"
+
+#: recurrence/base.py:1135
+msgid "Wed"
+msgstr "ד'"
+
+#: recurrence/base.py:1136
+msgid "Thu"
+msgstr "ה'"
+
+#: recurrence/base.py:1136
+msgid "Fri"
+msgstr "י'"
+
+#: recurrence/base.py:1136
+msgid "Sat"
+msgstr "ו'"
+
+#: recurrence/base.py:1136
+msgid "Sun"
+msgstr "א'"
+
+#: recurrence/base.py:1139
+msgid "Jan"
+msgstr "ינו'"
+
+#: recurrence/base.py:1139
+msgid "Feb"
+msgstr "פב'"
+
+#: recurrence/base.py:1139
+msgid "Mar"
+msgstr "מרץ"
+
+#: recurrence/base.py:1139
+msgid "Apr"
+msgstr "אפר'"
+
+#: recurrence/base.py:1140
+msgid "Jun"
+msgstr "יונ"
+
+#: recurrence/base.py:1140
+msgid "Jul"
+msgstr "יול'"
+
+#: recurrence/base.py:1140
+msgid "Aug"
+msgstr "אוג'"
+
+#: recurrence/base.py:1141
+msgid "Sep"
+msgstr "ספט'"
+
+#: recurrence/base.py:1141
+msgid "Oct"
+msgstr "אוק'"
+
+#: recurrence/base.py:1141
+msgid "Nov"
+msgstr "נוב'"
+
+#: recurrence/base.py:1141
+msgid "Dec"
+msgstr "דצמ'"
+
+#: recurrence/base.py:1146
+#, python-format
+msgid "first %(weekday)s"
+msgstr "%(weekday)s ראשונים"
+
+#: recurrence/base.py:1147
+#, python-format
+msgid "second %(weekday)s"
+msgstr "%(weekday)s שניים"
+
+#: recurrence/base.py:1148
+#, python-format
+msgid "third %(weekday)s"
+msgstr "%(weekday)s שלישיים"
+
+#: recurrence/base.py:1149
+#, python-format
+msgid "fourth %(weekday)s"
+msgstr "%(weekday)s רביעיים"
+
+#: recurrence/base.py:1151
+#, python-format
+msgid "second last %(weekday)s"
+msgstr "%(weekday)s שני לפני אחרונים"
+
+#: recurrence/base.py:1152
+#, python-format
+msgid "third last %(weekday)s"
+msgstr "%(weekday)s שלישי לפני אחרונים"
+
+#: recurrence/base.py:1156
+msgid "second last"
+msgstr "שני לפני אחרון"
+
+#: recurrence/base.py:1157
+msgid "third last"
+msgstr "שלישי לפני אחרון"
+
+#: recurrence/base.py:1158
+msgid "fourth last"
+msgstr "רביעי לפני אחרון"
+
+#: recurrence/base.py:1161 recurrence/choices.py:17
+msgid "Monday"
+msgstr "יום שני"
+
+#: recurrence/base.py:1161 recurrence/choices.py:18
+msgid "Tuesday"
+msgstr "יום שלישי"
+
+#: recurrence/base.py:1161 recurrence/choices.py:19
+msgid "Wednesday"
+msgstr "יום רביעי"
+
+#: recurrence/base.py:1162 recurrence/choices.py:20
+msgid "Thursday"
+msgstr "יום חמישי"
+
+#: recurrence/base.py:1162 recurrence/choices.py:21
+msgid "Friday"
+msgstr "יום שישי"
+
+#: recurrence/base.py:1162 recurrence/choices.py:22
+msgid "Saturday"
+msgstr "יום שבת"
+
+#: recurrence/base.py:1162 recurrence/choices.py:23
+msgid "Sunday"
+msgstr "יום ראשון"
+
+#: recurrence/base.py:1165 recurrence/choices.py:27
+msgid "January"
+msgstr "ינואר"
+
+#: recurrence/base.py:1165 recurrence/choices.py:28
+msgid "February"
+msgstr "פברואר"
+
+#: recurrence/base.py:1165 recurrence/choices.py:29
+msgid "March"
+msgstr "מרץ"
+
+#: recurrence/base.py:1165 recurrence/choices.py:30
+msgid "April"
+msgstr "אפריל"
+
+#: recurrence/base.py:1166 recurrence/choices.py:32
+msgid "June"
+msgstr "יוני"
+
+#: recurrence/base.py:1166 recurrence/choices.py:33
+msgid "July"
+msgstr "יולי"
+
+#: recurrence/base.py:1166 recurrence/choices.py:34
+msgid "August"
+msgstr "אוגוסט"
+
+#: recurrence/base.py:1167 recurrence/choices.py:35
+msgid "September"
+msgstr "ספטמבר"
+
+#: recurrence/base.py:1167 recurrence/choices.py:36
+msgid "October"
+msgstr "אוקטובר"
+
+#: recurrence/base.py:1167 recurrence/choices.py:37
+msgid "November"
+msgstr "נובמבר"
+
+#: recurrence/base.py:1167 recurrence/choices.py:38
+msgid "December"
+msgstr "דצמבר"
+
+#: recurrence/base.py:1185 recurrence/base.py:1202 recurrence/base.py:1213
+#: recurrence/base.py:1226 recurrence/base.py:1244
+msgid ", "
+msgstr ", "
+
+#: recurrence/base.py:1191
+#, python-format
+msgid "every %(number)s %(freq)s"
+msgstr "כל %(number)s %(freq)s"
+
+#: recurrence/base.py:1205 recurrence/base.py:1229
+#, python-format
+msgid "each %(items)s"
+msgstr "כל %(items)s"
+
+#: recurrence/base.py:1208 recurrence/base.py:1217 recurrence/base.py:1221
+#, python-format
+msgid "on the %(items)s"
+msgstr "בה%(items)s"
+
+#: recurrence/base.py:1236
+msgid "occuring once"
+msgstr "מקרה חד פעמי"
+
+#: recurrence/base.py:1238
+#, python-format
+msgid "occuring %(number)s times"
+msgstr "מקרה %(number)s פעמים"
+
+#: recurrence/base.py:1241
+#, python-format
+msgid "until %(date)s"
+msgstr "עד %(date)s"
+
+#: recurrence/choices.py:7
+msgid "Secondly"
+msgstr "שנית"
+
+#: recurrence/choices.py:8
+msgid "Minutely"
+msgstr "מדי דקה"
+
+#: recurrence/choices.py:9
+msgid "Hourly"
+msgstr "מדי שעה"
+
+#: recurrence/choices.py:10
+msgid "Daily"
+msgstr "מדי יום"
+
+#: recurrence/choices.py:11
+msgid "Weekly"
+msgstr "מדי שבוע"
+
+#: recurrence/choices.py:12
+msgid "Monthly"
+msgstr "מדי חודש"
+
+#: recurrence/choices.py:13
+msgid "Yearly"
+msgstr "מדי שנה"
+
+#: recurrence/choices.py:31
+msgid "May"
+msgstr "מאי"
+
+#: recurrence/choices.py:44
+msgid "Inclusion"
+msgstr "הכללה"
+
+#: recurrence/choices.py:45
+msgid "Exclusion"
+msgstr "החרגה"
+
+#: recurrence/forms.py:52
+msgid "Invalid frequency."
+msgstr "תדירות לא ולידי."
+
+#: recurrence/forms.py:54
+#, python-format
+msgid "Max rules exceeded. The limit is %(limit)s"
+msgstr "כמות מקסימלית של חוקים עברה. המגבלה היא %(limit)s"
+
+#: recurrence/forms.py:56
+#, python-format
+msgid "Max exclusion rules exceeded. The limit is %(limit)s"
+msgstr "כמות מקסימלי של חוקים החרגים עברה. המגבלה היא %(limit)s"
+
+#: recurrence/forms.py:58
+#, python-format
+msgid "Max dates exceeded. The limit is %(limit)s"
+msgstr "כמות התאריכים עברה. המגבלה היא %(limit)s"
+
+#: recurrence/forms.py:60
+#, python-format
+msgid "Max exclusion dates exceeded. The limit is %(limit)s"
+msgstr "כמות התאריכים החרגים עברה. המגבלה היא %(limit)s"
+
+#: recurrence/forms.py:62
+msgid "This field is required. Set either a recurrence rule or date."
+msgstr "השדה הזאת נדרש. קבע או חוק חזרות או תאריך חזרות."
