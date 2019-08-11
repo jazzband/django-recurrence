@@ -1,3 +1,16 @@
+# Hebrew translation
+# This file is distributed under the same license as the PACKAGE package.
+# Ben Lewis <hello@blewis.me>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-11 20:24+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
 #: recurrence/base.py:1111
 msgid "annually"
 msgstr "שנתי"
@@ -57,32 +70,32 @@ msgstr "שניות"
 #: recurrence/base.py:1121
 #, python-format
 msgid "1st %(weekday)s"
-msgstr "%(weekday)s ראשון לפני אחרונים"
+msgstr "%(weekday)s ראשון לפני אחרון"
 
 #: recurrence/base.py:1122
 #, python-format
 msgid "2nd %(weekday)s"
-msgstr "%(weekday)s שני לפני אחרונים"
+msgstr "%(weekday)s שני לפני אחרון"
 
 #: recurrence/base.py:1123
 #, python-format
 msgid "3rd %(weekday)s"
-msgstr "%(weekday)s שלוש לפני אחרונים"
+msgstr "%(weekday)s שלוש לפני אחרון"
 
 #: recurrence/base.py:1124 recurrence/base.py:1150
 #, python-format
 msgid "last %(weekday)s"
-msgstr "%(weekday)s האחרונים"
+msgstr "%(weekday)s האחרון"
 
 #: recurrence/base.py:1125
 #, python-format
 msgid "2nd last %(weekday)s"
-msgstr "%(weekday)s שני לפני אחרונים"
+msgstr "%(weekday)s שני לפני אחרון"
 
 #: recurrence/base.py:1126
 #, python-format
 msgid "3rd last %(weekday)s"
-msgstr "%(weekday)s שלישי לפני אחרונים"
+msgstr "%(weekday)s שלישי לפני אחרון"
 
 #: recurrence/base.py:1129 recurrence/base.py:1155
 msgid "last"
@@ -90,15 +103,15 @@ msgstr "אחרון"
 
 #: recurrence/base.py:1130
 msgid "2nd last"
-msgstr "שני לפני האחרונים"
+msgstr "שני לפני האחרון"
 
 #: recurrence/base.py:1131
 msgid "3rd last"
-msgstr "שלישי לפני אחרונים"
+msgstr "שלישי לפני אחרון"
 
 #: recurrence/base.py:1132
 msgid "4th last"
-msgstr "רביעי לפני אחרונים"
+msgstr "רביעי לפני אחרון"
 
 #: recurrence/base.py:1135
 msgid "Mon"
@@ -118,11 +131,11 @@ msgstr "ה'"
 
 #: recurrence/base.py:1136
 msgid "Fri"
-msgstr "י'"
+msgstr "ו'"
 
 #: recurrence/base.py:1136
 msgid "Sat"
-msgstr "ו'"
+msgstr "ש'"
 
 #: recurrence/base.py:1136
 msgid "Sun"
@@ -175,32 +188,32 @@ msgstr "דצמ'"
 #: recurrence/base.py:1146
 #, python-format
 msgid "first %(weekday)s"
-msgstr "%(weekday)s ראשונים"
+msgstr "%(weekday)s ראשון"
 
 #: recurrence/base.py:1147
 #, python-format
 msgid "second %(weekday)s"
-msgstr "%(weekday)s שניים"
+msgstr "%(weekday)s שני"
 
 #: recurrence/base.py:1148
 #, python-format
 msgid "third %(weekday)s"
-msgstr "%(weekday)s שלישיים"
+msgstr "%(weekday)s שלישי"
 
 #: recurrence/base.py:1149
 #, python-format
 msgid "fourth %(weekday)s"
-msgstr "%(weekday)s רביעיים"
+msgstr "%(weekday)s רביעי"
 
 #: recurrence/base.py:1151
 #, python-format
 msgid "second last %(weekday)s"
-msgstr "%(weekday)s שני לפני אחרונים"
+msgstr "%(weekday)s שני לפני אחרון"
 
 #: recurrence/base.py:1152
 #, python-format
 msgid "third last %(weekday)s"
-msgstr "%(weekday)s שלישי לפני אחרונים"
+msgstr "%(weekday)s שלישי לפני אחרון"
 
 #: recurrence/base.py:1156
 msgid "second last"

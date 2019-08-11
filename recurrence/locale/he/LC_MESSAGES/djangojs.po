@@ -1,0 +1,519 @@
+# Hebrew translation
+# This file is distributed under the same license as the PACKAGE package.
+# Ben Lewis <hello@blewis.me>, 2019.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-11 20:24+0300\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: static/recurrence/js/recurrence-widget.js:1774
+msgid "including"
+msgstr "כולל"
+
+#: static/recurrence/js/recurrence-widget.js:1774
+msgid "excluding"
+msgstr "לא כולל"
+
+#: static/recurrence/js/recurrence-widget.js:1778
+msgid "Frequency"
+msgstr "תדירות"
+
+#: static/recurrence/js/recurrence-widget.js:1779
+msgid "On the"
+msgstr "על ה"
+
+#: static/recurrence/js/recurrence-widget.js:1780
+msgid "Each"
+msgstr "כל"
+
+#: static/recurrence/js/recurrence-widget.js:1781
+msgid "Every"
+msgstr "כל"
+
+#: static/recurrence/js/recurrence-widget.js:1782
+msgid "Until"
+msgstr "עד"
+
+#: static/recurrence/js/recurrence-widget.js:1783
+msgid "Occurs %(number)s time"
+msgstr "קורא %(number)s פעם"
+
+#: static/recurrence/js/recurrence-widget.js:1784
+msgid "Occurs %(number)s times"
+msgstr "קורא %(number)s פעמים"
+
+#: static/recurrence/js/recurrence-widget.js:1785
+msgid "Date"
+msgstr "תאריך"
+
+#: static/recurrence/js/recurrence-widget.js:1786
+msgid "Time"
+msgstr "שעה"
+
+#: static/recurrence/js/recurrence-widget.js:1787
+msgid "Repeat until"
+msgstr "חוזר עד"
+
+#: static/recurrence/js/recurrence-widget.js:1788
+msgid "Exclude these occurences"
+msgstr "מחריג את הפעמים האלה"
+
+#: static/recurrence/js/recurrence-widget.js:1789
+msgid "Exclude this date"
+msgstr "מרחיג את התאריך הזה"
+
+#: static/recurrence/js/recurrence-widget.js:1790
+msgid "Add rule"
+msgstr "הוסיף חוק"
+
+#: static/recurrence/js/recurrence-widget.js:1791
+msgid "Add date"
+msgstr "הוסיף תאריך"
+
+#: static/recurrence/js/recurrence-widget.js:1792
+msgid "Remove"
+msgstr "מסיר"
+
+#: static/recurrence/js/recurrence-widget.js:1793
+msgid "Calendar"
+msgstr "לוח שנה"
+
+#: static/recurrence/js/recurrence.js:1017
+msgid "midnight"
+msgstr "חצות"
+
+#: static/recurrence/js/recurrence.js:1018
+msgid "noon"
+msgstr "צהריים"
+
+#: static/recurrence/js/recurrence.js:1019
+msgid "on the %(items)s"
+msgstr "בה%(item)s"
+
+#: static/recurrence/js/recurrence.js:1020
+msgid "every %(number)s %(freq)s"
+msgstr "כל %(number)s %(freq)s"
+
+#: static/recurrence/js/recurrence.js:1021
+msgid "each %(items)s"
+msgstr "כל %(items)s"
+
+#: static/recurrence/js/recurrence.js:1022
+msgid "occuring %(number)s time"
+msgstr "קורה %(number)s פעם"
+
+#: static/recurrence/js/recurrence.js:1023
+msgid "occuring %(number)s times"
+msgstr "קורה %(number)s פעמים"
+
+#: static/recurrence/js/recurrence.js:1024
+msgid "until %(date)s"
+msgstr "עד %(date)s"
+
+#: static/recurrence/js/recurrence.js:1028
+msgid "year"
+msgstr "שנה"
+
+#: static/recurrence/js/recurrence.js:1028
+msgid "month"
+msgstr "חודש"
+
+#: static/recurrence/js/recurrence.js:1028
+msgid "week"
+msgstr "שבוע"
+
+#: static/recurrence/js/recurrence.js:1028
+msgid "day"
+msgstr "יום"
+
+#: static/recurrence/js/recurrence.js:1029
+msgid "hour"
+msgstr "שעה"
+
+#: static/recurrence/js/recurrence.js:1029
+msgid "minute"
+msgstr "דקה"
+
+#: static/recurrence/js/recurrence.js:1029
+msgid "second"
+msgstr "שנייה"
+
+#: static/recurrence/js/recurrence.js:1032
+msgid "years"
+msgstr "שנים"
+
+#: static/recurrence/js/recurrence.js:1032
+msgid "months"
+msgstr "חודשים"
+
+#: static/recurrence/js/recurrence.js:1032
+msgid "weeks"
+msgstr "שבועות"
+
+#: static/recurrence/js/recurrence.js:1032
+msgid "days"
+msgstr "ימים"
+
+#: static/recurrence/js/recurrence.js:1033
+msgid "hours"
+msgstr "שעות"
+
+#: static/recurrence/js/recurrence.js:1033
+msgid "minutes"
+msgstr "דקות"
+
+#: static/recurrence/js/recurrence.js:1033
+msgid "seconds"
+msgstr "שניות"
+
+#: static/recurrence/js/recurrence.js:1036
+msgid "annually"
+msgstr "שנתי"
+
+#: static/recurrence/js/recurrence.js:1036
+msgid "monthly"
+msgstr "חודשי"
+
+#: static/recurrence/js/recurrence.js:1036
+msgid "weekly"
+msgstr "שבועי"
+
+#: static/recurrence/js/recurrence.js:1036
+msgid "daily"
+msgstr "ימי"
+
+#: static/recurrence/js/recurrence.js:1037
+msgid "hourly"
+msgstr "שעתי"
+
+#: static/recurrence/js/recurrence.js:1037
+msgid "minutely"
+msgstr "דקתי"
+
+#: static/recurrence/js/recurrence.js:1037
+msgid "secondly"
+msgstr "שנייתי"
+
+#: static/recurrence/js/recurrence.js:1040
+msgid "Monday"
+msgstr "יום שני"
+
+#: static/recurrence/js/recurrence.js:1040
+msgid "Tuesday"
+msgstr "יום שלישי"
+
+#: static/recurrence/js/recurrence.js:1040
+msgid "Wednesday"
+msgstr "יום רביעי"
+
+#: static/recurrence/js/recurrence.js:1040
+msgid "Thursday"
+msgstr "יום חמישי"
+
+#: static/recurrence/js/recurrence.js:1041
+msgid "Friday"
+msgstr "יום שישי"
+
+#: static/recurrence/js/recurrence.js:1041
+msgid "Saturday"
+msgstr "יום שבת"
+
+#: static/recurrence/js/recurrence.js:1041
+msgid "Sunday"
+msgstr "יום ראשון"
+
+#: static/recurrence/js/recurrence.js:1044
+msgid "Mon"
+msgstr "ב'"
+
+#: static/recurrence/js/recurrence.js:1044
+msgid "Tue"
+msgstr "ג'"
+
+#: static/recurrence/js/recurrence.js:1044
+msgid "Wed"
+msgstr "ד'"
+
+#: static/recurrence/js/recurrence.js:1044
+msgid "Thu"
+msgstr "ה'"
+
+#: static/recurrence/js/recurrence.js:1045
+msgid "Fri"
+msgstr "ו'"
+
+#: static/recurrence/js/recurrence.js:1045
+msgid "Sat"
+msgstr "ש'"
+
+#: static/recurrence/js/recurrence.js:1045
+msgid "Sun"
+msgstr "יום א'"
+
+#: static/recurrence/js/recurrence.js:1048
+msgctxt "Monday first letter"
+msgid "M"
+msgstr "ב"
+
+#: static/recurrence/js/recurrence.js:1049
+msgctxt "Tuesday first letter"
+msgid "T"
+msgstr "ג"
+
+#: static/recurrence/js/recurrence.js:1050
+msgctxt "Wednesday first letter"
+msgid "W"
+msgstr "ד"
+
+#: static/recurrence/js/recurrence.js:1051
+msgctxt "Thursday first letter"
+msgid "T"
+msgstr "ה"
+
+#: static/recurrence/js/recurrence.js:1052
+msgctxt "Friday first letter"
+msgid "F"
+msgstr "ו"
+
+#: static/recurrence/js/recurrence.js:1053
+msgctxt "Saturday first letter"
+msgid "S"
+msgstr "ש"
+
+#: static/recurrence/js/recurrence.js:1054
+msgctxt "Sunday first letter"
+msgid "S"
+msgstr "א"
+
+#: static/recurrence/js/recurrence.js:1057
+msgid "first %(weekday)s"
+msgstr "%(weekday)s ראשון"
+
+#: static/recurrence/js/recurrence.js:1058
+msgid "second %(weekday)s"
+msgstr "%(weekday)s שני"
+
+#: static/recurrence/js/recurrence.js:1059
+msgid "third %(weekday)s"
+msgstr "%(weekday)s שלישי"
+
+#: static/recurrence/js/recurrence.js:1060
+msgid "fourth %(weekday)s"
+msgstr "%(weekday)s רביעי"
+
+#: static/recurrence/js/recurrence.js:1061
+#: static/recurrence/js/recurrence.js:1070
+msgid "last %(weekday)s"
+msgstr "%(weekday)s אחרון"
+
+#: static/recurrence/js/recurrence.js:1062
+msgid "second last %(weekday)s"
+msgstr "%(weekday)s ראשון לפני אחרון"
+
+#: static/recurrence/js/recurrence.js:1063
+msgid "third last %(weekday)s"
+msgstr "%(weekday)s שני לפני אחרון"
+
+#: static/recurrence/js/recurrence.js:1066
+msgid "1st %(weekday)s"
+msgstr "%(weekday)s ראשון"
+
+#: static/recurrence/js/recurrence.js:1067
+msgid "2nd %(weekday)s"
+msgstr "%(weekday)s שני"
+
+#: static/recurrence/js/recurrence.js:1068
+msgid "3rd %(weekday)s"
+msgstr "%(weekday)s שלישי"
+
+#: static/recurrence/js/recurrence.js:1069
+msgid "4th %(weekday)s"
+msgstr "%(weekday)s רביעי"
+
+#: static/recurrence/js/recurrence.js:1071
+msgid "2nd last %(weekday)s"
+msgstr "%(weekday)s ראשון לפני אחרון"
+
+#: static/recurrence/js/recurrence.js:1072
+msgid "3rd last %(weekday)s"
+msgstr "%(weekday)s שני לפני אחרון"
+
+#: static/recurrence/js/recurrence.js:1075
+#: static/recurrence/js/recurrence.js:1081
+msgid "last"
+msgstr "אחרון"
+
+#: static/recurrence/js/recurrence.js:1076
+msgid "second last"
+msgstr "ראשון לפני אחרון"
+
+#: static/recurrence/js/recurrence.js:1077
+msgid "third last"
+msgstr "שני לפני אחרון"
+
+#: static/recurrence/js/recurrence.js:1078
+msgid "fourth last"
+msgstr "שלישי לפני אחרון"
+
+#: static/recurrence/js/recurrence.js:1082
+msgid "2nd last"
+msgstr "שני לפני אחרון"
+
+#: static/recurrence/js/recurrence.js:1083
+msgid "3rd last"
+msgstr "שלישי לפני אחרון"
+
+#: static/recurrence/js/recurrence.js:1084
+msgid "4th last"
+msgstr "רביעי לפני אחרון"
+
+#: static/recurrence/js/recurrence.js:1087
+msgid "January"
+msgstr "ינואר"
+
+#: static/recurrence/js/recurrence.js:1087
+msgid "February"
+msgstr "פברואר"
+
+#: static/recurrence/js/recurrence.js:1087
+#: static/recurrence/js/recurrence.js:1099
+msgid "March"
+msgstr "מרץ"
+
+#: static/recurrence/js/recurrence.js:1088
+#: static/recurrence/js/recurrence.js:1100
+msgid "April"
+msgstr "אפריל"
+
+#: static/recurrence/js/recurrence.js:1088
+#: static/recurrence/js/recurrence.js:1094
+#: static/recurrence/js/recurrence.js:1100
+msgctxt "month name"
+msgid "May"
+msgstr "מאי"
+
+#: static/recurrence/js/recurrence.js:1088
+#: static/recurrence/js/recurrence.js:1100
+msgid "June"
+msgstr "יוני"
+
+#: static/recurrence/js/recurrence.js:1089
+#: static/recurrence/js/recurrence.js:1101
+msgid "July"
+msgstr "יולי"
+
+#: static/recurrence/js/recurrence.js:1089
+msgid "August"
+msgstr "אוגוסט"
+
+#: static/recurrence/js/recurrence.js:1089
+msgid "September"
+msgstr "ספטמבר"
+
+#: static/recurrence/js/recurrence.js:1090
+msgid "October"
+msgstr "אוקטובר"
+
+#: static/recurrence/js/recurrence.js:1090
+msgid "November"
+msgstr "נובמבר"
+
+#: static/recurrence/js/recurrence.js:1090
+msgid "December"
+msgstr "דצמבר"
+
+#: static/recurrence/js/recurrence.js:1093
+msgid "Jan"
+msgstr "ינו"
+
+#: static/recurrence/js/recurrence.js:1093
+msgid "Feb"
+msgstr "פבר"
+
+#: static/recurrence/js/recurrence.js:1093
+msgid "Mar"
+msgstr "מרץ"
+
+#: static/recurrence/js/recurrence.js:1094
+msgid "Apr"
+msgstr "אפר"
+
+#: static/recurrence/js/recurrence.js:1094
+msgid "Jun"
+msgstr "יונ"
+
+#: static/recurrence/js/recurrence.js:1095
+msgid "Jul"
+msgstr "יול"
+
+#: static/recurrence/js/recurrence.js:1095
+msgid "Aug"
+msgstr "אוג"
+
+#: static/recurrence/js/recurrence.js:1095
+msgid "Sep"
+msgstr "ספט"
+
+#: static/recurrence/js/recurrence.js:1096
+msgid "Oct"
+msgstr "אוק"
+
+#: static/recurrence/js/recurrence.js:1096
+msgid "Nov"
+msgstr "נוב"
+
+#: static/recurrence/js/recurrence.js:1096
+msgid "Dec"
+msgstr "דצמ"
+
+#: static/recurrence/js/recurrence.js:1099
+msgid "Jan."
+msgstr "ינו'"
+
+#: static/recurrence/js/recurrence.js:1099
+msgid "Feb."
+msgstr "פבר'"
+
+#: static/recurrence/js/recurrence.js:1101
+msgid "Aug."
+msgstr "אוג'"
+
+#: static/recurrence/js/recurrence.js:1101
+msgid "Sept."
+msgstr "ספט'"
+
+#: static/recurrence/js/recurrence.js:1102
+msgid "Oct."
+msgstr "אוק'"
+
+#: static/recurrence/js/recurrence.js:1102
+msgid "Nov."
+msgstr "נוב'"
+
+#: static/recurrence/js/recurrence.js:1102
+msgid "Dec."
+msgstr "דצמ'"
+
+#: static/recurrence/js/recurrence.js:1105
+msgid "a.m."
+msgstr " "
+
+#: static/recurrence/js/recurrence.js:1105
+msgid "p.m."
+msgstr "אחה\"צ"
+
+#: static/recurrence/js/recurrence.js:1106
+msgid "AM"
+msgstr " "
+
+#: static/recurrence/js/recurrence.js:1106
+msgid "PM"
+msgstr "אחה\"צ"
+
+#~ msgid "last day"
+#~ msgstr "יום אחרון"
