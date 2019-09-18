@@ -1147,6 +1147,7 @@ def rule_to_text(rule, short=False):
             2: _('second %(weekday)s'),
             3: _('third %(weekday)s'),
             4: _('fourth %(weekday)s'),
+            5: _('fifth %(weekday)s'),
             -1: _('last %(weekday)s'),
             -2: _('second last %(weekday)s'),
             -3: _('third last %(weekday)s'),
