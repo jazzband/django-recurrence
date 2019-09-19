@@ -10,7 +10,7 @@ django.jQuery(document).ready(function () {
 /*
     Method iterates over all textareas with .recurrence-widget class name, excluding the last one with '__prefix__',
     if no parameters provided.
-    If specific field item is prvided it will only init this particular field to prevent, unnecessary iterations.
+    If specific field item is provided it will only init this particular field to prevent, unnecessary iterations.
  */
 function initRecurrenceWidget($field) {
 	if (!$field) {
