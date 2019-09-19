@@ -1,7 +1,8 @@
 from recurrence import Rule
 import recurrence
 
-
+def test_rule_to_text_occurences():
+    
 def test_rule_to_text_simple():
     assert Rule(
         recurrence.WEEKLY
