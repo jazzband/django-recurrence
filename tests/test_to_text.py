@@ -2,7 +2,16 @@ from recurrence import Rule
 import recurrence
 
 def test_rule_to_text_occurences():
-    
+    assert Rule(
+        recurrence.WEEKLY,
+        bysetpos=[5]
+    ).to_text() == 'monthly, on the fifth Friday'
+
+    assert Rule(
+        recurrence.WEEKLY,
+        bysetpos=[4]
+    ).to_text(True) == 'monthly, on the 4th Fri'
+
 def test_rule_to_text_simple():
     assert Rule(
         recurrence.WEEKLY
