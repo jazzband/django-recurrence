@@ -1,6 +1,7 @@
 from recurrence import Rule
 import recurrence
 
+
 def test_rule_to_text_occurences():
     assert Rule(
         recurrence.MONTHLY,
