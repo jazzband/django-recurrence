@@ -1048,6 +1048,7 @@ recurrence.display.weekdays_position = {
     '2': gettext('second %(weekday)s'),
     '3': gettext('third %(weekday)s'),
     '4': gettext('fourth %(weekday)s'),
+    '5': gettext('fifth %(weekday)s'),
     '-1': gettext('last %(weekday)s'),
     '-2': gettext('second last %(weekday)s'),
     '-3': gettext('third last %(weekday)s')
@@ -1057,6 +1058,7 @@ recurrence.display.weekdays_position_short = {
     '2': gettext('2nd %(weekday)s'),
     '3': gettext('3rd %(weekday)s'),
     '4': gettext('4th %(weekday)s'),
+    '5': gettext('5th %(weekday)s'),
     '-1': gettext('last %(weekday)s'),
     '-2': gettext('2nd last %(weekday)s'),
     '-3': gettext('3rd last %(weekday)s')
