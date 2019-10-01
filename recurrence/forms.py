@@ -26,7 +26,7 @@ class RecurrenceWidget(forms.Textarea):
             staticfiles_storage.url('recurrence/js/recurrence-widget.js'),
             staticfiles_storage.url('recurrence/js/recurrence-widget.init.js'),
         ]
-        i18n_media = find_recurrence_i18n_js_catalog()
+        i18n_media = getattr(settings, 'JAVASCRIPT_CATALOG_PATH', '/jsi18n/recurrence')
         if i18n_media:
             js.insert(0, i18n_media)
 
@@ -183,40 +183,4 @@ class RecurrenceField(forms.CharField):
         return recurrence_obj
 
 
-_recurrence_javascript_catalog_url = None
-
-
-def find_recurrence_i18n_js_catalog():
-    # used cached version
-    global _recurrence_javascript_catalog_url
-    if _recurrence_javascript_catalog_url:
-        return _recurrence_javascript_catalog_url
-
-    # first try to use the dynamic form of the javascript_catalog view
-    if hasattr(i18n, 'javascript_catalog'):
-        try:
-            return urls.reverse(
-                i18n.javascript_catalog, kwargs={'packages': 'recurrence'})
-        except urls.NoReverseMatch:
-            pass
-
-    # then scan the entire urlconf for a javascript_catalague pattern
-    # that manually selects recurrence as one of the packages to include
-    def check_urlpatterns(urlpatterns):
-        for pattern in urlpatterns:
-            if hasattr(pattern, 'url_patterns'):
-                match = check_urlpatterns(pattern.url_patterns)
-                if match:
-                    return match
-            elif (hasattr(i18n, 'javascript_catalog') and pattern.callback == i18n.javascript_catalog and
-                  'recurrence' in pattern.default_args.get('packages', [])):
-                if pattern.name:
-                    return urls.reverse(pattern.name)
-                else:
-                    return urls.reverse(pattern.callback)
-
-    root_urlconf = __import__(settings.ROOT_URLCONF, {}, {}, [''])
-    url = check_urlpatterns(root_urlconf.urlpatterns)
-    # cache it for subsequent use
-    _recurrence_javascript_catalog_url = url
-    return url
+_recurrence_javascript_catalog_url = getattr(settings, 'JAVASCRIPT_CATALOG_PATH', '/jsi18n/recurrence')
