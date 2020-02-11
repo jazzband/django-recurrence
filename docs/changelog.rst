@@ -1,12 +1,16 @@
 Changelog
 =========
 
+1.10.2
+------
+
+* Add Hebrew localisation (:issue:`159`).
+
 1.10.1
 ------
 
 * Update path to jQuery to match the one Django admin provides
   (:issue:`148`).
-
 
 1.10.0
 ------
