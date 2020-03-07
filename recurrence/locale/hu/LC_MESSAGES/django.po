@@ -1,0 +1,404 @@
+# Hungarian translation for django-recurrence.
+# Copyright (C) 2020 Free Software Foundation, Inc.
+# This file is distributed under the same license as the django-recurrence package.
+#
+# Balázs Úr <balazs@urbalazs.hu>, 2020.
+msgid ""
+msgstr ""
+"Project-Id-Version: django-recurrence master\n"
+"Report-Msgid-Bugs-To: https://github.com/django-recurrence/django-recurrence/issues\n"
+"POT-Creation-Date: 2017-02-24 23:21+0100\n"
+"PO-Revision-Date: 2020-02-26 00:09+0100\n"
+"Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
+"Language-Team: Hungarian\n"
+"Language: hu\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 19.04.3\n"
+
+#: base.py:1087
+msgid "annually"
+msgstr "évente"
+
+#: base.py:1087
+msgid "monthly"
+msgstr "havonta"
+
+#: base.py:1087
+msgid "weekly"
+msgstr "hetente"
+
+#: base.py:1087
+msgid "daily"
+msgstr "naponta"
+
+#: base.py:1088
+msgid "hourly"
+msgstr "óránként"
+
+#: base.py:1088
+msgid "minutely"
+msgstr "percenként"
+
+#: base.py:1088
+msgid "secondly"
+msgstr "másodpercenként"
+
+#: base.py:1091
+msgid "years"
+msgstr "év"
+
+#: base.py:1091
+msgid "months"
+msgstr "hónap"
+
+#: base.py:1091
+msgid "weeks"
+msgstr "hét"
+
+#: base.py:1091
+msgid "days"
+msgstr "nap"
+
+#: base.py:1092
+msgid "hours"
+msgstr "óra"
+
+#: base.py:1092
+msgid "minutes"
+msgstr "perc"
+
+#: base.py:1092
+msgid "seconds"
+msgstr "másodperc"
+
+#: base.py:1097
+#, python-format
+msgid "1st %(weekday)s"
+msgstr "1. %(weekday)s"
+
+#: base.py:1098
+#, python-format
+msgid "2nd %(weekday)s"
+msgstr "2. %(weekday)s"
+
+#: base.py:1099
+#, python-format
+msgid "3rd %(weekday)s"
+msgstr "3. %(weekday)s"
+
+#: base.py:1100 base.py:1126
+#, python-format
+msgid "last %(weekday)s"
+msgstr "utolsó %(weekday)s"
+
+#: base.py:1101
+#, python-format
+msgid "2nd last %(weekday)s"
+msgstr "2. utolsó %(weekday)s"
+
+#: base.py:1102
+#, python-format
+msgid "3rd last %(weekday)s"
+msgstr "3. utolsó %(weekday)s"
+
+#: base.py:1105 base.py:1131
+msgid "last"
+msgstr "utolsó"
+
+#: base.py:1106
+msgid "2nd last"
+msgstr "2. utolsó"
+
+#: base.py:1107
+msgid "3rd last"
+msgstr "3. utolsó"
+
+#: base.py:1108
+msgid "4th last"
+msgstr "4. utolsó"
+
+#: base.py:1111
+msgid "Mon"
+msgstr "Hét"
+
+#: base.py:1111
+msgid "Tue"
+msgstr "Ked"
+
+#: base.py:1111
+msgid "Wed"
+msgstr "Sze"
+
+#: base.py:1112
+msgid "Thu"
+msgstr "Csü"
+
+#: base.py:1112
+msgid "Fri"
+msgstr "Pén"
+
+#: base.py:1112
+msgid "Sat"
+msgstr "Szo"
+
+#: base.py:1112
+msgid "Sun"
+msgstr "Vas"
+
+#: base.py:1115
+msgid "Jan"
+msgstr "Jan"
+
+#: base.py:1115
+msgid "Feb"
+msgstr "Feb"
+
+#: base.py:1115
+msgid "Mar"
+msgstr "Már"
+
+#: base.py:1115
+msgid "Apr"
+msgstr "Ápr"
+
+#: base.py:1116
+msgid "Jun"
+msgstr "Jún"
+
+#: base.py:1116
+msgid "Jul"
+msgstr "Júl"
+
+#: base.py:1116
+msgid "Aug"
+msgstr "Aug"
+
+#: base.py:1117
+msgid "Sep"
+msgstr "Sze"
+
+#: base.py:1117
+msgid "Oct"
+msgstr "Okt"
+
+#: base.py:1117
+msgid "Nov"
+msgstr "Nov"
+
+#: base.py:1117
+msgid "Dec"
+msgstr "Dec"
+
+#: base.py:1122
+#, python-format
+msgid "first %(weekday)s"
+msgstr "első %(weekday)s"
+
+#: base.py:1123
+#, python-format
+msgid "second %(weekday)s"
+msgstr "második %(weekday)s"
+
+#: base.py:1124
+#, python-format
+msgid "third %(weekday)s"
+msgstr "harmadik %(weekday)s"
+
+#: base.py:1125
+#, python-format
+msgid "fourth %(weekday)s"
+msgstr "negyedik %(weekday)s"
+
+#: base.py:1127
+#, python-format
+msgid "second last %(weekday)s"
+msgstr "második utolsó %(weekday)s"
+
+#: base.py:1128
+#, python-format
+msgid "third last %(weekday)s"
+msgstr "harmadik utolsó %(weekday)s"
+
+#: base.py:1132
+msgid "second last"
+msgstr "második utolsó"
+
+#: base.py:1133
+msgid "third last"
+msgstr "harmadik utolsó"
+
+#: base.py:1134
+msgid "fourth last"
+msgstr "negyedik utolsó"
+
+#: base.py:1137 choices.py:17
+msgid "Monday"
+msgstr "Hétfő"
+
+#: base.py:1137 choices.py:18
+msgid "Tuesday"
+msgstr "Kedd"
+
+#: base.py:1137 choices.py:19
+msgid "Wednesday"
+msgstr "Szerda"
+
+#: base.py:1138 choices.py:20
+msgid "Thursday"
+msgstr "Csütörtök"
+
+#: base.py:1138 choices.py:21
+msgid "Friday"
+msgstr "Péntek"
+
+#: base.py:1138 choices.py:22
+msgid "Saturday"
+msgstr "Szombat"
+
+#: base.py:1138 choices.py:23
+msgid "Sunday"
+msgstr "Vasárnap"
+
+#: base.py:1141 choices.py:27
+msgid "January"
+msgstr "Január"
+
+#: base.py:1141 choices.py:28
+msgid "February"
+msgstr "Február"
+
+#: base.py:1141 choices.py:29
+msgid "March"
+msgstr "Március"
+
+#: base.py:1141 choices.py:30
+msgid "April"
+msgstr "Április"
+
+#: base.py:1142 choices.py:32
+msgid "June"
+msgstr "Június"
+
+#: base.py:1142 choices.py:33
+msgid "July"
+msgstr "Július"
+
+#: base.py:1142 choices.py:34
+msgid "August"
+msgstr "Augusztus"
+
+#: base.py:1143 choices.py:35
+msgid "September"
+msgstr "Szeptember"
+
+#: base.py:1143 choices.py:36
+msgid "October"
+msgstr "Október"
+
+#: base.py:1143 choices.py:37
+msgid "November"
+msgstr "November"
+
+#: base.py:1143 choices.py:38
+msgid "December"
+msgstr "December"
+
+#: base.py:1161 base.py:1178 base.py:1189 base.py:1202 base.py:1220
+msgid ", "
+msgstr ", "
+
+#: base.py:1167
+#, python-format
+msgid "every %(number)s %(freq)s"
+msgstr "minden %(number)s. %(freq)s"
+
+#: base.py:1181 base.py:1205
+#, python-format
+msgid "each %(items)s"
+msgstr "minden %(items)s"
+
+#: base.py:1184 base.py:1193 base.py:1197
+#, python-format
+msgid "on the %(items)s"
+msgstr "ekkor: %(items)s"
+
+#: base.py:1212
+msgid "occuring once"
+msgstr "egyszer fordul elő"
+
+#: base.py:1214
+#, python-format
+msgid "occuring %(number)s times"
+msgstr "%(number)s alkalommal fordul elő"
+
+#: base.py:1217
+#, python-format
+msgid "until %(date)s"
+msgstr "eddig: %(date)s"
+
+#: choices.py:7
+msgid "Secondly"
+msgstr "Másodpercenként"
+
+#: choices.py:8
+msgid "Minutely"
+msgstr "Percenként"
+
+#: choices.py:9
+msgid "Hourly"
+msgstr "Óránként"
+
+#: choices.py:10
+msgid "Daily"
+msgstr "Naponta"
+
+#: choices.py:11
+msgid "Weekly"
+msgstr "Hetente"
+
+#: choices.py:12
+msgid "Monthly"
+msgstr "Havonta"
+
+#: choices.py:13
+msgid "Yearly"
+msgstr "Évente"
+
+#: choices.py:31
+msgid "May"
+msgstr "Május"
+
+#: choices.py:44
+msgid "Inclusion"
+msgstr "Tartalmazás"
+
+#: choices.py:45
+msgid "Exclusion"
+msgstr "Kizárás"
+
+#: forms.py:72
+msgid "Invalid frequency."
+msgstr "Érvénytelen gyakoriság."
+
+#: forms.py:74
+#, python-format
+msgid "Max rules exceeded. The limit is %(limit)s"
+msgstr "A szabályok legnagyobb száma elérve. A korlát %(limit)s"
+
+#: forms.py:76
+#, python-format
+msgid "Max exclusion rules exceeded. The limit is %(limit)s"
+msgstr "A kizárási szabályok legnagyobb száma elérve. A korlát %(limit)s"
+
+#: forms.py:78
+#, python-format
+msgid "Max dates exceeded. The limit is %(limit)s"
+msgstr "A dátumok legnagyobb száma elérve. A korlát %(limit)s"
+
+#: forms.py:80
+#, python-format
+msgid "Max exclusion dates exceeded. The limit is %(limit)s"
+msgstr "A kizárási dátumok legnagyobb száma elérve. A korlát %(limit)s"
