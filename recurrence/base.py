@@ -1126,6 +1126,7 @@ def rule_to_text(rule, short=False):
             -1: _('last %(weekday)s'),
             -2: _('2nd last %(weekday)s'),
             -3: _('3rd last %(weekday)s'),
+            -4: _('4th last %(weekday)s'),
         }
         last_of_month_display = {
             -1: _('last'),
@@ -1153,6 +1154,7 @@ def rule_to_text(rule, short=False):
             -1: _('last %(weekday)s'),
             -2: _('second last %(weekday)s'),
             -3: _('third last %(weekday)s'),
+            -4: _('fourth last %(weekday)s'),
         }
         last_of_month_display = {
             -1: _('last'),
