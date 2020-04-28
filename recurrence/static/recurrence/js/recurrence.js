@@ -1,7 +1,7 @@
 if (!recurrence)
     var recurrence = {};
 
-
+recurrence.language_code = "en"
 recurrence.Rule = function(freq, options) {
     this.init(freq, options);
 };
@@ -445,7 +445,7 @@ recurrence.DateFormat.prototype = {
     S: function() {
         var day = this.data.getDate();
         var ordinal_indicator = recurrence.display.ordinal_indicator;
-        var language_code = recurrence.language_code;
+        var language_code = recurrence.language_code || "en";
         if (language_code in ordinal_indicator) {
             return ordinal_indicator[language_code](day);
 	} else if (language_code.split('-')[0] in ordinal_indicator) {
