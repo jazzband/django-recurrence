@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.10.3
+------
+
+* Add Hungarian localisation (:issue:`161`).
+
 1.10.2
 ------
 
