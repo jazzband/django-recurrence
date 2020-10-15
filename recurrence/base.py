@@ -1035,7 +1035,7 @@ def deserialize(text, include_dtstart=True):
                             'bad interval value: %r' % value[0])
                 elif key == u'WKST':
                     try:
-                        kwargs[str(key.lower())] = to_weekday(value[0])
+                        kwargs[str(key.lower())] = to_weekday(value[0]).number
                     except ValueError:
                         raise exceptions.DeserializationError(
                             'bad weekday value: %r' % value[0])
