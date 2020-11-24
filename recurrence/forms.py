@@ -22,9 +22,12 @@ class RecurrenceWidget(forms.Textarea):
         js = [
             'admin/js/vendor/jquery/jquery%s.js' % extra,
             'admin/js/jquery.init.js',
+            'admin/jsi18n',
             staticfiles_storage.url('recurrence/js/recurrence.js'),
             staticfiles_storage.url('recurrence/js/recurrence-widget.js'),
             staticfiles_storage.url('recurrence/js/recurrence-widget.init.js'),
+            staticfiles_storage.url('admin/js/core.js')
+            
         ]
         i18n_media = find_recurrence_i18n_js_catalog()
         if i18n_media:
@@ -34,6 +37,8 @@ class RecurrenceWidget(forms.Textarea):
             js=js, css={
                 'all': (
                     staticfiles_storage.url('recurrence/css/recurrence.css'),
+                    staticfiles_storage.url('admin/css/base.css'),
+                    staticfiles_storage.url('admin/css/forms.css'),
                 ),
             },
         )
