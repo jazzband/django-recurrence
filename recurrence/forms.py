@@ -27,7 +27,6 @@ class RecurrenceWidget(forms.Textarea):
             staticfiles_storage.url('recurrence/js/recurrence-widget.js'),
             staticfiles_storage.url('recurrence/js/recurrence-widget.init.js'),
             staticfiles_storage.url('admin/js/core.js')
-            
         ]
         i18n_media = find_recurrence_i18n_js_catalog()
         if i18n_media:
