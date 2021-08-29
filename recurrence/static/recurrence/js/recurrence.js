@@ -446,10 +446,12 @@ recurrence.DateFormat.prototype = {
         var day = this.data.getDate();
         var ordinal_indicator = recurrence.display.ordinal_indicator;
         var language_code = recurrence.language_code;
-        if (language_code in ordinal_indicator) {
-            return ordinal_indicator[language_code](day);
-	} else if (language_code.split('-')[0] in ordinal_indicator) {
-	    return ordinal_indicator[language_code.split('-')[0]](day)
+	if (language_code){
+	  if (language_code in ordinal_indicator) {
+              return ordinal_indicator[language_code](day);
+	  } else if (language_code.split('-')[0] in ordinal_indicator) {
+	      return ordinal_indicator[language_code.split('-')[0]](day)
+	  }
 	}
         return '';
     },
