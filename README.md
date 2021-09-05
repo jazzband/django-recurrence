@@ -6,6 +6,8 @@ django-recurrence is a utility for working with recurring dates in
 Django. Documentation is available at
 https://django-recurrence.readthedocs.org/.
 
+**Django-recurrence is unmaintained** and looking for a maintainer to take over the project. (You may wish to open an issue, reply on [this thread](https://github.com/django-recurrence/django-recurrence/pull/182#issuecomment-784467431) or reach out on [Twitter](https://twitter.com/dominicrodger/).)
+
 It provides:
 
 - Recurrence/Rule objects using a subset of rfc2445 (wraps
