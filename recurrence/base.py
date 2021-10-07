@@ -1188,10 +1188,8 @@ def rule_to_text(rule, short=False):
 
     if rule.interval > 1:
         parts.append(
-            _('every %(number)s %(freq)s') % {
-                'number': rule.interval,
-                'freq': timeintervals[rule.freq]
-            })
+            _(f'every {rule.interval} {timeintervals[rule.freq]}')
+        )
     else:
         parts.append(frequencies[rule.freq])
 
@@ -1202,11 +1200,11 @@ def rule_to_text(rule, short=False):
             items = _(', ').join(
                 [months_display[month] for month in
                  [month_index - 1 for month_index in rule.bymonth]])
-            parts.append(_('each %(items)s') % {'items': items})
+            parts.append(_(f'each {items}'))
         if rule.byday or rule.bysetpos:
             parts.append(
-                _('on the %(items)s') % {
-                    'items': get_positional_weekdays(rule)})
+                _(f'on the {get_positional_weekdays(rule)}')
+            )
 
     if rule.freq == MONTHLY:
         if rule.bymonthday:
@@ -1214,19 +1212,19 @@ def rule_to_text(rule, short=False):
                 dateformat.format(datetime.datetime(1, 1, day), 'jS') if day > 0
                 else last_of_month_display.get(day, day)
                 for day in rule.bymonthday])
-            parts.append(_('on the %(items)s') % {'items': items})
+            parts.append(_(f'on the {items}'))
         elif rule.byday:
             if rule.byday or rule.bysetpos:
                 parts.append(
-                    _('on the %(items)s') % {
-                        'items': get_positional_weekdays(rule)})
+                    _(f'on the {get_positional_weekdays(rule)}')
+                )
 
     if rule.freq == WEEKLY:
         if rule.byday:
             items = _(', ').join([
                 weekdays_display[to_weekday(day).number]
                 for day in rule.byday])
-            parts.append(_('each %(items)s') % {'items': items})
+            parts.append(_(f'each {items}'))
 
     # daily freqencies has no additional formatting,
     # hour/minute/second formatting not supported
@@ -1235,11 +1233,9 @@ def rule_to_text(rule, short=False):
         if rule.count == 1:
             parts.append(_('occuring once'))
         else:
-            parts.append(_('occuring %(number)s times') % {
-                'number': rule.count})
+            parts.append(_(f'occuring {rule.count} times'))
     elif rule.until:
-        parts.append(_('until %(date)s') % {
-            'date': dateformat.format(rule.until, 'Y-m-d')})
+        parts.append(_(f"until {dateformat.format(rule.until, 'Y-m-d')}"))
 
     return _(', ').join(parts)
 
