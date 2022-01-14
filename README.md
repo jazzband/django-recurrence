@@ -1,12 +1,16 @@
 # django-recurrence
 
-[![Build Status](https://travis-ci.org/django-recurrence/django-recurrence.svg?branch=master)](https://travis-ci.org/django-recurrence/django-recurrence)
+[![GitHub](https://img.shields.io/github/stars/django-recurrence/django-recurrence.svg?label=Stars&style=socialcA)](https://github.com/jazzband/django-recurrence)
+[![PyPI releases](https://img.shields.io/pypi/v/django-recurrence.svg)](https://pypi.org/project/django-recurrence/)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/django-recurrence.svg)](https://pypi.org/project/django-recurrence/)
+[![Supported Django versions](https://img.shields.io/pypi/djversions/django-recurrence.svg)](https://pypi.org/project/django-recurrence/)
+[![Documentation](https://img.shields.io/readthedocs/django-recurrence.svg)](https://django-recurrence.readthedocs.io/)
+[![GitHub Actions](https://github.com/django-recurrence/django-recurrence/workflows/Test/badge.svg)](https://github.com/django-recurrence/django-recurrence/actions)
+[![Coverage](https://codecov.io/gh/django-recurrence/django-recurrence/branch/master/graph/badge.svg)](https://codecov.io/gh/django-recurrence/django-recurrence)
 
 django-recurrence is a utility for working with recurring dates in
 Django. Documentation is available at
-https://django-recurrence.readthedocs.org/.
-
-**Django-recurrence is unmaintained** and looking for a maintainer to take over the project. (You may wish to open an issue, reply on [this thread](https://github.com/django-recurrence/django-recurrence/pull/182#issuecomment-784467431) or reach out on [Twitter](https://twitter.com/dominicrodger/).)
+https://django-recurrence.readthedocs.io/.
 
 It provides:
 

@@ -1,8 +1,8 @@
 coverage:
-	py.test --cov-report html --cov-report term-missing --cov recurrence
+	pytest
 
 test:
-	py.test
+	pytest
 
 testall:
 	tox

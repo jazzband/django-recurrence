@@ -1,0 +1,8 @@
+flake8==4.0.1
+pytest-cov==3.0.0
+pytest-django==4.5.2
+pytest-sugar==0.9.4
+pytest==6.2.5
+sphinx==4.3.2
+sphinx_rtd_theme==1.0.0
+tox==3.24.5
