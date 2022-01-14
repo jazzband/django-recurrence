@@ -1,52 +1,43 @@
 import os
-import sys
 
 from setuptools import setup
-from setuptools.command.test import test as TestCommand
-
-
-class PyTest(TestCommand):
-    def finalize_options(self):
-        self.test_args = []
-        self.test_suite = True
-
-        super().finalize_options()
-
-    def run_tests(self):
-        import pytest
-
-        errno = pytest.main(self.test_args)
-        sys.exit(errno)
-
-
-with open("README.md", "r") as fh:
-    long_description = fh.read()
-
 
 setup(
     name="django-recurrence",
-    version="1.10.3",
+    use_scm_version=True,
     license="BSD",
     description="Django utility wrapping dateutil.rrule",
-    long_description=long_description,
+    long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     author="Tamas Kemenczy",
     author_email="tamas.kemenczy@gmail.com",
     url="https://github.com/django-recurrence/django-recurrence",
-    classifiers=(
+    classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
+        "Environment :: Plugins",
         "Framework :: Django",
+        "Framework :: Django",
+        "Framework :: Django :: 2.2",
+        "Framework :: Django :: 3.2",
+        # "Framework :: Django :: 4.0",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
-    ),
-    install_requires=("Django", "pytz", "python-dateutil"),
-    packages=("recurrence", "recurrence.migrations"),
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: Implementation",
+        "Programming Language :: Python :: Implementation :: CPython",
+        "Programming Language :: Python :: Implementation :: PyPy",
+    ],
+    python_requires=">=3.7",
+    install_requires=["django>=2.2,<4.0", "pytz", "python-dateutil"],
+    setup_requires=["setuptools_scm"],
+    packages=["recurrence", "recurrence.migrations"],
     package_dir={"recurrence": "recurrence"},
     package_data={
         "recurrence": [
@@ -59,5 +50,4 @@ setup(
     },
     zip_safe=False,
     include_package_data=True,
-    cmdclass={"test": PyTest},
 )

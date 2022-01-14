@@ -12,3 +12,5 @@ dist/
 /.idea
 /.vscode
 /venv
+coverage.xml
+.eggs/
