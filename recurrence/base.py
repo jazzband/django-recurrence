@@ -16,7 +16,7 @@ import calendar
 import pytz
 import dateutil.rrule
 from django.utils import dateformat, timezone
-from django.utils.translation import ugettext as _, pgettext as _p
+from django.utils.translation import gettext as _, pgettext as _p
 
 from recurrence import exceptions
 from recurrence import settings

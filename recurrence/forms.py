@@ -1,7 +1,7 @@
 from django import forms, urls
 from django.conf import settings
 from django.views import i18n
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib.staticfiles.storage import staticfiles_storage
 
 import recurrence
