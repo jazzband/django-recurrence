@@ -1,7 +1,7 @@
 if (!recurrence)
     var recurrence = {};
 
-
+recurrence.language_code = "en"
 recurrence.Rule = function(freq, options) {
     this.init(freq, options);
 };
@@ -445,7 +445,7 @@ recurrence.DateFormat.prototype = {
     S: function() {
         var day = this.data.getDate();
         var ordinal_indicator = recurrence.display.ordinal_indicator;
-        var language_code = recurrence.language_code;
+        var language_code = recurrence.language_code || "en";
         if (language_code in ordinal_indicator) {
             return ordinal_indicator[language_code](day);
 	} else if (language_code.split('-')[0] in ordinal_indicator) {
@@ -1048,6 +1048,7 @@ recurrence.display.weekdays_position = {
     '2': gettext('second %(weekday)s'),
     '3': gettext('third %(weekday)s'),
     '4': gettext('fourth %(weekday)s'),
+    '5': gettext('fifth %(weekday)s'),
     '-1': gettext('last %(weekday)s'),
     '-2': gettext('second last %(weekday)s'),
     '-3': gettext('third last %(weekday)s')
@@ -1057,6 +1058,7 @@ recurrence.display.weekdays_position_short = {
     '2': gettext('2nd %(weekday)s'),
     '3': gettext('3rd %(weekday)s'),
     '4': gettext('4th %(weekday)s'),
+    '5': gettext('5th %(weekday)s'),
     '-1': gettext('last %(weekday)s'),
     '-2': gettext('2nd last %(weekday)s'),
     '-3': gettext('3rd last %(weekday)s')
