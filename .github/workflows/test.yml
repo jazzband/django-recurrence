@@ -11,7 +11,7 @@ jobs:
       max-parallel: 5
       matrix:
         python-version: ['3.7', '3.8', '3.9', '3.10', 'pypy-3.8']
-        django-version: ['2.2', '3.2']
+        django-version: ['2.2', '3.2', '4.0']
         include:
           # Tox configuration for documentation environment
           - python-version: '3.7'
@@ -19,27 +19,20 @@ jobs:
           # Tox configuration for QA environment
           - python-version: '3.7'
             django-version: 'qa'
-          # # Django 4.0
-          # - python-version: '3.8'
-          #   django-version: '4.0'
-          # - python-version: '3.9'
-          #   django-version: '4.0'
-          # - python-version: '3.10'
-          #   django-version: '4.0'
-          # # Django main
-          # - python-version: '3.8'
-          #   django-version: 'main'
-          #   experimental: true
-          # - python-version: '3.9'
-          #   django-version: 'main'
-          #   experimental: true
-          # - python-version: '3.10'
-          #   django-version: 'main'
-          #   experimental: true
-        exclude:
-          # Exclude Django main branch for Python 3.7 as it is not supported
-          - python-version: '3.7'
+          # Django main
+          - python-version: '3.8'
             django-version: 'main'
+            experimental: true
+          - python-version: '3.9'
+            django-version: 'main'
+            experimental: true
+          - python-version: '3.10'
+            django-version: 'main'
+            experimental: true
+        exclude:
+          # Exclude Django 4.0 for Python 3.7 as it is not supported
+          - python-version: '3.7'
+            django-version: '4.0'
 
     steps:
     - uses: actions/checkout@v2
