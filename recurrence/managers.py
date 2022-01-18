@@ -1,19 +1,7 @@
-import pytz
 from django.db.models import manager
 
 import recurrence
-from recurrence import choices
-
-
-# All datetimes are stored as utc.
-def to_utc(dt):
-    if not dt:
-        return dt
-
-    if dt.tzinfo:
-        return dt.astimezone(pytz.utc)
-
-    return pytz.utc.localize(dt)
+from recurrence import choices, to_utc
 
 
 class RuleManager(manager.Manager):

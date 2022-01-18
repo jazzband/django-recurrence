@@ -1,9 +1,11 @@
 from datetime import datetime
+
+from dateutil import tz
 from django.utils.timezone import make_aware
 from recurrence import choices
 from recurrence.models import Param, Recurrence, Rule
 import pytest
-import pytz
+
 import recurrence
 
 
@@ -14,7 +16,7 @@ def test_create_from_rule_object():
         recurrence=limits,
         mode=choices.INCLUSION,
         freq=recurrence.WEEKLY,
-        until=make_aware(datetime(2014, 12, 31, 0, 0, 0), pytz.utc)
+        until=make_aware(datetime(2014, 12, 31, 0, 0, 0), tz.UTC)
     )
     object = Rule.objects.create_from_rule_object(
         choices.EXCLUSION,
@@ -34,7 +36,7 @@ def test_create_from_rule_object_byday():
         recurrence=limits,
         mode=choices.INCLUSION,
         freq=recurrence.WEEKLY,
-        until=make_aware(datetime(2014, 12, 31, 0, 0, 0), pytz.utc)
+        until=make_aware(datetime(2014, 12, 31, 0, 0, 0), tz.UTC)
     )
     Param.objects.create(
         rule=rule,
@@ -66,7 +68,7 @@ def test_create_from_rule_object_bymonth():
         recurrence=limits,
         mode=choices.INCLUSION,
         freq=recurrence.WEEKLY,
-        until=make_aware(datetime(2014, 12, 31, 0, 0, 0), pytz.utc)
+        until=make_aware(datetime(2014, 12, 31, 0, 0, 0), tz.UTC)
     )
     Param.objects.create(
         rule=rule,
