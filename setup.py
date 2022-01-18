@@ -35,7 +35,7 @@ setup(
         "Programming Language :: Python :: Implementation :: PyPy",
     ],
     python_requires=">=3.7",
-    install_requires=["django>=2.2,<4.0", "pytz", "python-dateutil"],
+    install_requires=["django>=2.2,<4.0", "python-dateutil"],
     setup_requires=["setuptools_scm"],
     packages=["recurrence", "recurrence.migrations"],
     package_dir={"recurrence": "recurrence"},

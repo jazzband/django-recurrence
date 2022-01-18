@@ -7,7 +7,8 @@ from recurrence.base import (
     JANUARY, FEBRUARY, MARCH, APRIL, MAY, JUNE, JULY, AUGUST,
     SEPTEMBER, OCTOBER, NOVEMBER, DECEMBER,
 
-    validate, serialize, deserialize, to_weekday,
+    validate, serialize, deserialize,
+    to_utc, to_weekday,
     from_dateutil_rrule, from_dateutil_rruleset,
     Recurrence, Rule, Weekday,
 )

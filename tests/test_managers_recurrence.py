@@ -1,14 +1,11 @@
 from datetime import datetime
+
 from django.utils.timezone import make_aware
 from recurrence import choices
 from recurrence.models import Date, Recurrence, Rule
 import pytest
-import pytz
+
 import recurrence
-
-
-def aware(dt):
-    return make_aware(dt, pytz.utc)
 
 
 @pytest.mark.django_db
@@ -37,55 +34,55 @@ def test_recurrence_to_recurrence_object_complex():
         recurrence=limits,
         mode=choices.INCLUSION,
         freq=recurrence.WEEKLY,
-        until=aware(datetime(2014, 12, 31, 0, 0, 0))
+        until=make_aware(datetime(2014, 12, 31, 0, 0, 0))
     )
 
     Rule.objects.create(
         recurrence=limits,
         mode=choices.EXCLUSION,
         freq=recurrence.MONTHLY,
-        until=aware(datetime(2013, 12, 31, 0, 0, 0))
+        until=make_aware(datetime(2013, 12, 31, 0, 0, 0))
     )
 
     Date.objects.create(
         recurrence=limits,
         mode=choices.INCLUSION,
-        dt=aware(datetime(2012, 12, 31, 0, 0, 0))
+        dt=make_aware(datetime(2012, 12, 31, 0, 0, 0))
     )
 
     Date.objects.create(
         recurrence=limits,
         mode=choices.EXCLUSION,
-        dt=aware(datetime(2011, 12, 31, 0, 0, 0))
+        dt=make_aware(datetime(2011, 12, 31, 0, 0, 0))
     )
 
     object = limits.to_recurrence_object()
 
-    assert object.dtstart == aware(datetime(2014, 1, 1, 0, 0, 0))
-    assert object.dtend == aware(datetime(2014, 12, 31, 0, 0, 0))
+    assert object.dtstart == make_aware(datetime(2014, 1, 1, 0, 0, 0))
+    assert object.dtend == make_aware(datetime(2014, 12, 31, 0, 0, 0))
 
     assert len(object.rrules) == 1
     output_rule = object.rrules[0]
     assert output_rule.freq == recurrence.WEEKLY
-    assert output_rule.until == aware(datetime(2014, 12, 31, 0, 0, 0))
+    assert output_rule.until == make_aware(datetime(2014, 12, 31, 0, 0, 0))
 
     assert len(object.exrules) == 1
     output_rule = object.exrules[0]
     assert output_rule.freq == recurrence.MONTHLY
-    assert output_rule.until == aware(datetime(2013, 12, 31, 0, 0, 0))
+    assert output_rule.until == make_aware(datetime(2013, 12, 31, 0, 0, 0))
 
 
 @pytest.mark.django_db
 def test_recurrence_to_recurrence_object_non_naive_sd_ed():
     limits = Recurrence.objects.create(
-        dtstart=aware(datetime(2014, 1, 1, 0, 0, 0)),
-        dtend=aware(datetime(2014, 12, 31, 0, 0, 0)),
+        dtstart=make_aware(datetime(2014, 1, 1, 0, 0, 0)),
+        dtend=make_aware(datetime(2014, 12, 31, 0, 0, 0)),
     )
 
     object = limits.to_recurrence_object()
 
-    assert object.dtstart == aware(datetime(2014, 1, 1, 0, 0, 0))
-    assert object.dtend == aware(datetime(2014, 12, 31, 0, 0, 0))
+    assert object.dtstart == make_aware(datetime(2014, 1, 1, 0, 0, 0))
+    assert object.dtend == make_aware(datetime(2014, 12, 31, 0, 0, 0))
 
 
 @pytest.mark.django_db
@@ -103,13 +100,13 @@ def test_create_from_recurrence_object():
         rrules=[inrule],
         exrules=[exrule],
         rdates=[datetime(2014, 2, 15, 0, 0, 0)],
-        exdates=[aware(datetime(2014, 11, 29, 0, 0, 0))]
+        exdates=[make_aware(datetime(2014, 11, 29, 0, 0, 0))]
     )
 
     object = Recurrence.objects.create_from_recurrence_object(limits)
 
-    assert object.dtstart == aware(datetime(2014, 1, 1, 0, 0, 0))
-    assert object.dtend == aware(datetime(2014, 2, 3, 0, 0, 0))
+    assert object.dtstart == make_aware(datetime(2014, 1, 1, 0, 0, 0))
+    assert object.dtend == make_aware(datetime(2014, 2, 3, 0, 0, 0))
 
     rules = object.rules.all()
     assert len(rules) == 2
@@ -132,5 +129,5 @@ def test_create_from_recurrence_object():
     assert len(in_dates) == 1
     assert len(out_dates) == 1
 
-    assert in_dates[0].dt == aware(datetime(2014, 2, 15, 0, 0, 0))
-    assert out_dates[0].dt == aware(datetime(2014, 11, 29, 0, 0, 0))
+    assert in_dates[0].dt == make_aware(datetime(2014, 2, 15, 0, 0, 0))
+    assert out_dates[0].dt == make_aware(datetime(2014, 11, 29, 0, 0, 0))
