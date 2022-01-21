@@ -7,7 +7,12 @@ setup(
     use_scm_version=True,
     license="BSD",
     description="Django utility wrapping dateutil.rrule",
-    long_description=open("README.rst", encoding="utf-8").read(),
+    long_description="\n".join(
+        [
+            open("README.rst", encoding="utf-8").read(),
+            open("CHANGES.rst", encoding="utf-8").read(),
+        ]
+    ),
     author="Tamas Kemenczy",
     author_email="tamas.kemenczy@gmail.com",
     url="https://github.com/django-recurrence/django-recurrence",
