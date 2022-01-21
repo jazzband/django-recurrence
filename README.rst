@@ -31,9 +31,7 @@ django-recurrence
    :alt: Coverage
 
 
-django-recurrence is a utility for working with recurring dates in
-Django. Documentation is available at
-https://django-recurrence.readthedocs.io/.
+django-recurrence is a utility for working with recurring dates in Django.
 
 
 Functionality
