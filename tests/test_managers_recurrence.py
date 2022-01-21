@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.utils.timezone import make_aware
-from recurrence import choices
+from recurrence import choices, deserialize
 from recurrence.models import Date, Recurrence, Rule
 import pytest
 
@@ -131,3 +131,13 @@ def test_create_from_recurrence_object():
 
     assert in_dates[0].dt == make_aware(datetime(2014, 2, 15, 0, 0, 0))
     assert out_dates[0].dt == make_aware(datetime(2014, 11, 29, 0, 0, 0))
+
+
+@pytest.mark.django_db
+def test_deserialize_to_recurrence_regression():
+    """Regression test for checking weekday serialization works correctly:
+    https://github.com/django-recurrence/django-recurrence/pull/176
+    """
+
+    obj = deserialize('DTSTART:20201015T000000\nRRULE:FREQ=WEEKLY;COUNT=30;INTERVAL=1;WKST=MO')
+    Recurrence.objects.create_from_recurrence_object(obj)
