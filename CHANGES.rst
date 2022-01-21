@@ -5,6 +5,11 @@ Changes
 Unreleased
 ----------
 
+- No unreleased changes at the moment.
+
+1.11.0 (2021-01-21)
+-------------------
+
 - Add Django 4.0 and Python 3.10 support.
   Deprecate EOL Django and Python versions.
   [aleksihakli]
