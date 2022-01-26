@@ -2,6 +2,10 @@
 django-recurrence
 =================
 
+.. image:: https://jazzband.co/static/img/jazzband.svg
+   :target: https://jazzband.co/
+   :alt: Jazzband
+
 .. image:: https://img.shields.io/github/stars/jazzband/django-recurrence.svg?label=Stars&style=socialcA
    :target: https://github.com/jazzband/django-recurrence
    :alt: GitHub
