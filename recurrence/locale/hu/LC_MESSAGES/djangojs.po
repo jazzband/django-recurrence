@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: django-recurrence master\n"
-"Report-Msgid-Bugs-To: https://github.com/django-recurrence/django-recurrence/issues\n"
+"Report-Msgid-Bugs-To: https://github.com/jazzband/django-recurrence/issues\n"
 "POT-Creation-Date: 2017-02-24 23:11+0100\n"
 "PO-Revision-Date: 2020-02-26 00:21+0100\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"

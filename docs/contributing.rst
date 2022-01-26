@@ -4,12 +4,12 @@ Contributing
 Contributions to django-recurrence are very welcome - whether in the
 form of bug reports, feature requests, or patches. Bug reports and
 feature requests are tracked on our `GitHub issues page
-<https://github.com/django-recurrence/django-recurrence/issues>`_.
+<https://github.com/jazzband/django-recurrence/issues>`_.
 
 If you want to make changes to django-recurrence, you'll need to fork
 our GitHub repository, make any changes you want, and send us a pull
 request. Feel free to `file an issue
-<https://github.com/django-recurrence/django-recurrence/issues>`_ if
+<https://github.com/jazzband/django-recurrence/issues>`_ if
 you want help getting set up.
 
 Running the tests

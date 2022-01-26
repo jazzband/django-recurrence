@@ -136,7 +136,7 @@ def test_create_from_recurrence_object():
 @pytest.mark.django_db
 def test_deserialize_to_recurrence_regression():
     """Regression test for checking weekday serialization works correctly:
-    https://github.com/django-recurrence/django-recurrence/pull/176
+    https://github.com/jazzband/django-recurrence/pull/176
     """
 
     obj = deserialize('DTSTART:20201015T000000\nRRULE:FREQ=WEEKLY;COUNT=30;INTERVAL=1;WKST=MO')

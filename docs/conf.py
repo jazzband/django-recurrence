@@ -264,4 +264,4 @@ texinfo_documents = [
 # How to display URL addresses: 'footnote', 'no', or 'inline'.
 # texinfo_show_urls = 'footnote'
 
-github_project_url = "https://github.com/django-recurrence/django-recurrence/"
+github_project_url = "https://github.com/jazzband/django-recurrence/"

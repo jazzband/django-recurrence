@@ -15,7 +15,7 @@ setup(
     ),
     author="Tamas Kemenczy",
     author_email="tamas.kemenczy@gmail.com",
-    url="https://github.com/django-recurrence/django-recurrence",
+    url="https://github.com/jazzband/django-recurrence",
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Environment :: Web Environment",
