@@ -2,7 +2,7 @@
 django-recurrence
 =================
 
-.. image:: https://jazzband.co/static/img/jazzband.svg
+.. image:: https://jazzband.co/static/img/badge.svg
    :target: https://jazzband.co/
    :alt: Jazzband
 
