@@ -114,3 +114,12 @@ def test_bug_in_count_and_until_rule_serialization():
 
     # Note that we've got no UNTIL value here
     assert 'RRULE:FREQ=WEEKLY;COUNT=7' == serialized
+
+
+def test_comma_separated_exdates():
+    exdates = [datetime(2022, 3, 14, 21, 0, 0), datetime(2022, 3, 13, 21, 0, 0)]
+    recurrence_ = Recurrence(exdates=exdates)
+    text = 'EXDATE:20220314T210000Z,20220313T210000Z'
+
+    deserialized = recurrence.deserialize(text)
+    assert recurrence_ == deserialized
