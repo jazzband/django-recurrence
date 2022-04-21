@@ -721,7 +721,8 @@ recurrence.widget.RuleForm.prototype = {
             new recurrence.Rule(recurrence.YEARLY, rule_options),
             new recurrence.Rule(recurrence.MONTHLY, rule_options),
             new recurrence.Rule(recurrence.WEEKLY, rule_options),
-            new recurrence.Rule(recurrence.DAILY, rule_options)
+            new recurrence.Rule(recurrence.DAILY, rule_options),
+            new recurrence.Rule(recurrence.HOURLY, rule_options)
         ];
         this.freq_rules[this.rule.freq].update(this.rule);
 
@@ -752,7 +753,7 @@ recurrence.widget.RuleForm.prototype = {
 
         // freq
 
-        var freq_choices = recurrence.display.frequencies.slice(0, 4);
+        var freq_choices = recurrence.display.frequencies.slice(0, 5);
         var freq_options = recurrence.array.foreach(
             freq_choices, function(item, i) {
                 var option = recurrence.widget.e(
@@ -949,7 +950,8 @@ recurrence.widget.RuleForm.prototype = {
             recurrence.widget.RuleYearlyForm,
             recurrence.widget.RuleMonthlyForm,
             recurrence.widget.RuleWeeklyForm,
-            recurrence.widget.RuleDailyForm
+            recurrence.widget.RuleDailyForm,
+            recurrence.widget.RuleHourlyForm,
         ];
         var freq_forms = recurrence.array.foreach(
             forms, function(form, i) {
@@ -1144,7 +1146,7 @@ recurrence.widget.RuleYearlyForm.prototype = {
         // weekday-position
 
         var position_options = recurrence.array.foreach(
-            [1, 2, 3, 4, -1, -2, -3], function(value) {
+            [1, 2, 3, -1, -2, -3], function(value) {
                 var option = recurrence.widget.e(
                     'option', {'value': value},
                     recurrence.string.strip(recurrence.display.weekdays_position[
@@ -1311,7 +1313,7 @@ recurrence.widget.RuleMonthlyForm.prototype = {
         // weekday-position
 
         var position_options = recurrence.array.foreach(
-            [1, 2, 3, 4, -1, -2, -3], function(value) {
+            [1, 2, 3, -1, -2, -3], function(value) {
                 var option = recurrence.widget.e(
                     'option', {'value': value},
                     recurrence.string.strip(
@@ -1541,6 +1543,73 @@ recurrence.widget.RuleDailyForm.prototype = {
     }
 };
 
+recurrence.widget.RuleHourlyForm = function(panel, rule) {
+    this.init(panel, rule);
+};
+recurrence.widget.RuleHourlyForm.prototype = {
+  init: function(panel, rule) {
+      this.panel = panel;
+      this.rule = rule;
+
+      this.init_dom();
+  },
+
+  init_dom: function() {
+      var form = this;
+
+      var grid = new recurrence.widget.Grid(8, 3);
+
+      var work_hours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+      var number = -1;
+      for (var y=0; y < 3; y++) {
+          for (var x=0; x < 8; x++) {
+              number += 1;
+              var cell = grid.cell(x, y);
+
+              cell.value = number;
+              cell.innerHTML = number;
+              if (work_hours.indexOf(number) !== -1)
+                  recurrence.widget.add_class(cell, 'active');
+              cell.onclick = function () {
+                  var hour = parseInt(this.innerHTML, 10) || null;
+                  if (recurrence.widget.has_class(this, 'active'))
+                      recurrence.widget.remove_class(this, 'active');
+                  else
+                      recurrence.widget.add_class(this, 'active');
+                  form.set_fromhour();
+              }
+          }
+      }
+
+      var hourly_container = recurrence.widget.e(
+          'div', {'class': 'section'});
+      hourly_container.appendChild(grid.elements.root);
+
+      var root = recurrence.widget.e('div', {'class': 'hourly'}, [hourly_container]);
+      root.style.display = 'none';
+      this.elements = {'root': root, 'grid': grid};
+      form.set_fromhour();
+  },
+
+  set_fromhour: function() {
+      var by_hour = [];
+      recurrence.array.foreach(
+          this.elements.grid.cells, function(cell) {
+              if (recurrence.widget.has_class(cell, 'active'))
+                  by_hour.push(cell.value);
+          });
+      this.rule.byhour = by_hour;
+      this.panel.update();
+  },
+
+  show: function() {
+      this.elements.root.style.display = '';
+  },
+
+  hide: function() {
+      this.elements.root.style.display = 'none';
+  }
+};
 
 recurrence.widget.DateForm = function(panel, mode, date) {
     this.init(panel, mode, date);
@@ -1600,7 +1669,7 @@ recurrence.widget.DateForm.prototype = {
     },
 
     get_display_text: function() {
-        var text = recurrence.date.format(this.date, pgettext('date', '%l, %F %j, %Y'));
+        var text = recurrence.date.format(this.date, '%l, %F %j, %Y');
         if (this.mode == recurrence.widget.EXCLUSION)
             text = recurrence.display.mode.exclusion + ' ' + text;
         return recurrence.string.capitalize(text);
