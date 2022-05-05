@@ -1558,8 +1558,10 @@ recurrence.widget.RuleHourlyForm.prototype = {
       var form = this;
 
       var grid = new recurrence.widget.Grid(8, 3);
-
-      var work_hours = [9, 10, 11, 12, 13, 14, 15, 16, 17];
+      var work_hours = recurrence.array.foreach(
+          this.rule.byhour, function (hour) {
+              return hour;
+          }) || [];
       var number = -1;
       for (var y=0; y < 3; y++) {
           for (var x=0; x < 8; x++) {

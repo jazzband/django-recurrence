@@ -13,7 +13,7 @@ def test_recurrence_text_pattern_is_saved():
     )
 
     assert len(event.recurs.rrules) == 1
-    assert event.recurs.rrules[0].to_text() == "weekly, each Tuesday"
+    assert eventma.rrules[0].to_text() == "weekly, each Tuesday"
     recurrence_info = event.recurs
 
     event = EventWithNoNulls.objects.get(pk=event.pk)
