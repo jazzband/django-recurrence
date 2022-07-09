@@ -369,7 +369,7 @@ msgstr "Anualmente"
 
 #: choices.py:31
 msgid "May"
-msgstr "May"
+msgstr "Mayo"
 
 #: choices.py:44
 msgid "Inclusion"
