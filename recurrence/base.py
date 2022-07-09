@@ -1081,7 +1081,8 @@ def deserialize(text, include_dtstart=True):
         elif label == u'RDATE':
             rdates.append(deserialize_dt(param_text))
         elif label == u'EXDATE':
-            exdates.append(deserialize_dt(param_text))
+            for item in param_text.split(','):
+                exdates.append(deserialize_dt(item))
 
     return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates, include_dtstart)
 
