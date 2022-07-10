@@ -3,8 +3,12 @@ django.jQuery(document).ready(function () {
 	initRecurrenceWidget();
 	// Begin DOM observation for new inline additions
 	const targetNode = document.getElementById('container');
-	const config = { attributes: false, childList: true, subtree: true };
-	observer.observe(targetNode, config);
+	if (targetNode !== null) {
+		const config = { attributes: false, childList: true, subtree: true };
+		observer.observe(targetNode, config);
+	} else {
+		console.error('Recurrence widget: No node with id=\'container\' found. Inline additions will not be observed.');
+	}
 });
 
 /*
