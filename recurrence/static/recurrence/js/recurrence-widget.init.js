@@ -7,7 +7,7 @@ django.jQuery(document).ready(function () {
 		const config = { attributes: false, childList: true, subtree: true };
 		observer.observe(targetNode, config);
 	} else {
-		console.error('Recurrence widget: No node with id=\'container\' found. Inline additions will not be observed.');
+		console.warn('Recurrence widget: No node with id=\'container\' found. Inline additions will not be observed.');
 	}
 });
 
