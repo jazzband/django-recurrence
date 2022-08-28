@@ -48,7 +48,7 @@ following to your project ``urls.py`` file:
 .. code-block:: python
 
     import django
-    from django.conf.urls import url
+    from django.urls import path
     from django.views.i18n import JavaScriptCatalog
 
     # Your normal URLs here...
@@ -61,7 +61,7 @@ following to your project ``urls.py`` file:
 
     # jsi18n can be anything you like here
     urlpatterns += [
-        url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict),
+        url('jsi18n/', JavaScriptCatalog.as_view(), js_info_dict),
     ]
 
 
