@@ -2,6 +2,14 @@
 Changes
 =======
 
+
+1.12
+----
+* Drop official support for Django versions 2.2, 3.2.
+* Drop official support for Python versions 3.7, 3.8;
+* Added support for DEFAULT_AUTO_FIELD
+* Minor fixes
+
 1.11.1 (2021-01-25)
 -------------------
 

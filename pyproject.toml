@@ -1,0 +1,64 @@
+[project]
+name = "django-recurrence"
+version = "1.12"
+description = "Django utility wrapping dateutil.rrule"
+authors = [
+    {name = "Tamas Kemenczy", email = "tamas.kemenczy@gmail.com"},
+]
+dependencies = [
+    "flake8==4.0.1",
+    "pytest-cov==3.0.0",
+    "pytest-django==4.5.2",
+    "pytest-sugar==0.9.5",
+    "pytest==7.1.2",
+    "sphinx==4.3.2",
+    "sphinx-rtd-theme==1.0.0",
+    "tox==3.25.1",
+    "django>=4.0",
+    "python-dateutil",
+]
+requires-python = ">=3.9"
+readme = "README.rst"
+license = {text = "BSD"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Plugins",
+    "Environment :: Web Environment",
+    "Framework :: Django",
+    "Framework :: Django",
+    "Framework :: Django :: 4.0",
+    "Framework :: Django :: 4.1",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: Implementation",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+[project.urls]
+Homepage = "https://github.com/jazzband/django-recurrence"
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.dev-dependencies]
+dev = [
+    "setuptools>=69.0.3",
+    "tox-pdm>=0.6.1",
+    "tox>=3.25.1",
+]
+
+[tool.pdm.package-dir]
+recurrence = "recurrence"
