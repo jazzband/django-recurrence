@@ -10,22 +10,16 @@ jobs:
       fail-fast: false
       max-parallel: 5
       matrix:
-        python-version: ['3.7', '3.8', '3.9', '3.10', '3.11', 'pypy-3.8']
+        python-version: ['3.9', '3.10', '3.11', '3.12']
         django-version: ['4.0', '4.1', '4.2', '5.0']
         include:
           # Tox configuration for documentation environment
-          - python-version: '3.7'
+          - python-version: '3.9'
             django-version: 'docs'
           # Tox configuration for QA environment
-          - python-version: '3.7'
+          - python-version: '3.9'
             django-version: 'qa'
           # Django main
-          - python-version: '3.8'
-            django-version: 'main'
-            experimental: true
-          - python-version: '3.9'
-            django-version: 'main'
-            experimental: true
           - python-version: '3.10'
             django-version: 'main'
             experimental: true
@@ -37,53 +31,65 @@ jobs:
             experimental: true
         exclude:
           # Exclude Django 4.0 for Python 3.7 as it is not supported
-          - python-version: '3.7'
+          - python-version: '3.11'
             django-version: '4.0'
-          - python-version: '3.7'
+          - python-version: '3.12'
+            django-version: '4.0'
+          - python-version: '3.12'
             django-version: '4.1'
-          - python-version: '3.7'
-            django-version: '4.2'
-          - python-version: '3.7'
-            django-version: '5.0'
-          - python-version: '3.8'
-            django-version: '5.0'
           - python-version: '3.9'
             django-version: '5.0'
-          - python-version: '3.10'
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+    - uses: actions/checkout@v3
+    - name: Set up PDM for Python ${{ matrix.python-version }}
+      uses: pdm-project/setup-pdm@v2
       with:
         python-version: ${{ matrix.python-version }}
-
-    - name: Get pip cache dir
-      id: pip-cache
-      run: |
-        echo "::set-output name=dir::$(pip cache dir)"
-
-    - name: Cache
-      uses: actions/cache@v2
-      with:
-        path: ${{ steps.pip-cache.outputs.dir }}
-        key:
-          ${{ matrix.python-version }}-v1-${{ hashFiles('**/setup.py') }}
-        restore-keys: |
-          ${{ matrix.python-version }}-v1-
-
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        python -m pip install --upgrade tox tox-gh-actions
+        pdm sync -d -G dev
 
-    - name: Tox tests
+    - name: Run pytest
       run: |
-        tox -v
+        pdm run -v pytest --cov-report term-missing --cov-report xml --cov=docopt
       env:
         DJANGO: ${{ matrix.django-version }}
 
     - name: Upload coverage
-      uses: codecov/codecov-action@v1
+      uses: codecov/codecov-action@v2
       with:
         name: Python ${{ matrix.python-version }}
+        fail_ci_if_error: true
+
+    - name: Build wheels and sdist
+      run: |
+        pdm build
+
+    - name: Save artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        # These are pure-python, so we don't need to worry about platform
+        name: wheels
+        # name: Python ${{ matrix.python-version }}
+        path: |
+          dist/*.whl
+          dist/*.tar.gz
+
+  release:
+    needs:
+      - build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: wheels
+          path: dist
+
+      - name: Upload packages to Jazzband
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          user: jazzband
+          password: ${{ secrets.JAZZBAND_RELEASE_KEY }}
+          repository_url: https://jazzband.co/projects/django-recurrence/upload
