@@ -291,10 +291,18 @@ class Recurrence:
             recurrence in the set (according to the rfc2445 spec).
             With `include_dtstart == False` `dtstart` is only the rule's
             starting point like in python's `dateutil.rrule`.
+
+        `include_dtend` : bool
+            Defines if `dtend` is included in the recurrence set as
+            the last occurrence. With `include_dtend == True` it is
+            both the ending point for recurrences and the last
+            recurrence in the set (according to the rfc2445 spec).
+            With `include_dtend == False` `dtend` is only the rule's
+            ending point like in python's `dateutil.rrule`.
     """
     def __init__(
         self, dtstart=None, dtend=None, rrules=(), exrules=(),
-            rdates=(), exdates=(), include_dtstart=True
+            rdates=(), exdates=(), include_dtstart=True, include_dtend=True
     ):
         """
         Create a new recurrence.
@@ -312,6 +320,7 @@ class Recurrence:
         self.rdates = list(rdates)
         self.exdates = list(exdates)
         self.include_dtstart = include_dtstart
+        self.include_dtend = include_dtend
 
     def __iter__(self):
         return self.occurrences()
@@ -542,6 +551,7 @@ class Recurrence:
         dtstart = dtstart or self.dtstart
         dtend = dtend or self.dtend
         include_dtstart = self.include_dtstart
+        include_dtend = self.include_dtend
 
         if dtend:
             dtend = normalize_offset_awareness(dtend or self.dtend, dtstart)
@@ -568,7 +578,7 @@ class Recurrence:
                 rruleset.rdate(rdate)
             elif not dtend:
                 rruleset.rdate(rdate)
-        if dtend is not None:
+        if include_dtend and dtend is not None:
             rruleset.rdate(dtend)
 
         for exdate in self.exdates:
@@ -918,7 +928,7 @@ def serialize(rule_or_recurrence):
     return u'\n'.join(u'%s:%s' % i for i in items)
 
 
-def deserialize(text, include_dtstart=True):
+def deserialize(text, include_dtstart=True, include_dtend=True):
     """
     Deserialize a rfc2445 formatted string.
 
@@ -1084,7 +1094,7 @@ def deserialize(text, include_dtstart=True):
             for item in param_text.split(','):
                 exdates.append(deserialize_dt(item))
 
-    return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates, include_dtstart)
+    return Recurrence(dtstart, dtend, rrules, exrules, rdates, exdates, include_dtstart, include_dtend)
 
 
 def rule_to_text(rule, short=False):

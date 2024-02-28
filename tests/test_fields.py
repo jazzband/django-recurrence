@@ -218,6 +218,68 @@ def test_include_dtstart_from_object():
         datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
 
 
+def test_include_dtend_from_field():
+    rule = Rule(
+        recurrence.WEEKLY,
+        byday=recurrence.MONDAY
+    )
+
+    limits = Recurrence(
+        rrules=[rule]
+    )
+
+    value = recurrence.serialize(limits)
+
+    model_field = recurrence.fields.RecurrenceField()  # Test with include_dtend=True (default)
+    rec_obj = model_field.to_python(value)
+    assert rec_obj == limits
+    # 14th of August (dtend) is expected but only for inc=True
+    assert [occ for occ in rec_obj.to_dateutil_rruleset(datetime(2015, 8, 2), datetime(2015, 8, 14))] == [
+        datetime(2015, 8, 2, 0, 0), datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0), datetime(2015, 8, 14, 0, 0)
+    ]
+
+    model_field = recurrence.fields.RecurrenceField(include_dtend=False)  # Test with include_dtend=False
+    rec_obj = model_field.to_python(value)
+    assert rec_obj == limits
+    # 14th of August (dtend) is not expected regardless of inc
+    assert [occ for occ in rec_obj.to_dateutil_rruleset(datetime(2015, 8, 2), datetime(2015, 8, 14))] == [
+        datetime(2015, 8, 2, 0, 0), datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)]
+
+
+def test_include_dtend_from_object():
+    rule = Rule(
+        recurrence.WEEKLY,
+        byday=recurrence.MONDAY
+    )
+
+    limits = Recurrence(  # include_dtend=True (default)
+        rrules=[rule]
+    )
+
+    assert [occ for occ in limits.to_dateutil_rruleset(datetime(2015, 8, 2), datetime(2015, 8, 14))] == [
+       datetime(2015, 8, 2, 0, 0), datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0),
+       datetime(2015, 8, 14, 0, 0)
+   ]
+
+    limits = Recurrence(  # include_dtend=False (dtend is expected to not be included)
+        include_dtend=False,
+        rrules=[rule]
+    )
+
+    assert [occ for occ in limits.to_dateutil_rruleset(datetime(2015, 8, 2), datetime(2015, 8, 14))] == [
+        datetime(2015, 8, 2, 0, 0), datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)
+    ]
+
+    limits = Recurrence(  # include_dtend=False (dtend dtstart are expected to not be included)
+        include_dtstart=False,
+        include_dtend=False,
+        rrules=[rule]
+    )
+
+    assert [occ for occ in limits.to_dateutil_rruleset(datetime(2015, 8, 2), datetime(2015, 8, 14))] == [
+        datetime(2015, 8, 3, 0, 0), datetime(2015, 8, 10, 0, 0)
+    ]
+
 def test_none_fieldvalue():
     field = RecurrenceField()
     value = None
