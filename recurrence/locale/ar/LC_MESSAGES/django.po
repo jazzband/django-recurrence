@@ -1,0 +1,409 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Django Recurrence 1.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-22 18:18+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Abbas Salah <abbas.log01@gmail.com>\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+#: recurrence/base.py:1099
+msgid "annually"
+msgstr "سنويًا"
+
+#: recurrence/base.py:1099
+msgid "monthly"
+msgstr "شهريًا"
+
+#: recurrence/base.py:1099
+msgid "weekly"
+msgstr "أسبوعيًا"
+
+#: recurrence/base.py:1099
+msgid "daily"
+msgstr "يوميًا"
+
+#: recurrence/base.py:1100
+msgid "hourly"
+msgstr "ساعيًا"
+
+#: recurrence/base.py:1100
+msgid "minutely"
+msgstr "دقيقةً"
+
+#: recurrence/base.py:1100
+msgid "secondly"
+msgstr "ثانويًا"
+
+#: recurrence/base.py:1103
+msgid "years"
+msgstr "سنوات"
+
+#: recurrence/base.py:1103
+msgid "months"
+msgstr "أشهر"
+
+#: recurrence/base.py:1103
+msgid "weeks"
+msgstr "أسابيع"
+
+#: recurrence/base.py:1103
+msgid "days"
+msgstr "أيام"
+
+#: recurrence/base.py:1104
+msgid "hours"
+msgstr "ساعات"
+
+#: recurrence/base.py:1104
+msgid "minutes"
+msgstr "دقائق"
+
+#: recurrence/base.py:1104
+msgid "seconds"
+msgstr "ثوانٍ"
+
+#: recurrence/base.py:1109
+#, python-format
+msgid "1st %(weekday)s"
+msgstr "الأول %(weekday)s"
+
+#: recurrence/base.py:1110
+#, python-format
+msgid "2nd %(weekday)s"
+msgstr "الثاني %(weekday)s"
+
+#: recurrence/base.py:1111
+#, python-format
+msgid "3rd %(weekday)s"
+msgstr "الثالث %(weekday)s"
+
+#: recurrence/base.py:1112 recurrence/base.py:1138
+#, python-format
+msgid "last %(weekday)s"
+msgstr "الأخير %(weekday)s"
+
+#: recurrence/base.py:1113
+#, python-format
+msgid "2nd last %(weekday)s"
+msgstr "الثاني الأخير %(weekday)s"
+
+#: recurrence/base.py:1114
+#, python-format
+msgid "3rd last %(weekday)s"
+msgstr "الثالث الأخير %(weekday)s"
+
+#: recurrence/base.py:1117 recurrence/base.py:1143
+msgid "last"
+msgstr "الأخير"
+
+#: recurrence/base.py:1118
+msgid "2nd last"
+msgstr "الثاني الأخير"
+
+#: recurrence/base.py:1119
+msgid "3rd last"
+msgstr "الثالث الأخير"
+
+#: recurrence/base.py:1120
+msgid "4th last"
+msgstr "الرابع الأخير"
+
+#: recurrence/base.py:1123
+msgid "Mon"
+msgstr "إثنين"
+
+#: recurrence/base.py:1123
+msgid "Tue"
+msgstr "ثلاثاء"
+
+#: recurrence/base.py:1123
+msgid "Wed"
+msgstr "أربعاء"
+
+#: recurrence/base.py:1124
+msgid "Thu"
+msgstr "خميس"
+
+#: recurrence/base.py:1124
+msgid "Fri"
+msgstr "جمعة"
+
+#: recurrence/base.py:1124
+msgid "Sat"
+msgstr "سبت"
+
+#: recurrence/base.py:1124
+msgid "Sun"
+msgstr "أحد"
+
+#: recurrence/base.py:1127
+msgid "Jan"
+msgstr "يناير"
+
+#: recurrence/base.py:1127
+msgid "Feb"
+msgstr "فبراير"
+
+#: recurrence/base.py:1127
+msgid "Mar"
+msgstr "مارس"
+
+#: recurrence/base.py:1127
+msgid "Apr"
+msgstr "أبريل"
+
+#: recurrence/base.py:1128
+msgid "Jun"
+msgstr "يونيو"
+
+#: recurrence/base.py:1128
+msgid "Jul"
+msgstr "يوليو"
+
+#: recurrence/base.py:1128
+msgid "Aug"
+msgstr "أغسطس"
+
+#: recurrence/base.py:1129
+msgid "Sep"
+msgstr "سبتمبر"
+
+#: recurrence/base.py:1129
+msgid "Oct"
+msgstr "أكتوبر"
+
+#: recurrence/base.py:1129
+msgid "Nov"
+msgstr "نوفمبر"
+
+#: recurrence/base.py:1129
+msgid "Dec"
+msgstr "ديسمبر"
+
+#: recurrence/base.py:1134
+#, python-format
+msgid "first %(weekday)s"
+msgstr "الأول %(weekday)s"
+
+#: recurrence/base.py:1135
+#, python-format
+msgid "second %(weekday)s"
+msgstr "الثاني %(weekday)s"
+
+#: recurrence/base.py:1136
+#, python-format
+msgid "third %(weekday)s"
+msgstr "الثالث %(weekday)s"
+
+#: recurrence/base.py:1137
+#, python-format
+msgid "fourth %(weekday)s"
+msgstr "الرابع %(weekday)s"
+
+#: recurrence/base.py:1139
+#, python-format
+msgid "second last %(weekday)s"
+msgstr "الثاني الأخير %(weekday)s"
+
+#: recurrence/base.py:1140
+#, python-format
+msgid "third last %(weekday)s"
+msgstr "الثالث الأخير %(weekday)s"
+
+#: recurrence/base.py:1144
+msgid "second last"
+msgstr "الثاني الأخير"
+
+#: recurrence/base.py:1145
+msgid "third last"
+msgstr "الثالث الأخير"
+
+#: recurrence/base.py:1146
+msgid "fourth last"
+msgstr "الرابع الأخير"
+
+#: recurrence/base.py:1149 recurrence/choices.py:17
+msgid "Monday"
+msgstr "الإثنين"
+
+#: recurrence/base.py:1149 recurrence/choices.py:18
+msgid "Tuesday"
+msgstr "الثلاثاء"
+
+#: recurrence/base.py:1149 recurrence/choices.py:19
+msgid "Wednesday"
+msgstr "الأربعاء"
+
+#: recurrence/base.py:1150 recurrence/choices.py:20
+msgid "Thursday"
+msgstr "الخميس"
+
+#: recurrence/base.py:1150 recurrence/choices.py:21
+msgid "Friday"
+msgstr "جمعة"
+
+#: recurrence/base.py:1150 recurrence/choices.py:22
+msgid "Saturday"
+msgstr "سبت"
+
+#: recurrence/base.py:1150 recurrence/choices.py:23
+msgid "Sunday"
+msgstr "أحد"
+
+#: recurrence/base.py:1153 recurrence/choices.py:27
+msgid "January"
+msgstr "يناير"
+
+#: recurrence/base.py:1153 recurrence/choices.py:28
+msgid "February"
+msgstr "فبراير"
+
+#: recurrence/base.py:1153 recurrence/choices.py:29
+msgid "March"
+msgstr "مارس"
+
+#: recurrence/base.py:1153 recurrence/choices.py:30
+msgid "April"
+msgstr "أبريل"
+
+#: recurrence/base.py:1154 recurrence/choices.py:32
+msgid "June"
+msgstr "يونيو"
+
+#: recurrence/base.py:1154 recurrence/choices.py:33
+msgid "July"
+msgstr "يوليو"
+
+#: recurrence/base.py:1154 recurrence/choices.py:34
+msgid "August"
+msgstr "أغسطس"
+
+#: recurrence/base.py:1155 recurrence/choices.py:35
+msgid "September"
+msgstr "سبتمبر"
+
+#: recurrence/base.py:1155 recurrence/choices.py:36
+msgid "October"
+msgstr "أكتوبر"
+
+#: recurrence/base.py:1155 recurrence/choices.py:37
+msgid "November"
+msgstr "نوفمبر"
+
+#: recurrence/base.py:1155 recurrence/choices.py:38
+msgid "December"
+msgstr "ديسمبر"
+
+#: recurrence/base.py:1173 recurrence/base.py:1190 recurrence/base.py:1201
+#: recurrence/base.py:1214 recurrence/base.py:1232
+msgid ", "
+msgstr "، "
+
+#: recurrence/base.py:1179
+#, python-format
+msgid "every %(number)s %(freq)s"
+msgstr "كل %(number)s %(freq)s"
+
+#: recurrence/base.py:1193 recurrence/base.py:1217
+#, python-format
+msgid "each %(items)s"
+msgstr "كل %(items)s"
+
+#: recurrence/base.py:1196 recurrence/base.py:1205 recurrence/base.py:1209
+#, python-format
+msgid "on the %(items)s"
+msgstr "في %(items)s"
+
+#: recurrence/base.py:1224
+msgid "occuring once"
+msgstr "يحدث مرة واحدة"
+
+#: recurrence/base.py:1226
+#, python-format
+msgid "occuring %(number)s times"
+msgstr "يحدث %(number)s مرات"
+
+#: recurrence/base.py:1229
+#, python-format
+msgid "until %(date)s"
+msgstr "حتى %(date)s"
+
+#: recurrence/choices.py:7
+msgid "Secondly"
+msgstr "ثانيًا"
+
+#: recurrence/choices.py:8
+msgid "Minutely"
+msgstr "دقيقةً"
+
+#: recurrence/choices.py:9
+msgid "Hourly"
+msgstr "ساعيًا"
+
+#: recurrence/choices.py:10
+msgid "Daily"
+msgstr "يوميًا"
+
+#: recurrence/choices.py:11
+msgid "Weekly"
+msgstr "أسبوعيًا"
+
+#: recurrence/choices.py:12
+msgid "Monthly"
+msgstr "شهريًا"
+
+#: recurrence/choices.py:13
+msgid "Yearly"
+msgstr "سنويًا"
+
+#: recurrence/choices.py:31
+msgid "May"
+msgstr "مايو"
+
+#: recurrence/choices.py:44
+msgid "Inclusion"
+msgstr "شمول"
+
+#: recurrence/choices.py:45
+msgid "Exclusion"
+msgstr "استثناء"
+
+#: recurrence/forms.py:52
+msgid "Invalid frequency."
+msgstr "تردد غير صالح."
+
+#: recurrence/forms.py:54
+#, python-format
+msgid "Max rules exceeded. The limit is %(limit)s"
+msgstr "تجاوز الحد الأقصى للقواعد. الحد الأقصى هو %(limit)s"
+
+#: recurrence/forms.py:56
+#, python-format
+msgid "Max exclusion rules exceeded. The limit is %(limit)s"
+msgstr "تجاوز الحد الأقصى لقواعد الاستثناء. الحد الأقصى هو %(limit)s"
+
+#: recurrence/forms.py:58
+#, python-format
+msgid "Max dates exceeded. The limit is %(limit)s"
+msgstr "تجاوز الحد الأقصى للتواريخ. الحد الأقصى هو %(limit)s"
+
+#: recurrence/forms.py:60
+#, python-format
+msgid "Max exclusion dates exceeded. The limit is %(limit)s"
+msgstr "تجاوز الحد الأقصى لتواريخ الاستثناء. الحد الأقصى هو %(limit)s"
+
+#: recurrence/forms.py:62
+msgid "This field is required. Set either a recurrence rule or date."
+msgstr "هذا الحقل مطلوب. قم بتعيين قاعدة تكرار أو تاريخ."
