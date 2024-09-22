@@ -1,0 +1,539 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Django Recurrence 1.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-22 21:16+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Abbas Salah <abbas.log01@gmail.com>\n"
+"Language-Team: Arabic\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1603
+msgctxt "date"
+msgid "%l, %F %j, %Y"
+msgstr "%l، %F %j، %Y"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1768
+msgid "including"
+msgstr "بما في ذلك"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1768
+msgid "excluding"
+msgstr "باستثناء"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1772
+msgid "Frequency"
+msgstr "التكرار"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1773
+msgid "On the"
+msgstr "في"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1774
+msgid "Each"
+msgstr "كل"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1775
+msgid "Every"
+msgstr "كل"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1776
+msgid "Until"
+msgstr "حتى"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1777
+msgid "Occurs %(number)s time"
+msgstr "يحدث %(number)s مرة"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1778
+msgid "Occurs %(number)s times"
+msgstr "يحدث %(number)s مرات"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1779
+msgid "Date"
+msgstr "التاريخ"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1780
+msgid "Time"
+msgstr "الوقت"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1781
+msgid "Repeat until"
+msgstr "التكرار حتى"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1782
+msgid "Exclude these occurences"
+msgstr "استبعاد هذه التكرارات"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1783
+msgid "Exclude this date"
+msgstr "استبعاد هذا التاريخ"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1784
+msgid "Add rule"
+msgstr "إضافة قاعدة"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1785
+msgid "Add date"
+msgstr "إضافة تاريخ"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1786
+msgid "Remove"
+msgstr "إزالة"
+
+#: recurrence/static/recurrence/js/recurrence-widget.js:1787
+msgid "Calendar"
+msgstr "التقويم"
+
+#: recurrence/static/recurrence/js/recurrence.js:218
+msgctxt "Until date format"
+msgid "%Y-%m-%d"
+msgstr "%Y-%m-%d"
+
+#: recurrence/static/recurrence/js/recurrence.js:1009
+msgid "midnight"
+msgstr "منتصف الليل"
+
+#: recurrence/static/recurrence/js/recurrence.js:1010
+msgid "noon"
+msgstr "الظهر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1011
+msgid "on the %(items)s"
+msgstr "في %(items)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1012
+msgid "every %(number)s %(freq)s"
+msgstr "كل %(number)s %(freq)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1013
+msgid "each %(items)s"
+msgstr "كل %(items)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1014
+msgid "occuring %(number)s time"
+msgstr "يحدث %(number)s مرة"
+
+#: recurrence/static/recurrence/js/recurrence.js:1015
+msgid "occuring %(number)s times"
+msgstr "يحدث %(number)s مرات"
+
+#: recurrence/static/recurrence/js/recurrence.js:1016
+msgid "until %(date)s"
+msgstr "حتى %(date)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1020
+msgid "year"
+msgstr "سنة"
+
+#: recurrence/static/recurrence/js/recurrence.js:1020
+msgid "month"
+msgstr "شهر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1020
+msgid "week"
+msgstr "أسبوع"
+
+#: recurrence/static/recurrence/js/recurrence.js:1020
+msgid "day"
+msgstr "يوم"
+
+#: recurrence/static/recurrence/js/recurrence.js:1021
+msgid "hour"
+msgstr "ساعة"
+
+#: recurrence/static/recurrence/js/recurrence.js:1021
+msgid "minute"
+msgstr "دقيقة"
+
+#: recurrence/static/recurrence/js/recurrence.js:1021
+msgid "second"
+msgstr "ثانية"
+
+#: recurrence/static/recurrence/js/recurrence.js:1024
+msgid "years"
+msgstr "سنوات"
+
+#: recurrence/static/recurrence/js/recurrence.js:1024
+msgid "months"
+msgstr "أشهر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1024
+msgid "weeks"
+msgstr "أسابيع"
+
+#: recurrence/static/recurrence/js/recurrence.js:1024
+msgid "days"
+msgstr "أيام"
+
+#: recurrence/static/recurrence/js/recurrence.js:1025
+msgid "hours"
+msgstr "ساعات"
+
+#: recurrence/static/recurrence/js/recurrence.js:1025
+msgid "minutes"
+msgstr "دقائق"
+
+#: recurrence/static/recurrence/js/recurrence.js:1025
+msgid "seconds"
+msgstr "ثوانٍ"
+
+#: recurrence/static/recurrence/js/recurrence.js:1028
+msgid "annually"
+msgstr "سنويًا"
+
+#: recurrence/static/recurrence/js/recurrence.js:1028
+msgid "monthly"
+msgstr "شهريًا"
+
+#: recurrence/static/recurrence/js/recurrence.js:1028
+msgid "weekly"
+msgstr "أسبوعيًا"
+
+#: recurrence/static/recurrence/js/recurrence.js:1028
+msgid "daily"
+msgstr "يوميًا"
+
+#: recurrence/static/recurrence/js/recurrence.js:1029
+msgid "hourly"
+msgstr "ساعيًا"
+
+#: recurrence/static/recurrence/js/recurrence.js:1029
+msgid "minutely"
+msgstr "دقيقةً"
+
+#: recurrence/static/recurrence/js/recurrence.js:1029
+msgid "secondly"
+msgstr "ثانويًا"
+
+#: recurrence/static/recurrence/js/recurrence.js:1032
+msgid "Monday"
+msgstr "إثنين"
+
+#: recurrence/static/recurrence/js/recurrence.js:1032
+msgid "Tuesday"
+msgstr "ثلاثاء"
+
+#: recurrence/static/recurrence/js/recurrence.js:1032
+msgid "Wednesday"
+msgstr "أربعاء"
+
+#: recurrence/static/recurrence/js/recurrence.js:1032
+msgid "Thursday"
+msgstr "خميس"
+
+#: recurrence/static/recurrence/js/recurrence.js:1033
+msgid "Friday"
+msgstr "جمعة"
+
+#: recurrence/static/recurrence/js/recurrence.js:1033
+msgid "Saturday"
+msgstr "سبت"
+
+#: recurrence/static/recurrence/js/recurrence.js:1033
+msgid "Sunday"
+msgstr "أحد"
+
+#: recurrence/static/recurrence/js/recurrence.js:1036
+msgid "Mon"
+msgstr "إثنين"
+
+#: recurrence/static/recurrence/js/recurrence.js:1036
+msgid "Tue"
+msgstr "ثلاثاء"
+
+#: recurrence/static/recurrence/js/recurrence.js:1036
+msgid "Wed"
+msgstr "أربعاء"
+
+#: recurrence/static/recurrence/js/recurrence.js:1036
+msgid "Thu"
+msgstr "خميس"
+
+#: recurrence/static/recurrence/js/recurrence.js:1037
+msgid "Fri"
+msgstr "جمعة"
+
+#: recurrence/static/recurrence/js/recurrence.js:1037
+msgid "Sat"
+msgstr "سبت"
+
+#: recurrence/static/recurrence/js/recurrence.js:1037
+msgid "Sun"
+msgstr "أحد"
+
+#: recurrence/static/recurrence/js/recurrence.js:1040
+msgctxt "Monday first letter"
+msgid "M"
+msgstr "إ"
+
+#: recurrence/static/recurrence/js/recurrence.js:1041
+msgctxt "Tuesday first letter"
+msgid "T"
+msgstr "ث"
+
+#: recurrence/static/recurrence/js/recurrence.js:1042
+msgctxt "Wednesday first letter"
+msgid "W"
+msgstr "أ"
+
+#: recurrence/static/recurrence/js/recurrence.js:1043
+msgctxt "Thursday first letter"
+msgid "T"
+msgstr "خ"
+
+#: recurrence/static/recurrence/js/recurrence.js:1044
+msgctxt "Friday first letter"
+msgid "F"
+msgstr "ج"
+
+#: recurrence/static/recurrence/js/recurrence.js:1045
+msgctxt "Saturday first letter"
+msgid "S"
+msgstr "س"
+
+#: recurrence/static/recurrence/js/recurrence.js:1046
+msgctxt "Sunday first letter"
+msgid "S"
+msgstr "أ"
+
+#: recurrence/static/recurrence/js/recurrence.js:1049
+msgid "first %(weekday)s"
+msgstr "الأول %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1050
+msgid "second %(weekday)s"
+msgstr "الثاني %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1051
+msgid "third %(weekday)s"
+msgstr "الثالث %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1052
+msgid "fourth %(weekday)s"
+msgstr "الرابع %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1053
+#: recurrence/static/recurrence/js/recurrence.js:1062
+msgid "last %(weekday)s"
+msgstr "الأخير %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1054
+msgid "second last %(weekday)s"
+msgstr "الثاني الأخير %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1055
+msgid "third last %(weekday)s"
+msgstr "الثالث الأخير %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1058
+msgid "1st %(weekday)s"
+msgstr "الأول %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1059
+msgid "2nd %(weekday)s"
+msgstr "الثاني %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1060
+msgid "3rd %(weekday)s"
+msgstr "الثالث %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1061
+msgid "4th %(weekday)s"
+msgstr "الرابع %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1063
+msgid "2nd last %(weekday)s"
+msgstr "الثاني الأخير %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1064
+msgid "3rd last %(weekday)s"
+msgstr "الثالث الأخير %(weekday)s"
+
+#: recurrence/static/recurrence/js/recurrence.js:1067
+#: recurrence/static/recurrence/js/recurrence.js:1073
+msgid "last"
+msgstr "الأخير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1068
+msgid "second last"
+msgstr "الثاني الأخير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1069
+msgid "third last"
+msgstr "الثالث الأخير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1070
+msgid "fourth last"
+msgstr "الرابع الأخير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1074
+msgid "2nd last"
+msgstr "الثاني الأخير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1075
+msgid "3rd last"
+msgstr "الثالث الأخير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1076
+msgid "4th last"
+msgstr "الرابع الأخير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1079
+msgid "January"
+msgstr "يناير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1079
+msgid "February"
+msgstr "فبراير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1079
+#: recurrence/static/recurrence/js/recurrence.js:1091
+msgid "March"
+msgstr "مارس"
+
+#: recurrence/static/recurrence/js/recurrence.js:1080
+#: recurrence/static/recurrence/js/recurrence.js:1092
+msgid "April"
+msgstr "أبريل"
+
+#: recurrence/static/recurrence/js/recurrence.js:1080
+#: recurrence/static/recurrence/js/recurrence.js:1086
+#: recurrence/static/recurrence/js/recurrence.js:1092
+msgctxt "month name"
+msgid "May"
+msgstr "مايو"
+
+#: recurrence/static/recurrence/js/recurrence.js:1080
+#: recurrence/static/recurrence/js/recurrence.js:1092
+msgid "June"
+msgstr "يونيو"
+
+#: recurrence/static/recurrence/js/recurrence.js:1081
+#: recurrence/static/recurrence/js/recurrence.js:1093
+msgid "July"
+msgstr "يوليو"
+
+#: recurrence/static/recurrence/js/recurrence.js:1081
+msgid "August"
+msgstr "أغسطس"
+
+#: recurrence/static/recurrence/js/recurrence.js:1081
+msgid "September"
+msgstr "سبتمبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1082
+msgid "October"
+msgstr "أكتوبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1082
+msgid "November"
+msgstr "نوفمبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1082
+msgid "December"
+msgstr "ديسمبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1085
+msgid "Jan"
+msgstr "يناير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1085
+msgid "Feb"
+msgstr "فبراير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1085
+msgid "Mar"
+msgstr "مارس"
+
+#: recurrence/static/recurrence/js/recurrence.js:1086
+msgid "Apr"
+msgstr "أبريل"
+
+#: recurrence/static/recurrence/js/recurrence.js:1086
+msgid "Jun"
+msgstr "يونيو"
+
+#: recurrence/static/recurrence/js/recurrence.js:1087
+msgid "Jul"
+msgstr "يوليو"
+
+#: recurrence/static/recurrence/js/recurrence.js:1087
+msgid "Aug"
+msgstr "أغسطس"
+
+#: recurrence/static/recurrence/js/recurrence.js:1087
+msgid "Sep"
+msgstr "سبتمبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1088
+msgid "Oct"
+msgstr "أكتوبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1088
+msgid "Nov"
+msgstr "نوفمبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1088
+msgid "Dec"
+msgstr "ديسمبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1091
+msgid "Jan."
+msgstr "يناير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1091
+msgid "Feb."
+msgstr "فبراير"
+
+#: recurrence/static/recurrence/js/recurrence.js:1093
+msgid "Aug."
+msgstr "أغسطس"
+
+#: recurrence/static/recurrence/js/recurrence.js:1093
+msgid "Sept."
+msgstr "سبتمبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1094
+msgid "Oct."
+msgstr "أكتوبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1094
+msgid "Nov."
+msgstr "نوفمبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1094
+msgid "Dec."
+msgstr "ديسمبر"
+
+#: recurrence/static/recurrence/js/recurrence.js:1097
+msgid "a.m."
+msgstr "صباحًا"
+
+#: recurrence/static/recurrence/js/recurrence.js:1097
+msgid "p.m."
+msgstr "مساءً"
+
+#: recurrence/static/recurrence/js/recurrence.js:1098
+msgid "AM"
+msgstr "صباحًا"
+
+#: recurrence/static/recurrence/js/recurrence.js:1098
+msgid "PM"
+msgstr "مساءً"
+
+#: recurrence/static/recurrence/js/recurrence.js:1100
+msgctxt "Day of month"
+msgid "%j%S"
+msgstr "%j%S"
