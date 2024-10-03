@@ -68,7 +68,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         # These are pure-python, so we don't need to worry about platform
-        name: wheels
+        name: wheels-python-${{ matrix.python-version }}-django-${{ matrix.django-version }}
         # name: Python ${{ matrix.python-version }}
         path: |
           dist/*.whl
