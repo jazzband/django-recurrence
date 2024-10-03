@@ -65,7 +65,7 @@ jobs:
         pdm build
 
     - name: Save artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         # These are pure-python, so we don't need to worry about platform
         name: wheels
