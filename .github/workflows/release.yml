@@ -1,0 +1,35 @@
+name: Release
+
+on:
+  push:
+    tags:
+    - '*'
+
+jobs:
+  build:
+    if: github.repository == 'jazzband/django-recurrence'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up PDM for Python 3.9
+      uses: pdm-project/setup-pdm@v4
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: |
+        pdm sync -d -G dev
+
+    - name: Build wheels and sdist
+      run: |
+        pdm build
+
+    - name: Upload packages to Jazzband
+      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@release/v1
+      with:
+        user: jazzband
+        password: ${{ secrets.JAZZBAND_RELEASE_KEY }}
+        repository_url: https://jazzband.co/projects/dj-database-url/upload
