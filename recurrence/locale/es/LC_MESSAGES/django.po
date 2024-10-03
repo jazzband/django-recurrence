@@ -32,7 +32,7 @@ msgstr "semanalmente"
 
 #: base.py:1087
 msgid "daily"
-msgstr "d"
+msgstr "diario"
 
 #: base.py:1088
 msgid "hourly"
