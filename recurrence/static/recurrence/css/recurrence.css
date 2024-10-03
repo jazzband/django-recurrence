@@ -23,6 +23,12 @@ div.recurrence-widget a.recurrence-label {
     color: black;
 }
 
+@media (prefers-color-scheme: dark) {
+  div.recurrence-widget a.recurrence-label {
+    color: white;
+  }
+}
+
 div.recurrence-widget .remove,
 div.recurrence-widget .remove:link,
 div.recurrence-widget .remove:visited {
