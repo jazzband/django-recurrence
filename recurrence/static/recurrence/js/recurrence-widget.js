@@ -577,7 +577,12 @@ recurrence.widget.Widget.prototype = {
     },
 
     update: function() {
+        var currentVal = this.textarea.value;
         this.textarea.value = this.data.serialize();
+        if (currentVal !== this.textarea.value) {
+            var event = new Event('change');
+            this.textarea.dispatchEvent(event);
+        }
     }
 };
 
