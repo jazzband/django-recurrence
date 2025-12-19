@@ -10,46 +10,24 @@ jobs:
       fail-fast: false
       max-parallel: 5
       matrix:
-        python-version: ['3.9', '3.10', '3.11', '3.12']
-        django-version: ['4.0', '4.1', '4.2', '5.0', '5.1']
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+        django-version: ['4.2', '5.2', '6.0']
         include:
-          # Tox configuration for documentation environment
-          - python-version: '3.9'
-            django-version: 'docs'
           # Tox configuration for QA environment
-          - python-version: '3.9'
+          - python-version: '3.13'
             django-version: 'qa'
           # Django main
-          - python-version: '3.10'
+          - python-version: '3.13'
             django-version: 'main'
             experimental: true
-          - python-version: '3.11'
-            django-version: 'main'
-            experimental: true
-          - python-version: '3.12'
-            django-version: 'main'
-            experimental: true
-          # - python-version: '3.13'
-          #   django-version: 'main'
-          #   experimental: true
         exclude:
-          # Exclude Django 4.0 for Python 3.7 as it is not supported
+          - python-version: '3.13'
+            django-version: '4.2'
+          - python-version: '3.10'
+            django-version: '6.0'
           - python-version: '3.11'
-            django-version: '4.0'
-          - python-version: '3.12'
-            django-version: '4.0'
-          # - python-version: '3.13'
-          #   django-version: '4.0'
-          - python-version: '3.12'
-            django-version: '4.1'
-          # - python-version: '3.13'
-          #   django-version: '4.1'
-          - python-version: '3.9'
-            django-version: '5.0'
-          # - python-version: '3.13'
-          #   django-version: '5.0'
-          - python-version: '3.9'
-            django-version: '5.1'
+            django-version: '6.0'
+
     steps:
     - uses: actions/checkout@v3
     - name: Set up PDM for Python ${{ matrix.python-version }}
