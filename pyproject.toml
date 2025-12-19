@@ -1,6 +1,6 @@
 [project]
 name = "django-recurrence"
-version = "1.13"
+version = "1.14"
 description = "Django utility wrapping dateutil.rrule"
 authors = [
     {name = "Tamas Kemenczy", email = "tamas.kemenczy@gmail.com"},
