@@ -2,12 +2,17 @@
 Changes
 =======
 
+1.14 (2025-12-19)
+-----------------
+
+- Add support for Django 6.0.
+
 1.13 (2025-12-19)
 -----------------
 
 - Update Python and Django version support matrix.
 - Drop support for Python <= 3.9 and Django <= 4.2 (EOL).
-- Add support for Python 3.13 and Django 6.0.
+- Add support for Python 3.13 and Django 5.2.
 - Python 3.14 support is pending.
 
 1.12
