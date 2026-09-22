@@ -41,6 +41,14 @@ in ``requirements_test.txt`` (as shown above), then run::
 
     make coverage
 
+Testing the monthly JavaScript widget
+-------------------------------------
+
+Open ``tests/test_monthly_widget.html`` in a browser from your checkout.
+It reports checks for restoring saved monthly days, preserving them when
+another day is selected or deselected, and reopening the saved rule.
+No server or additional JavaScript dependencies are required.
+
 Working with the documentation
 ------------------------------
 

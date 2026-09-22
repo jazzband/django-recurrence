@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Monthly widget regression tests</title>
+<link rel="stylesheet" href="../recurrence/static/recurrence/css/recurrence.css">
+<h1>Monthly widget regression tests</h1>
+<p>Open this file in a browser to test saved monthly day selections and editing.</p>
+<ol id="results"></ol>
+<div id="fixture"></div>
+<script>
+// Supply the contextual translation function normally provided by Django.
+function pgettext(context, message) { return message; }
+</script>
+<script src="../recurrence/static/recurrence/js/recurrence.js"></script>
+<script src="../recurrence/static/recurrence/js/recurrence-widget.js"></script>
+<script>
+window.addEventListener('load', async function () {
+    var results = document.getElementById('results');
+    var fixture = document.getElementById('fixture');
+    var failures = 0;
+
+    function check(label, actual, expected) {
+        function sorted(values) {
+            return values.slice().sort(function (a, b) { return a - b; });
+        }
+        var passed = JSON.stringify(sorted(actual)) === JSON.stringify(sorted(expected));
+        var result = document.createElement('li');
+        result.textContent = (passed ? 'PASS: ' : 'FAIL: ') + label;
+        if (!passed) {
+            failures += 1;
+            result.textContent += ': expected ' + expected + ', got ' + actual;
+        }
+        results.appendChild(result);
+    }
+
+    async function openWidget(value) {
+        fixture.innerHTML = '';
+        var textarea = document.createElement('textarea');
+        textarea.className = 'recurrence-widget';
+        textarea.value = value;
+        fixture.appendChild(textarea);
+        var widget = new recurrence.widget.Widget(textarea, {});
+        widget.panels[0].elements.label.click();
+        // Monthly controls are initialized asynchronously by the widget.
+        await new Promise(function (resolve) { setTimeout(resolve, 10); });
+        return textarea;
+    }
+
+    function selectedDays() {
+        return Array.from(fixture.querySelectorAll('li.monthday td.active'), function (cell) {
+            return Number(cell.textContent);
+        });
+    }
+
+    function savedDays(textarea) {
+        return recurrence.deserialize(textarea.value).rrules[0].bymonthday;
+    }
+
+    var cases = [[-1], [-2], [-3], [-4], [-2, -1], [-4, -3, -2, -1],
+                 [1, 15, 31], [1, 15, -2, -1], []];
+    for (var days of cases) {
+        var label = JSON.stringify(days);
+        var value = 'RRULE:FREQ=MONTHLY' + (days.length ? ';BYMONTHDAY=' + days.join(',') : '');
+        var textarea = await openWidget(value);
+        check(label + ' restored selection', selectedDays(), days);
+
+        var newDay = days.indexOf(-3) === -1 ? -3 : 20;
+        var cell = Array.from(fixture.querySelectorAll('li.monthday td')).find(function (cell) {
+            return Number(cell.textContent) === newDay;
+        });
+        cell.click();
+        check(label + ' adding a day preserves saved days', savedDays(textarea), days.concat(newDay));
+        cell.click();
+        check(label + ' removing the new day preserves saved days', savedDays(textarea), days);
+
+        textarea = await openWidget(textarea.value);
+        check(label + ' saved selection survives reopening', selectedDays(), days);
+    }
+    document.body.dataset.failures = String(failures);
+    document.title = failures ? failures + ' failures' : 'All monthly widget tests passed';
+});
+</script>
+</html>
